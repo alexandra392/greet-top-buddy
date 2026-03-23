@@ -472,6 +472,21 @@ const PathwayDetail = () => {
                           <span className="text-[7px] text-muted-foreground">Risky</span>
                         </div>
                       </div>
+                      <div className="mt-2 px-2">
+                        <details className="group">
+                          <summary className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground transition-colors flex items-center gap-1">
+                            <Info className="w-2.5 h-2.5" />
+                            Methodology
+                          </summary>
+                          <div className="mt-1.5 text-[8px] text-muted-foreground leading-relaxed space-y-1">
+                            <p>Each axis represents a normalized score (0–100) derived from publicly available data sources. Higher values indicate more favorable conditions for pathway viability.</p>
+                            <p><strong className="text-foreground">Feedstock Price</strong> — Inverse of raw material cost; lower prices score higher. <strong className="text-foreground">Feedstock Qty</strong> — European supply volume availability relative to demand.</p>
+                            <p><strong className="text-foreground">Process CAPEX</strong> — Inverse of capital expenditure required; lower investment scores higher. <strong className="text-foreground">Process TRL</strong> — Technology Readiness Level mapped linearly (TRL 1=11, TRL 9=100).</p>
+                            <p><strong className="text-foreground">Market Size</strong> — Addressable market value (Global & EU) normalized against category benchmarks. <strong className="text-foreground">Growth</strong> — Compound annual growth rate scaled to sector averages.</p>
+                            <p><strong className="text-foreground">App. Price</strong> — End-product selling price relative to production cost, indicating margin potential.</p>
+                          </div>
+                        </details>
+                      </div>
                     </div>
                   </div>
 
