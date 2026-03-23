@@ -1606,14 +1606,12 @@ const ValueChain = () => {
                                     
                                   {/* VCG Scoring + Stage badge */}
                                   <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5">
-                                        VCG Scoring: <span className={scoreColor}>{row.score}</span>
-                                      </span>
-                                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
-                                        {stageLabel}
-                                      </span>
-                                    </div>
+                                     <div className="flex items-center gap-2">
+                                       <VCGScoreBadge score={row.score} />
+                                       <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
+                                         {stageLabel}
+                                       </span>
+                                     </div>
                                     <ChevronRight className="w-4 h-4 text-muted-foreground" />
                                   </div>
 
