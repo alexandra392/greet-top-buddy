@@ -353,6 +353,19 @@ const ValueChainPathways = () => {
       filtered = filtered.filter(({ pathway }) => pathway.category4 === applicationFilter);
     }
 
+    if (feedstockValueFilter !== 'all') {
+      filtered = filtered.filter(({ pathway }) => pathway.feedstock === feedstockValueFilter);
+    }
+    if (processValueFilter !== 'all') {
+      filtered = filtered.filter(({ pathway }) => pathway.technology === processValueFilter);
+    }
+    if (productValueFilter !== 'all') {
+      filtered = filtered.filter(({ pathway }) => pathway.product === productValueFilter);
+    }
+    if (applicationValueFilter !== 'all') {
+      filtered = filtered.filter(({ pathway }) => pathway.application === applicationValueFilter);
+    }
+
     if (activeTab === 'saved') {
       filtered = filtered.filter(({ originalIndex }) => savedPathways.has(originalIndex));
     }
