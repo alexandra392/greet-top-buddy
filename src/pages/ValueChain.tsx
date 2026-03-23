@@ -67,6 +67,10 @@ const ValueChain = () => {
   const [selectedMaturityLevels, setSelectedMaturityLevels] = useState<string[]>([]);
   const [feedstockSortKey, setFeedstockSortKey] = useState<string | null>(null);
   const [feedstockSortDir, setFeedstockSortDir] = useState<'asc' | 'desc'>('asc');
+  const [techSortKey, setTechSortKey] = useState<string | null>(null);
+  const [techSortDir, setTechSortDir] = useState<'asc' | 'desc'>('asc');
+  const [appSortKey, setAppSortKey] = useState<string | null>(null);
+  const [appSortDir, setAppSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentAppPage, setCurrentAppPage] = useState(1);
   const appsPerPage = 5;
 
@@ -1326,18 +1330,42 @@ const ValueChain = () => {
   };
 
   const technologyItems = technologyData.flatMap((categoryGroup) => categoryGroup.technologies);
-  const flatTechnologies = technologyData.flatMap((categoryGroup) =>
+  const flatTechnologiesBase = technologyData.flatMap((categoryGroup) =>
   categoryGroup.technologies.map((tech) => ({ ...tech, category: categoryGroup.category }))
   );
+  const flatTechnologies = useMemo(() => {
+    if (!techSortKey) return flatTechnologiesBase;
+    const statusOrder: Record<string, number> = { 'Commercial': 3, 'Pilot': 2, 'Lab': 1, 'Research': 0 };
+    return [...flatTechnologiesBase].sort((a, b) => {
+      const cmp = (statusOrder[a.status] || 0) - (statusOrder[b.status] || 0);
+      return techSortDir === 'asc' ? cmp : -cmp;
+    });
+  }, [flatTechnologiesBase, techSortKey, techSortDir]);
   const top3TechNames = ['Acid Hydrolysis', 'Enzymatic Hydrolysis', 'Steam Explosion'];
   const techPerPage = 5;
   const totalTechPages = Math.ceil(flatTechnologies.length / techPerPage);
   const startTechIndex = (currentTechPage - 1) * techPerPage;
   const currentTechnologies = flatTechnologies.slice(startTechIndex, startTechIndex + techPerPage);
 
-  const flatApplications = marketDataDetail.flatMap((market) =>
+  const flatApplicationsBase = marketDataDetail.flatMap((market) =>
   market.subcategories.map((sub) => ({ ...sub, category: market.application, totalSize: market.totalSize }))
   );
+  const flatApplications = useMemo(() => {
+    if (!appSortKey) return flatApplicationsBase;
+    const playerCounts = [14, 22, 8, 6, 18, 3, 10, 5, 12, 7, 9, 16, 4, 11, 2];
+    const maturityOrder: Record<string, number> = { 'High': 3, 'Medium': 2, 'Emerging': 1, 'Growing': 1 };
+    return [...flatApplicationsBase].sort((a, b) => {
+      let cmp = 0;
+      if (appSortKey === 'players') {
+        const idxA = flatApplicationsBase.indexOf(a) % 15;
+        const idxB = flatApplicationsBase.indexOf(b) % 15;
+        cmp = playerCounts[idxA] - playerCounts[idxB];
+      } else if (appSortKey === 'maturity') {
+        cmp = (maturityOrder[a.maturity] || 0) - (maturityOrder[b.maturity] || 0);
+      }
+      return appSortDir === 'asc' ? cmp : -cmp;
+    });
+  }, [flatApplicationsBase, appSortKey, appSortDir]);
   const top3AppNames = ['PLA Packaging', 'Food Acidulant', 'Skin Care (AHA)'];
   const totalAppPages = Math.ceil(flatApplications.length / appsPerPage);
   const startAppIndex = (currentAppPage - 1) * appsPerPage;
@@ -1810,7 +1838,9 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Process</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Description</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Status</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (techSortKey === 'status') setTechSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setTechSortKey('status'); setTechSortDir('desc'); } }}>
+                            Status {techSortKey === 'status' ? (techSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
                         </div>
                         {currentTechnologies.map((tech, index) => {
                                 const rank = startTechIndex + index + 1;
@@ -1867,8 +1897,12 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Application</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Description</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center">Market Players</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Market Maturity</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (appSortKey === 'players') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('players'); setAppSortDir('desc'); } }}>
+                            Market Players {appSortKey === 'players' ? (appSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (appSortKey === 'maturity') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('maturity'); setAppSortDir('desc'); } }}>
+                            Market Maturity {appSortKey === 'maturity' ? (appSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
                         </div>
                         {currentApplications.map((app, index) => {
                                 const rank = startAppIndex + index + 1;
