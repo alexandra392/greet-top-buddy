@@ -1636,16 +1636,6 @@ const ValueChain = () => {
                                     })}
                                    </div>
 
-                                   {/* Ranking reason */}
-                                   <div className="mt-2 pt-2 border-t border-border/50">
-                                     <div className="flex items-start gap-1.5">
-                                       <MedalIcon className={`w-3.5 h-3.5 ${medalConfig.color} mt-0.5 flex-shrink-0`} />
-                                       <div>
-                                         <span className={`text-[9px] font-semibold ${medalConfig.color}`}>{medalConfig.label}</span>
-                                         <p className="text-[9px] text-muted-foreground leading-relaxed mt-0.5">{medalConfig.reason}</p>
-                                       </div>
-                                     </div>
-                                   </div>
                                  </div>
                               </div>);
 
