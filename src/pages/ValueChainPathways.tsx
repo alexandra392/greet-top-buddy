@@ -633,15 +633,11 @@ const ValueChainPathways = () => {
             </div>
 
             {/* Table Header */}
-            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1fr)_80px_80px_80px_70px_36px] items-center gap-2">
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Feedstock</span>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Process</span>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Product</span>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Application</span>
+            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[60px_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1.2fr)_70px_70px_75px_36px] items-center gap-2">
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
-                    VCG Score
+                    VCG
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
                 </PopoverTrigger>
@@ -652,6 +648,10 @@ const ValueChainPathways = () => {
                   </p>
                 </PopoverContent>
               </Popover>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Feedstock</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Process</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Product</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Application</span>
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
@@ -669,7 +669,7 @@ const ValueChainPathways = () => {
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
-                    IP Score
+                    IP
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
                 </PopoverTrigger>
@@ -693,31 +693,36 @@ const ValueChainPathways = () => {
                 const vcgScore = Math.max(20, 95 - originalIndex * 3);
                 const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
                 const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
+                const trlLabel = getTRLStageLabel(pathway.trl);
               return (
                 <div
                   key={originalIndex}
-                  className={`px-3 py-2 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1fr)_80px_80px_80px_70px_36px] items-center gap-2 ${
+                  className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[60px_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1.2fr)_70px_70px_75px_36px] items-center gap-2 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
                 >
-                  <div className={`text-[11px] font-medium truncate ${!isProductRoute && category === 'Feedstock' ? 'text-primary' : 'text-foreground'}`}>
+                  <div className="text-[11px] font-bold text-foreground">{vcgScore}</div>
+                  <div className={`text-[10px] font-medium truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
                   </div>
-                  <div className="text-[11px] text-foreground truncate">{pathway.technology}</div>
-                  <div className={`text-[11px] font-medium truncate ${isProductRoute ? 'text-primary' : 'text-foreground'}`}>
+                  <div className="text-[10px] font-medium text-foreground truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center">
+                    {pathway.technology}
+                  </div>
+                  <div className={`text-[10px] font-medium truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center ${isProductRoute ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.product}
                   </div>
-                  <div className="text-[11px] text-muted-foreground truncate">{pathway.application}</div>
-                  <div className="text-[11px] font-bold text-foreground">{vcgScore}</div>
+                  <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center">
+                    {pathway.application}
+                  </div>
                   <div className="text-[11px] font-medium text-blue-600">{researchScore}</div>
                   <div className={`text-[11px] font-medium ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
                   <div className="text-center">
                     <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
-                      {pathway.trl}
+                      {trlLabel}
                     </span>
                   </div>
-                  <div className="flex items-center justify-end gap-0">
+                  <div className="flex items-center justify-end">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
