@@ -1487,7 +1487,7 @@ const ValueChain = () => {
 
                     const scatterData = isFeedstockRoute ? scatterPathwaysFeedstock : scatterPathwaysProduct;
                     const yKey = isFeedstockRoute ? 'marketSize' : 'availability';
-                    const yLabel = isFeedstockRoute ? 'MARKET SIZE ($B)' : 'FEEDSTOCK AVAILABILITY';
+                    const yLabel = isFeedstockRoute ? 'MARKET SIZE ($B)' : 'FEEDSTOCK AVAILABILITY (t/year)';
                     const yDomain = isFeedstockRoute ? [0, 100] : [0, 100];
                     const chartTitle = isFeedstockRoute
                       ? 'Pathway Scalability - TRL vs Product Market Size'
