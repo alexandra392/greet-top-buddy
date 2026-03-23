@@ -102,7 +102,7 @@ export const PortfolioFunnelChart = ({ pathways, selectedStage, onStageSelect }:
         </div>
         <div className="text-center">
           <p className="text-sm font-semibold text-gray-700">Lab</p>
-          <p className="text-xs text-gray-400 mt-0.5">TRL 4–5</p>
+          <p className="text-xs text-gray-400 mt-0.5">TRL 3–4</p>
           <p className="text-xs text-gray-500 mt-1">{labCount} pathways</p>
         </div>
         <div className="text-center">
