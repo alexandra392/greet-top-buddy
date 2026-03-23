@@ -380,8 +380,13 @@ const ValueChainPathways = () => {
     });
 
     return filtered;
-  }, [allPathways.length, searchQuery, viabilityFilter, feedstockFilter, technologyFilter, applicationFilter, activeTab, savedPathways, dislikedPathways, opportunityFilterType, opportunityFilterValues.join(',')]);
+  }, [allPathways.length, searchQuery, viabilityFilter, feedstockFilter, technologyFilter, applicationFilter, feedstockValueFilter, processValueFilter, productValueFilter, applicationValueFilter, activeTab, savedPathways, dislikedPathways, opportunityFilterType, opportunityFilterValues.join(',')]);
 
+  // Unique values for column filters
+  const uniqueFeedstocks = useMemo(() => [...new Set(allPathways.map(p => p.feedstock))].sort(), [allPathways]);
+  const uniqueProcesses = useMemo(() => [...new Set(allPathways.map(p => p.technology))].sort(), [allPathways]);
+  const uniqueProducts = useMemo(() => [...new Set(allPathways.map(p => p.product))].sort(), [allPathways]);
+  const uniqueApplications = useMemo(() => [...new Set(allPathways.map(p => p.application))].sort(), [allPathways]);
   useEffect(() => {
     localStorage.setItem('savedPathways', JSON.stringify(Array.from(savedPathways)));
   }, [savedPathways]);
