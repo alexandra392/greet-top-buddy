@@ -18,6 +18,7 @@ import xyloseMolecule from '@/assets/xylose-molecule.png';
 import { useUnreadMessages } from '@/hooks/useUnreadMessages';
 import ValueChainSummary from '@/components/ValueChainSummary';
 import SankeyConnections from '@/components/SankeyConnections';
+import VCGScoreBadge from '@/components/VCGScoreBadge';
 import { Tooltip as UiTooltip, TooltipContent as UiTooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const ValueChain = () => {
@@ -1561,9 +1562,10 @@ const ValueChain = () => {
                         </div>
                       </div>
 
-                      {/* Top 3 Pathways */}
-                      <div className="space-y-2">
-                        <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
+                       {/* Top 3 Pathways */}
+                       <div className="space-y-2">
+                         <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
+                         <p className="text-[10px] text-muted-foreground leading-relaxed">These pathways rank highest because they combine the strongest research backing, highest technology readiness levels, and largest addressable markets — while facing low patent saturation, leaving more room for commercial entry.</p>
                         <div className="space-y-2">
                           {scatterData.slice(0, 3).map((row: any, idx: number) => {
                               const isHovered = hoveredPathwayIdx === idx;
@@ -1576,11 +1578,11 @@ const ValueChain = () => {
                               const stageLabel = trlNum >= 8 ? 'Commercial' : trlNum >= 6 ? 'Pilot' : trlNum >= 4 ? 'Lab' : 'R&D';
                               const stageColors = trlNum >= 8 ? 'bg-primary/10 text-primary border-primary/30' : trlNum >= 6 ? 'bg-blue-50 text-blue-700 border-blue-200' : trlNum >= 4 ? 'bg-muted text-muted-foreground border-border' : 'bg-amber-50 text-amber-700 border-amber-200';
                               const scoreColor = row.score >= 70 ? 'text-primary font-bold' : row.score >= 40 ? 'text-amber-600 font-bold' : 'text-muted-foreground font-bold';
-                              const medalConfig = [
-                              { icon: Trophy, label: 'High-Feasibility Pathway', color: 'text-amber-500' },
-                              { icon: Award, label: 'Breakthrough Innovation Pathway', color: 'text-sky-500' },
-                              { icon: Medal, label: 'Emerging Opportunity Pathway', color: 'text-violet-500' }][
-                              idx];
+                               const medalConfig = [
+                               { icon: Trophy, label: 'High-Feasibility Pathway', color: 'text-amber-500', reason: 'Highest TRL with commercially proven technology, strong research base, and large addressable market with low IP barriers.' },
+                               { icon: Award, label: 'Breakthrough Innovation Pathway', color: 'text-sky-500', reason: 'High technology readiness combined with exceptional market size and growing demand, supported by robust research output.' },
+                               { icon: Medal, label: 'Emerging Opportunity Pathway', color: 'text-violet-500', reason: 'Strong commercial maturity and established supply chains, with moderate market size and minimal patent congestion.' }][
+                               idx];
                               const MedalIcon = medalConfig.icon;
                               return (
                                 <div key={idx} className="space-y-1">
@@ -1604,14 +1606,12 @@ const ValueChain = () => {
                                     
                                   {/* VCG Scoring + Stage badge */}
                                   <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5">
-                                        VCG Scoring: <span className={scoreColor}>{row.score}</span>
-                                      </span>
-                                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
-                                        {stageLabel}
-                                      </span>
-                                    </div>
+                                     <div className="flex items-center gap-2">
+                                       <VCGScoreBadge score={row.score} />
+                                       <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
+                                         {stageLabel}
+                                       </span>
+                                     </div>
                                     <ChevronRight className="w-4 h-4 text-muted-foreground" />
                                   </div>
 
@@ -1634,8 +1634,19 @@ const ValueChain = () => {
                                         </React.Fragment>
                                       );
                                     })}
-                                  </div>
-                                </div>
+                                   </div>
+
+                                   {/* Ranking reason */}
+                                   <div className="mt-2 pt-2 border-t border-border/50">
+                                     <div className="flex items-start gap-1.5">
+                                       <MedalIcon className={`w-3.5 h-3.5 ${medalConfig.color} mt-0.5 flex-shrink-0`} />
+                                       <div>
+                                         <span className={`text-[9px] font-semibold ${medalConfig.color}`}>{medalConfig.label}</span>
+                                         <p className="text-[9px] text-muted-foreground leading-relaxed mt-0.5">{medalConfig.reason}</p>
+                                       </div>
+                                     </div>
+                                   </div>
+                                 </div>
                               </div>);
 
                             })}

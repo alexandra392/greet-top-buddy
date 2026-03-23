@@ -10,6 +10,7 @@ import PathwayResourcesTab from "@/components/PathwayResourcesTab";
 import PathwayFlowPopover from "@/components/PathwayFlowPopover";
 import PathwayOpinionsTab from "@/components/PathwayOpinionsTab";
 import { useUnreadMessages } from "@/hooks/useUnreadMessages";
+import VCGScoreBadge from '@/components/VCGScoreBadge';
 
 const PathwayDetail = () => {
   const { pathwayId, category, topic } = useParams<{pathwayId: string;category: string;topic: string;}>();
@@ -340,12 +341,7 @@ const PathwayDetail = () => {
                 <div className="flex items-center gap-2 mb-1.5">
                   {(() => {
                     const score = Math.max(20, 95 - (parseInt(pathwayId || "0")) * 3);
-                    const scoreColor = score >= 70 ? 'text-primary font-bold' : score >= 40 ? 'text-amber-600 font-bold' : 'text-muted-foreground font-bold';
-                    return (
-                      <span className="text-[9px] text-muted-foreground border border-border rounded px-1.5 py-0.5 bg-card">
-                        VCG Scoring: <span className={scoreColor}>{score}</span>
-                      </span>
-                    );
+                    return <VCGScoreBadge score={score} size="md" />;
                   })()}
                   <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${
                     parseInt(pathway.trl.replace('TRL ', '')) >= 8 ? 'bg-green-100 text-green-800 border border-green-200' :
