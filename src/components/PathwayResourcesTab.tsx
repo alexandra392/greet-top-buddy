@@ -42,24 +42,12 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
         className="w-full rounded-lg border border-border/60 bg-card px-4 py-3 text-left hover:border-primary/40 transition-colors">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold text-foreground">IP Landscape</span>
-          <span className="text-xs font-bold text-primary tabular-nums">147</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-primary tabular-nums">147</span>
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[7px] font-semibold">Medium</span>
+          </div>
         </div>
         <p className="text-[9px] text-muted-foreground mt-0.5">Patents & intellectual property filings</p>
-        <div className="flex items-center gap-1.5 mt-1.5">
-          <span className="text-[8px] text-muted-foreground">IP Score:</span>
-          <span className="text-[8px] font-bold text-amber-600">62/100</span>
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[7px] font-semibold">Medium</span>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-2.5 h-2.5 text-muted-foreground/50 ml-auto cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="left" className="max-w-[200px] text-[9px]">
-                <p>Patents counted across the first 3 nodes (Feedstock → Technology → Product). Score is a percentile rank vs. all other pathways.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
       </button>
 
       <button
