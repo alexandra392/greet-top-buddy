@@ -55,24 +55,12 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
         className="w-full rounded-lg border border-border/60 bg-card px-4 py-3 text-left hover:border-primary/40 transition-colors">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold text-foreground">Research Landscape</span>
-          <span className="text-xs font-bold text-primary tabular-nums">89</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-primary tabular-nums">89</span>
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[7px] font-semibold">High</span>
+          </div>
         </div>
         <p className="text-[9px] text-muted-foreground mt-0.5">Scientific publications & academic research</p>
-        <div className="flex items-center gap-1.5 mt-1.5">
-          <span className="text-[8px] text-muted-foreground">Research Score:</span>
-          <span className="text-[8px] font-bold text-green-600">78/100</span>
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[7px] font-semibold">High</span>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-2.5 h-2.5 text-muted-foreground/50 ml-auto cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="left" className="max-w-[200px] text-[9px]">
-                <p>Research papers counted across the first 3 nodes (Feedstock → Technology → Product). Score is a percentile rank vs. all other pathways.</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
       </button>
 
       <button
