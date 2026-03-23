@@ -163,6 +163,10 @@ const ValueChainPathways = () => {
   const [feedstockFilter, setFeedstockFilter] = useState<string>('all');
   const [productFilter, setProductFilter] = useState<string>('all');
   const [applicationFilter, setApplicationFilter] = useState<string>('all');
+  const [feedstockValueFilter, setFeedstockValueFilter] = useState<string>('all');
+  const [processValueFilter, setProcessValueFilter] = useState<string>('all');
+  const [productValueFilter, setProductValueFilter] = useState<string>('all');
+  const [applicationValueFilter, setApplicationValueFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>(feedstockFromUrl);
   const [viabilityFilter, setViabilityFilter] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
