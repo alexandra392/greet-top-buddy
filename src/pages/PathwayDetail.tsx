@@ -458,20 +458,6 @@ const PathwayDetail = () => {
                           </RadarChart>
                         </ResponsiveContainer>
                       </div>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <div className="flex items-center gap-1">
-                          <span className="w-1 h-1 rounded-full bg-green-500" />
-                          <span className="text-[7px] text-muted-foreground">Strong</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <span className="w-1 h-1 rounded-full bg-amber-500" />
-                          <span className="text-[7px] text-muted-foreground">Promising</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-                          <span className="text-[7px] text-muted-foreground">Risky</span>
-                        </div>
-                      </div>
                       <div className="mt-2 px-2">
                         <details className="group">
                           <summary className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground transition-colors flex items-center gap-1">
