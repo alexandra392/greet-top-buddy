@@ -67,6 +67,10 @@ const ValueChain = () => {
   const [selectedMaturityLevels, setSelectedMaturityLevels] = useState<string[]>([]);
   const [feedstockSortKey, setFeedstockSortKey] = useState<string | null>(null);
   const [feedstockSortDir, setFeedstockSortDir] = useState<'asc' | 'desc'>('asc');
+  const [techSortKey, setTechSortKey] = useState<string | null>(null);
+  const [techSortDir, setTechSortDir] = useState<'asc' | 'desc'>('asc');
+  const [appSortKey, setAppSortKey] = useState<string | null>(null);
+  const [appSortDir, setAppSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentAppPage, setCurrentAppPage] = useState(1);
   const appsPerPage = 5;
 
