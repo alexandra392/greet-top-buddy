@@ -670,10 +670,42 @@ const ValueChainPathways = () => {
                   </p>
                 </PopoverContent>
               </Popover>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Feedstock</span>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Process</span>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Product</span>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Application</span>
+              <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
+                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                  <SelectValue placeholder="Feedstock" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all" className="text-[10px]">All Feedstocks</SelectItem>
+                  {uniqueFeedstocks.map(f => <SelectItem key={f} value={f} className="text-[10px]">{f}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Select value={processValueFilter} onValueChange={setProcessValueFilter}>
+                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                  <SelectValue placeholder="Process" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all" className="text-[10px]">All Processes</SelectItem>
+                  {uniqueProcesses.map(p => <SelectItem key={p} value={p} className="text-[10px]">{p}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Select value={productValueFilter} onValueChange={setProductValueFilter}>
+                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                  <SelectValue placeholder="Product" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all" className="text-[10px]">All Products</SelectItem>
+                  {uniqueProducts.map(p => <SelectItem key={p} value={p} className="text-[10px]">{p}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Select value={applicationValueFilter} onValueChange={setApplicationValueFilter}>
+                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                  <SelectValue placeholder="Application" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all" className="text-[10px]">All Applications</SelectItem>
+                  {uniqueApplications.map(a => <SelectItem key={a} value={a} className="text-[10px]">{a}</SelectItem>)}
+                </SelectContent>
+              </Select>
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
