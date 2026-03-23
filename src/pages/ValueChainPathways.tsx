@@ -670,7 +670,7 @@ const ValueChainPathways = () => {
                   </p>
                 </PopoverContent>
               </Popover>
-              {isFeedstockRoute ? (
+              {category === 'Feedstock' ? (
                 <span className="text-[8px] font-bold text-primary uppercase tracking-widest">Feedstock</span>
               ) : (
                 <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
