@@ -10,6 +10,7 @@ import PathwayResourcesTab from "@/components/PathwayResourcesTab";
 import PathwayFlowPopover from "@/components/PathwayFlowPopover";
 import PathwayOpinionsTab from "@/components/PathwayOpinionsTab";
 import { useUnreadMessages } from "@/hooks/useUnreadMessages";
+import VCGScoreBadge from '@/components/VCGScoreBadge';
 
 const PathwayDetail = () => {
   const { pathwayId, category, topic } = useParams<{pathwayId: string;category: string;topic: string;}>();
