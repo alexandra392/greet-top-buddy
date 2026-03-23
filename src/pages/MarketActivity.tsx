@@ -377,16 +377,18 @@ const MarketActivity = () => {
       }
     }
 
-    // Sort by fit score: exact fit (>=90) first, then by fit score descending
+    // Sort: saved companies first, then by fit score
     filtered.sort((a, b) => {
+      const aIsSaved = savedCompanies.has(a.id);
+      const bIsSaved = savedCompanies.has(b.id);
+      if (aIsSaved && !bIsSaved) return -1;
+      if (!aIsSaved && bIsSaved) return 1;
+
       const aIsExact = a.fit >= 90;
       const bIsExact = b.fit >= 90;
-
-      // If one is exact and the other isn't, exact comes first
       if (aIsExact && !bIsExact) return -1;
       if (!aIsExact && bIsExact) return 1;
 
-      // If both are exact or both are general, sort by fit score descending
       return b.fit - a.fit;
     });
     return filtered;
@@ -583,8 +585,8 @@ const MarketActivity = () => {
               const companyType = company.company_type;
               return <TableRow key={company.id} className="hover:bg-muted/20 transition-colors border-b border-border/30 last:border-0">
                       <TableCell className="text-center py-1.5 w-[60px]">
-                        <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className={`h-5 w-5 p-0 rounded border transition-all ${savedCompanies.has(company.id) ? companyType === 'feedstock' ? 'bg-primary/10 border-primary/40 hover:bg-primary/20' : companyType === 'technology' ? 'bg-blue-100 border-blue-400 hover:bg-blue-200' : companyType === 'product' ? 'bg-purple-100 border-purple-400 hover:bg-purple-200' : 'bg-orange-100 border-orange-400 hover:bg-orange-200' : 'bg-background hover:bg-muted border-border'}`}>
-                          <Plus className={`h-3 w-3 ${savedCompanies.has(company.id) ? companyType === 'feedstock' ? 'text-primary' : companyType === 'technology' ? 'text-blue-700' : companyType === 'product' ? 'text-purple-700' : 'text-orange-700' : 'text-muted-foreground'}`} />
+                        <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className={`h-5 w-5 p-0 rounded border transition-all ${savedCompanies.has(company.id) ? 'bg-green-100 border-green-400 hover:bg-green-200' : 'bg-background hover:bg-muted border-border'}`}>
+                          {savedCompanies.has(company.id) ? <CheckCircle className="h-3 w-3 text-green-600" /> : <Plus className="h-3 w-3 text-muted-foreground" />}
                         </Button>
                       </TableCell>
                       <TableCell className="py-1.5">
@@ -797,106 +799,6 @@ const MarketActivity = () => {
               </Tabs>
             </div>
 
-            {/* Saved Companies & Projects Section */}
-            {savedCompanies.size > 0 && <div className="mt-4 pt-4 border-t border-border/40 flex-shrink-0">
-                <div className="mb-3">
-                  <div className="flex items-center gap-2 mb-1">
-                    <CheckCircle className="w-4 h-4 text-primary" />
-                    <h3 className="text-xs font-semibold text-foreground">
-                      Saved Candidates ({savedCompanies.size})
-                    </h3>
-                  </div>
-                  <p className="text-[9px] text-muted-foreground">
-                    Review your saved companies and projects. Click on any to view details or remove from saved list.
-                  </p>
-                </div>
-
-                <Tabs defaultValue="feedstock" className="w-full">
-                  <TabsList className="grid w-full grid-cols-4 mb-3 h-8 gap-1 bg-muted rounded-lg p-0.5 items-center">
-                    <TabsTrigger value="feedstock" className="h-7 text-[10px]">
-                      Feedstock Suppliers ({companies.filter(c => savedCompanies.has(c.id) && c.company_type === 'feedstock').length})
-                    </TabsTrigger>
-                    <TabsTrigger value="product" className="h-7 text-[10px]">
-                      Product Producers ({companies.filter(c => savedCompanies.has(c.id) && c.company_type === 'product').length})
-                    </TabsTrigger>
-                    <TabsTrigger value="market_uptaker" className="h-7 text-[10px]">
-                      Market Offtakers ({companies.filter(c => savedCompanies.has(c.id) && c.company_type === 'market_uptaker').length})
-                    </TabsTrigger>
-                    <TabsTrigger value="projects" className="h-7 text-[10px]">
-                      Projects ({companies.filter(c => savedCompanies.has(c.id) && c.entity_type === 'project').length})
-                    </TabsTrigger>
-                  </TabsList>
-
-                  {['feedstock', 'product', 'market_uptaker', 'projects'].map(tabValue => {
-                    const getSavedByType = (type: string) => {
-                      let filtered: Company[];
-                      if (type === 'projects') {
-                        filtered = companies.filter(c => savedCompanies.has(c.id) && c.entity_type === 'project');
-                      } else {
-                        filtered = companies.filter(c => savedCompanies.has(c.id) && c.company_type === type);
-                      }
-                      
-                      // Sort by fit score: exact fit (>=90) first, then by fit score descending
-                      filtered.sort((a, b) => {
-                        const aIsExact = a.fit >= 90;
-                        const bIsExact = b.fit >= 90;
-                        if (aIsExact && !bIsExact) return -1;
-                        if (!aIsExact && bIsExact) return 1;
-                        return b.fit - a.fit;
-                      });
-                      return filtered;
-                    };
-                    
-                    const savedInTab = getSavedByType(tabValue);
-                    const typeLabel = tabValue === 'feedstock' ? 'Feedstock Providers' :
-                                     tabValue === 'technology' ? 'Technology Providers' :
-                                     tabValue === 'product' ? 'Product Producers' :
-                                     tabValue === 'market_uptaker' ? 'Market Offtakers' :
-                                     'Projects';
-                    
-                    return <TabsContent key={tabValue} value={tabValue} className="mt-0">
-                        {savedInTab.length === 0 ? <div className="text-center py-8 text-muted-foreground text-sm">
-                            No saved {typeLabel.toLowerCase()} yet
-                          </div> : <div className="border border-border/40 rounded-lg overflow-hidden bg-white">
-                            <Table>
-                              <TableHeader>
-                                <TableRow className="bg-muted/50">
-                                  <TableHead className="text-xs font-semibold">Name</TableHead>
-                                  <TableHead className="text-xs font-semibold">Country</TableHead>
-                                  <TableHead className="text-xs font-semibold">State</TableHead>
-                                  <TableHead className="text-xs font-semibold">Fit</TableHead>
-                                  <TableHead className="text-xs font-semibold w-20"></TableHead>
-                                </TableRow>
-                              </TableHeader>
-                              <TableBody>
-                                {savedInTab.map(company => <TableRow key={company.id} className="cursor-pointer hover:bg-muted/30 transition-colors" onClick={() => handleCompanyClick(company)}>
-                                    <TableCell className="text-xs font-medium">
-                                      {company.company_name}
-                                    </TableCell>
-                                    <TableCell className="text-xs">{company.country}</TableCell>
-                                    <TableCell className="text-xs">
-                                      <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${company.state === 'active' ? 'bg-green-50 text-green-700 border-green-300' : company.state === 'growth' ? 'bg-blue-50 text-blue-700 border-blue-300' : 'bg-gray-50 text-gray-700 border-gray-300'}`}>
-                                        {company.state}
-                                      </Badge>
-                                    </TableCell>
-                                    <TableCell className="text-xs">
-                                      <Badge variant={company.fit >= 90 ? "default" : "outline"} className={`text-[10px] px-1.5 py-0 ${company.fit >= 90 ? 'bg-green-600 hover:bg-green-700' : ''}`}>
-                                        {company.fit >= 90 ? 'Exact' : 'General'} ({company.fit})
-                                      </Badge>
-                                    </TableCell>
-                                    <TableCell className="text-xs" onClick={e => e.stopPropagation()}>
-                                      <Button variant="ghost" size="sm" onClick={(e) => handleSaveCompany(company.id, e)} className="h-6 px-2">
-                                        <X className="h-3 w-3 text-red-500" />
-                                      </Button>
-                                    </TableCell>
-                                  </TableRow>)}
-                              </TableBody>
-                            </Table>
-                          </div>}
-                      </TabsContent>;
-                  })}
-                </Tabs>
-              </div>}
           </CardContent>
         </Card>
       </div>
