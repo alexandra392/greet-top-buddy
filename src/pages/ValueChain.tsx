@@ -65,6 +65,8 @@ const ValueChain = () => {
   const [currentFeedstockPage, setCurrentFeedstockPage] = useState(1);
   const feedstocksPerPage = 5;
   const [selectedMaturityLevels, setSelectedMaturityLevels] = useState<string[]>([]);
+  const [feedstockSortKey, setFeedstockSortKey] = useState<string | null>(null);
+  const [feedstockSortDir, setFeedstockSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentAppPage, setCurrentAppPage] = useState(1);
   const appsPerPage = 5;
 
