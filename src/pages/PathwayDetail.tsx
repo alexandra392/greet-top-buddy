@@ -492,7 +492,7 @@ const PathwayDetail = () => {
                     ].map((item, i) => {
                       const isHighlighted = hoveredFlowType === item.type;
                       return (
-                        <div key={i} className={`flex justify-between items-center border-b border-border/30 py-[3px] transition-all duration-200 ${isHighlighted ? 'bg-primary/8 -mx-1.5 px-1.5 rounded-sm border-l-2 border-l-primary' : i % 2 === 1 ? 'bg-muted/40 -mx-1.5 px-1.5 rounded-sm' : ''}`}>
+                        <div key={i} onMouseEnter={() => setHoveredFlowType(item.type)} onMouseLeave={() => setHoveredFlowType(null)} className={`flex justify-between items-center border-b border-border/30 py-[3px] transition-all duration-200 cursor-default ${isHighlighted ? 'bg-primary/8 -mx-1.5 px-1.5 rounded-sm border-l-2 border-l-primary' : i % 2 === 1 ? 'bg-muted/40 -mx-1.5 px-1.5 rounded-sm' : ''}`}>
                           <span className={`text-[9px] transition-colors duration-200 ${isHighlighted ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>{item.label}</span>
                           <div className="flex items-center gap-1.5">
                             <span className={`text-[10px] font-semibold transition-colors duration-200 ${isHighlighted ? 'text-primary' : 'text-foreground'}`}>{item.value}</span>
