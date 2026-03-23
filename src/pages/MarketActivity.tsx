@@ -588,7 +588,6 @@ const MarketActivity = () => {
                         <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className={`h-5 w-5 p-0 rounded border transition-all ${savedCompanies.has(company.id) ? 'bg-green-100 border-green-400 hover:bg-green-200' : 'bg-background hover:bg-muted border-border'}`}>
                           {savedCompanies.has(company.id) ? <CheckCircle className="h-3 w-3 text-green-600" /> : <Plus className="h-3 w-3 text-muted-foreground" />}
                         </Button>
-                        </Button>
                       </TableCell>
                       <TableCell className="py-1.5">
                         <span className="text-[10px] font-semibold text-foreground">{company.company_name}</span>
