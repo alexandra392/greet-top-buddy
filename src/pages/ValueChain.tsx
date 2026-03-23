@@ -1455,17 +1455,17 @@ const ValueChain = () => {
                       <div className="border border-border rounded-md px-3 py-2 bg-background min-w-[155px] flex-1 flex flex-col justify-center">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1 text-muted-foreground">
-                            <Globe className="w-3 h-3" />
-                            <span className="text-[10px] font-medium">Global Market</span>
+                            <Scale className="w-3 h-3" />
+                            <span className="text-[10px] font-medium">Product Price</span>
                           </div>
                           <div className="flex items-center gap-0.5">
                             <TrendingUp className="w-2.5 h-2.5 text-primary" />
-                            <span className="text-[10px] font-semibold text-primary">+8.5%</span>
+                            <span className="text-[10px] font-semibold text-primary">+3.2%</span>
                           </div>
                         </div>
                         <div className="flex items-baseline justify-between mt-0.5">
-                          <div className="text-base font-bold text-foreground">$3.9B</div>
-                          <span className="text-[9px] text-muted-foreground">CAGR 2024–30</span>
+                          <div className="text-base font-bold text-foreground">$1,450</div>
+                          <span className="text-[9px] text-muted-foreground">/ton (2024)</span>
                         </div>
                       </div>
                       {isFeedstockRoute ? (
