@@ -598,6 +598,9 @@ const ValueChainPathways = () => {
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
                       <span className={`text-[10px] font-bold uppercase tracking-wider ${colors.text}`}>{level}</span>
+                      <span className="text-[9px] text-muted-foreground ml-auto">
+                        {level === 'Commercial' ? 'TRL 8–9' : level === 'Pilot' ? 'TRL 6–7' : level === 'Lab' ? 'TRL 4–5' : 'TRL 1–3'}
+                      </span>
                     </div>
                     <div className="flex items-baseline gap-1">
                       <span className="text-lg font-bold text-foreground">{count}</span>
