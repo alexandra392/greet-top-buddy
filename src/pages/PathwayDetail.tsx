@@ -410,22 +410,50 @@ const PathwayDetail = () => {
                   {/* Radar Chart */}
                   <div className="flex-shrink-0 w-[340px] border border-border rounded-lg bg-muted/50 p-1 flex flex-col">
                     <div className="flex flex-col items-center flex-1 justify-center">
-                      <div className="relative">
+                       <div className="relative">
                          <ResponsiveContainer width={330} height={200}>
                           <RadarChart data={[
-                            { param: 'Feedstock Price', value: activeMetrics.radar.feedstockPrice, fullMark: 100 },
-                            { param: 'Supply Volume', value: activeMetrics.radar.supplyVolume, fullMark: 100 },
-                            { param: 'CAPEX', value: activeMetrics.radar.capex, fullMark: 100 },
-                            { param: 'Yield', value: activeMetrics.radar.yield, fullMark: 100 },
-                            { param: 'Market Price', value: activeMetrics.radar.marketPrice, fullMark: 100 },
-                            { param: 'Size (Global)', value: activeMetrics.radar.sizeGlobal, fullMark: 100 },
-                            { param: 'Size (EU)', value: activeMetrics.radar.sizeEU, fullMark: 100 },
-                            { param: 'Growth (Global)', value: activeMetrics.radar.growthGlobal, fullMark: 100 },
-                            { param: 'Growth (EU)', value: activeMetrics.radar.growthEU, fullMark: 100 },
-                            { param: 'App. Price', value: activeMetrics.radar.appPrice, fullMark: 100 },
-                          ]}>
+                            { param: 'Feedstock Price', value: activeMetrics.radar.feedstockPrice, fullMark: 100, metricType: 'feedstock' },
+                            { param: 'Supply Volume', value: activeMetrics.radar.supplyVolume, fullMark: 100, metricType: 'feedstock' },
+                            { param: 'CAPEX', value: activeMetrics.radar.capex, fullMark: 100, metricType: 'technology' },
+                            { param: 'Yield', value: activeMetrics.radar.yield, fullMark: 100, metricType: 'technology' },
+                            { param: 'Market Price', value: activeMetrics.radar.marketPrice, fullMark: 100, metricType: 'product' },
+                            { param: 'Size (Global)', value: activeMetrics.radar.sizeGlobal, fullMark: 100, metricType: 'product' },
+                            { param: 'Size (EU)', value: activeMetrics.radar.sizeEU, fullMark: 100, metricType: 'product' },
+                            { param: 'Growth (Global)', value: activeMetrics.radar.growthGlobal, fullMark: 100, metricType: 'product' },
+                            { param: 'Growth (EU)', value: activeMetrics.radar.growthEU, fullMark: 100, metricType: 'product' },
+                            { param: 'App. Price', value: activeMetrics.radar.appPrice, fullMark: 100, metricType: 'application' },
+                          ]}
+                          onMouseLeave={() => setHoveredFlowType(null)}
+                          >
                             <PolarGrid stroke="hsl(var(--border))" />
-                            <PolarAngleAxis dataKey="param" tick={{ fontSize: 7, fill: 'hsl(var(--muted-foreground))' }} />
+                            <PolarAngleAxis 
+                              dataKey="param" 
+                              tick={({ x, y, payload, index }: any) => {
+                                const radarData = [
+                                  { metricType: 'feedstock' }, { metricType: 'feedstock' },
+                                  { metricType: 'technology' }, { metricType: 'technology' },
+                                  { metricType: 'product' }, { metricType: 'product' },
+                                  { metricType: 'product' }, { metricType: 'product' },
+                                  { metricType: 'product' }, { metricType: 'application' },
+                                ];
+                                const metricType = radarData[index]?.metricType;
+                                return (
+                                  <text
+                                    x={x} y={y}
+                                    fontSize={7}
+                                    fill={hoveredFlowType === metricType ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))'}
+                                    fontWeight={hoveredFlowType === metricType ? 600 : 400}
+                                    textAnchor="middle"
+                                    dominantBaseline="central"
+                                    style={{ cursor: 'pointer', transition: 'fill 0.2s' }}
+                                    onMouseEnter={() => setHoveredFlowType(metricType || null)}
+                                  >
+                                    {payload.value}
+                                  </text>
+                                );
+                              }}
+                            />
                             <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
                             <Radar name="VCG Score" dataKey="value" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.15} strokeWidth={1.5} dot={{ r: 2, fill: 'hsl(var(--primary))' }} />
                           </RadarChart>
