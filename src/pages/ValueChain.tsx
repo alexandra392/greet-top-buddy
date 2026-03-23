@@ -65,6 +65,8 @@ const ValueChain = () => {
   const [currentFeedstockPage, setCurrentFeedstockPage] = useState(1);
   const feedstocksPerPage = 5;
   const [selectedMaturityLevels, setSelectedMaturityLevels] = useState<string[]>([]);
+  const [feedstockSortKey, setFeedstockSortKey] = useState<string | null>(null);
+  const [feedstockSortDir, setFeedstockSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentAppPage, setCurrentAppPage] = useState(1);
   const appsPerPage = 5;
 
@@ -256,22 +258,47 @@ const ValueChain = () => {
   const filteredFeedstockData = useMemo(() => {
     let filtered = feedstockData;
 
-    // Filter by categories
     if (selectedFeedstockCategories.length > 0) {
       filtered = filtered.filter((feedstock) =>
       feedstock.categories.some((category) => selectedFeedstockCategories.includes(category))
       );
     }
 
-    // Filter by maturity levels
     if (selectedMaturityLevels.length > 0) {
       filtered = filtered.filter((feedstock) =>
       selectedMaturityLevels.includes(feedstock.maturity)
       );
     }
 
+    if (feedstockSortKey) {
+      const parseQuantity = (q: string) => {
+        if (q === 'Unlimited') return Infinity;
+        const match = q.match(/([\d.]+)/);
+        return match ? parseFloat(match[1]) : 0;
+      };
+      const parsePrice = (p: string) => {
+        const match = p.match(/€([\d,.]+)/);
+        return match ? parseFloat(match[1].replace(',', '')) : 0;
+      };
+      const playerCounts = [8, 12, 6, 4, 9, 3, 2, 15, 5, 7, 11, 3];
+      const statusOrder: Record<string, number> = { 'Commercial': 3, 'Pilot': 2, 'Lab': 1, 'Research': 0 };
+
+      filtered = [...filtered].sort((a, b) => {
+        let cmp = 0;
+        if (feedstockSortKey === 'quantity') cmp = parseQuantity(a.quantity) - parseQuantity(b.quantity);
+        else if (feedstockSortKey === 'price') cmp = parsePrice(a.price) - parsePrice(b.price);
+        else if (feedstockSortKey === 'players') {
+          const idxA = feedstockData.indexOf(a) % 12;
+          const idxB = feedstockData.indexOf(b) % 12;
+          cmp = playerCounts[idxA] - playerCounts[idxB];
+        }
+        else if (feedstockSortKey === 'status') cmp = (statusOrder[a.maturity] || 0) - (statusOrder[b.maturity] || 0);
+        return feedstockSortDir === 'asc' ? cmp : -cmp;
+      });
+    }
+
     return filtered;
-  }, [selectedFeedstockCategories, selectedMaturityLevels]);
+  }, [selectedFeedstockCategories, selectedMaturityLevels, feedstockSortKey, feedstockSortDir]);
 
   const top3FeedstockNames = isFeedstockRoute 
     ? ['High-Fructose Corn Syrup', 'Sugar Beet Syrup', 'Enzymatic Starch Conversion']
@@ -1712,10 +1739,18 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Feedstock</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Quantity (EU)</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Price</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center">Market Players</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Status</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'quantity') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('quantity'); setFeedstockSortDir('desc'); } }}>
+                            Quantity (EU) {feedstockSortKey === 'quantity' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
+                            Price {feedstockSortKey === 'price' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
+                            Market Players {feedstockSortKey === 'players' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'status') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('status'); setFeedstockSortDir('desc'); } }}>
+                            Status {feedstockSortKey === 'status' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                          </div>
                         </div>
                         {currentFeedstocks.map((item, index) => {
                                 if (!item) return null;
