@@ -1562,9 +1562,10 @@ const ValueChain = () => {
                         </div>
                       </div>
 
-                      {/* Top 3 Pathways */}
-                      <div className="space-y-2">
-                        <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
+                       {/* Top 3 Pathways */}
+                       <div className="space-y-2">
+                         <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
+                         <p className="text-[10px] text-muted-foreground leading-relaxed">These pathways rank highest because they combine the strongest research backing, highest technology readiness levels, and largest addressable markets — while facing low patent saturation, leaving more room for commercial entry.</p>
                         <div className="space-y-2">
                           {scatterData.slice(0, 3).map((row: any, idx: number) => {
                               const isHovered = hoveredPathwayIdx === idx;
