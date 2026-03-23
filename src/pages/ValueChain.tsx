@@ -1963,8 +1963,12 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Product</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Market Size</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Growth</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (prodSortKey === 'marketSize') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('marketSize'); setProdSortDir('desc'); } }}>
+                            Market Size {prodSortKey === 'marketSize' ? (prodSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (prodSortKey === 'growth') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('growth'); setProdSortDir('desc'); } }}>
+                            Growth {prodSortKey === 'growth' ? (prodSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
                         </div>
                         {scatterData.slice(0, 10).map((product, index) => {
                                 const rank = index + 1;
