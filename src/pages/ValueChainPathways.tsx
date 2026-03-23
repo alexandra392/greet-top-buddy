@@ -170,6 +170,7 @@ const ValueChainPathways = () => {
   const [searchQuery, setSearchQuery] = useState<string>(feedstockFromUrl);
   const [viabilityFilter, setViabilityFilter] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState<'vcg' | 'research' | 'ip' | 'trl'>('vcg');
   const [customPathways, setCustomPathways] = useState<CustomPathway[]>(() => {
     const saved = localStorage.getItem('customPathways');
     return saved ? JSON.parse(saved) : [];
