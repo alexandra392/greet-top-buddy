@@ -1586,7 +1586,7 @@ const ValueChain = () => {
                                       {isFeedstockRoute ? (
                                         <p className="text-muted-foreground">{stage} · {d.product} · ${d.marketSize}B · {d.cagr}% CAGR</p>
                                       ) : (
-                                        <p className="text-muted-foreground">{stage} · Availability: {d.availability}</p>
+                                        <p className="text-muted-foreground">{stage} · Availability: {d.availabilityRaw || d.availability}</p>
                                       )}
                                     </div>);
                                   }
