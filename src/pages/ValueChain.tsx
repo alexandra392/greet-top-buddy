@@ -71,6 +71,8 @@ const ValueChain = () => {
   const [techSortDir, setTechSortDir] = useState<'asc' | 'desc'>('asc');
   const [appSortKey, setAppSortKey] = useState<string | null>(null);
   const [appSortDir, setAppSortDir] = useState<'asc' | 'desc'>('asc');
+  const [prodSortKey, setProdSortKey] = useState<string | null>(null);
+  const [prodSortDir, setProdSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentAppPage, setCurrentAppPage] = useState(1);
   const appsPerPage = 5;
 
