@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Search, FileText, Lightbulb, BookOpen, TrendingUp, AlertCircle, CheckCircle2, BarChart3 } from "lucide-react";
+import { Search, FileText, Lightbulb, BookOpen, TrendingUp, AlertCircle, CheckCircle2, BarChart3, Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PathwayResourcesTabProps {
   productName?: string;
