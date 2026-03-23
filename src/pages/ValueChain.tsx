@@ -18,6 +18,7 @@ import xyloseMolecule from '@/assets/xylose-molecule.png';
 import { useUnreadMessages } from '@/hooks/useUnreadMessages';
 import ValueChainSummary from '@/components/ValueChainSummary';
 import SankeyConnections from '@/components/SankeyConnections';
+import VCGScoreBadge from '@/components/VCGScoreBadge';
 import { Tooltip as UiTooltip, TooltipContent as UiTooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const ValueChain = () => {
