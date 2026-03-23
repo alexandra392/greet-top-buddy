@@ -71,6 +71,8 @@ const ValueChain = () => {
   const [techSortDir, setTechSortDir] = useState<'asc' | 'desc'>('asc');
   const [appSortKey, setAppSortKey] = useState<string | null>(null);
   const [appSortDir, setAppSortDir] = useState<'asc' | 'desc'>('asc');
+  const [prodSortKey, setProdSortKey] = useState<string | null>(null);
+  const [prodSortDir, setProdSortDir] = useState<'asc' | 'desc'>('asc');
   const [currentAppPage, setCurrentAppPage] = useState(1);
   const appsPerPage = 5;
 
@@ -1961,10 +1963,22 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Product</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Market Size</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Growth</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (prodSortKey === 'marketSize') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('marketSize'); setProdSortDir('desc'); } }}>
+                            Market Size {prodSortKey === 'marketSize' ? (prodSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (prodSortKey === 'growth') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('growth'); setProdSortDir('desc'); } }}>
+                            Growth {prodSortKey === 'growth' ? (prodSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
                         </div>
-                        {scatterData.slice(0, 10).map((product, index) => {
+                        {(() => {
+                          const sorted = prodSortKey ? [...scatterData.slice(0, 10)].sort((a: any, b: any) => {
+                            let cmp = 0;
+                            if (prodSortKey === 'marketSize') cmp = (a.marketSize || 0) - (b.marketSize || 0);
+                            else if (prodSortKey === 'growth') cmp = ((a.marketGrowth || a.cagr || 0) as number) - ((b.marketGrowth || b.cagr || 0) as number);
+                            return prodSortDir === 'asc' ? cmp : -cmp;
+                          }) : scatterData.slice(0, 10);
+                          return sorted;
+                        })().map((product: any, index: number) => {
                                 const rank = index + 1;
                                 return (
                                   <div key={index} onClick={() => toggleOpportunityItem(product.name)} className={`grid grid-cols-[auto,0.3fr,2fr,1.5fr,1.5fr,1fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(product.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
