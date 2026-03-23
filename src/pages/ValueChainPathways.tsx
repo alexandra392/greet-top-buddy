@@ -661,10 +661,18 @@ const ValueChainPathways = () => {
                   className="pl-8 h-8 text-xs bg-background"
                 />
               </div>
-              <Button variant="outline" size="sm" className="ml-auto h-7 text-[10px] text-muted-foreground gap-1 px-2.5">
-                <ArrowUpDown className="w-3 h-3" />
-                VCG Score
-              </Button>
+              <Select value={sortBy} onValueChange={(v) => setSortBy(v as 'vcg' | 'research' | 'ip' | 'trl')}>
+                <SelectTrigger className="ml-auto h-7 w-auto text-[10px] text-muted-foreground gap-1 px-2.5 border-border">
+                  <ArrowUpDown className="w-3 h-3 shrink-0" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="vcg" className="text-[10px]">VCG Score</SelectItem>
+                  <SelectItem value="research" className="text-[10px]">Research Score</SelectItem>
+                  <SelectItem value="ip" className="text-[10px]">IP Score (low first)</SelectItem>
+                  <SelectItem value="trl" className="text-[10px]">TRL Level</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Table Header */}
