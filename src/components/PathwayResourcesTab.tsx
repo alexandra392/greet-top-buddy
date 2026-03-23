@@ -44,6 +44,12 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
           <span className="text-xs font-bold text-primary tabular-nums">147</span>
         </div>
         <p className="text-[9px] text-muted-foreground mt-0.5">Patents & intellectual property filings</p>
+        <div className="flex items-center gap-1.5 mt-1.5">
+          <span className="text-[8px] text-muted-foreground">IP Score:</span>
+          <span className="text-[8px] font-bold text-amber-600">62/100</span>
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[7px] font-semibold">Medium</span>
+          <span className="text-[7px] text-muted-foreground/60 ml-auto">68th percentile</span>
+        </div>
       </button>
 
       <button
@@ -54,6 +60,12 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
           <span className="text-xs font-bold text-primary tabular-nums">89</span>
         </div>
         <p className="text-[9px] text-muted-foreground mt-0.5">Scientific publications & academic research</p>
+        <div className="flex items-center gap-1.5 mt-1.5">
+          <span className="text-[8px] text-muted-foreground">Research Score:</span>
+          <span className="text-[8px] font-bold text-green-600">78/100</span>
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[7px] font-semibold">High</span>
+          <span className="text-[7px] text-muted-foreground/60 ml-auto">82nd percentile</span>
+        </div>
       </button>
 
       <button
