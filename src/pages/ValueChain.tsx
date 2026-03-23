@@ -1838,7 +1838,9 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Process</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Description</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Status</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (techSortKey === 'status') setTechSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setTechSortKey('status'); setTechSortDir('desc'); } }}>
+                            Status {techSortKey === 'status' ? (techSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
                         </div>
                         {currentTechnologies.map((tech, index) => {
                                 const rank = startTechIndex + index + 1;
