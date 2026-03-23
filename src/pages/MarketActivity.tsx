@@ -377,16 +377,18 @@ const MarketActivity = () => {
       }
     }
 
-    // Sort by fit score: exact fit (>=90) first, then by fit score descending
+    // Sort: saved companies first, then by fit score
     filtered.sort((a, b) => {
+      const aIsSaved = savedCompanies.has(a.id);
+      const bIsSaved = savedCompanies.has(b.id);
+      if (aIsSaved && !bIsSaved) return -1;
+      if (!aIsSaved && bIsSaved) return 1;
+
       const aIsExact = a.fit >= 90;
       const bIsExact = b.fit >= 90;
-
-      // If one is exact and the other isn't, exact comes first
       if (aIsExact && !bIsExact) return -1;
       if (!aIsExact && bIsExact) return 1;
 
-      // If both are exact or both are general, sort by fit score descending
       return b.fit - a.fit;
     });
     return filtered;
