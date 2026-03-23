@@ -627,7 +627,7 @@ const ValueChainPathways = () => {
               </div>
               <Button variant="outline" size="sm" className="ml-auto h-7 text-[10px] text-muted-foreground gap-1 px-2.5">
                 <ArrowUpDown className="w-3 h-3" />
-                Score: high → low
+                VCG Score
               </Button>
             </div>
 
