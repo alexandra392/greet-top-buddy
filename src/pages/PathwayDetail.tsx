@@ -458,7 +458,6 @@ const PathwayDetail = () => {
                           </RadarChart>
                         </ResponsiveContainer>
                       </div>
-                      </div>
                       <div className="mt-2 px-2">
                         <details className="group">
                           <summary className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground transition-colors flex items-center gap-1">
