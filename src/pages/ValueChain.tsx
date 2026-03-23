@@ -1565,7 +1565,7 @@ const ValueChain = () => {
                        {/* Top 3 Pathways */}
                        <div className="space-y-2">
                          <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
-                         <p className="text-[10px] text-muted-foreground leading-relaxed">These pathways rank highest because they combine the strongest research backing, highest technology readiness levels, and largest addressable markets — while facing low patent saturation, leaving more room for commercial entry.</p>
+                         <p className="text-[10px] text-muted-foreground leading-relaxed">These pathways are ranked by their <span className="font-semibold text-foreground">VCG Score</span>, which combines Research (25%), TRL (40%), and Market Size (35%) as positive indicators, minus IP Score (20%) as a negative indicator — rewarding strong research, high technical readiness, and large markets with low patent saturation.</p>
                         <div className="space-y-2">
                           {scatterData.slice(0, 3).map((row: any, idx: number) => {
                               const isHovered = hoveredPathwayIdx === idx;
