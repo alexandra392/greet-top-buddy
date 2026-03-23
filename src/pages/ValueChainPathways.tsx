@@ -646,12 +646,7 @@ const ValueChainPathways = () => {
                     <div className="flex items-center gap-2">
                       {(() => {
                         const score = Math.max(20, 95 - originalIndex * 3);
-                        const scoreColor = score >= 70 ? 'text-primary font-bold' : score >= 40 ? 'text-amber-600 font-bold' : 'text-muted-foreground font-bold';
-                        return (
-                          <span className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5">
-                            VCG Scoring: <span className={scoreColor}>{score}</span>
-                          </span>
-                        );
+                        return <VCGScoreBadge score={score} />;
                       })()}
                       <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
                         {getTRLStageLabel(pathway.trl)}
