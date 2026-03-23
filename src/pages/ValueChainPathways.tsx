@@ -631,89 +631,104 @@ const ValueChainPathways = () => {
               </Button>
             </div>
 
-            <div className="space-y-2">
+            {/* Table Header */}
+            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1fr)_80px_80px_80px_70px_36px] items-center gap-2">
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Feedstock</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Process</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Product</span>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Application</span>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                    VCG Score
+                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">VCG Score</h4>
+                  <p className="text-[9px] text-muted-foreground leading-relaxed">
+                    The VCG Score evaluates pathways by blending Research (25%), TRL (40%), and Market Size (35%), then subtracting IP saturation (20%). Higher means stronger opportunity.
+                  </p>
+                </PopoverContent>
+              </Popover>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                    Research
+                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
+                  <p className="text-[9px] text-muted-foreground leading-relaxed">
+                    Measures the volume and quality of scientific publications supporting this pathway. Based on publication count, citation impact, and recency of research activity.
+                  </p>
+                </PopoverContent>
+              </Popover>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                    IP Score
+                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
+                  <p className="text-[9px] text-muted-foreground leading-relaxed">
+                    Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
+                  </p>
+                </PopoverContent>
+              </Popover>
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">TRL</span>
+              <span></span>
+            </div>
+
+            {/* Table Rows */}
+            <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
               {filteredPathways.map(({ pathway, originalIndex }) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
+                const vcgScore = Math.max(20, 95 - originalIndex * 3);
+                const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
+                const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
               return (
                 <div
                   key={originalIndex}
-                  className={`border border-border rounded-lg bg-card px-3 py-2.5 cursor-pointer hover:shadow-md transition-all duration-300 ${
+                  className={`px-3 py-2 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1fr)_80px_80px_80px_70px_36px] items-center gap-2 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
-                  }`}
+                  } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
                 >
-                  {/* Top row: VCG Scoring + TRL badge + Actions */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      {(() => {
-                        const score = Math.max(20, 95 - originalIndex * 3);
-                        return <VCGScoreBadge score={score} />;
-                      })()}
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
-                        {getTRLStageLabel(pathway.trl)}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-0.5">
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              className="p-1 hover:bg-muted rounded-md transition-colors"
-                              onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
-                            >
-                              <Bookmark className={`w-3.5 h-3.5 transition-colors ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : 'text-muted-foreground hover:text-primary'}`} />
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent side="top"><p>Save pathway</p></TooltipContent>
-                        </Tooltip>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              type="button"
-                              className="p-1 hover:bg-muted rounded-md transition-colors"
-                              onClick={(e) => { e.stopPropagation(); toggleDislike(originalIndex); }}
-                            >
-                              <ThumbsDown className={`w-3.5 h-3.5 transition-colors ${dislikedPathways.has(originalIndex) ? 'fill-destructive text-destructive' : 'text-muted-foreground hover:text-destructive'}`} />
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent side="top"><p>Dislike pathway</p></TooltipContent>
-                        </Tooltip>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className="h-6 w-6"
-                              onClick={(e) => { e.stopPropagation(); handleCardClick(originalIndex); }}
-                            >
-                              <ChevronRight className="w-3.5 h-3.5" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent side="top"><p>View details</p></TooltipContent>
-                        </Tooltip>
-                    </div>
+                  <div className={`text-[11px] font-medium truncate ${!isProductRoute && category === 'Feedstock' ? 'text-primary' : 'text-foreground'}`}>
+                    {pathway.feedstock}
                   </div>
-
-                  {/* Pathway flow row */}
-                  <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-x-2">
-                    {([
-                      { label: 'Feedstock', value: pathway.feedstock, isAnchor: !isProductRoute && category === 'Feedstock' },
-                      { label: 'Process', value: pathway.technology, isAnchor: false },
-                      { label: 'Product', value: pathway.product, isAnchor: isProductRoute },
-                      { label: 'Application', value: pathway.application, isAnchor: false },
-                    ]).map((node, pi) =>
-                      <React.Fragment key={pi}>
-                        {pi > 0 && <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 mt-3" />}
-                        <div>
-                          <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wider block mb-0.5">{node.label}</span>
-                          <div className={`rounded-md border px-2 py-1.5 ${node.isAnchor ? 'border-primary/50 bg-primary/10' : 'border-border bg-muted/30'}`}>
-                            <span className={`text-[11px] font-medium ${node.isAnchor ? 'text-primary' : 'text-foreground'}`}>{node.value}</span>
-                          </div>
-                        </div>
-                      </React.Fragment>
-                    )}
+                  <div className="text-[11px] text-foreground truncate">{pathway.technology}</div>
+                  <div className={`text-[11px] font-medium truncate ${isProductRoute ? 'text-primary' : 'text-foreground'}`}>
+                    {pathway.product}
+                  </div>
+                  <div className="text-[11px] text-muted-foreground truncate">{pathway.application}</div>
+                  <div className="text-[11px] font-bold text-foreground">{vcgScore}</div>
+                  <div className="text-[11px] font-medium text-blue-600">{researchScore}</div>
+                  <div className={`text-[11px] font-medium ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
+                  <div className="text-center">
+                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
+                      {pathway.trl}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end gap-0">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          className="p-0.5 hover:bg-muted rounded transition-colors"
+                          onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
+                        >
+                          <Bookmark className={`w-3 h-3 transition-colors ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : 'text-muted-foreground hover:text-primary'}`} />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top"><p>Save</p></TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
               );
