@@ -670,15 +670,19 @@ const ValueChainPathways = () => {
                   </p>
                 </PopoverContent>
               </Popover>
-              <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
-                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
-                  <SelectValue placeholder="Feedstock" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all" className="text-[10px]">All Feedstocks</SelectItem>
-                  {uniqueFeedstocks.map(f => <SelectItem key={f} value={f} className="text-[10px]">{f}</SelectItem>)}
-                </SelectContent>
-              </Select>
+              {isFeedstockRoute ? (
+                <span className="text-[8px] font-bold text-primary uppercase tracking-widest">Feedstock</span>
+              ) : (
+                <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
+                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                    <SelectValue placeholder="Feedstock" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all" className="text-[10px]">All Feedstocks</SelectItem>
+                    {uniqueFeedstocks.map(f => <SelectItem key={f} value={f} className="text-[10px]">{f}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              )}
               <Select value={processValueFilter} onValueChange={setProcessValueFilter}>
                 <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
                   <SelectValue placeholder="Process" />
