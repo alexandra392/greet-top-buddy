@@ -414,12 +414,11 @@ const PathwayDetail = () => {
                          <ResponsiveContainer width={330} height={200}>
                           <RadarChart data={[
                             { param: 'Feedstock Price', value: activeMetrics.radar.feedstockPrice, fullMark: 100, metricType: 'feedstock' },
-                            { param: 'Supply Volume', value: activeMetrics.radar.supplyVolume, fullMark: 100, metricType: 'feedstock' },
-                            { param: 'CAPEX', value: activeMetrics.radar.capex, fullMark: 100, metricType: 'technology' },
-                            { param: 'Yield', value: activeMetrics.radar.yield, fullMark: 100, metricType: 'technology' },
-                            { param: 'Market Price', value: activeMetrics.radar.marketPrice, fullMark: 100, metricType: 'product' },
-                            { param: 'Size (Global)', value: activeMetrics.radar.sizeGlobal, fullMark: 100, metricType: 'product' },
-                            { param: 'Size (EU)', value: activeMetrics.radar.sizeEU, fullMark: 100, metricType: 'product' },
+                            { param: 'Feedstock Qty', value: activeMetrics.radar.supplyVolume, fullMark: 100, metricType: 'feedstock' },
+                            { param: 'Process CAPEX', value: activeMetrics.radar.capex, fullMark: 100, metricType: 'technology' },
+                            { param: 'Process TRL', value: activeMetrics.radar.yield, fullMark: 100, metricType: 'technology' },
+                            { param: 'Market Size (Global)', value: activeMetrics.radar.sizeGlobal, fullMark: 100, metricType: 'product' },
+                            { param: 'Market Size (EU)', value: activeMetrics.radar.sizeEU, fullMark: 100, metricType: 'product' },
                             { param: 'Growth (Global)', value: activeMetrics.radar.growthGlobal, fullMark: 100, metricType: 'product' },
                             { param: 'Growth (EU)', value: activeMetrics.radar.growthEU, fullMark: 100, metricType: 'product' },
                             { param: 'App. Price', value: activeMetrics.radar.appPrice, fullMark: 100, metricType: 'application' },
@@ -430,12 +429,12 @@ const PathwayDetail = () => {
                             <PolarAngleAxis 
                               dataKey="param" 
                               tick={({ x, y, payload, index }: any) => {
-                                const radarData = [
-                                  { metricType: 'feedstock' }, { metricType: 'feedstock' },
-                                  { metricType: 'technology' }, { metricType: 'technology' },
-                                  { metricType: 'product' }, { metricType: 'product' },
-                                  { metricType: 'product' }, { metricType: 'product' },
-                                  { metricType: 'product' }, { metricType: 'application' },
+                                const radarTypes = [
+                                  'feedstock', 'feedstock',
+                                  'technology', 'technology',
+                                  'product', 'product',
+                                  'product', 'product',
+                                  'application',
                                 ];
                                 const metricType = radarData[index]?.metricType;
                                 return (
