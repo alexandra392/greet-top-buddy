@@ -1513,18 +1513,18 @@ const ValueChain = () => {
               {(() => {
                     // Different data depending on entry point
                     const scatterPathwaysProduct = [
-                    { trl: 9, availability: 92, pathway: 'Corn Starch > Fermentation > Lactic Acid > PLA Packaging', score: 91, price: 82, season: 75, cagr: 11, conc: 'HIGH' },
-                    { trl: 9, availability: 88, pathway: 'Fructose > Homofermentation > Lactic Acid > Food Acidulant', score: 89, price: 78, season: 80, cagr: 8, conc: 'HIGH' },
-                    { trl: 8, availability: 85, pathway: 'Sugarcane Molasses > Fermentation > Lactic Acid > Food Acidulant', score: 87, price: 71, season: 65, cagr: 8, conc: 'HIGH' },
-                    { trl: 7, availability: 78, pathway: 'Cassava Starch > Fermentation > Lactic Acid > Preservatives', score: 79, price: 68, season: 58, cagr: 6, conc: 'HIGH' },
-                    { trl: 6, availability: 70, pathway: 'Whey Permeate > Fermentation > Lactic Acid > Skin Care', score: 72, price: 55, season: 42, cagr: 9, conc: 'MEDIUM' },
-                    { trl: 5, availability: 82, pathway: 'Corn Stover > Enzymatic Hydrolysis > Lactic Acid > PLA Fibers', score: 68, price: 48, season: 50, cagr: 7, conc: 'MEDIUM' },
-                    { trl: 5, availability: 65, pathway: 'Sugar Beet Pulp > Fermentation > Lactic Acid > Green Solvents', score: 63, price: 42, season: 35, cagr: 5, conc: 'LOW' },
-                    { trl: 4, availability: 74, pathway: 'Food Waste > SSF > Lactic Acid > Biodegradable Films', score: 58, price: 38, season: 28, cagr: 10, conc: 'LOW' },
-                    { trl: 4, availability: 58, pathway: 'Wheat Straw > Hydrolysis > Lactic Acid > Acrylic Acid Substitute', score: 52, price: 35, season: 22, cagr: 12, conc: 'LOW' },
-                    { trl: 3, availability: 53, pathway: 'Bread Waste > SSF > Lactic Acid > 3D Printing Filament', score: 45, price: 30, season: 18, cagr: 14, conc: 'LOW' },
-                    { trl: 2, availability: 90, pathway: 'CO₂ > Gas Fermentation > Lactic Acid > Chemical Intermediates', score: 64, price: 45, season: 10, cagr: 15, conc: 'MEDIUM' },
-                    { trl: 2, availability: 35, pathway: 'Microalgae > Fermentation > Lactic Acid > Bioabsorbable Implants', score: 35, price: 22, season: 8, cagr: 18, conc: 'LOW' }];
+                    { trl: 9, availability: 92, availabilityRaw: '75M t/year', pathway: 'Corn Starch > Fermentation > Lactic Acid > PLA Packaging', score: 91, price: 82, season: 75, cagr: 11, conc: 'HIGH' },
+                    { trl: 9, availability: 88, availabilityRaw: '62M t/year', pathway: 'Fructose > Homofermentation > Lactic Acid > Food Acidulant', score: 89, price: 78, season: 80, cagr: 8, conc: 'HIGH' },
+                    { trl: 8, availability: 85, availabilityRaw: '45M t/year', pathway: 'Sugarcane Molasses > Fermentation > Lactic Acid > Food Acidulant', score: 87, price: 71, season: 65, cagr: 8, conc: 'HIGH' },
+                    { trl: 7, availability: 78, availabilityRaw: '95M t/year', pathway: 'Cassava Starch > Fermentation > Lactic Acid > Preservatives', score: 79, price: 68, season: 58, cagr: 6, conc: 'HIGH' },
+                    { trl: 6, availability: 70, availabilityRaw: '45M t/year', pathway: 'Whey Permeate > Fermentation > Lactic Acid > Skin Care', score: 72, price: 55, season: 42, cagr: 9, conc: 'MEDIUM' },
+                    { trl: 5, availability: 82, availabilityRaw: '38M t/year', pathway: 'Corn Stover > Enzymatic Hydrolysis > Lactic Acid > PLA Fibers', score: 68, price: 48, season: 50, cagr: 7, conc: 'MEDIUM' },
+                    { trl: 5, availability: 65, availabilityRaw: '14M t/year', pathway: 'Sugar Beet Pulp > Fermentation > Lactic Acid > Green Solvents', score: 63, price: 42, season: 35, cagr: 5, conc: 'LOW' },
+                    { trl: 4, availability: 74, availabilityRaw: '10M t/year', pathway: 'Food Waste > SSF > Lactic Acid > Biodegradable Films', score: 58, price: 38, season: 28, cagr: 10, conc: 'LOW' },
+                    { trl: 4, availability: 58, availabilityRaw: '2.8M t/year', pathway: 'Wheat Straw > Hydrolysis > Lactic Acid > Acrylic Acid Substitute', score: 52, price: 35, season: 22, cagr: 12, conc: 'LOW' },
+                    { trl: 3, availability: 53, availabilityRaw: '6.5M t/year', pathway: 'Bread Waste > SSF > Lactic Acid > 3D Printing Filament', score: 45, price: 30, season: 18, cagr: 14, conc: 'LOW' },
+                    { trl: 2, availability: 90, availabilityRaw: '88M t/year', pathway: 'CO₂ > Gas Fermentation > Lactic Acid > Chemical Intermediates', score: 64, price: 45, season: 10, cagr: 15, conc: 'MEDIUM' },
+                    { trl: 2, availability: 35, availabilityRaw: '0.3M t/year', pathway: 'Microalgae > Fermentation > Lactic Acid > Bioabsorbable Implants', score: 35, price: 22, season: 8, cagr: 18, conc: 'LOW' }];
 
                     // Feedstock-centric data: TRL vs Market Size of produced products from Fructose
                     const scatterPathwaysFeedstock = [
