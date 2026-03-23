@@ -430,9 +430,6 @@ const PathwayDetail = () => {
                             <Radar name="VCG Score" dataKey="value" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.15} strokeWidth={1.5} dot={{ r: 2, fill: 'hsl(var(--primary))' }} />
                           </RadarChart>
                         </ResponsiveContainer>
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <span className="text-sm font-bold text-foreground">{activeScore}</span>
-                        </div>
                       </div>
                       <div className="flex items-center gap-2 mt-0.5">
                         <div className="flex items-center gap-1">
