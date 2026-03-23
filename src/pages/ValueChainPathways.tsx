@@ -371,17 +371,29 @@ const ValueChainPathways = () => {
       filtered = filtered.filter(({ originalIndex }) => savedPathways.has(originalIndex));
     }
 
-    // Sort: disliked at bottom, then by TRL descending
+    // Sort: disliked at bottom, then by selected metric
     filtered.sort((a, b) => {
       const aDisliked = dislikedPathways.has(a.originalIndex);
       const bDisliked = dislikedPathways.has(b.originalIndex);
       if (aDisliked && !bDisliked) return 1;
       if (!aDisliked && bDisliked) return -1;
-      return getTRLNumber(b.pathway.trl) - getTRLNumber(a.pathway.trl);
+
+      const aVcg = Math.max(20, 95 - a.originalIndex * 3);
+      const bVcg = Math.max(20, 95 - b.originalIndex * 3);
+      const aResearch = Math.min(100, Math.round(aVcg * 0.95 + (a.originalIndex % 5) * 2));
+      const bResearch = Math.min(100, Math.round(bVcg * 0.95 + (b.originalIndex % 5) * 2));
+      const aIp = Math.max(0, Math.min(100, Math.round(100 - aVcg + (a.originalIndex % 7) * 3)));
+      const bIp = Math.max(0, Math.min(100, Math.round(100 - bVcg + (b.originalIndex % 7) * 3)));
+
+      if (sortBy === 'vcg') return bVcg - aVcg;
+      if (sortBy === 'research') return bResearch - aResearch;
+      if (sortBy === 'ip') return aIp - bIp; // lower IP = better
+      if (sortBy === 'trl') return getTRLNumber(b.pathway.trl) - getTRLNumber(a.pathway.trl);
+      return 0;
     });
 
     return filtered;
-  }, [allPathways.length, searchQuery, viabilityFilter, feedstockFilter, technologyFilter, applicationFilter, feedstockValueFilter, processValueFilter, productValueFilter, applicationValueFilter, activeTab, savedPathways, dislikedPathways, opportunityFilterType, opportunityFilterValues.join(',')]);
+  }, [allPathways.length, searchQuery, viabilityFilter, feedstockFilter, technologyFilter, applicationFilter, feedstockValueFilter, processValueFilter, productValueFilter, applicationValueFilter, activeTab, savedPathways, dislikedPathways, sortBy, opportunityFilterType, opportunityFilterValues.join(',')]);
 
   // Unique values for column filters
   const uniqueFeedstocks = useMemo(() => [...new Set(allPathways.map(p => p.feedstock))].sort(), [allPathways]);
