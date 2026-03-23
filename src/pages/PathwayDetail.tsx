@@ -436,7 +436,7 @@ const PathwayDetail = () => {
                                   'product', 'product',
                                   'application',
                                 ];
-                                const metricType = radarData[index]?.metricType;
+                                const metricType = radarTypes[index];
                                 return (
                                   <text
                                     x={x} y={y}
