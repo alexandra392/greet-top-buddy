@@ -1556,7 +1556,8 @@ const ValueChain = () => {
                                         strokeWidth={isHovered ? 2 : 0}
                                         style={{ cursor: 'pointer', transition: 'r 0.2s' }}
                                         onMouseEnter={() => setHoveredPathwayIdx(idx)}
-                                        onMouseLeave={() => setHoveredPathwayIdx(null)} />);
+                                        onMouseLeave={() => setHoveredPathwayIdx(null)}
+                                        onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)} />);
 
                                   }} />
                                 
