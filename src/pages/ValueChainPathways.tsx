@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ArrowLeft, GitBranch, Zap, Factory, Leaf, ChevronRight, ChevronDown, ArrowRight, Star, Bookmark, ThumbsDown, Package, Target, Plus, Download, ArrowRight as ArrowRightIcon, Clock, Network, FolderKanban, Search, SlidersHorizontal, ArrowUpDown, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import VCGScoreBadge from '@/components/VCGScoreBadge';
 import { supabase } from "@/integrations/supabase/client";
 
 interface CustomPathway {
