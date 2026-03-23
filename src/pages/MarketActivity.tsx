@@ -585,8 +585,9 @@ const MarketActivity = () => {
               const companyType = company.company_type;
               return <TableRow key={company.id} className="hover:bg-muted/20 transition-colors border-b border-border/30 last:border-0">
                       <TableCell className="text-center py-1.5 w-[60px]">
-                        <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className={`h-5 w-5 p-0 rounded border transition-all ${savedCompanies.has(company.id) ? companyType === 'feedstock' ? 'bg-primary/10 border-primary/40 hover:bg-primary/20' : companyType === 'technology' ? 'bg-blue-100 border-blue-400 hover:bg-blue-200' : companyType === 'product' ? 'bg-purple-100 border-purple-400 hover:bg-purple-200' : 'bg-orange-100 border-orange-400 hover:bg-orange-200' : 'bg-background hover:bg-muted border-border'}`}>
-                          <Plus className={`h-3 w-3 ${savedCompanies.has(company.id) ? companyType === 'feedstock' ? 'text-primary' : companyType === 'technology' ? 'text-blue-700' : companyType === 'product' ? 'text-purple-700' : 'text-orange-700' : 'text-muted-foreground'}`} />
+                        <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className={`h-5 w-5 p-0 rounded border transition-all ${savedCompanies.has(company.id) ? 'bg-green-100 border-green-400 hover:bg-green-200' : 'bg-background hover:bg-muted border-border'}`}>
+                          {savedCompanies.has(company.id) ? <CheckCircle className="h-3 w-3 text-green-600" /> : <Plus className="h-3 w-3 text-muted-foreground" />}
+                        </Button>
                         </Button>
                       </TableCell>
                       <TableCell className="py-1.5">
