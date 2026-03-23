@@ -1740,16 +1740,16 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Feedstock</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'quantity') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('quantity'); setFeedstockSortDir('desc'); } }}>
-                            Quantity (EU) {feedstockSortKey === 'quantity' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                            Quantity (EU) {feedstockSortKey === 'quantity' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
                           </div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
-                            Price {feedstockSortKey === 'price' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                            Price {feedstockSortKey === 'price' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
                           </div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
-                            Market Players {feedstockSortKey === 'players' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                            Market Players {feedstockSortKey === 'players' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
                           </div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'status') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('status'); setFeedstockSortDir('desc'); } }}>
-                            Status {feedstockSortKey === 'status' && <ArrowUpDown className="w-2.5 h-2.5" />}
+                            Status {feedstockSortKey === 'status' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
                           </div>
                         </div>
                         {currentFeedstocks.map((item, index) => {
