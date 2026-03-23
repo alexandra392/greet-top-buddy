@@ -388,20 +388,6 @@ const PathwayDetail = () => {
               <div className="border border-border rounded-lg bg-card px-5 py-4 shadow-sm flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-1">
                   <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Evaluation</h4>
-                  <button onClick={() => setShowMethodology(!showMethodology)} className="relative flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors border border-border rounded-md px-1.5 py-0.5" title="Methodology">
-                    <span className="text-[8px] font-medium">Methodology</span>
-                    <Info className="w-2.5 h-2.5" />
-                    {showMethodology && (
-                      <>
-                        <div className="fixed inset-0 z-10" onClick={() => setShowMethodology(false)} />
-                        <div className="absolute right-0 top-5 w-56 p-2.5 rounded-lg border border-border bg-card shadow-lg text-[9px] text-muted-foreground leading-relaxed z-20">
-                          <h5 className="text-[8px] font-bold text-foreground uppercase tracking-wider mb-1">Scoring Methodology</h5>
-                          <p>The VCG Score evaluates pathway viability across 7 dimensions: feedstock pricing &amp; availability, process CAPEX &amp; yield, product market size &amp; price, and application pricing.</p>
-                          <p className="mt-1">Each parameter is scored 0–100 based on industry benchmarks and weighted equally to produce the overall feasibility score.</p>
-                        </div>
-                      </>
-                    )}
-                  </button>
                 </div>
                 <p className="text-[9px] text-muted-foreground leading-relaxed mb-1.5 max-w-[550px]">
                   This evaluation scores the pathway across key economic and technical dimensions. Higher scores indicate stronger commercial viability and lower investment risk.
