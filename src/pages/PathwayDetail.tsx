@@ -444,6 +444,21 @@ const PathwayDetail = () => {
                           </RadarChart>
                         </ResponsiveContainer>
                       </div>
+                      <div className="mt-2 px-2">
+                        <details className="group">
+                          <summary className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground transition-colors flex items-center gap-1">
+                            <Info className="w-2.5 h-2.5" />
+                            Methodology
+                          </summary>
+                          <div className="mt-1.5 text-[8px] text-muted-foreground leading-relaxed space-y-1">
+                            <p>Each axis represents a normalized score (0–100) derived from publicly available data sources. Higher values indicate more favorable conditions for pathway viability.</p>
+                            <p><strong className="text-foreground">Feedstock Price</strong> — Inverse of raw material cost. <strong className="text-foreground">Feedstock Qty</strong> — Supply volume availability relative to demand.</p>
+                            <p><strong className="text-foreground">Process CAPEX</strong> — Inverse of capital expenditure. <strong className="text-foreground">Process TRL</strong> — Technology Readiness Level mapped linearly.</p>
+                            <p><strong className="text-foreground">Market Size</strong> — Addressable market value normalized against benchmarks. <strong className="text-foreground">Growth</strong> — CAGR scaled to sector averages.</p>
+                            <p><strong className="text-foreground">App. Price</strong> — Selling price relative to production cost, indicating margin potential.</p>
+                          </div>
+                        </details>
+                      </div>
                     </div>
                   </div>
 
