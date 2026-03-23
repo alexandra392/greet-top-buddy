@@ -74,7 +74,16 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
           <span className="text-[8px] text-muted-foreground">Research Score:</span>
           <span className="text-[8px] font-bold text-green-600">78/100</span>
           <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[7px] font-semibold">High</span>
-          <span className="text-[7px] text-muted-foreground/60 ml-auto">82nd percentile</span>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-2.5 h-2.5 text-muted-foreground/50 ml-auto cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="left" className="max-w-[200px] text-[9px]">
+                <p>Research papers counted across the first 3 nodes (Feedstock → Technology → Product). Score is a percentile rank vs. all other pathways.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </button>
 
