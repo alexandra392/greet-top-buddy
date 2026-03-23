@@ -1897,8 +1897,12 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Application</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Description</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center">Market Players</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Market Maturity</div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (appSortKey === 'players') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('players'); setAppSortDir('desc'); } }}>
+                            Market Players {appSortKey === 'players' ? (appSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
+                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (appSortKey === 'maturity') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('maturity'); setAppSortDir('desc'); } }}>
+                            Market Maturity {appSortKey === 'maturity' ? (appSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
+                          </div>
                         </div>
                         {currentApplications.map((app, index) => {
                                 const rank = startAppIndex + index + 1;
