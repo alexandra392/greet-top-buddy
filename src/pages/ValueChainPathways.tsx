@@ -696,7 +696,7 @@ const ValueChainPathways = () => {
               return (
                 <div
                   key={originalIndex}
-                  className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[60px_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1.5fr)_minmax(0,1.2fr)_70px_70px_75px_36px] items-center gap-2 ${
+                  className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
@@ -720,20 +720,6 @@ const ValueChainPathways = () => {
                     <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
                       {trlLabel}
                     </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          className="p-0.5 hover:bg-muted rounded transition-colors"
-                          onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
-                        >
-                          <Bookmark className={`w-3 h-3 transition-colors ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : 'text-muted-foreground hover:text-primary'}`} />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top"><p>Save</p></TooltipContent>
-                    </Tooltip>
                   </div>
                 </div>
               );
