@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts";
+import InstitutionPublicationsModal from "@/components/InstitutionPublicationsModal";
 
 const dataByView = {
   production: {
@@ -86,6 +87,7 @@ const PathwayResearchLandscape = () => {
   const navigate = useNavigate();
   const [selectedResearchType, setSelectedResearchType] = useState<string>("all");
   const [timeRange, setTimeRange] = useState<string>("5");
+  const [selectedInstitution, setSelectedInstitution] = useState<typeof data.institutions[0] | null>(null);
 
   const decodedTopic = decodeURIComponent(topic || "");
   const data = dataByView.production;
@@ -200,7 +202,7 @@ const PathwayResearchLandscape = () => {
                         </thead>
                         <tbody>
                           {col.map((inst) => (
-                            <tr key={inst.rank} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                            <tr key={inst.rank} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedInstitution(inst)}>
                               <td className="py-[3px]">
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-[9px] text-muted-foreground w-3 font-medium">{inst.rank}</span>
@@ -307,6 +309,17 @@ const PathwayResearchLandscape = () => {
             </CardContent>
           </Card>
         </div>
+        <InstitutionPublicationsModal
+          open={!!selectedInstitution}
+          onOpenChange={() => setSelectedInstitution(null)}
+          institution={selectedInstitution?.name || ''}
+          country={selectedInstitution?.country || ''}
+          focus={selectedInstitution?.focus || ''}
+          totalPapers={selectedInstitution?.papers || 0}
+          citations={selectedInstitution?.citations || 0}
+          hIndex={selectedInstitution?.hIndex || 0}
+          topic={decodedTopic}
+        />
       </div>
   );
 };
