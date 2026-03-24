@@ -260,15 +260,20 @@ const ScientificPublications = () => {
                   <tr
                     className="border-b border-border/30 cursor-pointer hover:bg-muted/30 transition-colors"
                     onClick={() => {
-                      setExpandedCategory(prev => ({
-                        ...prev,
-                        [section.title]: isExpanded ? null : cat.name
-                      }));
+                      setSelectedCategory({ name: cat.name, total: cat.total, subs: cat.subItems.map(s => ({ name: s.name, total: s.total })) });
                     }}
                   >
                     <td className="py-[3px]">
                       <div className="flex items-center gap-1">
-                        <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
+                        <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedCategory(prev => ({
+                              ...prev,
+                              [section.title]: isExpanded ? null : cat.name
+                            }));
+                          }}
+                        />
                         <div>
                           <div className="font-bold text-[10px] text-foreground">{cat.name}</div>
                           <div className="text-[8px] text-muted-foreground">{cat.total.toLocaleString()} total</div>
