@@ -324,6 +324,3 @@ const PathwayResearchLandscape = () => {
   );
 };
 
-export default PathwayResearchLandscape;
-
-export default PathwayResearchLandscape;

@@ -571,6 +571,3 @@ const ScientificPublications = () => {
   );
 };
 
-export default ScientificPublications;
-
-export default ScientificPublications;
