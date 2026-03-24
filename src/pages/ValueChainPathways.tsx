@@ -769,11 +769,37 @@ const ValueChainPathways = () => {
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Measures the volume and quality of scientific publications supporting this pathway. Based on publication count, citation impact, and recency of research activity.
-                  </p>
+                <PopoverContent className="w-72 p-3" side="bottom" align="start">
+                  <div className="space-y-2.5">
+                    <div>
+                      <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score Methodology</h4>
+                      <p className="text-[10px] text-muted-foreground leading-relaxed">
+                        Measures the volume and quality of scientific publications supporting this pathway. Expressed as a percentile rank across all pathways.
+                      </p>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: 'Pub. Count', weight: '40%', value: 72, color: 'bg-blue-500' },
+                        { label: 'Citations', weight: '35%', value: 58, color: 'bg-indigo-500' },
+                        { label: 'Recency', weight: '25%', value: 80, color: 'bg-cyan-500' },
+                      ].map((w) => (
+                        <div key={w.label} className="flex items-center gap-2">
+                          <span className="text-[9px] font-medium text-foreground w-16 shrink-0">{w.label}</span>
+                          <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                            <div className={`h-full ${w.color} rounded-full`} style={{ width: `${w.value}%` }} />
+                          </div>
+                          <span className="text-[9px] font-semibold w-8 text-right text-muted-foreground">
+                            {w.weight}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="border-t border-border pt-2">
+                      <p className="text-[9px] text-muted-foreground leading-relaxed">
+                        A <span className="font-semibold text-foreground">high score</span> indicates strong academic interest and active research momentum behind the pathway.
+                      </p>
+                    </div>
+                  </div>
                 </PopoverContent>
               </Popover>
               <Popover>
@@ -783,11 +809,37 @@ const ValueChainPathways = () => {
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
-                  </p>
+                <PopoverContent className="w-72 p-3" side="bottom" align="start">
+                  <div className="space-y-2.5">
+                    <div>
+                      <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score Methodology</h4>
+                      <p className="text-[10px] text-muted-foreground leading-relaxed">
+                        Indicates patent saturation for this pathway. Expressed as a percentile rank across all pathways — higher means more crowded IP space.
+                      </p>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: 'Patent Count', weight: '45%', value: 55, color: 'bg-red-400' },
+                        { label: 'Claim Breadth', weight: '30%', value: 40, color: 'bg-orange-400' },
+                        { label: 'Geo. Coverage', weight: '25%', value: 35, color: 'bg-rose-400' },
+                      ].map((w) => (
+                        <div key={w.label} className="flex items-center gap-2">
+                          <span className="text-[9px] font-medium text-foreground w-16 shrink-0">{w.label}</span>
+                          <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                            <div className={`h-full ${w.color} rounded-full`} style={{ width: `${w.value}%` }} />
+                          </div>
+                          <span className="text-[9px] font-semibold w-8 text-right text-muted-foreground">
+                            {w.weight}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="border-t border-border pt-2">
+                      <p className="text-[9px] text-muted-foreground leading-relaxed">
+                        A <span className="font-semibold text-foreground">low score</span> signals open IP space — more freedom to innovate. A high score means dense patent coverage with less room to operate.
+                      </p>
+                    </div>
+                  </div>
                 </PopoverContent>
               </Popover>
               <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">TRL</span>
