@@ -1775,9 +1775,6 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
                             Market Players {feedstockSortKey === 'players' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
                           </div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'status') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('status'); setFeedstockSortDir('desc'); } }}>
-                            Status {feedstockSortKey === 'status' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
                         </div>
                         {currentFeedstocks.map((item, index) => {
                                 if (!item) return null;
