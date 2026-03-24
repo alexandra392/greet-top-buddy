@@ -25,7 +25,9 @@ const categoryConfig: Record<UpdateCategory, { label: string; icon: typeof FileT
   market: { label: "Market Activity", icon: TrendingUp, color: "text-rose-500", badgeClass: "bg-rose-500/10 text-rose-500 border-rose-500/20" },
 };
 
-const mockUpdates: Record<UpdateCategory, UpdateItem[]> = {
+type DataCategory = Exclude<UpdateCategory, "all">;
+
+const mockUpdates: Record<DataCategory, UpdateItem[]> = {
   research: [
     { title: "Efficient lactic acid production from fructose-rich syrups via engineered Lactobacillus", source: "Biotechnology Advances", date: "Mar 12, 2026", topic: "Lactic Acid", topicType: "product", summary: "Engineered strain achieves 95% lactic acid yield from high-fructose corn syrup at pilot scale." },
     { title: "Fructose dehydration pathways: kinetic modeling and catalyst design", source: "Green Chemistry", date: "Mar 10, 2026", topic: "Fructose", topicType: "feedstock", summary: "Comprehensive kinetic study of fructose conversion routes with novel zeolite catalysts." },
