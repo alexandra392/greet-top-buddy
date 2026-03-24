@@ -13,6 +13,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis
 import worldPatentMap from '@/assets/world-patent-map.png';
 import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
 import CategoryPatentsModal from '@/components/CategoryPatentsModal';
+import PatentDetailModal from '@/components/PatentDetailModal';
 
 type PatentView = 'feedstock' | 'technology' | 'production' | 'applications' | 'products';
 
@@ -699,6 +700,7 @@ const PatentLandscape = () => {
   const [selectedTechInPopup, setSelectedTechInPopup] = useState<string | null>(null);
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]} | null>(null);
+  const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
 
   // Mock data for subcategory detail popups - patents grouped by technology
   const subcategoryDetails: Record<string, { technologies: { name: string; patents: number; trend: string; trendColor: string; patentList: { title: string; company: string; year: number; status: string }[] }[] }> = {
@@ -1350,7 +1352,7 @@ const PatentLandscape = () => {
                       </thead>
                       <tbody>
                         {latestPatents.map((patent, index) =>
-                        <tr key={index} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <tr key={index} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedPatentDetail(patent)}>
                             <td className="py-1.5" style={{ maxWidth: '300px' }}>
                               <div>
                                 <div className="font-medium text-[10px] text-foreground line-clamp-2">{patent.title}</div>
@@ -1397,6 +1399,13 @@ const PatentLandscape = () => {
           share={selectedCategory?.share || ''}
           cagr={selectedCategory?.cagr || ''}
           subcategories={selectedCategory?.subs || []}
+          topic={decodedTopic}
+        />
+
+        <PatentDetailModal
+          open={!!selectedPatentDetail}
+          onOpenChange={(open) => { if (!open) setSelectedPatentDetail(null); }}
+          patent={selectedPatentDetail}
           topic={decodedTopic}
         />
       </div>

@@ -10,6 +10,7 @@ import { ChartTooltip } from "@/components/ui/chart";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar, Tooltip } from "recharts";
 import worldPatentMap from '@/assets/world-patent-map.png';
 import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
+import PatentDetailModal from '@/components/PatentDetailModal';
 
 const dataByView = {
   production: {
@@ -142,6 +143,7 @@ const PathwayIPLandscape = () => {
   const [trendChartMode, setTrendChartMode] = useState<'spot' | 'benchmark'>('spot');
   const [trendTimeRange, setTrendTimeRange] = useState('5');
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
+  const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
 
   const data = dataByView[activeView];
   const developers = data.developers;
@@ -397,7 +399,7 @@ const PathwayIPLandscape = () => {
                       </thead>
                       <tbody>
                         {latestPatents.map((patent, index) =>
-                        <tr key={index} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <tr key={index} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedPatentDetail(patent)}>
                             <td className="py-1.5" style={{ maxWidth: '300px' }}>
                               <div>
                                 <div className="font-medium text-[10px] text-foreground line-clamp-2">{patent.title}</div>
@@ -433,6 +435,13 @@ const PathwayIPLandscape = () => {
           grantedCount={selectedIPHolder?.granted || 0}
           filedCount={selectedIPHolder?.filed || 0}
           patents={[]}
+          topic={decodedTopic}
+        />
+
+        <PatentDetailModal
+          open={!!selectedPatentDetail}
+          onOpenChange={(open) => { if (!open) setSelectedPatentDetail(null); }}
+          patent={selectedPatentDetail}
           topic={decodedTopic}
         />
       </div>
