@@ -437,6 +437,13 @@ const PathwayIPLandscape = () => {
           patents={[]}
           topic={decodedTopic}
         />
+
+        <PatentDetailModal
+          open={!!selectedPatentDetail}
+          onOpenChange={(open) => { if (!open) setSelectedPatentDetail(null); }}
+          patent={selectedPatentDetail}
+          topic={decodedTopic}
+        />
       </div>
     </div>);
 
