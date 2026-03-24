@@ -206,6 +206,7 @@ const ScientificPublications = () => {
 
   // Drill-down state per section
   const [expandedCategory, setExpandedCategory] = useState<Record<string, string | null>>({});
+  const [selectedInstitution, setSelectedInstitution] = useState<typeof institutions[0] | null>(null);
 
   const renderHeatMatrix = (section: typeof sections[0]) => {
     const activeCategoryName = expandedCategory[section.title] || null;
