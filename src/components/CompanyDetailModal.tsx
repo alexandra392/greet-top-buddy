@@ -224,30 +224,6 @@ export const CompanyDetailModal = ({
               </>}
           </div>
 
-          {/* Partnership Cost Impact - Only for Feedstock Suppliers and Product Producers */}
-          {company.entity_type === 'company' && (company.company_type === 'feedstock' || company.company_type === 'product') && (
-            <div className="p-1.5 rounded-lg border border-border bg-muted/30">
-              <h3 className="text-[7px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">Partnership Cost Impact</h3>
-              <div className="grid grid-cols-2 gap-1">
-                <div className="bg-background rounded px-1.5 py-1 border border-border/40 flex items-center gap-2">
-                  <div className="flex items-center gap-0.5">
-                    <span className="w-1 h-1 rounded-full bg-primary" />
-                    <p className="text-[7px] text-muted-foreground uppercase font-medium">GHG</p>
-                  </div>
-                  <p className="text-[10px] font-bold text-foreground">{company.company_type === 'feedstock' ? '0.42' : '1.18'} <span className="text-[7px] font-normal text-muted-foreground">kg CO₂e/kg</span></p>
-                  <span className="text-[7px] font-medium text-primary ml-auto">-12%</span>
-                </div>
-                <div className="bg-background rounded px-1.5 py-1 border border-border/40 flex items-center gap-2">
-                  <div className="flex items-center gap-0.5">
-                    <span className="w-1 h-1 rounded-full" style={{ background: '#f59e0b' }} />
-                    <p className="text-[7px] text-muted-foreground uppercase font-medium">Energy</p>
-                  </div>
-                  <p className="text-[10px] font-bold text-foreground">{company.company_type === 'feedstock' ? '€0.08' : '€0.14'} <span className="text-[7px] font-normal text-muted-foreground">/kg</span></p>
-                  <span className="text-[7px] font-medium ml-auto" style={{ color: '#f59e0b' }}>-8%</span>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Supporting Evidence Section */}
           <div className={`p-2.5 rounded-lg border ${company.entity_type === 'project' ? 'bg-gray-50 border-gray-200' : company.company_type === 'feedstock' ? 'bg-green-50 border-green-200' : company.company_type === 'technology' ? 'bg-blue-50 border-blue-200' : company.company_type === 'product' ? 'bg-purple-50 border-purple-200' : 'bg-orange-50 border-orange-200'}`}>
