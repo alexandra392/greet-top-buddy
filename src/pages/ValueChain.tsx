@@ -1797,9 +1797,6 @@ const ValueChain = () => {
                               <div className="text-[10px] text-muted-foreground">{item.quantity}</div>
                               <div className="text-[10px] text-muted-foreground">{item.price}</div>
                               <div className="text-[10px] font-semibold text-green-700 tabular-nums text-center">{playerCount}</div>
-                              <div className="flex items-center">
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[9px] font-semibold tracking-wide border ${statusTag}`}>{item.maturity || 'Research'}</span>
-                              </div>
                             </div>);
                               })}
 
