@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts";
 import InstitutionPublicationsModal from "@/components/InstitutionPublicationsModal";
+import PublicationDetailModal from "@/components/PublicationDetailModal";
 
 const dataByView = {
   production: {
@@ -88,6 +89,7 @@ const PathwayResearchLandscape = () => {
   const [selectedResearchType, setSelectedResearchType] = useState<string>("all");
   const [timeRange, setTimeRange] = useState<string>("5");
   const [selectedInstitution, setSelectedInstitution] = useState<typeof data.institutions[0] | null>(null);
+  const [selectedPublicationDetail, setSelectedPublicationDetail] = useState<typeof data.publications[0] | null>(null);
 
   const decodedTopic = decodeURIComponent(topic || "");
   const data = dataByView.production;
@@ -275,7 +277,7 @@ const PathwayResearchLandscape = () => {
                 </div>
                 <div className="space-y-1.5">
                   {filteredPublications.map((pub) => (
-                    <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors">
+                    <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors cursor-pointer" onClick={() => setSelectedPublicationDetail(pub)}>
                       <div className="grid grid-cols-[2fr_auto_1fr_2fr_auto] gap-4 items-start">
                         <div className="min-w-0">
                           <div className="text-[11px] font-semibold text-foreground leading-snug">{pub.title}</div>
@@ -319,6 +321,11 @@ const PathwayResearchLandscape = () => {
           citations={selectedInstitution?.citations || 0}
           hIndex={selectedInstitution?.hIndex || 0}
           topic={decodedTopic}
+        />
+        <PublicationDetailModal
+          open={!!selectedPublicationDetail}
+          onOpenChange={() => setSelectedPublicationDetail(null)}
+          publication={selectedPublicationDetail}
         />
       </div>
   );

@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts";
 import InstitutionPublicationsModal from "@/components/InstitutionPublicationsModal";
+import CategoryPublicationsModal from "@/components/CategoryPublicationsModal";
+import PublicationDetailModal from "@/components/PublicationDetailModal";
 
 const ScientificPublications = () => {
   const { category, topic } = useParams();
@@ -207,6 +209,8 @@ const ScientificPublications = () => {
   // Drill-down state per section
   const [expandedCategory, setExpandedCategory] = useState<Record<string, string | null>>({});
   const [selectedInstitution, setSelectedInstitution] = useState<typeof institutions[0] | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<{ name: string; total: number; subs: { name: string; total: number }[] } | null>(null);
+  const [selectedPublicationDetail, setSelectedPublicationDetail] = useState<typeof publications[0] | null>(null);
 
   const renderHeatMatrix = (section: typeof sections[0]) => {
     const activeCategoryName = expandedCategory[section.title] || null;
@@ -256,15 +260,20 @@ const ScientificPublications = () => {
                   <tr
                     className="border-b border-border/30 cursor-pointer hover:bg-muted/30 transition-colors"
                     onClick={() => {
-                      setExpandedCategory(prev => ({
-                        ...prev,
-                        [section.title]: isExpanded ? null : cat.name
-                      }));
+                      setSelectedCategory({ name: cat.name, total: cat.total, subs: cat.subItems.map(s => ({ name: s.name, total: s.total })) });
                     }}
                   >
                     <td className="py-[3px]">
                       <div className="flex items-center gap-1">
-                        <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
+                        <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setExpandedCategory(prev => ({
+                              ...prev,
+                              [section.title]: isExpanded ? null : cat.name
+                            }));
+                          }}
+                        />
                         <div>
                           <div className="font-bold text-[10px] text-foreground">{cat.name}</div>
                           <div className="text-[8px] text-muted-foreground">{cat.total.toLocaleString()} total</div>
@@ -289,7 +298,9 @@ const ScientificPublications = () => {
                   {isExpanded && cat.subItems.map((sub) => {
                     const subMaxVal = Math.max(...cat.subItems.flatMap((s) => s.values));
                     return (
-                      <tr key={sub.name} className="border-b border-border/20 bg-primary/[0.03] hover:bg-primary/[0.06] transition-colors">
+                      <tr key={sub.name} className="border-b border-border/20 bg-primary/[0.03] hover:bg-primary/[0.06] transition-colors cursor-pointer"
+                        onClick={() => setSelectedCategory({ name: sub.name, total: sub.total, subs: [] })}
+                      >
                         <td className="py-[3px] pl-7">
                           <div>
                             <div className="font-medium text-[10px] text-foreground">{sub.name}</div>
@@ -520,7 +531,7 @@ const ScientificPublications = () => {
                   </div>
                   <div className="space-y-1.5">
                     {filteredPublications.map((pub) => (
-                      <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors">
+                      <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors cursor-pointer" onClick={() => setSelectedPublicationDetail(pub)}>
                         <div className="grid grid-cols-[2fr_auto_1fr_2fr_auto] gap-4 items-start">
                           <div className="min-w-0">
                             <div className="text-[11px] font-semibold text-foreground leading-snug">{pub.title}</div>
@@ -565,6 +576,19 @@ const ScientificPublications = () => {
           citations={selectedInstitution?.citations || 0}
           hIndex={selectedInstitution?.hIndex || 0}
           topic={decodedTopic}
+        />
+        <CategoryPublicationsModal
+          open={!!selectedCategory}
+          onOpenChange={() => setSelectedCategory(null)}
+          categoryName={selectedCategory?.name || ''}
+          totalPublications={selectedCategory?.total || 0}
+          subcategories={selectedCategory?.subs || []}
+          topic={decodedTopic}
+        />
+        <PublicationDetailModal
+          open={!!selectedPublicationDetail}
+          onOpenChange={() => setSelectedPublicationDetail(null)}
+          publication={selectedPublicationDetail}
         />
       </div>
     </div>
