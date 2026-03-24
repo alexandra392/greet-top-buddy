@@ -899,7 +899,7 @@ const PatentLandscape = () => {
                 {(
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
                   <div className="mb-2">
-                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Leading Process Developers</h3>
+                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Leading IP Holders</h3>
                     <p className="text-[9px] text-muted-foreground">{activeConfig.developerDescription}</p>
                   </div>
                    <div className="grid grid-cols-[1fr_auto_1fr] gap-4">
