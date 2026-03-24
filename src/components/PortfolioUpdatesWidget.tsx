@@ -82,7 +82,7 @@ const PortfolioUpdatesWidget = () => {
     return mockUpdates[cat].filter((u) => portfolioTopics.includes(u.topic));
   };
 
-  const totalCount = categories.reduce((sum, cat) => sum + getUpdatesForTab(cat).length, 0);
+  const totalCount = dataCats.reduce((sum, cat) => sum + getUpdatesForTab(cat).length, 0);
 
   return (
     <div className="space-y-2.5">
