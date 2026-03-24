@@ -17,6 +17,7 @@ interface UpdateItem {
 }
 
 const categoryConfig: Record<UpdateCategory, { label: string; icon: typeof FileText; color: string; badgeClass: string }> = {
+  all: { label: "All", icon: FileText, color: "text-foreground", badgeClass: "bg-muted text-foreground border-border" },
   research: { label: "Research Papers", icon: FileText, color: "text-blue-500", badgeClass: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
   patents: { label: "Patents", icon: Shield, color: "text-amber-500", badgeClass: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
   rni_projects: { label: "R&I Projects", icon: FlaskConical, color: "text-violet-500", badgeClass: "bg-violet-500/10 text-violet-500 border-violet-500/20" },
