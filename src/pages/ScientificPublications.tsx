@@ -209,6 +209,8 @@ const ScientificPublications = () => {
   // Drill-down state per section
   const [expandedCategory, setExpandedCategory] = useState<Record<string, string | null>>({});
   const [selectedInstitution, setSelectedInstitution] = useState<typeof institutions[0] | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<{ name: string; total: number; subs: { name: string; total: number }[] } | null>(null);
+  const [selectedPublicationDetail, setSelectedPublicationDetail] = useState<typeof publications[0] | null>(null);
 
   const renderHeatMatrix = (section: typeof sections[0]) => {
     const activeCategoryName = expandedCategory[section.title] || null;
