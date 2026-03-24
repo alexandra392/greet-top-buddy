@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Shield, FlaskConical, Building2, TrendingUp, ArrowRight, Calendar, ExternalLink } from "lucide-react";
 
-type UpdateCategory = "research" | "patents" | "rni_projects" | "commercial" | "market";
+type UpdateCategory = "all" | "research" | "patents" | "rni_projects" | "commercial" | "market";
 
 interface UpdateItem {
   title: string;
@@ -17,6 +17,7 @@ interface UpdateItem {
 }
 
 const categoryConfig: Record<UpdateCategory, { label: string; icon: typeof FileText; color: string; badgeClass: string }> = {
+  all: { label: "All", icon: FileText, color: "text-foreground", badgeClass: "bg-muted text-foreground border-border" },
   research: { label: "Research Papers", icon: FileText, color: "text-blue-500", badgeClass: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
   patents: { label: "Patents", icon: Shield, color: "text-amber-500", badgeClass: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
   rni_projects: { label: "R&I Projects", icon: FlaskConical, color: "text-violet-500", badgeClass: "bg-violet-500/10 text-violet-500 border-violet-500/20" },
@@ -24,7 +25,9 @@ const categoryConfig: Record<UpdateCategory, { label: string; icon: typeof FileT
   market: { label: "Market Activity", icon: TrendingUp, color: "text-rose-500", badgeClass: "bg-rose-500/10 text-rose-500 border-rose-500/20" },
 };
 
-const mockUpdates: Record<UpdateCategory, UpdateItem[]> = {
+type DataCategory = Exclude<UpdateCategory, "all">;
+
+const mockUpdates: Record<DataCategory, UpdateItem[]> = {
   research: [
     { title: "Efficient lactic acid production from fructose-rich syrups via engineered Lactobacillus", source: "Biotechnology Advances", date: "Mar 12, 2026", topic: "Lactic Acid", topicType: "product", summary: "Engineered strain achieves 95% lactic acid yield from high-fructose corn syrup at pilot scale." },
     { title: "Fructose dehydration pathways: kinetic modeling and catalyst design", source: "Green Chemistry", date: "Mar 10, 2026", topic: "Fructose", topicType: "feedstock", summary: "Comprehensive kinetic study of fructose conversion routes with novel zeolite catalysts." },
@@ -55,7 +58,7 @@ const mockUpdates: Record<UpdateCategory, UpdateItem[]> = {
 };
 
 const PortfolioUpdatesWidget = () => {
-  const [activeTab, setActiveTab] = useState<UpdateCategory>("research");
+  const [activeTab, setActiveTab] = useState<UpdateCategory>("all");
   const [portfolioTopics, setPortfolioTopics] = useState<string[]>([]);
 
   useEffect(() => {
@@ -71,11 +74,17 @@ const PortfolioUpdatesWidget = () => {
 
   const categories = Object.keys(categoryConfig) as UpdateCategory[];
 
+  const dataCats = (Object.keys(mockUpdates) as (Exclude<UpdateCategory, "all">)[]);
+
   const getUpdatesForTab = (cat: UpdateCategory) => {
+    if (cat === "all") {
+      return dataCats.flatMap(c => mockUpdates[c].filter(u => portfolioTopics.includes(u.topic)))
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }
     return mockUpdates[cat].filter((u) => portfolioTopics.includes(u.topic));
   };
 
-  const totalCount = categories.reduce((sum, cat) => sum + getUpdatesForTab(cat).length, 0);
+  const totalCount = dataCats.reduce((sum, cat) => sum + getUpdatesForTab(cat).length, 0);
 
   return (
     <div className="space-y-2.5">
@@ -132,9 +141,15 @@ const PortfolioUpdatesWidget = () => {
                       className="p-3 hover:bg-muted/30 transition-colors cursor-pointer border-border/50 group"
                     >
                       <div className="flex items-start gap-2.5">
-                        <div className={`mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${cfg.badgeClass}`}>
-                          <cfg.icon className="w-3.5 h-3.5" />
-                        </div>
+                        {(() => {
+                          const itemCat = cat === "all" ? dataCats.find(c => mockUpdates[c].some(u => u.title === item.title)) : undefined;
+                          const iconCfg = itemCat ? categoryConfig[itemCat] : cfg;
+                          return (
+                            <div className={`mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${iconCfg.badgeClass}`}>
+                              <iconCfg.icon className="w-3.5 h-3.5" />
+                            </div>
+                          );
+                        })()}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
                             <h3 className="text-xs font-semibold text-foreground leading-snug group-hover:text-primary transition-colors line-clamp-2">
