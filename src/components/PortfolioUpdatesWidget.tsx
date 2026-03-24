@@ -150,7 +150,6 @@ const PortfolioUpdatesWidget = () => {
                             </div>
                           );
                         })()}
-                        </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
                             <h3 className="text-xs font-semibold text-foreground leading-snug group-hover:text-primary transition-colors line-clamp-2">
