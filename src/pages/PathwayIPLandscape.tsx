@@ -143,6 +143,7 @@ const PathwayIPLandscape = () => {
   const [trendChartMode, setTrendChartMode] = useState<'spot' | 'benchmark'>('spot');
   const [trendTimeRange, setTrendTimeRange] = useState('5');
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
+  const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
 
   const data = dataByView[activeView];
   const developers = data.developers;
