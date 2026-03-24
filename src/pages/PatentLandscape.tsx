@@ -1388,6 +1388,17 @@ const PatentLandscape = () => {
           patents={[]}
           topic={decodedTopic}
         />
+
+        <CategoryPatentsModal
+          open={!!selectedCategory}
+          onOpenChange={(open) => { if (!open) setSelectedCategory(null); }}
+          categoryName={selectedCategory?.name || ''}
+          totalPatents={selectedCategory?.patents || 0}
+          share={selectedCategory?.share || ''}
+          cagr={selectedCategory?.cagr || ''}
+          subcategories={selectedCategory?.subs || []}
+          topic={decodedTopic}
+        />
       </div>
     </div>);
 
