@@ -296,7 +296,6 @@ const ScientificPublications = () => {
                       <tr key={sub.name} className="border-b border-border/20 bg-primary/[0.03] hover:bg-primary/[0.06] transition-colors cursor-pointer"
                         onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [] }); }}
                       >
-                      >
                         <td className="py-[3px] pl-7">
                           <div>
                             <div className="font-medium text-[10px] text-foreground">{sub.name}</div>
