@@ -1584,6 +1584,9 @@ const ValueChain = () => {
                                       ) : (
                                         <p className="text-muted-foreground">{stage} · Availability: {d.availabilityRaw || d.availability}</p>
                                       )}
+                                      {d.score != null && (
+                                        <p className="text-muted-foreground font-medium">VCG Score: <span className={d.score >= 70 ? 'text-primary font-bold' : d.score >= 40 ? 'text-amber-600 font-bold' : 'text-muted-foreground font-bold'}>{d.score}</span></p>
+                                      )}
                                     </div>);
                                   }
                                   return null;
