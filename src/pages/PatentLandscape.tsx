@@ -987,7 +987,7 @@ const PatentLandscape = () => {
                         activeConfig.sectors.map((row, rowIdx) =>
                           <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
                             {row.map((sector) =>
-                              <div key={sector.name} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
+                              <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
                                 <div className="flex items-start justify-between mb-0.5">
                                   <div>
                                     <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
