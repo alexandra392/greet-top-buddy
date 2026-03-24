@@ -313,4 +313,20 @@ const PathwayResearchLandscape = () => {
   );
 };
 
+        <InstitutionPublicationsModal
+          open={!!selectedInstitution}
+          onOpenChange={() => setSelectedInstitution(null)}
+          institution={selectedInstitution?.name || ''}
+          country={selectedInstitution?.country || ''}
+          focus={selectedInstitution?.focus || ''}
+          totalPapers={selectedInstitution?.papers || 0}
+          citations={selectedInstitution?.citations || 0}
+          hIndex={selectedInstitution?.hIndex || 0}
+          topic={decodedTopic}
+        />
+      </div>
+    </div>
+  );
+};
+
 export default PathwayResearchLandscape;
