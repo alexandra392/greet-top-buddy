@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ChartTooltip } from "@/components/ui/chart";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar, Tooltip } from "recharts";
 import worldPatentMap from '@/assets/world-patent-map.png';
+import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
 
 const dataByView = {
   production: {
