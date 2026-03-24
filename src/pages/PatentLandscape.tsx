@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, ScatterChart, Scatter, ZAxis, Tooltip, Legend, BarChart, Bar } from "recharts";
 import worldPatentMap from '@/assets/world-patent-map.png';
+import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
 
 type PatentView = 'feedstock' | 'technology' | 'production' | 'applications' | 'products';
 
@@ -695,6 +696,7 @@ const PatentLandscape = () => {
   const [trendTimeRange, setTrendTimeRange] = useState<string>('5');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [selectedTechInPopup, setSelectedTechInPopup] = useState<string | null>(null);
+  const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
 
   // Mock data for subcategory detail popups - patents grouped by technology
   const subcategoryDetails: Record<string, { technologies: { name: string; patents: number; trend: string; trendColor: string; patentList: { title: string; company: string; year: number; status: string }[] }[] }> = {
@@ -919,12 +921,12 @@ const PatentLandscape = () => {
                          {col.map((dev, i) => {
                            const rank = colIdx * 5 + i + 1;
                            return (
-                         <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
-                             <td className="py-[3px]"><div className="flex items-center gap-1.5"><span className="text-[9px] text-muted-foreground w-3 font-medium">{rank}</span><span className="font-medium text-foreground text-[10px]">{dev.org}</span></div></td>
-                             <td className="text-center py-[3px]"><div className="flex items-center justify-center gap-1"><div className="w-10 h-1 bg-muted rounded-full overflow-hidden"><div className="h-full bg-foreground/60 rounded-full" style={{ width: `${dev.total / 100 * 100}%` }}></div></div><span className="text-[10px] font-medium">{dev.total}</span></div></td>
-                             <td className="text-center py-[3px]"><div className="flex items-center justify-center gap-1"><div className="w-10 h-1 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary rounded-full" style={{ width: `${dev.granted / dev.total * 100}%` }}></div></div><span className="text-[10px] text-primary font-medium">{dev.granted}</span></div></td>
-                             <td className="text-center py-[3px]"><div className="flex items-center justify-center gap-1"><div className="w-10 h-1 bg-muted rounded-full overflow-hidden"><div className="h-full bg-muted-foreground/50 rounded-full" style={{ width: `${dev.filed / dev.total * 100}%` }}></div></div><span className="text-[10px] text-muted-foreground font-medium">{dev.filed}</span></div></td>
-                           </tr>);
+                          <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedIPHolder({ org: dev.org, total: dev.total, granted: dev.granted, filed: dev.filed })}>
+                              <td className="py-[3px]"><div className="flex items-center gap-1.5"><span className="text-[9px] text-muted-foreground w-3 font-medium">{rank}</span><span className="font-medium text-foreground text-[10px] hover:text-primary transition-colors">{dev.org}</span></div></td>
+                              <td className="text-center py-[3px]"><div className="flex items-center justify-center gap-1"><div className="w-10 h-1 bg-muted rounded-full overflow-hidden"><div className="h-full bg-foreground/60 rounded-full" style={{ width: `${dev.total / 100 * 100}%` }}></div></div><span className="text-[10px] font-medium">{dev.total}</span></div></td>
+                              <td className="text-center py-[3px]"><div className="flex items-center justify-center gap-1"><div className="w-10 h-1 bg-muted rounded-full overflow-hidden"><div className="h-full bg-primary rounded-full" style={{ width: `${dev.granted / dev.total * 100}%` }}></div></div><span className="text-[10px] text-primary font-medium">{dev.granted}</span></div></td>
+                              <td className="text-center py-[3px]"><div className="flex items-center justify-center gap-1"><div className="w-10 h-1 bg-muted rounded-full overflow-hidden"><div className="h-full bg-muted-foreground/50 rounded-full" style={{ width: `${dev.filed / dev.total * 100}%` }}></div></div><span className="text-[10px] text-muted-foreground font-medium">{dev.filed}</span></div></td>
+                            </tr>);
                          })}
                        </tbody>
                      </table>
@@ -1373,6 +1375,17 @@ const PatentLandscape = () => {
             </div>
           </CardContent>
         </Card>
+
+        <IPHolderPatentsModal
+          open={!!selectedIPHolder}
+          onOpenChange={(open) => { if (!open) setSelectedIPHolder(null); }}
+          organization={selectedIPHolder?.org || ''}
+          totalPatents={selectedIPHolder?.total || 0}
+          grantedCount={selectedIPHolder?.granted || 0}
+          filedCount={selectedIPHolder?.filed || 0}
+          patents={[]}
+          topic={decodedTopic}
+        />
       </div>
     </div>);
 
