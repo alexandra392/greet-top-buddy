@@ -230,9 +230,6 @@ const PathwayResearchLandscape = () => {
                                   <span className="text-[10px] text-primary font-medium">{inst.citations.toLocaleString()}</span>
                                 </div>
                               </td>
-                              <td className="text-center py-[3px]">
-                                <span className="text-[10px] font-medium text-foreground">{inst.hIndex}</span>
-                              </td>
                             </tr>
                           ))}
                         </tbody>
