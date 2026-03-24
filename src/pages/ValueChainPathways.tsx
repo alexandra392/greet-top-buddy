@@ -684,11 +684,38 @@ const ValueChainPathways = () => {
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">VCG Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    The VCG Score evaluates pathways by blending Research (25%), TRL (40%), and Market Size (35%), then subtracting IP saturation (20%). Higher means stronger opportunity.
-                  </p>
+                <PopoverContent className="w-72 p-3" side="bottom" align="start">
+                  <div className="space-y-2.5">
+                    <div>
+                      <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">VCG Score Methodology</h4>
+                      <p className="text-[10px] text-muted-foreground leading-relaxed">
+                        The VCG Score evaluates pathways by blending three positive performance indicators and subtracting one negative indicator.
+                      </p>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: 'Research', weight: '25%', value: 65, color: 'bg-blue-500' },
+                        { label: 'TRL', weight: '40%', value: 70, color: 'bg-emerald-500' },
+                        { label: 'Market Size', weight: '35%', value: 60, color: 'bg-amber-500' },
+                        { label: 'IP Score', weight: '−20%', value: 40, color: 'bg-red-400', negative: true },
+                      ].map((w) => (
+                        <div key={w.label} className="flex items-center gap-2">
+                          <span className="text-[9px] font-medium text-foreground w-16 shrink-0">{w.label}</span>
+                          <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                            <div className={`h-full ${w.color} rounded-full`} style={{ width: `${w.value}%` }} />
+                          </div>
+                          <span className={`text-[9px] font-semibold w-8 text-right ${w.negative ? 'text-red-500' : 'text-muted-foreground'}`}>
+                            {w.weight}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="border-t border-border pt-2">
+                      <p className="text-[9px] text-muted-foreground leading-relaxed">
+                        A <span className="font-semibold text-foreground">high score</span> means strong research, high technical readiness, and a large market — with low patent saturation (more room to operate).
+                      </p>
+                    </div>
+                  </div>
                 </PopoverContent>
               </Popover>
               {category === 'Feedstock' ? (
