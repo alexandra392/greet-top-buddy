@@ -1761,7 +1761,7 @@ const ValueChain = () => {
                   <div className="pt-2">
                     <div className="w-full">
                       <div className="flex flex-col overflow-hidden">
-                         <div className="grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr,1.2fr] gap-1.5 px-3 py-1.5 bg-muted/50">
+                         <div className="grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr] gap-1.5 px-3 py-1.5 bg-muted/50">
                           <div className="w-4" />
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Feedstock</div>
