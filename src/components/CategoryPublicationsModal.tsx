@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, ArrowLeft, Calendar, Users, BookOpen, FileText } from "lucide-react";
+import { Search, ArrowLeft, Calendar, BookOpen, FileText } from "lucide-react";
 
 interface Publication {
   title: string;
@@ -57,9 +57,10 @@ const generateCategoryPublications = (category: string, subs: Subcategory[], tot
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const pubs: Publication[] = [];
   const count = Math.min(20, total);
+  const normalizedSubs = subs.length > 0 ? subs : [{ name: category, total }];
 
   for (let i = 0; i < count; i++) {
-    const sub = subs[i % subs.length];
+    const sub = normalizedSubs[i % normalizedSubs.length];
     const type = types[i % types.length];
     const pool = authorPools[i % authorPools.length];
     const year = i < 8 ? 2025 : 2024;
