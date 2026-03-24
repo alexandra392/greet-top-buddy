@@ -1783,7 +1783,7 @@ const ValueChain = () => {
                                 const statusTag = getStatusTagStyle(item.maturity || 'Research');
                                 const playerCount = [8, 12, 6, 4, 9, 3, 2, 15, 5, 7, 11, 3][(startFeedstockIndex + index) % 12];
                                 return (
-                                  <div key={index} onClick={() => toggleOpportunityItem(item.name)} className={`grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr,1.2fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
+                                  <div key={index} onClick={() => toggleOpportunityItem(item.name)} className={`grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
                               <div className="flex items-center">
                                 <div className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
                                   {selectedOpportunityItems.has(item.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
