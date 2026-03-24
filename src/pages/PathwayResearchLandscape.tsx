@@ -277,7 +277,7 @@ const PathwayResearchLandscape = () => {
                 </div>
                 <div className="space-y-1.5">
                   {filteredPublications.map((pub) => (
-                    <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors">
+                    <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors cursor-pointer" onClick={() => setSelectedPublicationDetail(pub)}>
                       <div className="grid grid-cols-[2fr_auto_1fr_2fr_auto] gap-4 items-start">
                         <div className="min-w-0">
                           <div className="text-[11px] font-semibold text-foreground leading-snug">{pub.title}</div>
