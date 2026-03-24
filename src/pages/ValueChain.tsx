@@ -1761,7 +1761,7 @@ const ValueChain = () => {
                   <div className="pt-2">
                     <div className="w-full">
                       <div className="flex flex-col overflow-hidden">
-                         <div className="grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr,1.2fr] gap-1.5 px-3 py-1.5 bg-muted/50">
+                         <div className="grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr] gap-1.5 px-3 py-1.5 bg-muted/50">
                           <div className="w-4" />
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Feedstock</div>
@@ -1775,9 +1775,6 @@ const ValueChain = () => {
                           <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
                             Market Players {feedstockSortKey === 'players' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
                           </div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'status') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('status'); setFeedstockSortDir('desc'); } }}>
-                            Status {feedstockSortKey === 'status' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
                         </div>
                         {currentFeedstocks.map((item, index) => {
                                 if (!item) return null;
@@ -1786,7 +1783,7 @@ const ValueChain = () => {
                                 const statusTag = getStatusTagStyle(item.maturity || 'Research');
                                 const playerCount = [8, 12, 6, 4, 9, 3, 2, 15, 5, 7, 11, 3][(startFeedstockIndex + index) % 12];
                                 return (
-                                  <div key={index} onClick={() => toggleOpportunityItem(item.name)} className={`grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr,1.2fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
+                                  <div key={index} onClick={() => toggleOpportunityItem(item.name)} className={`grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
                               <div className="flex items-center">
                                 <div className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
                                   {selectedOpportunityItems.has(item.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
@@ -1800,9 +1797,6 @@ const ValueChain = () => {
                               <div className="text-[10px] text-muted-foreground">{item.quantity}</div>
                               <div className="text-[10px] text-muted-foreground">{item.price}</div>
                               <div className="text-[10px] font-semibold text-green-700 tabular-nums text-center">{playerCount}</div>
-                              <div className="flex items-center">
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[9px] font-semibold tracking-wide border ${statusTag}`}>{item.maturity || 'Research'}</span>
-                              </div>
                             </div>);
                               })}
 
