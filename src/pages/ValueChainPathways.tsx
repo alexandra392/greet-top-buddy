@@ -772,7 +772,7 @@ const ValueChainPathways = () => {
                 <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
                   <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
                   <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Measures the volume and quality of scientific publications supporting this pathway. Based on publication count, citation impact, and recency of research activity.
+                    Measures the volume and quality of scientific publications supporting this pathway. Based on publication count.
                   </p>
                 </PopoverContent>
               </Popover>
