@@ -1375,6 +1375,17 @@ const PatentLandscape = () => {
             </div>
           </CardContent>
         </Card>
+
+        <IPHolderPatentsModal
+          open={!!selectedIPHolder}
+          onOpenChange={(open) => { if (!open) setSelectedIPHolder(null); }}
+          organization={selectedIPHolder?.org || ''}
+          totalPatents={selectedIPHolder?.total || 0}
+          grantedCount={selectedIPHolder?.granted || 0}
+          filedCount={selectedIPHolder?.filed || 0}
+          patents={[]}
+          topic={decodedTopic}
+        />
       </div>
     </div>);
 
