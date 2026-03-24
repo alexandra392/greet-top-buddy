@@ -555,11 +555,6 @@ const ScientificPublications = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
-    </div>
-  );
-};
-
         <InstitutionPublicationsModal
           open={!!selectedInstitution}
           onOpenChange={() => setSelectedInstitution(null)}
@@ -575,5 +570,7 @@ const ScientificPublications = () => {
     </div>
   );
 };
+
+export default ScientificPublications;
 
 export default ScientificPublications;

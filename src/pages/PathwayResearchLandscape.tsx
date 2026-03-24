@@ -309,10 +309,6 @@ const PathwayResearchLandscape = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
-  );
-};
-
         <InstitutionPublicationsModal
           open={!!selectedInstitution}
           onOpenChange={() => setSelectedInstitution(null)}
@@ -325,8 +321,9 @@ const PathwayResearchLandscape = () => {
           topic={decodedTopic}
         />
       </div>
-    </div>
   );
 };
+
+export default PathwayResearchLandscape;
 
 export default PathwayResearchLandscape;
