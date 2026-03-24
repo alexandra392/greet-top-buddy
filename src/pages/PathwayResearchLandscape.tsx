@@ -322,6 +322,11 @@ const PathwayResearchLandscape = () => {
           hIndex={selectedInstitution?.hIndex || 0}
           topic={decodedTopic}
         />
+        <PublicationDetailModal
+          open={!!selectedPublicationDetail}
+          onOpenChange={() => setSelectedPublicationDetail(null)}
+          publication={selectedPublicationDetail}
+        />
       </div>
   );
 };
