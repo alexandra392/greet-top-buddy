@@ -199,7 +199,7 @@ const PathwayResearchLandscape = () => {
                             <th className="text-left py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
                             <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
                             <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
-                            <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">h-index</th>
+                            
                           </tr>
                         </thead>
                         <tbody>
@@ -229,9 +229,6 @@ const PathwayResearchLandscape = () => {
                                   </div>
                                   <span className="text-[10px] text-primary font-medium">{inst.citations.toLocaleString()}</span>
                                 </div>
-                              </td>
-                              <td className="text-center py-[3px]">
-                                <span className="text-[10px] font-medium text-foreground">{inst.hIndex}</span>
                               </td>
                             </tr>
                           ))}
