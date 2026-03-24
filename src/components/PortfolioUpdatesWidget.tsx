@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Shield, FlaskConical, Building2, TrendingUp, ArrowRight, Calendar, ExternalLink } from "lucide-react";
 
-type UpdateCategory = "research" | "patents" | "rni_projects" | "commercial" | "market";
+type UpdateCategory = "all" | "research" | "patents" | "rni_projects" | "commercial" | "market";
 
 interface UpdateItem {
   title: string;
