@@ -680,7 +680,7 @@ const ValueChainPathways = () => {
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
-                    VCG
+                    VCG Scoring
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
                 </PopoverTrigger>
