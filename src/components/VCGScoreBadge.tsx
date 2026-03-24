@@ -33,7 +33,7 @@ const VCGScoreBadge = ({ score, size = 'sm' }: VCGScoreBadgeProps) => {
           className={`${textSize} text-muted-foreground border border-border rounded ${padding} ${size === 'md' ? 'bg-card' : ''} hover:bg-muted/50 hover:border-primary/30 transition-colors cursor-help inline-flex items-center gap-1`}
           onClick={(e) => e.stopPropagation()}
         >
-          VCG Scoring: <span className={scoreColor}>{score}</span>
+          VCG Score: <span className={scoreColor}>{score}</span>
           <Info className="w-3 h-3 text-muted-foreground/50" />
         </button>
       </PopoverTrigger>
