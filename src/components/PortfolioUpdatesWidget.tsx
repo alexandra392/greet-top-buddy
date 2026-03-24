@@ -56,7 +56,7 @@ const mockUpdates: Record<UpdateCategory, UpdateItem[]> = {
 };
 
 const PortfolioUpdatesWidget = () => {
-  const [activeTab, setActiveTab] = useState<UpdateCategory>("research");
+  const [activeTab, setActiveTab] = useState<UpdateCategory>("all");
   const [portfolioTopics, setPortfolioTopics] = useState<string[]>([]);
 
   useEffect(() => {
