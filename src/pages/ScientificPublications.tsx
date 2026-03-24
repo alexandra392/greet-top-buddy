@@ -577,6 +577,19 @@ const ScientificPublications = () => {
           hIndex={selectedInstitution?.hIndex || 0}
           topic={decodedTopic}
         />
+        <CategoryPublicationsModal
+          open={!!selectedCategory}
+          onOpenChange={() => setSelectedCategory(null)}
+          categoryName={selectedCategory?.name || ''}
+          totalPublications={selectedCategory?.total || 0}
+          subcategories={selectedCategory?.subs || []}
+          topic={decodedTopic}
+        />
+        <PublicationDetailModal
+          open={!!selectedPublicationDetail}
+          onOpenChange={() => setSelectedPublicationDetail(null)}
+          publication={selectedPublicationDetail}
+        />
       </div>
     </div>
   );
