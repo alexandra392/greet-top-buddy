@@ -89,6 +89,7 @@ const PathwayResearchLandscape = () => {
   const [selectedResearchType, setSelectedResearchType] = useState<string>("all");
   const [timeRange, setTimeRange] = useState<string>("5");
   const [selectedInstitution, setSelectedInstitution] = useState<typeof data.institutions[0] | null>(null);
+  const [selectedPublicationDetail, setSelectedPublicationDetail] = useState<typeof data.publications[0] | null>(null);
 
   const decodedTopic = decodeURIComponent(topic || "");
   const data = dataByView.production;
