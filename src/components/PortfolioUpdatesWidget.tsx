@@ -72,7 +72,13 @@ const PortfolioUpdatesWidget = () => {
 
   const categories = Object.keys(categoryConfig) as UpdateCategory[];
 
+  const dataCats = (Object.keys(mockUpdates) as (Exclude<UpdateCategory, "all">)[]);
+
   const getUpdatesForTab = (cat: UpdateCategory) => {
+    if (cat === "all") {
+      return dataCats.flatMap(c => mockUpdates[c].filter(u => portfolioTopics.includes(u.topic)))
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }
     return mockUpdates[cat].filter((u) => portfolioTopics.includes(u.topic));
   };
 
