@@ -445,7 +445,7 @@ const ScientificPublications = () => {
                               <th className="text-left py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
                               <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
                               <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
-                              <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">h-index</th>
+                              
                             </tr>
                           </thead>
                           <tbody>
