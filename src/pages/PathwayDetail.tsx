@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, ArrowRight, FileText, BookOpen, FolderKanban, Scale, BarChart3, ChevronRight, Search, ChevronDown, ChevronUp, MessageSquare, Bookmark, ThumbsDown, Download, List, ExternalLink, Info } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import PathwayResourcesTab from "@/components/PathwayResourcesTab";
 import PathwayFlowPopover from "@/components/PathwayFlowPopover";
