@@ -1352,7 +1352,7 @@ const PatentLandscape = () => {
                       </thead>
                       <tbody>
                         {latestPatents.map((patent, index) =>
-                        <tr key={index} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <tr key={index} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedPatentDetail(patent)}>
                             <td className="py-1.5" style={{ maxWidth: '300px' }}>
                               <div>
                                 <div className="font-medium text-[10px] text-foreground line-clamp-2">{patent.title}</div>
