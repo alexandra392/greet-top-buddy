@@ -12,6 +12,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, ScatterChart, Scatter, ZAxis, Tooltip, Legend, BarChart, Bar } from "recharts";
 import worldPatentMap from '@/assets/world-patent-map.png';
 import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
+import CategoryPatentsModal from '@/components/CategoryPatentsModal';
 
 type PatentView = 'feedstock' | 'technology' | 'production' | 'applications' | 'products';
 
@@ -697,6 +698,7 @@ const PatentLandscape = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [selectedTechInPopup, setSelectedTechInPopup] = useState<string | null>(null);
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]} | null>(null);
 
   // Mock data for subcategory detail popups - patents grouped by technology
   const subcategoryDetails: Record<string, { technologies: { name: string; patents: number; trend: string; trendColor: string; patentList: { title: string; company: string; year: number; status: string }[] }[] }> = {
@@ -957,7 +959,7 @@ const PatentLandscape = () => {
                               </h4>
                               <div className="grid grid-cols-2 gap-2">
                                 {group.sectors.map((sector) =>
-                                  <div key={sector.name} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
+                                  <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
                                         <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -985,7 +987,7 @@ const PatentLandscape = () => {
                         activeConfig.sectors.map((row, rowIdx) =>
                           <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
                             {row.map((sector) =>
-                              <div key={sector.name} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
+                              <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
                                 <div className="flex items-start justify-between mb-0.5">
                                   <div>
                                     <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -1384,6 +1386,17 @@ const PatentLandscape = () => {
           grantedCount={selectedIPHolder?.granted || 0}
           filedCount={selectedIPHolder?.filed || 0}
           patents={[]}
+          topic={decodedTopic}
+        />
+
+        <CategoryPatentsModal
+          open={!!selectedCategory}
+          onOpenChange={(open) => { if (!open) setSelectedCategory(null); }}
+          categoryName={selectedCategory?.name || ''}
+          totalPatents={selectedCategory?.patents || 0}
+          share={selectedCategory?.share || ''}
+          cagr={selectedCategory?.cagr || ''}
+          subcategories={selectedCategory?.subs || []}
           topic={decodedTopic}
         />
       </div>
