@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts";
 import InstitutionPublicationsModal from "@/components/InstitutionPublicationsModal";
+import CategoryPublicationsModal from "@/components/CategoryPublicationsModal";
+import PublicationDetailModal from "@/components/PublicationDetailModal";
 
 const ScientificPublications = () => {
   const { category, topic } = useParams();
