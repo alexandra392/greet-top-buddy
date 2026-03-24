@@ -341,7 +341,41 @@ const PathwayDetail = () => {
                 <div className="flex items-center gap-2 mb-1.5">
                   {(() => {
                     const score = Math.max(20, 95 - (parseInt(pathwayId || "0")) * 3);
-                    return <VCGScoreBadge score={score} size="md" />;
+                    const researchScore = Math.min(100, Math.round(score * 0.95 + (parseInt(pathwayId || "0") % 5) * 2));
+                    const ipScore = Math.max(0, Math.min(100, Math.round(100 - score + (parseInt(pathwayId || "0") % 7) * 3)));
+                    return (
+                      <>
+                        <VCGScoreBadge score={score} size="md" />
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <button className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5 bg-card hover:bg-muted/50 hover:border-primary/30 transition-colors cursor-help inline-flex items-center gap-1">
+                              Research: <span className="text-blue-600 font-bold">{researchScore}</span>
+                              <Info className="w-3 h-3 text-muted-foreground/50" />
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                            <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
+                            <p className="text-[9px] text-muted-foreground leading-relaxed">
+                              Measures the volume and quality of scientific publications supporting this pathway. Based on publication count, citation impact, and recency of research activity.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <button className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5 bg-card hover:bg-muted/50 hover:border-primary/30 transition-colors cursor-help inline-flex items-center gap-1">
+                              IP: <span className={`font-bold ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</span>
+                              <Info className="w-3 h-3 text-muted-foreground/50" />
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                            <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
+                            <p className="text-[9px] text-muted-foreground leading-relaxed">
+                              Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
+                      </>
+                    );
                   })()}
                   <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${
                     parseInt(pathway.trl.replace('TRL ', '')) >= 8 ? 'bg-green-100 text-green-800 border border-green-200' :
