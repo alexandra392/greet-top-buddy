@@ -12,6 +12,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, ScatterChart, Scatter, ZAxis, Tooltip, Legend, BarChart, Bar } from "recharts";
 import worldPatentMap from '@/assets/world-patent-map.png';
 import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
+import CategoryPatentsModal from '@/components/CategoryPatentsModal';
 
 type PatentView = 'feedstock' | 'technology' | 'production' | 'applications' | 'products';
 
