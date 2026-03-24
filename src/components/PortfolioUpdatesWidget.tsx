@@ -141,8 +141,15 @@ const PortfolioUpdatesWidget = () => {
                       className="p-3 hover:bg-muted/30 transition-colors cursor-pointer border-border/50 group"
                     >
                       <div className="flex items-start gap-2.5">
-                <div className={`mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${cat === "all" ? categoryConfig[item.topicType === "feedstock" ? "research" : "market"].badgeClass : cfg.badgeClass}`}>
-                          {cat === "all" ? (() => { const itemCat = dataCats.find(c => mockUpdates[c].some(u => u.title === item.title)); const ItemIcon = itemCat ? categoryConfig[itemCat].icon : cfg.icon; return <ItemIcon className="w-3.5 h-3.5" />; })() : <cfg.icon className="w-3.5 h-3.5" />}
+                        {(() => {
+                          const itemCat = cat === "all" ? dataCats.find(c => mockUpdates[c].some(u => u.title === item.title)) : undefined;
+                          const iconCfg = itemCat ? categoryConfig[itemCat] : cfg;
+                          return (
+                            <div className={`mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${iconCfg.badgeClass}`}>
+                              <iconCfg.icon className="w-3.5 h-3.5" />
+                            </div>
+                          );
+                        })()}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
