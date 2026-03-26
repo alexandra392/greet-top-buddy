@@ -823,11 +823,18 @@ const ValueChainPathways = () => {
               return (
                 <div
                   key={originalIndex}
-                  className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
+                   className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
                 >
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
+                    className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                    title={savedPathways.has(originalIndex) ? 'Remove from shortlist' : 'Add to shortlist'}
+                  >
+                    <Bookmark className={`w-3.5 h-3.5 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
+                  </button>
                   <div className="text-[11px] font-bold text-foreground">{vcgScore}</div>
                   <div className={`text-[10px] font-medium truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
