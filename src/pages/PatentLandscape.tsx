@@ -839,34 +839,42 @@ const PatentLandscape = () => {
 
                 <div className="grid grid-cols-[150px_1fr] gap-2">
                   {/* Legend / Filter Panel */}
-                  <div className="bg-muted/30 border border-border/40 rounded-xl p-3 flex flex-col">
-                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center mb-3">
+                  <div className="space-y-2 flex-shrink-0">
+                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
                       <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Patents</div>
                       <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.totalPatents).toLocaleString()}</div>
                     </div>
-                    <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Filters</h4>
-                    <div className="space-y-2.5">
-                      <div>
-                        <h4 className="text-[9px] font-bold text-foreground uppercase tracking-wider mb-1.5">Patent Status</h4>
-                        <div className="space-y-1">
-                          <label className="flex items-center gap-1.5 cursor-pointer">
-                            <Checkbox defaultChecked className="h-3 w-3 border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background" />
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
-                            <span className="text-[9px] text-foreground">Filed</span>
-                          </label>
-                          <label className="flex items-center gap-1.5 cursor-pointer">
-                            <Checkbox defaultChecked className="h-3 w-3 border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background" />
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'hsl(142, 71%, 45%)' }} />
-                            <span className="text-[9px] text-foreground">Granted</span>
-                          </label>
-                        </div>
+                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center cursor-pointer hover:bg-muted/30 transition-colors" onClick={() => setSelectedCategory({ name: 'Granted Patents', patents: Number(activeConfig.grantedCount), share: `${Math.round(Number(activeConfig.grantedCount) / Number(activeConfig.totalPatents) * 100)}%`, cagr: '+12%', subs: [] })}>
+                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide flex items-center justify-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'hsl(142, 71%, 45%)' }} />
+                        Granted
                       </div>
-                      <div className="border-t border-border/40 pt-2.5">
-                        <label className="flex items-center gap-1.5 cursor-pointer">
-                          <Checkbox defaultChecked className="h-3 w-3 border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background" />
-                          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#3b82f6' }} />
-                          <span className="text-[9px] text-foreground font-medium">Total patents</span>
-                        </label>
+                      <div className="text-lg font-bold text-primary mt-0.5">{Number(activeConfig.grantedCount).toLocaleString()}</div>
+                      <div className="text-[8px] text-muted-foreground mt-0.5">{Math.round(Number(activeConfig.grantedCount) / Number(activeConfig.totalPatents) * 100)}% of total</div>
+                    </div>
+                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center cursor-pointer hover:bg-muted/30 transition-colors" onClick={() => setSelectedCategory({ name: 'Filed Patents', patents: Number(activeConfig.filedCount), share: `${Math.round(Number(activeConfig.filedCount) / Number(activeConfig.totalPatents) * 100)}%`, cagr: '+18%', subs: [] })}>
+                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide flex items-center justify-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
+                        Filed
+                      </div>
+                      <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.filedCount).toLocaleString()}</div>
+                      <div className="text-[8px] text-muted-foreground mt-0.5">{Math.round(Number(activeConfig.filedCount) / Number(activeConfig.totalPatents) * 100)}% of total</div>
+                    </div>
+                    <div className="rounded-lg border border-border/40 bg-background p-2.5">
+                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide mb-1.5 text-center">Chart Legend</div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: '#3b82f6' }} />
+                          <span className="text-[9px] text-foreground">Total</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: 'hsl(142, 71%, 45%)' }} />
+                          <span className="text-[9px] text-foreground">Granted</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: '#f59e0b' }} />
+                          <span className="text-[9px] text-foreground">Filed</span>
+                        </div>
                       </div>
                     </div>
                   </div>
