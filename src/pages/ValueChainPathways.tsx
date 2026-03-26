@@ -692,7 +692,7 @@ const ValueChainPathways = () => {
               <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest"></span>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     VCG
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -777,7 +777,7 @@ const ValueChainPathways = () => {
               </Select>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     Research
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -791,7 +791,7 @@ const ValueChainPathways = () => {
               </Popover>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     IP
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
