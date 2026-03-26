@@ -282,7 +282,7 @@ const ScientificPublications = () => {
                   </div>
                 </div>
                 {isExpanded && (
-                  <div className="ml-7 mt-1 space-y-1.5 pb-1">
+                  <div className="mt-1 space-y-1.5 pb-1" style={{ marginLeft: '180px', paddingLeft: '12px' }}>
                     {cat.subItems.sort((a, b) => b.total - a.total).map((sub) => {
                       const subMax = Math.max(...cat.subItems.map(s => s.total));
                       const subPct = (sub.total / subMax) * 100;
@@ -292,18 +292,18 @@ const ScientificPublications = () => {
                           className="cursor-pointer hover:bg-primary/[0.06] rounded-md p-1 transition-colors"
                           onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
                         >
-                          <div className="flex items-center justify-between mb-0.5">
-                            <span className="text-[9px] font-medium text-foreground">{sub.name}</span>
-                            <span className="text-[9px] font-semibold text-muted-foreground">{sub.total.toLocaleString()}</span>
-                          </div>
-                          <div className="h-2 bg-muted rounded-full overflow-hidden">
-                            <div
-                              className="h-full rounded-full transition-all duration-500"
-                              style={{
-                                width: `${subPct}%`,
-                                backgroundColor: 'hsl(152 35% 50%)'
-                              }}
-                            />
+                          <div className="flex items-center gap-3">
+                            <span className="text-[9px] font-medium text-foreground w-[130px] flex-shrink-0 truncate">{sub.name}</span>
+                            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                              <div
+                                className="h-full rounded-full transition-all duration-500"
+                                style={{
+                                  width: `${subPct}%`,
+                                  backgroundColor: 'hsl(152 35% 50%)'
+                                }}
+                              />
+                            </div>
+                            <span className="text-[9px] font-semibold text-muted-foreground w-[50px] text-right flex-shrink-0">{sub.total.toLocaleString()}</span>
                           </div>
                         </div>
                       );
