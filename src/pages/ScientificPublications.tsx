@@ -22,29 +22,29 @@ const ScientificPublications = () => {
   const isFeedstockRoute = decodeURIComponent(category || "") === 'Feedstock';
 
   const allPublicationTrend = [
-    { year: "2015", publications: 800 },
-    { year: "2016", publications: 1100 },
-    { year: "2017", publications: 1400 },
-    { year: "2018", publications: 1900 },
-    { year: "2019", publications: 1200 },
-    { year: "2020", publications: 1500 },
-    { year: "2021", publications: 4500 },
-    { year: "2022", publications: 1500 },
-    { year: "2023", publications: 6800 },
-    { year: "2024", publications: 2800 }
+    { year: "2015", publications: 8 },
+    { year: "2016", publications: 11 },
+    { year: "2017", publications: 14 },
+    { year: "2018", publications: 16 },
+    { year: "2019", publications: 13 },
+    { year: "2020", publications: 18 },
+    { year: "2021", publications: 22 },
+    { year: "2022", publications: 25 },
+    { year: "2023", publications: 32 },
+    { year: "2024", publications: 30 }
   ];
 
   const publicationTrend = timeRange === '5' ? allPublicationTrend.slice(-5) : allPublicationTrend;
 
   const institutions = [
-    { rank: 1, name: "ETH Zürich", country: "Switzerland", papers: 1240, citations: 18500, hIndex: 62, focus: "Bioprocess Engineering" },
-    { rank: 2, name: "Wageningen University", country: "Netherlands", papers: 1180, citations: 16200, hIndex: 58, focus: "Biomass Conversion" },
-    { rank: 3, name: "MIT", country: "United States", papers: 980, citations: 15800, hIndex: 55, focus: "Synthetic Biology" },
-    { rank: 4, name: "Technical University of Denmark", country: "Denmark", papers: 920, citations: 12400, hIndex: 51, focus: "Enzyme Technology" },
-    { rank: 5, name: "University of São Paulo", country: "Brazil", papers: 860, citations: 10800, hIndex: 47, focus: "Sugarcane Biorefineries" },
-    { rank: 6, name: "Chinese Academy of Sciences", country: "China", papers: 840, citations: 9600, hIndex: 44, focus: "Catalytic Processes" },
-    { rank: 7, name: "Imperial College London", country: "United Kingdom", papers: 780, citations: 11200, hIndex: 49, focus: "Green Chemistry" },
-    { rank: 8, name: "NREL", country: "United States", papers: 720, citations: 13400, hIndex: 52, focus: "Bioenergy Systems" },
+    { rank: 1, name: "ETH Zürich", country: "Switzerland", papers: 18, citations: 342, hIndex: 12, focus: "Bioprocess Engineering" },
+    { rank: 2, name: "Wageningen University", country: "Netherlands", papers: 16, citations: 298, hIndex: 11, focus: "Biomass Conversion" },
+    { rank: 3, name: "MIT", country: "United States", papers: 14, citations: 276, hIndex: 10, focus: "Synthetic Biology" },
+    { rank: 4, name: "Technical University of Denmark", country: "Denmark", papers: 12, citations: 218, hIndex: 9, focus: "Enzyme Technology" },
+    { rank: 5, name: "University of São Paulo", country: "Brazil", papers: 11, citations: 189, hIndex: 8, focus: "Sugarcane Biorefineries" },
+    { rank: 6, name: "Chinese Academy of Sciences", country: "China", papers: 10, citations: 164, hIndex: 7, focus: "Catalytic Processes" },
+    { rank: 7, name: "Imperial College London", country: "United Kingdom", papers: 9, citations: 152, hIndex: 7, focus: "Green Chemistry" },
+    { rank: 8, name: "NREL", country: "United States", papers: 8, citations: 141, hIndex: 6, focus: "Bioenergy Systems" },
   ];
 
   const researchTypes = [
@@ -80,114 +80,114 @@ const ScientificPublications = () => {
   }
 
   const feedstockHeatData: HeatCategory[] = [
-    { name: 'Lignocellulosic Biomass', total: 9800, values: [350, 380, 400, 420, 440], subItems: [
-      { name: 'Corn Stover', total: 3800, values: [140, 150, 160, 170, 175] },
-      { name: 'Wheat Straw', total: 3200, values: [120, 125, 130, 135, 140] },
-      { name: 'Wood Chips', total: 2800, values: [90, 105, 110, 115, 125] },
+    { name: 'Lignocellulosic Biomass', total: 52, values: [8, 9, 10, 12, 13], subItems: [
+      { name: 'Corn Stover', total: 20, values: [3, 4, 4, 5, 4] },
+      { name: 'Wheat Straw', total: 18, values: [3, 3, 3, 4, 5] },
+      { name: 'Wood Chips', total: 14, values: [2, 2, 3, 3, 4] },
     ]},
-    { name: 'Sugar Crops', total: 7200, values: [280, 300, 310, 330, 320], subItems: [
-      { name: 'Sugar Beet Pulp', total: 3100, values: [120, 130, 135, 145, 140] },
-      { name: 'Sugarcane Bagasse', total: 2400, values: [95, 100, 105, 110, 105] },
-      { name: 'Sweet Sorghum', total: 1700, values: [65, 70, 70, 75, 75] },
+    { name: 'Sugar Crops', total: 42, values: [7, 8, 8, 9, 10], subItems: [
+      { name: 'Sugar Beet Pulp', total: 18, values: [3, 3, 4, 4, 4] },
+      { name: 'Sugarcane Bagasse', total: 14, values: [2, 3, 3, 3, 3] },
+      { name: 'Sweet Sorghum', total: 10, values: [2, 2, 1, 2, 3] },
     ]},
-    { name: 'Starch Sources', total: 6500, values: [250, 260, 270, 290, 280], subItems: [
-      { name: 'Corn Starch', total: 2800, values: [110, 112, 115, 125, 120] },
-      { name: 'Potato Starch', total: 2000, values: [80, 82, 85, 90, 88] },
-      { name: 'Cassava Starch', total: 1700, values: [60, 66, 70, 75, 72] },
+    { name: 'Starch Sources', total: 38, values: [6, 7, 8, 8, 9], subItems: [
+      { name: 'Corn Starch', total: 16, values: [3, 3, 3, 4, 3] },
+      { name: 'Potato Starch', total: 12, values: [2, 2, 3, 2, 3] },
+      { name: 'Cassava Starch', total: 10, values: [1, 2, 2, 2, 3] },
     ]},
-    { name: 'Food Waste', total: 5800, values: [200, 220, 240, 250, 260], subItems: [
-      { name: 'Bread Waste', total: 2200, values: [75, 85, 92, 95, 100] },
-      { name: 'Fruit Pomace', total: 1900, values: [65, 72, 80, 82, 85] },
-      { name: 'Coffee Grounds', total: 1700, values: [60, 63, 68, 73, 75] },
+    { name: 'Food Waste', total: 33, values: [5, 6, 6, 8, 8], subItems: [
+      { name: 'Bread Waste', total: 13, values: [2, 2, 3, 3, 3] },
+      { name: 'Fruit Pomace', total: 11, values: [2, 2, 2, 3, 2] },
+      { name: 'Coffee Grounds', total: 9, values: [1, 2, 1, 2, 3] },
     ]},
-    { name: 'Algal Biomass', total: 4300, values: [180, 200, 210, 230, 220], subItems: [
-      { name: 'Microalgae', total: 2000, values: [85, 95, 100, 110, 105] },
-      { name: 'Macroalgae', total: 1300, values: [55, 60, 63, 68, 65] },
-      { name: 'Cyanobacteria', total: 1000, values: [40, 45, 47, 52, 50] },
+    { name: 'Algal Biomass', total: 24, values: [4, 4, 5, 5, 6], subItems: [
+      { name: 'Microalgae', total: 11, values: [2, 2, 2, 3, 2] },
+      { name: 'Macroalgae', total: 7, values: [1, 1, 2, 1, 2] },
+      { name: 'Cyanobacteria', total: 6, values: [1, 1, 1, 1, 2] },
     ]},
   ];
 
   const technologyHeatData: HeatCategory[] = [
-    { name: 'Fermentation', total: 12393, values: [300, 320, 340, 360, 350], subItems: [
-      { name: 'Batch Fermentation', total: 5200, values: [130, 135, 140, 150, 145] },
-      { name: 'Continuous Fermentation', total: 4200, values: [100, 110, 120, 125, 120] },
-      { name: 'Fed-batch Systems', total: 2993, values: [70, 75, 80, 85, 85] },
+    { name: 'Fermentation', total: 58, values: [9, 10, 12, 13, 14], subItems: [
+      { name: 'Batch Fermentation', total: 24, values: [4, 4, 5, 5, 6] },
+      { name: 'Continuous Fermentation', total: 20, values: [3, 3, 4, 5, 5] },
+      { name: 'Fed-batch Systems', total: 14, values: [2, 3, 3, 3, 3] },
     ]},
-    { name: 'Catalytic Conversion', total: 8393, values: [250, 260, 280, 270, 290], subItems: [
-      { name: 'Heterogeneous Catalysis', total: 3500, values: [105, 110, 118, 114, 122] },
-      { name: 'Homogeneous Catalysis', total: 2800, values: [85, 88, 95, 92, 98] },
-      { name: 'Biocatalysis', total: 2093, values: [60, 62, 67, 64, 70] },
+    { name: 'Catalytic Conversion', total: 42, values: [7, 8, 8, 9, 10], subItems: [
+      { name: 'Heterogeneous Catalysis', total: 18, values: [3, 3, 3, 4, 5] },
+      { name: 'Homogeneous Catalysis', total: 14, values: [2, 3, 3, 3, 3] },
+      { name: 'Biocatalysis', total: 10, values: [2, 2, 2, 2, 2] },
     ]},
-    { name: 'Extraction & Separation', total: 7800, values: [240, 250, 260, 275, 265], subItems: [
-      { name: 'Membrane Separation', total: 3100, values: [95, 100, 105, 110, 106] },
-      { name: 'Solvent Extraction', total: 2600, values: [82, 85, 88, 93, 90] },
-      { name: 'Distillation', total: 2100, values: [63, 65, 67, 72, 69] },
+    { name: 'Extraction & Separation', total: 36, values: [6, 7, 7, 8, 8], subItems: [
+      { name: 'Membrane Separation', total: 15, values: [2, 3, 3, 3, 4] },
+      { name: 'Solvent Extraction', total: 12, values: [2, 2, 2, 3, 3] },
+      { name: 'Distillation', total: 9, values: [2, 2, 2, 2, 1] },
     ]},
-    { name: 'Purification', total: 6200, values: [200, 215, 230, 245, 235], subItems: [
-      { name: 'Crystallisation', total: 2500, values: [80, 86, 92, 98, 94] },
-      { name: 'Chromatography', total: 2100, values: [68, 73, 78, 83, 80] },
-      { name: 'Ion Exchange', total: 1600, values: [52, 56, 60, 64, 61] },
+    { name: 'Purification', total: 30, values: [5, 5, 6, 7, 7], subItems: [
+      { name: 'Crystallisation', total: 12, values: [2, 2, 2, 3, 3] },
+      { name: 'Chromatography', total: 10, values: [2, 2, 2, 2, 2] },
+      { name: 'Ion Exchange', total: 8, values: [1, 1, 2, 2, 2] },
     ]},
-    { name: 'Enzymatic Hydrolysis', total: 5400, values: [180, 190, 200, 210, 205], subItems: [
-      { name: 'Cellulase Systems', total: 2200, values: [74, 78, 82, 86, 84] },
-      { name: 'Hemicellulase', total: 1800, values: [60, 63, 67, 70, 68] },
-      { name: 'Enzyme Cocktails', total: 1400, values: [46, 49, 51, 54, 53] },
+    { name: 'Enzymatic Hydrolysis', total: 23, values: [4, 4, 5, 5, 5], subItems: [
+      { name: 'Cellulase Systems', total: 10, values: [2, 2, 2, 2, 2] },
+      { name: 'Hemicellulase', total: 8, values: [1, 1, 2, 2, 2] },
+      { name: 'Enzyme Cocktails', total: 5, values: [1, 1, 1, 1, 1] },
     ]},
   ];
 
   const applicationHeatData: HeatCategory[] = [
-    { name: 'Bioplastics & Packaging', total: 8900, values: [320, 350, 380, 410, 400], subItems: [
-      { name: 'PLA Production', total: 3800, values: [135, 150, 162, 175, 170] },
-      { name: 'Bio-based Films', total: 2800, values: [100, 110, 120, 130, 127] },
-      { name: 'Biodegradable Packaging', total: 2300, values: [85, 90, 98, 105, 103] },
+    { name: 'Bioplastics & Packaging', total: 48, values: [7, 8, 10, 11, 12], subItems: [
+      { name: 'PLA Production', total: 21, values: [3, 4, 4, 5, 5] },
+      { name: 'Bio-based Films', total: 15, values: [2, 2, 3, 4, 4] },
+      { name: 'Biodegradable Packaging', total: 12, values: [2, 2, 3, 2, 3] },
     ]},
-    { name: 'Pharmaceuticals', total: 7100, values: [280, 300, 310, 330, 320], subItems: [
-      { name: 'Drug Intermediates', total: 3000, values: [118, 127, 131, 140, 135] },
-      { name: 'Excipients', total: 2200, values: [87, 93, 96, 102, 99] },
-      { name: 'Active Ingredients', total: 1900, values: [75, 80, 83, 88, 86] },
+    { name: 'Pharmaceuticals', total: 39, values: [6, 7, 8, 9, 9], subItems: [
+      { name: 'Drug Intermediates', total: 17, values: [3, 3, 3, 4, 4] },
+      { name: 'Excipients', total: 12, values: [2, 2, 3, 3, 2] },
+      { name: 'Active Ingredients', total: 10, values: [1, 2, 2, 2, 3] },
     ]},
-    { name: 'Food & Beverage', total: 6400, values: [240, 250, 260, 280, 270], subItems: [
-      { name: 'Food Additives', total: 2700, values: [102, 106, 110, 119, 115] },
-      { name: 'Fermented Foods', total: 2100, values: [79, 82, 86, 92, 89] },
-      { name: 'Preservatives', total: 1600, values: [59, 62, 64, 69, 66] },
+    { name: 'Food & Beverage', total: 35, values: [6, 6, 7, 8, 8], subItems: [
+      { name: 'Food Additives', total: 15, values: [2, 3, 3, 3, 4] },
+      { name: 'Fermented Foods', total: 11, values: [2, 2, 2, 3, 2] },
+      { name: 'Preservatives', total: 9, values: [2, 1, 2, 2, 2] },
     ]},
-    { name: 'Cosmetics & Personal Care', total: 5200, values: [200, 210, 220, 230, 240], subItems: [
-      { name: 'Skin Care Actives', total: 2200, values: [85, 89, 93, 97, 102] },
-      { name: 'Hair Care', total: 1700, values: [65, 69, 72, 76, 79] },
-      { name: 'Natural Fragrances', total: 1300, values: [50, 52, 55, 57, 59] },
+    { name: 'Cosmetics & Personal Care', total: 28, values: [4, 5, 5, 6, 8], subItems: [
+      { name: 'Skin Care Actives', total: 12, values: [2, 2, 2, 3, 3] },
+      { name: 'Hair Care', total: 9, values: [1, 2, 2, 2, 2] },
+      { name: 'Natural Fragrances', total: 7, values: [1, 1, 1, 1, 3] },
     ]},
-    { name: 'Construction Materials', total: 3800, values: [150, 160, 170, 180, 190], subItems: [
-      { name: 'Bio-based Adhesives', total: 1600, values: [63, 67, 72, 76, 80] },
-      { name: 'Insulation Materials', total: 1200, values: [48, 51, 54, 57, 60] },
-      { name: 'Composite Materials', total: 1000, values: [39, 42, 44, 47, 50] },
+    { name: 'Construction Materials', total: 18, values: [3, 3, 3, 4, 5], subItems: [
+      { name: 'Bio-based Adhesives', total: 8, values: [1, 1, 2, 2, 2] },
+      { name: 'Insulation Materials', total: 6, values: [1, 1, 1, 1, 2] },
+      { name: 'Composite Materials', total: 4, values: [1, 1, 0, 1, 1] },
     ]},
   ];
 
   const productHeatData: HeatCategory[] = [
-    { name: 'Organic Acids', total: 10200, values: [380, 400, 420, 440, 460], subItems: [
-      { name: 'Lactic Acid', total: 4200, values: [158, 165, 172, 180, 188] },
-      { name: 'Succinic Acid', total: 3400, values: [126, 133, 140, 147, 154] },
-      { name: 'Levulinic Acid', total: 2600, values: [96, 102, 108, 113, 118] },
+    { name: 'Organic Acids', total: 54, values: [8, 10, 11, 12, 13], subItems: [
+      { name: 'Lactic Acid', total: 23, values: [3, 4, 5, 5, 6] },
+      { name: 'Succinic Acid', total: 18, values: [3, 3, 4, 4, 4] },
+      { name: 'Levulinic Acid', total: 13, values: [2, 3, 2, 3, 3] },
     ]},
-    { name: 'Sugar Alcohols', total: 7800, values: [290, 310, 330, 350, 340], subItems: [
-      { name: 'Xylitol', total: 3200, values: [119, 127, 135, 143, 139] },
-      { name: 'Sorbitol', total: 2600, values: [97, 103, 110, 117, 114] },
-      { name: 'Mannitol', total: 2000, values: [74, 80, 85, 90, 87] },
+    { name: 'Sugar Alcohols', total: 41, values: [7, 8, 8, 9, 9], subItems: [
+      { name: 'Xylitol', total: 17, values: [3, 3, 3, 4, 4] },
+      { name: 'Sorbitol', total: 14, values: [2, 3, 3, 3, 3] },
+      { name: 'Mannitol', total: 10, values: [2, 2, 2, 2, 2] },
     ]},
-    { name: 'Platform Chemicals', total: 6200, values: [230, 245, 260, 275, 265], subItems: [
-      { name: 'Furfural', total: 2600, values: [96, 103, 109, 115, 111] },
-      { name: 'HMF', total: 2000, values: [74, 79, 84, 89, 86] },
-      { name: '5-ALA', total: 1600, values: [60, 63, 67, 71, 68] },
+    { name: 'Platform Chemicals', total: 34, values: [5, 6, 7, 8, 8], subItems: [
+      { name: 'Furfural', total: 14, values: [2, 3, 3, 3, 3] },
+      { name: 'HMF', total: 11, values: [2, 2, 2, 3, 2] },
+      { name: '5-ALA', total: 9, values: [1, 1, 2, 2, 3] },
     ]},
-    { name: 'Biopolymers', total: 5400, values: [200, 215, 230, 245, 235], subItems: [
-      { name: 'PHA', total: 2300, values: [85, 92, 98, 104, 100] },
-      { name: 'Cellulose Nanocrystals', total: 1800, values: [67, 72, 77, 82, 79] },
-      { name: 'Chitosan', total: 1300, values: [48, 51, 55, 59, 56] },
+    { name: 'Biopolymers', total: 28, values: [4, 5, 5, 6, 8], subItems: [
+      { name: 'PHA', total: 12, values: [2, 2, 2, 3, 3] },
+      { name: 'Cellulose Nanocrystals', total: 9, values: [1, 2, 2, 2, 2] },
+      { name: 'Chitosan', total: 7, values: [1, 1, 1, 1, 3] },
     ]},
-    { name: 'Biofuels', total: 4100, values: [150, 165, 175, 190, 180], subItems: [
-      { name: 'Bioethanol', total: 1800, values: [66, 73, 77, 84, 79] },
-      { name: 'Biodiesel', total: 1300, values: [48, 52, 56, 60, 57] },
-      { name: 'Biogas', total: 1000, values: [36, 40, 42, 46, 44] },
+    { name: 'Biofuels', total: 22, values: [3, 4, 4, 5, 6], subItems: [
+      { name: 'Bioethanol', total: 10, values: [1, 2, 2, 2, 3] },
+      { name: 'Biodiesel', total: 7, values: [1, 1, 1, 2, 2] },
+      { name: 'Biogas', total: 5, values: [1, 1, 1, 1, 1] },
     ]},
   ];
 
@@ -365,7 +365,7 @@ const ScientificPublications = () => {
                       <div className="flex items-center justify-between mb-1.5">
                         <div className="rounded-lg border border-border/40 bg-background px-2.5 py-1">
                           <span className="text-[8px] text-muted-foreground uppercase tracking-wide">Total: </span>
-                          <span className="text-[11px] font-bold text-foreground">54,600</span>
+                          <span className="text-[11px] font-bold text-foreground">189</span>
                         </div>
                         <Select value={timeRange} onValueChange={setTimeRange}>
                           <SelectTrigger className="h-6 w-auto text-[9px] border-border gap-1 px-1.5 py-0.5">
@@ -470,7 +470,7 @@ const ScientificPublications = () => {
                                 <td className="text-center py-[3px]">
                                   <div className="flex items-center justify-center gap-1">
                                     <div className="w-10 h-1 bg-muted rounded-full overflow-hidden">
-                                      <div className="h-full bg-foreground/60 rounded-full" style={{ width: `${inst.papers / 1240 * 100}%` }}></div>
+                                      <div className="h-full bg-foreground/60 rounded-full" style={{ width: `${inst.papers / 18 * 100}%` }}></div>
                                     </div>
                                     <span className="text-[10px] font-medium">{inst.papers.toLocaleString()}</span>
                                   </div>
@@ -478,7 +478,7 @@ const ScientificPublications = () => {
                                 <td className="text-center py-[3px]">
                                   <div className="flex items-center justify-center gap-1">
                                     <div className="w-10 h-1 bg-muted rounded-full overflow-hidden">
-                                      <div className="h-full bg-primary rounded-full" style={{ width: `${inst.citations / 18500 * 100}%` }}></div>
+                                      <div className="h-full bg-primary rounded-full" style={{ width: `${inst.citations / 342 * 100}%` }}></div>
                                     </div>
                                     <span className="text-[10px] text-primary font-medium">{inst.citations.toLocaleString()}</span>
                                   </div>
