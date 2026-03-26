@@ -832,7 +832,7 @@ const PatentLandscape = () => {
                 </button>
               </div>
             )}
-            <p className="text-[9px] text-muted-foreground mb-2 flex-shrink-0">{activeConfig.description(decodedTopic)}</p>
+            <p className="text-xs text-muted-foreground mb-2 flex-shrink-0">{activeConfig.description(decodedTopic)}</p>
 
             <div className="flex-1 overflow-y-auto max-h-[calc(100vh-200px)]">
                <div className="space-y-3">

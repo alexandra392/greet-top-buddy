@@ -9,8 +9,8 @@ const PathwayOpinionsTab = ({ pathwayId }: PathwayOpinionsTabProps) => {
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="mb-2 px-0.5 flex-shrink-0">
-        <h3 className="font-bold text-gray-900 text-sm leading-none mb-0.5">Collab</h3>
-        <p className="text-[11px] text-gray-500 leading-tight">
+        <h3 className="font-bold text-foreground text-sm leading-none mb-0.5">Collab</h3>
+        <p className="text-xs text-muted-foreground leading-tight">
           Share insights from your analysis and research findings with your team.
         </p>
       </div>
