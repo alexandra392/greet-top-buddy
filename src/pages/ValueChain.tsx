@@ -1687,6 +1687,54 @@ const ValueChain = () => {
 
                   })()}
 
+              {/* Opportunity Map */}
+              <div className="border border-border/60 rounded-lg p-4 space-y-3 bg-card/50 backdrop-blur-sm mt-4">
+              <div className="flex items-center">
+                <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Opportunity Map</h3>
+              </div>
+
+              {/* Category Tabs — pill style, exclude the anchor category */}
+              <div className="flex items-center bg-muted rounded-lg p-0.5">
+                {(() => {
+                  const allTabs = [
+                    { key: 'feedstocks' as const, icon: Sprout, label: 'Feedstocks', count: feedstockData.length },
+                    { key: 'technologies' as const, icon: Settings, label: 'Technologies', count: technologyData.reduce((sum, c) => sum + c.technologies.length, 0) },
+                    { key: 'products' as const, icon: Box, label: 'Products', count: scatterData.length },
+                    { key: 'applications' as const, icon: Target, label: 'Applications', count: marketDataDetail.reduce((sum, m) => sum + m.subcategories.length, 0) },
+                  ];
+                  const filteredTabs = allTabs.filter(tab => {
+                    if (isProductRoute && tab.key === 'products') return false;
+                    if (isFeedstockRoute && tab.key === 'feedstocks') return false;
+                    return true;
+                  });
+                  return filteredTabs.map((tab) =>
+                    <button
+                      key={tab.key}
+                      onClick={() => handleOpportunityTabChange(tab.key)}
+                      className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-medium transition-all ${
+                      opportunityTab === tab.key ?
+                      'bg-foreground text-background shadow-sm' :
+                      'text-muted-foreground hover:text-foreground'}`
+                      }>
+                      
+                  <tab.icon className="w-3.5 h-3.5" />
+                  <span>{tab.label}</span>
+                  <span className="text-[9px] font-normal">({tab.count})</span>
+                </button>
+                  );
+                })()}
+              </div>
+
+              {/* Content Area */}
+              <div className="min-h-[300px]">
+                {!opportunityTab &&
+                      <div className="flex flex-col items-center justify-center h-[350px] text-center px-8">
+                    <Settings className="w-8 h-8 text-muted-foreground/20 mb-3" />
+                    <h3 className="text-sm font-semibold text-foreground mb-1">Select a category to explore</h3>
+                    <p className="text-xs text-muted-foreground">Choose a tab above to view feedstocks, technologies, products, or applications.</p>
+                  </div>
+                }
+
                 {opportunityTab === 'technologies' &&
                       <TooltipProvider>
                   <div className="pt-2">
