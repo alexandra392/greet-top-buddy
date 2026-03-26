@@ -1658,10 +1658,11 @@ const ValueChain = () => {
                                   className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
                                 >
-                                  <div className="flex items-center justify-center relative w-7 h-7">
-                                    <Award className={`w-6 h-6 ${idx === 0 ? 'text-yellow-500' : idx === 1 ? 'text-gray-400' : 'text-amber-700'}`} />
-                                    <span className={`absolute text-[9px] font-black ${idx === 0 ? 'text-yellow-600' : idx === 1 ? 'text-gray-500' : 'text-amber-800'}`} style={{ top: '10px' }}>{idx + 1}</span>
-                                  </div>
+                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm ${
+                                    idx === 0 ? 'bg-gradient-to-br from-yellow-300 to-amber-500 text-amber-900' :
+                                    idx === 1 ? 'bg-gradient-to-br from-gray-200 to-gray-400 text-gray-700' :
+                                    'bg-gradient-to-br from-amber-300 to-orange-500 text-amber-900'
+                                  }`}>{idx + 1}</div>
                                   <div className="text-[10px] font-bold text-foreground text-center">{row.score}</div>
                                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                                    {parts[0] || '—'}
