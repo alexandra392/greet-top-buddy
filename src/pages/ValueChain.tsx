@@ -1762,16 +1762,16 @@ const ValueChain = () => {
                               const statusTag = getStatusTagStyle(tech.status);
                               return (
                                 <TableRow key={index} onClick={() => toggleOpportunityItem(tech.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(tech.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
-                                  <TableCell className="py-3 px-3">
+                                  <TableCell className="py-1.5 px-3">
                                     <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(tech.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
                                       {selectedOpportunityItems.has(tech.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-[10px] font-semibold text-foreground py-3">{tech.name}</TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{tech.category}</TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{tech.description}</TableCell>
-                                  <TableCell className="py-3">
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-1.5">{tech.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{tech.category}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{tech.description}</TableCell>
+                                  <TableCell className="py-1.5">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${statusTag}`}>{tech.status}</span>
                                   </TableCell>
                                 </TableRow>
