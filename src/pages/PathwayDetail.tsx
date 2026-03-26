@@ -395,7 +395,7 @@ const PathwayDetail = () => {
                 </div>
 
                 {/* Pathway flow row */}
-                <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-x-1.5">
+                <div className="grid grid-cols-[auto_1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-x-2">
                   {([
                     { label: 'Feedstock', value: currentFeedstock, type: 'feedstock' as const, isAnchor: category === 'Feedstock' },
                     { label: 'Process', value: currentTechnology, type: 'technology' as const, isAnchor: false },
@@ -403,12 +403,11 @@ const PathwayDetail = () => {
                     { label: 'Application', value: currentApplication, type: 'application' as const, isAnchor: false },
                   ]).map((node, pi) => (
                     <React.Fragment key={pi}>
-                      {pi > 0 && <ChevronRight className="w-3 h-3 text-muted-foreground/40 mt-2.5" />}
+                      {pi > 0 && <ChevronRight className="w-3 h-3 text-muted-foreground/40" />}
                       <div
                         onMouseEnter={() => setHoveredFlowType(node.type)}
                         onMouseLeave={() => setHoveredFlowType(null)}
                       >
-                        <span className="text-[8px] font-semibold text-muted-foreground uppercase tracking-wider block mb-0.5">{node.label}</span>
                         <PathwayFlowPopover
                           type={node.type}
                           data={flowPopoverData[node.type]}
@@ -416,8 +415,8 @@ const PathwayDetail = () => {
                           onSwap={(v) => handleSwap(node.type, v)}
                           onRestore={() => setSwaps(prev => { const next = { ...prev }; delete next[node.type]; return next; })}
                         >
-                          <div className={`rounded-md border shadow-sm px-1.5 py-1 transition-all ${node.isAnchor ? 'border-primary/50 bg-primary/10' : hoveredFlowType === node.type ? 'border-primary/40 bg-primary/5 ring-1 ring-primary/20' : 'border-border bg-card'}`}>
-                            <span className={`text-[10px] font-medium ${node.isAnchor ? 'text-primary' : 'text-foreground'}`}>{node.value}</span>
+                          <div className={`rounded-md border px-2 py-1 transition-all text-center ${node.isAnchor ? 'border-primary/50 bg-primary/10' : hoveredFlowType === node.type ? 'border-primary/40 bg-primary/5 ring-1 ring-primary/20' : 'border-border bg-muted/20'}`}>
+                            <span className={`text-[10px] font-medium truncate ${node.isAnchor ? 'text-primary' : 'text-foreground'}`}>{node.value}</span>
                           </div>
                         </PathwayFlowPopover>
                       </div>
