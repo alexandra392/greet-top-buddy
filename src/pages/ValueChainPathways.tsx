@@ -829,8 +829,8 @@ const ValueChainPathways = () => {
                       const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-700'];
                       return (
                         <div className="flex items-center justify-center relative">
-                          <Medal className={`w-5 h-5 ${medalColors[rowIndex]}`} />
-                          <span className={`absolute text-[7px] font-black ${medalColors[rowIndex]} mt-0.5`}>{rowIndex + 1}</span>
+                          <Medal className={`w-5 h-5 ${medalColors[filteredIndex]}`} />
+                          <span className={`absolute text-[7px] font-black ${medalColors[filteredIndex]} mt-0.5`}>{filteredIndex + 1}</span>
                         </div>
                       );
                     }
