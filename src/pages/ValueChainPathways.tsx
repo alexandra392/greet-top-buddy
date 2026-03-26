@@ -732,10 +732,10 @@ const ValueChainPathways = () => {
                 </PopoverContent>
               </Popover>
               {category === 'Feedstock' ? (
-                <span className="text-[8px] font-bold text-primary uppercase tracking-widest">Feedstock</span>
+                <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Feedstock</span>
               ) : (
                 <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
-                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                     <SelectValue placeholder="Feedstock" />
                   </SelectTrigger>
                   <SelectContent>
@@ -745,7 +745,7 @@ const ValueChainPathways = () => {
                 </Select>
               )}
               <Select value={processValueFilter} onValueChange={setProcessValueFilter}>
-                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                   <SelectValue placeholder="Process" />
                 </SelectTrigger>
                 <SelectContent>
@@ -754,10 +754,10 @@ const ValueChainPathways = () => {
                 </SelectContent>
               </Select>
               {isProductRoute ? (
-                <span className="text-[8px] font-bold text-primary uppercase tracking-widest">Product</span>
+                <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Product</span>
               ) : (
                 <Select value={productValueFilter} onValueChange={setProductValueFilter}>
-                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                     <SelectValue placeholder="Product" />
                   </SelectTrigger>
                   <SelectContent>
@@ -767,7 +767,7 @@ const ValueChainPathways = () => {
                 </Select>
               )}
               <Select value={applicationValueFilter} onValueChange={setApplicationValueFilter}>
-                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full">
+                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                   <SelectValue placeholder="Application" />
                 </SelectTrigger>
                 <SelectContent>
