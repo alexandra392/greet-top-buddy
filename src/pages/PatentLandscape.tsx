@@ -867,7 +867,7 @@ const PatentLandscape = () => {
                   <div className="bg-muted/30 border border-border/40 rounded-xl p-3">
                     <div className="mb-1.5">
                       <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Patent Trends</h3>
-                      <p className="text-[9px] text-muted-foreground leading-tight">This view highlights innovation intensity across key regions, helping you identify technological hotspots, potential IP barriers, and market leaders in circular feedstock development.</p>
+                      <p className="text-xs text-muted-foreground leading-tight">This view highlights innovation intensity across key regions, helping you identify technological hotspots, potential IP barriers, and market leaders in circular feedstock development.</p>
                     </div>
                     <div className="flex items-center justify-end mb-1.5">
                       <Select value={trendTimeRange} onValueChange={setTrendTimeRange}>
@@ -902,7 +902,7 @@ const PatentLandscape = () => {
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
                   <div className="mb-2">
                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Leading IP Holders</h3>
-                    <p className="text-[9px] text-muted-foreground">{activeConfig.developerDescription}</p>
+                    <p className="text-xs text-muted-foreground">{activeConfig.developerDescription}</p>
                   </div>
                    <div className="grid grid-cols-[1fr_auto_1fr] gap-4">
                      {[developers.slice(0, 5), developers.slice(5, 10)].map((col, colIdx) => (
