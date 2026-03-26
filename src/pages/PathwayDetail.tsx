@@ -539,7 +539,6 @@ const PathwayDetail = () => {
             
             {/* Right: Sidebar */}
             <div className="space-y-2.5">
-              <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Landscape Analytics</h3>
               <PathwayResourcesTab productName={topic ? decodeURIComponent(topic) : "Product"} pathwayNumber={pathwayNumber} showFooter={true} />
             </div>
           </div>
