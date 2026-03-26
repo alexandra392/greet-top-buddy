@@ -811,10 +811,8 @@ const PatentLandscape = () => {
       </div>
 
       <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0 flex flex-col">
-        <div className="mb-2 flex-shrink-0 flex items-baseline gap-3">
+        <div className="mb-2 flex-shrink-0">
           <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Patent Landscape: <span className="text-primary">{decodedTopic}</span></h2>
-          <span className="text-lg font-bold text-foreground">{activeConfig.totalPatents}</span>
-          <span className="text-[10px] text-muted-foreground -ml-2">total patents</span>
         </div>
 
         <Card className="bg-card border border-border/60 shadow-sm flex-1 min-w-0 flex flex-col">
@@ -842,6 +840,10 @@ const PatentLandscape = () => {
                 <div className="grid grid-cols-[150px_1fr] gap-2">
                   {/* Legend / Filter Panel */}
                   <div className="bg-muted/30 border border-border/40 rounded-xl p-3 flex flex-col">
+                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center mb-3">
+                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Patents</div>
+                      <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.totalPatents).toLocaleString()}</div>
+                    </div>
                     <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Filters</h4>
                     <div className="space-y-2.5">
                       <div>
