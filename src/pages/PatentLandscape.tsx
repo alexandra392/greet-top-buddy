@@ -22,7 +22,7 @@ const viewConfigs: Record<PatentView, {
   label: string;
   icon: typeof FlaskConical;
   description: (topic: string) => string;
-  trendData: {year: string;US: number;EU: number;Other: number;}[];
+  trendData: {year: string;Filed: number;Granted: number;Total: number;}[];
   cpcData: {code: string;name: string;count: number;color: string;}[];
   pieData: {name: string;value: number;fill: string;}[];
   patents: {title: string;company: string;filingYear: number;grantedYear: number | null;status: string;jurisdiction: number;}[];
@@ -53,16 +53,16 @@ const viewConfigs: Record<PatentView, {
     icon: Leaf,
     description: (topic) => `Patents related to the sourcing, preprocessing, and supply of biomass feedstocks for ${topic} production.`,
     trendData: [
-    { year: '2014', US: 10, EU: 18, Other: 6 },
-    { year: '2015', US: 13, EU: 22, Other: 8 },
-    { year: '2016', US: 16, EU: 27, Other: 10 },
-    { year: '2017', US: 19, EU: 32, Other: 12 },
-    { year: '2018', US: 23, EU: 37, Other: 15 },
-    { year: '2019', US: 28, EU: 42, Other: 18 },
-    { year: '2020', US: 35, EU: 52, Other: 24 },
-    { year: '2021', US: 48, EU: 65, Other: 32 },
-    { year: '2022', US: 58, EU: 78, Other: 40 },
-    { year: '2023', US: 68, EU: 92, Other: 48 }],
+    { year: '2014', Filed: 20, Granted: 14, Total: 34 },
+    { year: '2015', Filed: 25, Granted: 18, Total: 43 },
+    { year: '2016', Filed: 30, Granted: 23, Total: 53 },
+    { year: '2017', Filed: 36, Granted: 27, Total: 63 },
+    { year: '2018', Filed: 42, Granted: 33, Total: 75 },
+    { year: '2019', Filed: 48, Granted: 40, Total: 88 },
+    { year: '2020', Filed: 58, Granted: 53, Total: 111 },
+    { year: '2021', Filed: 72, Granted: 63, Total: 135 },
+    { year: '2022', Filed: 85, Granted: 78, Total: 163 },
+    { year: '2023', Filed: 98, Granted: 90, Total: 188 }],
 
     cpcData: [
     { code: "A", name: "Human Necessities", count: 72089, color: "bg-purple-500" },
@@ -160,16 +160,16 @@ const viewConfigs: Record<PatentView, {
     icon: Cpu,
     description: (topic) => `Patents related to conversion technologies, process engineering, and novel methods for ${topic} manufacturing.`,
     trendData: [
-    { year: '2014', US: 15, EU: 12, Other: 8 },
-    { year: '2015', US: 20, EU: 16, Other: 10 },
-    { year: '2016', US: 26, EU: 22, Other: 13 },
-    { year: '2017', US: 32, EU: 28, Other: 16 },
-    { year: '2018', US: 38, EU: 33, Other: 19 },
-    { year: '2019', US: 45, EU: 38, Other: 22 },
-    { year: '2020', US: 55, EU: 48, Other: 28 },
-    { year: '2021', US: 72, EU: 62, Other: 38 },
-    { year: '2022', US: 88, EU: 76, Other: 48 },
-    { year: '2023', US: 102, EU: 90, Other: 58 }],
+    { year: '2014', Filed: 22, Granted: 13, Total: 35 },
+    { year: '2015', Filed: 28, Granted: 18, Total: 46 },
+    { year: '2016', Filed: 36, Granted: 25, Total: 61 },
+    { year: '2017', Filed: 44, Granted: 32, Total: 76 },
+    { year: '2018', Filed: 52, Granted: 38, Total: 90 },
+    { year: '2019', Filed: 60, Granted: 45, Total: 105 },
+    { year: '2020', Filed: 72, Granted: 59, Total: 131 },
+    { year: '2021', Filed: 92, Granted: 72, Total: 164 },
+    { year: '2022', Filed: 108, Granted: 88, Total: 196 },
+    { year: '2023', Filed: 125, Granted: 102, Total: 227 }],
 
     cpcData: [
     { code: "A", name: "Human Necessities", count: 45230, color: "bg-purple-500" },
@@ -267,16 +267,16 @@ const viewConfigs: Record<PatentView, {
     icon: FlaskConical,
     description: (topic) => `Patents related to the production, extraction, and purification of ${topic} from biomass feedstocks.`,
     trendData: [
-    { year: '2014', US: 18, EU: 10, Other: 7 },
-    { year: '2015', US: 24, EU: 14, Other: 9 },
-    { year: '2016', US: 30, EU: 18, Other: 12 },
-    { year: '2017', US: 36, EU: 22, Other: 15 },
-    { year: '2018', US: 43, EU: 26, Other: 18 },
-    { year: '2019', US: 50, EU: 30, Other: 20 },
-    { year: '2020', US: 60, EU: 40, Other: 25 },
-    { year: '2021', US: 80, EU: 55, Other: 35 },
-    { year: '2022', US: 95, EU: 70, Other: 45 },
-    { year: '2023', US: 110, EU: 85, Other: 55 }],
+    { year: '2014', Filed: 20, Granted: 15, Total: 35 },
+    { year: '2015', Filed: 27, Granted: 20, Total: 47 },
+    { year: '2016', Filed: 34, Granted: 26, Total: 60 },
+    { year: '2017', Filed: 42, Granted: 31, Total: 73 },
+    { year: '2018', Filed: 50, Granted: 37, Total: 87 },
+    { year: '2019', Filed: 56, Granted: 44, Total: 100 },
+    { year: '2020', Filed: 68, Granted: 57, Total: 125 },
+    { year: '2021', Filed: 90, Granted: 72, Total: 162 },
+    { year: '2022', Filed: 108, Granted: 88, Total: 196 },
+    { year: '2023', Filed: 125, Granted: 105, Total: 230 }],
 
     cpcData: [
     { code: "A", name: "Human Necessities", count: 38420, color: "bg-purple-500" },
@@ -449,16 +449,16 @@ const viewConfigs: Record<PatentView, {
     icon: ShoppingBag,
     description: (topic) => `Patents related to the downstream use of ${topic} in end-market applications such as food, pharma, and materials.`,
     trendData: [
-    { year: '2014', US: 12, EU: 18, Other: 5 },
-    { year: '2015', US: 16, EU: 24, Other: 7 },
-    { year: '2016', US: 20, EU: 30, Other: 9 },
-    { year: '2017', US: 25, EU: 35, Other: 11 },
-    { year: '2018', US: 30, EU: 40, Other: 13 },
-    { year: '2019', US: 35, EU: 45, Other: 15 },
-    { year: '2020', US: 42, EU: 55, Other: 22 },
-    { year: '2021', US: 58, EU: 72, Other: 30 },
-    { year: '2022', US: 70, EU: 90, Other: 42 },
-    { year: '2023', US: 82, EU: 105, Other: 55 }],
+    { year: '2014', Filed: 18, Granted: 17, Total: 35 },
+    { year: '2015', Filed: 24, Granted: 23, Total: 47 },
+    { year: '2016', Filed: 30, Granted: 29, Total: 59 },
+    { year: '2017', Filed: 36, Granted: 35, Total: 71 },
+    { year: '2018', Filed: 42, Granted: 41, Total: 83 },
+    { year: '2019', Filed: 48, Granted: 47, Total: 95 },
+    { year: '2020', Filed: 60, Granted: 55, Total: 115 },
+    { year: '2021', Filed: 78, Granted: 68, Total: 146 },
+    { year: '2022', Filed: 95, Granted: 82, Total: 177 },
+    { year: '2023', Filed: 112, Granted: 98, Total: 210 }],
 
     cpcData: [
     { code: "A", name: "Human Necessities", count: 62340, color: "bg-purple-500" },
@@ -580,16 +580,16 @@ const viewConfigs: Record<PatentView, {
     icon: ShoppingBag,
     description: (topic) => `Patents related to the products and chemical derivatives produced from ${topic} through various conversion pathways.`,
     trendData: [
-    { year: '2014', US: 14, EU: 11, Other: 6 },
-    { year: '2015', US: 18, EU: 15, Other: 8 },
-    { year: '2016', US: 23, EU: 20, Other: 10 },
-    { year: '2017', US: 28, EU: 25, Other: 13 },
-    { year: '2018', US: 34, EU: 30, Other: 15 },
-    { year: '2019', US: 40, EU: 35, Other: 18 },
-    { year: '2020', US: 52, EU: 45, Other: 25 },
-    { year: '2021', US: 68, EU: 60, Other: 34 },
-    { year: '2022', US: 82, EU: 74, Other: 44 },
-    { year: '2023', US: 96, EU: 88, Other: 52 }],
+    { year: '2014', Filed: 18, Granted: 13, Total: 31 },
+    { year: '2015', Filed: 24, Granted: 17, Total: 41 },
+    { year: '2016', Filed: 30, Granted: 23, Total: 53 },
+    { year: '2017', Filed: 38, Granted: 28, Total: 66 },
+    { year: '2018', Filed: 45, Granted: 34, Total: 79 },
+    { year: '2019', Filed: 52, Granted: 41, Total: 93 },
+    { year: '2020', Filed: 65, Granted: 52, Total: 117 },
+    { year: '2021', Filed: 85, Granted: 68, Total: 153 },
+    { year: '2022', Filed: 102, Granted: 82, Total: 184 },
+    { year: '2023', Filed: 118, Granted: 96, Total: 214 }],
 
     cpcData: [
     { code: "A", name: "Human Necessities", count: 52140, color: "bg-purple-500" },
@@ -847,12 +847,12 @@ const PatentLandscape = () => {
                         <div className="space-y-1">
                           <label className="flex items-center gap-1.5 cursor-pointer">
                             <Checkbox defaultChecked className="h-3 w-3 border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background" />
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
                             <span className="text-[9px] text-foreground">Filed</span>
                           </label>
                           <label className="flex items-center gap-1.5 cursor-pointer">
                             <Checkbox defaultChecked className="h-3 w-3 border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background" />
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'hsl(142, 71%, 45%)' }} />
                             <span className="text-[9px] text-foreground">Granted</span>
                           </label>
                         </div>
@@ -860,7 +860,7 @@ const PatentLandscape = () => {
                       <div className="border-t border-border/40 pt-2.5">
                         <label className="flex items-center gap-1.5 cursor-pointer">
                           <Checkbox defaultChecked className="h-3 w-3 border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background" />
-                          <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#3b82f6' }} />
                           <span className="text-[9px] text-foreground font-medium">Total patents</span>
                         </label>
                       </div>
@@ -892,9 +892,9 @@ const PatentLandscape = () => {
                             <XAxis dataKey="year" tick={{ fontSize: 8, fill: 'hsl(var(--muted-foreground))' }} tickLine={false} axisLine={{ stroke: 'hsl(var(--border))' }} />
                             <YAxis tick={{ fontSize: 8, fill: 'hsl(var(--muted-foreground))' }} tickLine={false} axisLine={false} label={{ value: 'Number of patents', angle: -90, position: 'center', dx: -18, style: { fontSize: 7, fill: 'hsl(var(--muted-foreground))' } }} />
                             <Tooltip contentStyle={{ fontSize: 9, borderRadius: 6, border: '1px solid hsl(var(--border))', background: 'hsl(var(--card))', padding: '4px 8px' }} />
-                            <Line type="monotone" dataKey="US" stroke="#3b82f6" strokeWidth={1.5} dot={{ r: 2.5, fill: '#3b82f6', stroke: '#fff', strokeWidth: 1 }} name="US" />
-                            <Line type="monotone" dataKey="EU" stroke="hsl(var(--primary))" strokeWidth={1.5} dot={{ r: 2.5, fill: 'hsl(var(--primary))', stroke: '#fff', strokeWidth: 1 }} name="EU" />
-                            <Line type="monotone" dataKey="Other" stroke="#f59e0b" strokeWidth={1.5} dot={{ r: 2.5, fill: '#f59e0b', stroke: '#fff', strokeWidth: 1 }} name="Other" />
+                            <Line type="monotone" dataKey="Total" stroke="#3b82f6" strokeWidth={1.5} dot={{ r: 2.5, fill: '#3b82f6', stroke: '#fff', strokeWidth: 1 }} name="Total" />
+                            <Line type="monotone" dataKey="Granted" stroke="hsl(142 71% 45%)" strokeWidth={1.5} dot={{ r: 2.5, fill: 'hsl(142, 71%, 45%)', stroke: '#fff', strokeWidth: 1 }} name="Granted" />
+                            <Line type="monotone" dataKey="Filed" stroke="#f59e0b" strokeWidth={1.5} dot={{ r: 2.5, fill: '#f59e0b', stroke: '#fff', strokeWidth: 1 }} name="Filed" />
                           </LineChart>
                       </ResponsiveContainer>
                     </div>
