@@ -1742,7 +1742,7 @@ const ValueChain = () => {
                       <TooltipProvider>
                   <div className="pt-2">
                     <div className="w-full">
-                      <div className="flex flex-col overflow-hidden">
+                      <div className="flex flex-col overflow-hidden border border-border rounded-lg">
                         <Table>
                           <TableHeader>
                             <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
@@ -1767,10 +1767,10 @@ const ValueChain = () => {
                                       {selectedOpportunityItems.has(tech.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-xs font-semibold text-foreground py-3">{tech.name}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{tech.category}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{tech.description}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-3">{tech.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{tech.category}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{tech.description}</TableCell>
                                   <TableCell className="py-3">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${statusTag}`}>{tech.status}</span>
                                   </TableCell>
@@ -1804,7 +1804,7 @@ const ValueChain = () => {
                       <TooltipProvider>
                   <div className="pt-2">
                     <div className="w-full">
-                      <div className="flex flex-col overflow-hidden">
+                      <div className="flex flex-col overflow-hidden border border-border rounded-lg">
                         <Table>
                           <TableHeader>
                             <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
@@ -1833,11 +1833,11 @@ const ValueChain = () => {
                                       {selectedOpportunityItems.has(app.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-xs font-semibold text-foreground py-3">{app.name}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{app.category}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{(app as any).description || ''}</TableCell>
-                                  <TableCell className="text-xs font-semibold text-primary tabular-nums text-center py-3">{playerCount}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-3">{app.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{app.category}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{(app as any).description || ''}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums text-center py-3">{playerCount}</TableCell>
                                   <TableCell className="py-3">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${matBadge.bgClass} ${matBadge.textClass}`}>{app.maturity}</span>
                                   </TableCell>
@@ -1872,7 +1872,7 @@ const ValueChain = () => {
                       <TooltipProvider>
                   <div className="pt-2">
                     <div className="w-full">
-                      <div className="flex flex-col overflow-hidden">
+                      <div className="flex flex-col overflow-hidden border border-border rounded-lg">
                         <Table>
                           <TableHeader>
                             <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
@@ -1906,11 +1906,11 @@ const ValueChain = () => {
                                       {selectedOpportunityItems.has(product.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-xs font-semibold text-foreground py-3">{product.name}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{product.category}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">${product.marketSize}B</TableCell>
-                                  <TableCell className="text-xs font-semibold text-primary tabular-nums py-3">{product.marketGrowth}%</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-3">{product.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">{product.category}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-3">${product.marketSize}B</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums py-3">{product.marketGrowth}%</TableCell>
                                 </TableRow>
                               );
                             })}
