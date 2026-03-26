@@ -1524,9 +1524,9 @@ const ValueChain = () => {
 
                     // Feedstock-centric data: TRL vs Market Size of produced products from Fructose
                     const scatterPathwaysFeedstock = [
-                    { trl: 9, marketSize: 3.9, pathway: 'Fermentation > Lactic Acid > PLA Packaging', product: 'Lactic Acid', score: 91, cagr: 8.5 },
-                    { trl: 9, marketSize: 89.1, pathway: 'Yeast Fermentation > Ethanol > Biofuels', product: 'Ethanol', score: 88, cagr: 4.2 },
-                    { trl: 9, marketSize: 2.4, pathway: 'Hydrogenation > Sorbitol > Food Additive', product: 'Sorbitol', score: 85, cagr: 5.1 },
+                    { trl: 9, marketSize: 3.9, pathway: 'Homofermentation (Lactobacillus) > Lactic Acid > PLA Packaging', product: 'Lactic Acid', score: 95, cagr: 8.5 },
+                    { trl: 9, marketSize: 89.1, pathway: 'Homofermentation (Lactobacillus) > Lactic Acid > Food Acidulant', product: 'Lactic Acid', score: 92, cagr: 4.2 },
+                    { trl: 9, marketSize: 2.4, pathway: 'Homofermentation (Lactobacillus) > Lactic Acid > Skin Care (AHA)', product: 'Lactic Acid', score: 89, cagr: 5.1 },
                     { trl: 7, marketSize: 0.6, pathway: 'Acid Dehydration > HMF > Platform Chemical', product: 'HMF', score: 72, cagr: 18.5 },
                     { trl: 6, marketSize: 0.8, pathway: 'Dehydration + Hydrogenation > Levulinic Acid > Green Solvents', product: 'Levulinic Acid', score: 68, cagr: 12.3 },
                     { trl: 6, marketSize: 0.5, pathway: 'Fermentation > Succinic Acid > Biodegradable Polymers', product: 'Succinic Acid', score: 65, cagr: 11.8 },
