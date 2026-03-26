@@ -692,7 +692,7 @@ const ValueChainPathways = () => {
             </div>
 
             {/* Table Header */}
-            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
