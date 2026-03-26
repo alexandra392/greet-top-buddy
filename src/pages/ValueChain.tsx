@@ -1741,6 +1741,74 @@ const ValueChain = () => {
                   </div>
                 }
 
+                {opportunityTab === 'feedstocks' &&
+                      <TooltipProvider>
+                  <div className="pt-2">
+                    <div className="w-full">
+                      <div className="flex flex-col overflow-hidden border border-border rounded-lg">
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
+                              <TableHead className="w-8 py-2.5 px-3"></TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Feedstock</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'quantity') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('quantity'); setFeedstockSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Quantity {feedstockSortKey === 'quantity' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Price {feedstockSortKey === 'price' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'status') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('status'); setFeedstockSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Status {feedstockSortKey === 'status' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {currentFeedstocks.map((feedstock, index) => {
+                              const rank = startFeedstockIndex + index + 1;
+                              const statusTag = getStatusTagStyle(feedstock.maturity);
+                              return (
+                                <TableRow key={index} onClick={() => toggleOpportunityItem(feedstock.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(feedstock.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
+                                  <TableCell className="py-1.5 px-3">
+                                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(feedstock.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
+                                      {selectedOpportunityItems.has(feedstock.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-1.5">{feedstock.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.categories[0]}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.quantity}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.price}</TableCell>
+                                  <TableCell className="py-1.5">
+                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${statusTag}`}>{feedstock.maturity}</span>
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
+
+                        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border">
+                          <span className="text-xs text-muted-foreground">
+                            {startFeedstockIndex + 1}-{Math.min(endFeedstockIndex, filteredFeedstockData.length)} of {filteredFeedstockData.length}
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <Button variant="outline" size="sm" onClick={handlePreviousFeedstockPage} disabled={currentFeedstockPage === 1} className="h-7 w-7 p-0">
+                              <ChevronLeft className="w-3.5 h-3.5" />
+                            </Button>
+                            <span className="text-xs text-muted-foreground">Page {currentFeedstockPage} of {totalFeedstockPages}</span>
+                            <Button variant="outline" size="sm" onClick={handleNextFeedstockPage} disabled={currentFeedstockPage === totalFeedstockPages} className="h-7 w-7 p-0">
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </TooltipProvider>
+                      }
+
                 {opportunityTab === 'technologies' &&
                       <TooltipProvider>
                   <div className="pt-2">
