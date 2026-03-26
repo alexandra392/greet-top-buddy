@@ -1658,25 +1658,25 @@ const ValueChain = () => {
                                   className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
                                 >
-                                  <div className="flex items-center justify-center relative w-6 h-6">
-                                    <Award className={`w-5 h-5 ${idx === 0 ? 'text-amber-500' : idx === 1 ? 'text-slate-400' : 'text-orange-500'}`} />
-                                    <span className={`absolute top-[7px] left-1/2 -translate-x-1/2 text-[7px] font-black ${idx === 0 ? 'text-amber-500' : idx === 1 ? 'text-slate-400' : 'text-orange-500'}`}>{idx + 1}</span>
+                                  <div className="flex items-center justify-center relative w-7 h-7">
+                                    <Award className={`w-6 h-6 ${idx === 0 ? 'text-yellow-500' : idx === 1 ? 'text-gray-400' : 'text-amber-700'}`} />
+                                    <span className={`absolute text-[9px] font-black ${idx === 0 ? 'text-yellow-600' : idx === 1 ? 'text-gray-500' : 'text-amber-800'}`} style={{ top: '10px' }}>{idx + 1}</span>
                                   </div>
-                                  <div className="text-xs font-bold text-foreground text-center">{row.score}</div>
-                                 <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                                  <div className="text-[10px] font-bold text-foreground text-center">{row.score}</div>
+                                 <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                                    {parts[0] || '—'}
                                  </div>
-                                 <div className="text-xs font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                                 <div className="text-[10px] font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
                                    {parts[1] || '—'}
                                  </div>
-                                 <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorProduct ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                                 <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorProduct ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                                    {parts[2] || '—'}
                                  </div>
-                                 <div className="text-xs text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                                 <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
                                    {parts[3] || '—'}
                                  </div>
-                                 <div className="text-xs font-medium text-blue-600 text-center">{researchScore}</div>
-                                 <div className={`text-xs font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
+                                 <div className="text-[10px] font-medium text-blue-600 text-center">{researchScore}</div>
+                                 <div className={`text-[10px] font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
                                  <div className="text-center">
                                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
                                      {stageLabel}
