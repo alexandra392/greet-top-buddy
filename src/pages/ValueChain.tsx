@@ -1683,10 +1683,9 @@ const ValueChain = () => {
                            })}
                          </div>
                        </div>
-                    </div>
-                  </div>
-                  </TooltipProvider>
-                      }
+                    </div>);
+
+                  })()}
 
                 {opportunityTab === 'technologies' &&
                       <TooltipProvider>
