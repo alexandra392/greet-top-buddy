@@ -1626,8 +1626,8 @@ const ValueChain = () => {
                          <p className="text-xs text-muted-foreground leading-relaxed">Ranked by <span className="font-semibold text-foreground">VCG Score</span>. Click on any pathway to explore its full profile.</p>
                          
                          {/* Table header */}
-                         <div className="grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">VCG</span>
+                         <div className="grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
@@ -1655,10 +1655,15 @@ const ValueChain = () => {
                              return (
                                <div
                                  key={idx}
-                                 className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
-                                 onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
-                               >
-                                 <div className="text-xs font-bold text-foreground text-center">{row.score}</div>
+                                  className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
+                                  onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
+                                >
+                                  <div className="flex items-center justify-center">
+                                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${idx === 0 ? 'bg-amber-100 text-amber-700' : idx === 1 ? 'bg-slate-100 text-slate-600' : 'bg-orange-100 text-orange-700'}`}>
+                                      {idx + 1}
+                                    </span>
+                                  </div>
+                                  <div className="text-xs font-bold text-foreground text-center">{row.score}</div>
                                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                                    {parts[0] || '—'}
                                  </div>
