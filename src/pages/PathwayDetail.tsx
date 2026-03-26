@@ -345,6 +345,18 @@ const PathwayDetail = () => {
           <div className="min-w-0">
               <div className="border border-border rounded-xl bg-card p-5 shadow-sm flex flex-col gap-3 h-full">
               <div className="border border-border rounded-lg bg-card shadow-sm">
+                {/* Header row */}
+                <div className="px-3 py-1.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+                  <span></span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">VCG</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Feedstock</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Process</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Product</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Application</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Research</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">IP</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">TRL</span>
+                </div>
                 {/* Single row matching table format */}
                 {(() => {
                   const score = Math.max(20, 95 - (parseInt(pathwayId || "0")) * 3);
