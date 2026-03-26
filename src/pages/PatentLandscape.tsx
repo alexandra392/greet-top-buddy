@@ -1091,7 +1091,7 @@ const PatentLandscape = () => {
                     <div className="grid gap-4" style={{ gridTemplateColumns: '1fr auto' }}>
                       <div className="space-y-1.5">
                         {cpcCategories.map((cat, index) =>
-                        <div key={index} className="flex items-center justify-between px-3 py-2.5 border border-border/40 rounded-lg">
+                        <div key={index} className="flex items-center justify-between px-3 py-2.5 border border-border/40 rounded-lg cursor-pointer hover:bg-muted/40 transition-colors" onClick={() => setSelectedCategory({ name: `${cat.code} – ${cat.name}`, patents: cat.count, share: `${Math.round(cat.count / Number(activeConfig.totalPatents) * 100)}%`, cagr: '', subs: [{ n: cat.name, v: cat.count }] })}>
                             <div className="flex items-center gap-2.5">
                               <span className="text-[10px] font-bold text-foreground border border-border rounded px-1.5 py-0.5 min-w-[22px] text-center">{cat.code}</span>
                               <span className="text-[11px] text-foreground">{cat.name}</span>
