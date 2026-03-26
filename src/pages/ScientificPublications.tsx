@@ -419,9 +419,6 @@ const ScientificPublications = () => {
                   </div>
                 </div>
 
-                {/* Distribution Bar Charts */}
-                {sections.map(renderDistributionBars)}
-
                 {/* Trending Topic */}
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
                   <div className="mb-2">
@@ -444,6 +441,9 @@ const ScientificPublications = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Distribution Bar Charts */}
+                {sections.map(renderDistributionBars)}
 
                 {/* Leading Research Institutions */}
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
