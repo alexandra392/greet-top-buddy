@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, FolderOpen, Settings, TestTube, Zap, Box, UtensilsCrossed, GitBranch, Beaker, Package, Folder, Fuel, Wheat, Layers, Leaf, Tractor, Sparkles, Pill, FlaskConical, Search, SortAsc, BarChart3, Eye, EyeOff, GitCompare, X, Info, Trees, Sprout, Factory, Trash2, ArrowUpDown, ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Lightbulb, FileText, Scale, TrendingUp, Download, Star, CheckCircle2, AlertCircle, MapPin, Globe, BookOpen, Trophy, Award, Medal, Check, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, FolderOpen, Settings, TestTube, Zap, Box, UtensilsCrossed, GitBranch, Beaker, Package, Folder, Fuel, Wheat, Layers, Leaf, Tractor, Sparkles, Pill, FlaskConical, Search, SortAsc, BarChart3, Eye, EyeOff, GitCompare, X, Info, Trees, Sprout, Factory, Trash2, ArrowUpDown, ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Lightbulb, FileText, Scale, TrendingUp, Download, Star, CheckCircle2, AlertCircle, MapPin, Globe, BookOpen, Award, Check, Target } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ReferenceArea, ComposedChart, Bar, Area, BarChart } from 'recharts';
 import ProductTable from '@/components/ProductTable';
 import PathwayChat from '@/components/PathwayChat';
@@ -1658,8 +1658,9 @@ const ValueChain = () => {
                                   className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
                                 >
-                                  <div className="flex items-center justify-center">
-                                    {idx === 0 ? <Trophy className="w-4 h-4 text-amber-500" /> : idx === 1 ? <Medal className="w-4 h-4 text-slate-400" /> : <Award className="w-4 h-4 text-orange-400" />}
+                                  <div className="flex items-center justify-center relative w-6 h-6">
+                                    <Award className={`w-5 h-5 ${idx === 0 ? 'text-amber-500' : idx === 1 ? 'text-slate-400' : 'text-orange-500'}`} />
+                                    <span className={`absolute top-[7px] left-1/2 -translate-x-1/2 text-[7px] font-black ${idx === 0 ? 'text-amber-500' : idx === 1 ? 'text-slate-400' : 'text-orange-500'}`}>{idx + 1}</span>
                                   </div>
                                   <div className="text-xs font-bold text-foreground text-center">{row.score}</div>
                                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
