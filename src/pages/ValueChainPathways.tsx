@@ -647,16 +647,22 @@ const ValueChainPathways = () => {
               })}
             </div>
 
-            {/* Search + Sort */}
+            {/* Tabs: All / Shortlisted */}
             <div className="flex items-center gap-3 mb-2">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-                <Input
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search pathways..."
-                  className="pl-8 h-7 text-[10px] bg-background"
-                />
+              <div className="flex items-center bg-muted rounded-lg p-0.5">
+                <button
+                  onClick={() => setActiveTab('all')}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${activeTab === 'all' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  All ({allPathways.length})
+                </button>
+                <button
+                  onClick={() => setActiveTab('saved')}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${activeTab === 'saved' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  <Bookmark className="w-3 h-3" />
+                  Shortlisted ({savedPathways.size})
+                </button>
               </div>
               <Select value={sortBy} onValueChange={(v) => setSortBy(v as 'vcg' | 'research' | 'ip' | 'trl')}>
                 <SelectTrigger className="ml-auto h-6 w-auto text-[9px] text-muted-foreground gap-1 px-2 border-border">
@@ -672,22 +678,16 @@ const ValueChainPathways = () => {
               </Select>
             </div>
 
-            {/* Tabs: All / Shortlisted */}
-            <div className="flex items-center gap-3 mb-2">
-              <div className="flex items-center bg-muted rounded-md p-0.5">
-                <button
-                  onClick={() => setActiveTab('all')}
-                  className={`flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-medium transition-all ${activeTab === 'all' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  All ({allPathways.length})
-                </button>
-                <button
-                  onClick={() => setActiveTab('saved')}
-                  className={`flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-medium transition-all ${activeTab === 'saved' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
-                >
-                  <Bookmark className="w-2.5 h-2.5" />
-                  Shortlisted ({savedPathways.size})
-                </button>
+            {/* Search */}
+            <div className="mb-2">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
+                <Input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search pathways..."
+                  className="pl-7 h-6 text-[9px] bg-background"
+                />
               </div>
             </div>
 
