@@ -405,9 +405,13 @@ const ScientificPublications = () => {
                       </div>
                     </div>
                     <div className="flex-[2] space-y-2">
-                      <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">🔥 Trending Topics</div>
+                      <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Trending Topics</div>
                       {topTrending.map((t, i) => (
-                        <div key={t.topic.name} className="rounded-lg border border-border/40 bg-background p-2.5">
+                        <div
+                          key={t.topic.name}
+                          className="rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:bg-muted/30 transition-colors"
+                          onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
+                        >
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex-1 min-w-0">
                               <div className="text-[11px] font-bold text-foreground">{t.topic.name}</div>
