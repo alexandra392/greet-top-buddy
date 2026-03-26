@@ -1659,9 +1659,7 @@ const ValueChain = () => {
                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
                                 >
                                   <div className="flex items-center justify-center">
-                                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${idx === 0 ? 'bg-amber-100 text-amber-700' : idx === 1 ? 'bg-slate-100 text-slate-600' : 'bg-orange-100 text-orange-700'}`}>
-                                      {idx + 1}
-                                    </span>
+                                    {idx === 0 ? <Trophy className="w-4 h-4 text-amber-500" /> : idx === 1 ? <Medal className="w-4 h-4 text-slate-400" /> : <Award className="w-4 h-4 text-orange-400" />}
                                   </div>
                                   <div className="text-xs font-bold text-foreground text-center">{row.score}</div>
                                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
