@@ -122,146 +122,122 @@ export default function ValueChainPathwaysFunnel() {
   };
 
   return (
-    <div className="h-screen bg-background overflow-hidden">
-      <div className="h-full pt-4 px-4 pb-4 max-w-[1600px] mx-auto flex flex-col">
-        <div className="w-full flex flex-col" style={{ height: 'calc(100% - 0px)' }}>
-          {/* Header */}
-          <div className="flex gap-4 mb-4 flex-shrink-0">
-            <div className="flex-1">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => navigate(`/landscape/${category}/${topic}/value-chain`)}
-                className="gap-1.5 h-7 text-xs"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                Back
-              </Button>
-            </div>
-            <div className="flex gap-2">
-              <Button 
-                onClick={handleNext}
-                className="flex items-center gap-2 h-9 bg-green-600 hover:bg-green-700 text-white"
-              >
-                Next
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
+    <div className="h-full bg-background flex flex-col">
+      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => navigate(`/landscape/${category}/${topic}/value-chain`)}
+          className="gap-1.5 h-7 text-xs"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Back
+        </Button>
+        <Button 
+          onClick={handleNext}
+          className="flex items-center gap-2 h-8 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+        >
+          Next
+          <ArrowRight className="w-4 h-4" />
+        </Button>
+      </div>
 
-          {/* Main Content */}
-          <div className="flex gap-4 relative w-full" style={{ height: 'calc(100vh - 158px)', maxWidth: '1400px', margin: '0 auto' }}>
-            <div className="flex-1 flex flex-col gap-4" style={{ height: 'calc(100vh - 158px)' }}>
-              {/* Main white box - Funnel Chart */}
-              <Card className="bg-white border-2 border-gray-200 shadow-sm rounded-lg overflow-hidden" style={{ height: 'calc(100vh - 158px)' }}>
-                <CardContent className="py-4" style={{ paddingLeft: '21.5px', paddingRight: '21.5px' }}>
-                  <div className="space-y-2">
-                    <div>
-                      <h2 className="text-base font-bold text-gray-900">
-                        Valorisation Pathways for {decodedTopic}
-                      </h2>
-                    </div>
+      <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0 flex flex-col">
+        <div className="mb-2 flex-shrink-0">
+          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Portfolio: <span className="text-primary">{decodedTopic}</span></h2>
+        </div>
 
-                    {/* Portfolio Funnel Chart */}
-                    <PortfolioFunnelChart 
-                      pathways={allPathways} 
-                      selectedStage={selectedFunnelStage}
-                      onStageSelect={setSelectedFunnelStage}
-                    />
+        <div className="flex gap-4 flex-1 min-h-0">
+          <div className="flex-1 flex flex-col gap-4 min-w-0 overflow-y-auto">
+            <Card className="bg-card border border-border/60 shadow-sm">
+              <CardContent className="px-5 py-4">
+                <div className="space-y-2">
+                  <h2 className="text-base font-bold text-foreground">
+                    Valorisation Pathways for {decodedTopic}
+                  </h2>
+                  <PortfolioFunnelChart 
+                    pathways={allPathways} 
+                    selectedStage={selectedFunnelStage}
+                    onStageSelect={setSelectedFunnelStage}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {selectedFunnelStage && (
+              <Card className="bg-card border border-border/60 shadow-sm animate-in slide-in-from-top duration-300">
+                <CardContent className="px-5 py-4">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-foreground mb-1">
+                      {selectedFunnelStage} Stage Pathways
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Detailed breakdown of pathways at the {selectedFunnelStage.toLowerCase()} development stage
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 gap-3 max-h-96 overflow-y-auto pr-2">
+                    {allPathways
+                      .filter(pathway => {
+                        const trlNumber = parseInt(pathway.trl.replace('TRL ', ''));
+                        if (selectedFunnelStage === 'Commercial') return trlNumber === 9;
+                        if (selectedFunnelStage === 'Pilot') return trlNumber >= 7 && trlNumber <= 8;
+                        if (selectedFunnelStage === 'Lab') return trlNumber >= 4 && trlNumber <= 6;
+                        if (selectedFunnelStage === 'R&D') return trlNumber >= 1 && trlNumber <= 3;
+                        return false;
+                      })
+                      .map((pathway, idx) => (
+                        <Card key={idx} className="p-4 hover:shadow-md transition-shadow bg-muted/30 border border-border/60">
+                          <div className="space-y-2">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-xs font-semibold px-2 py-1 rounded bg-primary/10 text-primary">
+                                    {parseInt(pathway.trl.replace('TRL ', '')) >= 8 ? 'Commercial' : parseInt(pathway.trl.replace('TRL ', '')) >= 6 ? 'Pilot' : parseInt(pathway.trl.replace('TRL ', '')) >= 4 ? 'Lab' : 'R&D'}
+                                  </span>
+                                  {pathway.patents && (
+                                    <span className="text-xs font-medium text-muted-foreground">{pathway.patents}</span>
+                                  )}
+                                </div>
+                                <h4 className="font-semibold text-sm text-foreground mb-1">
+                                  {pathway.feedstock} → {pathway.product}
+                                </h4>
+                                <p className="text-xs text-muted-foreground mb-1">
+                                  <span className="font-medium">Technology:</span> {pathway.technology}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  <span className="font-medium">Application:</span> {pathway.application}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex flex-wrap gap-1 mt-2">
+                              {[pathway.category1, pathway.category2, pathway.category3, pathway.category4].map((cat, i) => (
+                                <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{cat}</span>
+                              ))}
+                            </div>
+                          </div>
+                        </Card>
+                      ))
+                    }
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Detailed Pathways View - Separate white box below */}
-              {selectedFunnelStage && (
-                <Card className="bg-white border-2 border-gray-200 shadow-sm rounded-lg overflow-hidden animate-in slide-in-from-top duration-300">
-                  <CardContent className="py-4" style={{ paddingLeft: '21.5px', paddingRight: '21.5px' }}>
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">
-                        {selectedFunnelStage} Stage Pathways
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        Detailed breakdown of pathways at the {selectedFunnelStage.toLowerCase()} development stage
-                      </p>
-                    </div>
-
-                    {/* Pathways Grid */}
-                    <div className="grid grid-cols-1 gap-3 max-h-96 overflow-y-auto pr-2">
-                      {allPathways
-                        .filter(pathway => {
-                          const trlNumber = parseInt(pathway.trl.replace('TRL ', ''));
-                          if (selectedFunnelStage === 'Commercial') return trlNumber === 9;
-                          if (selectedFunnelStage === 'Pilot') return trlNumber >= 7 && trlNumber <= 8;
-                          if (selectedFunnelStage === 'Lab') return trlNumber >= 4 && trlNumber <= 6;
-                          if (selectedFunnelStage === 'R&D') return trlNumber >= 1 && trlNumber <= 3;
-                          return false;
-                        })
-                        .map((pathway, idx) => (
-                          <Card key={idx} className="p-4 hover:shadow-md transition-shadow bg-gradient-to-r from-gray-50 to-white border border-gray-200">
-                            <div className="space-y-2">
-                              <div className="flex items-start justify-between gap-2">
-                                <div className="flex-1">
-                                   <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-xs font-semibold px-2 py-1 rounded bg-green-100 text-green-800">
-                                      {parseInt(pathway.trl.replace('TRL ', '')) >= 8 ? 'Commercial' : parseInt(pathway.trl.replace('TRL ', '')) >= 6 ? 'Pilot' : parseInt(pathway.trl.replace('TRL ', '')) >= 4 ? 'Lab' : 'R&D'}
-                                    </span>
-                                    {pathway.patents && (
-                                      <span className="text-xs font-medium text-gray-600">
-                                        {pathway.patents}
-                                      </span>
-                                    )}
-                                  </div>
-                                  <h4 className="font-semibold text-sm text-gray-900 mb-1">
-                                    {pathway.feedstock} → {pathway.product}
-                                  </h4>
-                                  <p className="text-xs text-gray-700 mb-1">
-                                    <span className="font-medium">Technology:</span> {pathway.technology}
-                                  </p>
-                                  <p className="text-xs text-gray-700">
-                                    <span className="font-medium">Application:</span> {pathway.application}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex flex-wrap gap-1 mt-2">
-                                {[pathway.category1, pathway.category2, pathway.category3, pathway.category4].map((cat, i) => (
-                                  <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                                    {cat}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </Card>
-                        ))
-                      }
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-
-            {/* Resources & Opinions Panel - Outside white box, floating on the right */}
-            <Card className="bg-white border border-gray-200 shadow-md rounded-lg p-4 w-80 flex-shrink-0 flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 158px)' }}>
-              <Tabs defaultValue="resources" className="flex flex-col h-full">
-                <TabsList className="grid w-full grid-cols-2 mb-3">
-                  <TabsTrigger value="resources">Resources</TabsTrigger>
-                  <TabsTrigger 
-                    value="opinions" 
-                    className="bg-green-50 text-green-700 data-[state=active]:bg-green-100 data-[state=active]:text-green-800"
-                  >
-                    Collab
-                  </TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="resources" className="flex-1 overflow-y-auto mt-0">
-                  <PathwayResourcesTab productName={decodedTopic} />
-                </TabsContent>
-                
-                <TabsContent value="opinions" className="flex-1 overflow-hidden mt-0">
-                  <PathwayOpinionsTab pathwayId={`${category}-${topic}`} />
-                </TabsContent>
-              </Tabs>
-            </Card>
+            )}
           </div>
+
+          <Card className="bg-card border border-border/60 shadow-sm p-4 w-72 flex-shrink-0 flex flex-col overflow-hidden">
+            <Tabs defaultValue="resources" className="flex flex-col h-full">
+              <TabsList className="grid w-full grid-cols-2 mb-3">
+                <TabsTrigger value="resources">Resources</TabsTrigger>
+                <TabsTrigger value="opinions">Collab</TabsTrigger>
+              </TabsList>
+              <TabsContent value="resources" className="flex-1 overflow-y-auto mt-0">
+                <PathwayResourcesTab productName={decodedTopic} />
+              </TabsContent>
+              <TabsContent value="opinions" className="flex-1 overflow-hidden mt-0">
+                <PathwayOpinionsTab pathwayId={`${category}-${topic}`} />
+              </TabsContent>
+            </Tabs>
+          </Card>
         </div>
       </div>
     </div>

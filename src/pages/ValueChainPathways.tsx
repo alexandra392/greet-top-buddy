@@ -577,7 +577,7 @@ const ValueChainPathways = () => {
         {/* Two-column layout: Page card + Filter sidebar */}
         <div className="grid gap-5" style={{ gridTemplateColumns: '1fr 280px', rowGap: '12px' }}>
           {/* ROW 1: Titles - sticky */}
-          <div className="col-span-2 grid gap-5 sticky top-12 z-20 bg-background py-2 -mx-6 px-6" style={{ gridTemplateColumns: '1fr 280px' }}>
+          <div className="col-span-2 grid gap-5 bg-background" style={{ gridTemplateColumns: '1fr 280px' }}>
             <div>
               <h1 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Explorer</h1>
             </div>
