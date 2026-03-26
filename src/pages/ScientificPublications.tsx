@@ -212,24 +212,19 @@ const ScientificPublications = () => {
   const [selectedCategory, setSelectedCategory] = useState<{ name: string; total: number; subs: { name: string; total: number }[] } | null>(null);
   const [selectedPublicationDetail, setSelectedPublicationDetail] = useState<typeof publications[0] | null>(null);
 
-  // Trending topic: find the topic with highest citation growth
-  const getTrendingTopic = () => {
+  // Top 3 trending topics by YoY citation growth
+  const getTopTrendingTopics = () => {
     const activeData = isFeedstockRoute ? technologyHeatData : feedstockHeatData;
-    let bestGrowth = -Infinity;
-    let bestTopic = activeData[0];
-    for (const cat of activeData) {
+    const withGrowth = activeData.map(cat => {
       const lastYear = cat.values[cat.values.length - 1];
       const prevYear = cat.values[cat.values.length - 2];
       const growth = prevYear > 0 ? ((lastYear - prevYear) / prevYear) * 100 : 0;
-      if (growth > bestGrowth) {
-        bestGrowth = growth;
-        bestTopic = cat;
-      }
-    }
-    return { topic: bestTopic, growth: bestGrowth };
+      return { topic: cat, growth };
+    });
+    return withGrowth.sort((a, b) => b.growth - a.growth).slice(0, 3);
   };
 
-  const trending = getTrendingTopic();
+  const topTrending = getTopTrendingTopics();
 
   const renderDistributionBars = (section: typeof sections[0]) => {
     const maxTotal = Math.max(...section.data.map(d => d.total));
@@ -367,9 +362,13 @@ const ScientificPublications = () => {
                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Research Publication Trend</h3>
                     <p className="text-[9px] text-muted-foreground">Innovation intensity across key regions, highlighting technological hotspots and market leaders.</p>
                   </div>
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-end mb-1.5">
+                  <div className="flex gap-4">
+                    <div className="flex-[3]">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="rounded-lg border border-border/40 bg-background px-2.5 py-1">
+                          <span className="text-[8px] text-muted-foreground uppercase tracking-wide">Total: </span>
+                          <span className="text-[11px] font-bold text-foreground">54,600</span>
+                        </div>
                         <Select value={timeRange} onValueChange={setTimeRange}>
                           <SelectTrigger className="h-6 w-auto text-[9px] border-border gap-1 px-1.5 py-0.5">
                             <Calendar className="w-2.5 h-2.5" />
@@ -405,16 +404,27 @@ const ScientificPublications = () => {
                         </ResponsiveContainer>
                       </div>
                     </div>
-                    <div className="space-y-2 min-w-[140px]">
-                      <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
-                        <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Publications</div>
-                        <div className="text-lg font-bold text-foreground mt-0.5">54,600</div>
-                      </div>
-                      <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
-                        <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Growth Rate (3Y)</div>
-                        <div className="text-lg font-bold text-primary mt-0.5">+25%</div>
-                        <div className="text-[8px] text-muted-foreground mt-0.5">over the last 3 years</div>
-                      </div>
+                    <div className="flex-[2] space-y-2">
+                      <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">🔥 Trending Topics</div>
+                      {topTrending.map((t, i) => (
+                        <div key={t.topic.name} className="rounded-lg border border-border/40 bg-background p-2.5">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1 min-w-0">
+                              <div className="text-[11px] font-bold text-foreground">{t.topic.name}</div>
+                              <div className="text-[8px] text-muted-foreground mt-0.5">{t.topic.total.toLocaleString()} publications</div>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {t.topic.subItems.slice(0, 2).map(sub => (
+                                  <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0">{sub.name}</Badge>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="text-right flex-shrink-0">
+                              <div className="text-sm font-bold text-primary">+{t.growth.toFixed(1)}%</div>
+                              <div className="text-[7px] text-muted-foreground">YoY growth</div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
