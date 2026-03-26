@@ -344,7 +344,7 @@ const ScientificPublications = () => {
                 Application
               </button>
             </div>
-            <p className="text-[9px] text-muted-foreground mb-2 flex-shrink-0">
+            <p className="text-xs text-muted-foreground mb-2 flex-shrink-0">
               {researchView === 'production'
                 ? `Research related to the production, extraction, and purification of ${decodedTopic} from biomass feedstocks.`
                 : `Research related to the downstream use of ${decodedTopic} in end-market applications such as food, pharma, and materials.`
