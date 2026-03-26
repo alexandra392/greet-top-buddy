@@ -617,7 +617,7 @@ const ValueChainPathways = () => {
               )}
 
             {/* Viability Summary Cards */}
-            <div className="grid grid-cols-4 gap-2 mb-3">
+            <div className="grid grid-cols-4 gap-1.5 mb-3">
               {(['Commercial', 'Pilot', 'Lab', 'R&D'] as const).map((level) => {
                 const colors = getViabilityColor(level);
                 const count = viabilityCounts[level];
@@ -627,23 +627,20 @@ const ValueChainPathways = () => {
                   <button
                     key={level}
                     onClick={() => setViabilityFilter(viabilityFilter === level ? null : level)}
-                    className={`text-left border rounded-lg p-3 transition-all ${
+                    className={`text-left border rounded-md px-2.5 py-2 transition-all ${
                       isActive ? `${colors.border} ${colors.bg} border-2 shadow-sm` : 'border-border bg-background hover:border-muted-foreground/30'
                     }`}
                   >
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
-                      <span className={`text-[10px] font-bold uppercase tracking-wider ${colors.text}`}>{level}</span>
-                      <span className="text-[9px] text-muted-foreground ml-auto">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className={`w-1.5 h-1.5 rounded-full ${colors.dot}`} />
+                      <span className={`text-[9px] font-bold uppercase tracking-wider ${colors.text}`}>{level}</span>
+                      <span className="text-[8px] text-muted-foreground ml-auto">
                         {level === 'Commercial' ? 'TRL 8–9' : level === 'Pilot' ? 'TRL 5–7' : level === 'Lab' ? 'TRL 3–4' : 'TRL 1–2'}
                       </span>
                     </div>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-lg font-bold text-foreground">{count}</span>
-                      <span className="text-[10px] text-muted-foreground">pathways ({pct}%)</span>
-                    </div>
-                    <div className="mt-1.5 h-1 bg-muted rounded-full overflow-hidden">
-                      <div className={`h-full ${colors.bar} rounded-full transition-all`} style={{ width: `${pct}%` }} />
+                      <span className="text-sm font-bold text-foreground">{count}</span>
+                      <span className="text-[9px] text-muted-foreground">({pct}%)</span>
                     </div>
                   </button>
                 );
