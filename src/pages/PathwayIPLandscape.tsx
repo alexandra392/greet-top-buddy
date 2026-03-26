@@ -15,11 +15,11 @@ import PatentDetailModal from '@/components/PatentDetailModal';
 const dataByView = {
   production: {
     trend: [
-      { year: '2019', US: 50, EU: 30, Other: 20 },
-      { year: '2020', US: 60, EU: 40, Other: 25 },
-      { year: '2021', US: 80, EU: 55, Other: 35 },
-      { year: '2022', US: 95, EU: 70, Other: 45 },
-      { year: '2023', US: 110, EU: 85, Other: 55 },
+      { year: '2019', Filed: 40, Granted: 30, Total: 70 },
+      { year: '2020', Filed: 52, Granted: 38, Total: 90 },
+      { year: '2021', Filed: 68, Granted: 52, Total: 120 },
+      { year: '2022', Filed: 82, Granted: 65, Total: 147 },
+      { year: '2023', Filed: 95, Granted: 80, Total: 175 },
     ],
     developers: [
       { org: "Novozymes A/S", total: 87, granted: 64, filed: 23 },
