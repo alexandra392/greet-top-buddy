@@ -226,7 +226,7 @@ const ScientificPublications = () => {
 
   const topTrending = getTopTrendingTopics();
 
-  const renderDistributionBars = (section: typeof sections[0]) => {
+  const renderDistributionBars = (section: typeof sections[0], sectionIdx: number) => {
     const maxTotal = Math.max(...section.data.map(d => d.total));
     const sortedData = [...section.data].sort((a, b) => b.total - a.total);
 
