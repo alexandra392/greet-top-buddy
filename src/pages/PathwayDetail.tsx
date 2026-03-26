@@ -323,7 +323,7 @@ const PathwayDetail = () => {
           <div className="min-w-0">
               <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Pathway Profile</h3>
               <div className="border border-border rounded-xl bg-card p-5 shadow-sm flex flex-col gap-3 h-full">
-              <p className="text-[9px] text-muted-foreground leading-relaxed -mt-1">Detailed breakdown of this pathway's value chain, scoring, and key metrics. Click on any node to explore alternatives.</p>
+              <p className="text-xs text-muted-foreground leading-relaxed -mt-1">Detailed breakdown of this pathway's value chain, scoring, and key metrics. Click on any node to explore alternatives.</p>
               <div className="border border-border rounded-lg bg-card shadow-sm">
                 {/* Header row */}
                 <div className="px-3 py-1.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
@@ -453,7 +453,7 @@ const PathwayDetail = () => {
                 <div className="flex items-center justify-between mb-1">
                   <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Evaluation</h4>
                 </div>
-                <p className="text-[9px] text-muted-foreground leading-relaxed mb-1.5 max-w-[550px]">
+                <p className="text-xs text-muted-foreground leading-relaxed mb-1.5 max-w-[550px]">
                   This evaluation scores the pathway across key economic and technical dimensions. Higher scores indicate stronger commercial viability and lower investment risk.
                 </p>
                 <div className="flex gap-3 flex-1">
