@@ -808,7 +808,7 @@ const ValueChainPathways = () => {
 
             {/* Table Rows */}
             <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
-              {filteredPathways.map(({ pathway, originalIndex }) => {
+              {filteredPathways.map(({ pathway, originalIndex }, filteredIndex) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
