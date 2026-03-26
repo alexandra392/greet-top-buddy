@@ -344,85 +344,116 @@ const PathwayDetail = () => {
           {/* Left: Pathway Profile */}
           <div className="min-w-0">
               <div className="border border-border rounded-xl bg-card p-5 shadow-sm flex flex-col gap-3 h-full">
-              <div className="border border-border rounded-lg bg-card px-5 py-4 shadow-sm">
-                {/* Top row: VCG Scoring + TRL badge */}
-                <div className="flex items-center gap-2 mb-1.5">
-                  {(() => {
-                    const score = Math.max(20, 95 - (parseInt(pathwayId || "0")) * 3);
-                    const researchScore = Math.min(100, Math.round(score * 0.95 + (parseInt(pathwayId || "0") % 5) * 2));
-                    const ipScore = Math.max(0, Math.min(100, Math.round(100 - score + (parseInt(pathwayId || "0") % 7) * 3)));
-                    return (
-                      <>
-                        <VCGScoreBadge score={score} size="md" />
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <button className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5 bg-card hover:bg-muted/50 hover:border-primary/30 transition-colors cursor-help inline-flex items-center gap-1">
-                              Research: <span className="text-blue-600 font-bold">{researchScore}</span>
-                              <Info className="w-3 h-3 text-muted-foreground/50" />
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                            <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
-                            <p className="text-[9px] text-muted-foreground leading-relaxed">
-                              Measures the volume and quality of scientific publications supporting this pathway. Based on publication count.
-                            </p>
-                          </PopoverContent>
-                        </Popover>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <button className="text-[10px] text-muted-foreground border border-border rounded px-2 py-0.5 bg-card hover:bg-muted/50 hover:border-primary/30 transition-colors cursor-help inline-flex items-center gap-1">
-                              IP: <span className={`font-bold ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</span>
-                              <Info className="w-3 h-3 text-muted-foreground/50" />
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                            <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
-                            <p className="text-[9px] text-muted-foreground leading-relaxed">
-                              Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
-                            </p>
-                          </PopoverContent>
-                        </Popover>
-                      </>
-                    );
-                  })()}
-                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${
-                    parseInt(pathway.trl.replace('TRL ', '')) >= 8 ? 'bg-green-100 text-green-800 border border-green-200' :
-                    parseInt(pathway.trl.replace('TRL ', '')) >= 6 ? 'bg-blue-100 text-blue-800 border border-blue-200' :
-                    'bg-muted text-muted-foreground border border-border'
-                  }`}>
-                    {getTRLStageLabel(pathway.trl)}
-                  </span>
-                </div>
-
-                {/* Pathway flow row */}
-                <div className="grid grid-cols-[auto_1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-x-2">
-                  {([
-                    { label: 'Feedstock', value: currentFeedstock, type: 'feedstock' as const, isAnchor: category === 'Feedstock' },
-                    { label: 'Process', value: currentTechnology, type: 'technology' as const, isAnchor: false },
-                    { label: 'Product', value: currentProduct, type: 'product' as const, isAnchor: category === 'Product' },
-                    { label: 'Application', value: currentApplication, type: 'application' as const, isAnchor: false },
-                  ]).map((node, pi) => (
-                    <React.Fragment key={pi}>
-                      {pi > 0 && <ChevronRight className="w-3 h-3 text-muted-foreground/40" />}
-                      <div
-                        onMouseEnter={() => setHoveredFlowType(node.type)}
-                        onMouseLeave={() => setHoveredFlowType(null)}
+              <div className="border border-border rounded-lg bg-card shadow-sm">
+                {/* Single row matching table format */}
+                {(() => {
+                  const score = Math.max(20, 95 - (parseInt(pathwayId || "0")) * 3);
+                  const researchScore = Math.min(100, Math.round(score * 0.95 + (parseInt(pathwayId || "0") % 5) * 2));
+                  const ipScore = Math.max(0, Math.min(100, Math.round(100 - score + (parseInt(pathwayId || "0") % 7) * 3)));
+                  const trlLabel = getTRLStageLabel(pathway.trl);
+                  const trlNum = parseInt(pathway.trl.replace('TRL ', ''));
+                  return (
+                    <div className="px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+                      <button
+                        onClick={toggleSave}
+                        className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                        title={isSaved ? 'Remove from shortlist' : 'Add to shortlist'}
                       >
-                        <PathwayFlowPopover
-                          type={node.type}
-                          data={flowPopoverData[node.type]}
-                          originalValue={pathway[node.type === 'technology' ? 'technology' : node.type]}
-                          onSwap={(v) => handleSwap(node.type, v)}
-                          onRestore={() => setSwaps(prev => { const next = { ...prev }; delete next[node.type]; return next; })}
-                        >
-                          <div className={`rounded-md border px-2 py-1 transition-all text-center ${node.isAnchor ? 'border-primary/50 bg-primary/10' : hoveredFlowType === node.type ? 'border-primary/40 bg-primary/5 ring-1 ring-primary/20' : 'border-border bg-muted/20'}`}>
-                            <span className={`text-[10px] font-medium truncate ${node.isAnchor ? 'text-primary' : 'text-foreground'}`}>{node.value}</span>
-                          </div>
-                        </PathwayFlowPopover>
+                        <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-primary text-primary' : ''}`} />
+                      </button>
+                      <div className="text-[11px] font-bold text-foreground text-center">
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <button className="cursor-help hover:text-primary transition-colors">{score}</button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-72 p-3" side="bottom" align="start">
+                            <div className="space-y-2.5">
+                              <div>
+                                <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">VCG Score Methodology</h4>
+                                <p className="text-[10px] text-muted-foreground leading-relaxed">
+                                  The VCG Score evaluates pathways by blending three positive performance indicators and subtracting one negative indicator.
+                                </p>
+                              </div>
+                              <div className="space-y-1.5">
+                                {[
+                                  { label: 'Research', weight: '25%', value: 65, color: 'bg-blue-500' },
+                                  { label: 'TRL', weight: '40%', value: 70, color: 'bg-emerald-500' },
+                                  { label: 'Market Size', weight: '35%', value: 60, color: 'bg-amber-500' },
+                                  { label: 'IP Score', weight: '−20%', value: 40, color: 'bg-red-400', negative: true },
+                                ].map((w) => (
+                                  <div key={w.label} className="flex items-center gap-2">
+                                    <span className="text-[9px] font-medium text-foreground w-16 shrink-0">{w.label}</span>
+                                    <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                                      <div className={`h-full ${w.color} rounded-full`} style={{ width: `${w.value}%` }} />
+                                    </div>
+                                    <span className={`text-[9px] font-semibold w-8 text-right ${w.negative ? 'text-red-500' : 'text-muted-foreground'}`}>
+                                      {w.weight}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </PopoverContent>
+                        </Popover>
                       </div>
-                    </React.Fragment>
-                  ))}
-                </div>
+                      {([
+                        { label: 'Feedstock', value: currentFeedstock, type: 'feedstock' as const, isAnchor: category === 'Feedstock' },
+                        { label: 'Process', value: currentTechnology, type: 'technology' as const, isAnchor: false },
+                        { label: 'Product', value: currentProduct, type: 'product' as const, isAnchor: category === 'Product' },
+                        { label: 'Application', value: currentApplication, type: 'application' as const, isAnchor: false },
+                      ]).map((node, pi) => (
+                        <div
+                          key={pi}
+                          onMouseEnter={() => setHoveredFlowType(node.type)}
+                          onMouseLeave={() => setHoveredFlowType(null)}
+                        >
+                          <PathwayFlowPopover
+                            type={node.type}
+                            data={flowPopoverData[node.type]}
+                            originalValue={pathway[node.type === 'technology' ? 'technology' : node.type]}
+                            onSwap={(v) => handleSwap(node.type, v)}
+                            onRestore={() => setSwaps(prev => { const next = { ...prev }; delete next[node.type]; return next; })}
+                          >
+                            <div className={`text-[10px] font-medium truncate border rounded px-1.5 py-1 text-center transition-all ${node.isAnchor ? 'border-primary/40 bg-primary/5 text-primary' : hoveredFlowType === node.type ? 'border-primary/40 bg-primary/5 ring-1 ring-primary/20 text-foreground' : 'border-border bg-muted/20 text-foreground'}`}>
+                              {node.value}
+                            </div>
+                          </PathwayFlowPopover>
+                        </div>
+                      ))}
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <button className="text-[11px] font-medium text-blue-600 text-center cursor-help hover:underline">{researchScore}</button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                          <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
+                          <p className="text-[9px] text-muted-foreground leading-relaxed">
+                            Measures the volume and quality of scientific publications supporting this pathway. Based on publication count.
+                          </p>
+                        </PopoverContent>
+                      </Popover>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <button className={`text-[11px] font-medium text-center cursor-help hover:underline ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
+                          <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
+                          <p className="text-[9px] text-muted-foreground leading-relaxed">
+                            Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
+                          </p>
+                        </PopoverContent>
+                      </Popover>
+                      <div className="text-center">
+                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${
+                          trlNum >= 8 ? 'bg-green-100 text-green-800 border border-green-200' :
+                          trlNum >= 6 ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                          'bg-muted text-muted-foreground border border-border'
+                        }`}>
+                          {trlLabel}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Technical Feasibility Evaluation Card */}
