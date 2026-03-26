@@ -1084,30 +1084,54 @@ const PatentLandscape = () => {
                   </div>
 
                   <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
-                    <div className="mb-3">
+                    <div className="mb-4">
                        <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Patent Distribution by CPC – {activeConfig.label}</h3>
                        <p className="text-[10px] text-muted-foreground">{activeConfig.cpcDescription}</p>
                     </div>
-                    <div className="grid gap-4" style={{ gridTemplateColumns: '1fr auto' }}>
-                      <div className="space-y-1.5">
-                        {cpcCategories.map((cat, index) =>
-                        <div key={index} className="flex items-center justify-between px-3 py-2.5 border border-border/40 rounded-lg cursor-pointer hover:bg-muted/40 transition-colors" onClick={() => setSelectedCategory({ name: `${cat.code} – ${cat.name}`, patents: cat.count, share: `${Math.round(cat.count / Number(activeConfig.totalPatents) * 100)}%`, cagr: '', subs: [{ n: cat.name, v: cat.count }] })}>
-                            <div className="flex items-center gap-2.5">
-                              <span className="text-[10px] font-bold text-foreground border border-border rounded px-1.5 py-0.5 min-w-[22px] text-center">{cat.code}</span>
-                              <span className="text-[11px] text-foreground">{cat.name}</span>
+                    <div className="grid gap-5" style={{ gridTemplateColumns: '1fr 220px' }}>
+                      <div className="space-y-0">
+                        {cpcCategories.map((cat, index) => {
+                          const maxCount = Math.max(...cpcCategories.map(c => c.count));
+                          const barWidth = Math.max(4, (cat.count / maxCount) * 100);
+                          const bgColorMap: Record<string, string> = {
+                            'bg-purple-500': 'hsl(270, 70%, 60%)',
+                            'bg-orange-500': 'hsl(25, 95%, 53%)',
+                            'bg-pink-500': 'hsl(330, 80%, 60%)',
+                            'bg-gray-800': 'hsl(var(--foreground))',
+                            'bg-blue-500': 'hsl(210, 80%, 55%)',
+                            'bg-blue-600': 'hsl(220, 80%, 50%)',
+                            'bg-cyan-500': 'hsl(185, 80%, 50%)',
+                            'bg-red-500': 'hsl(0, 80%, 55%)',
+                            'bg-yellow-500': 'hsl(45, 95%, 55%)',
+                          };
+                          const barColor = bgColorMap[cat.color] || 'hsl(var(--primary))';
+                          return (
+                            <div
+                              key={index}
+                              className="flex items-center gap-3 px-3 py-3 cursor-pointer hover:bg-muted/50 transition-colors border-b border-border/20 last:border-b-0 group"
+                              onClick={() => setSelectedCategory({ name: `${cat.code} – ${cat.name}`, patents: cat.count, share: `${Math.round(cat.count / Number(activeConfig.totalPatents) * 100)}%`, cagr: '', subs: [{ n: cat.name, v: cat.count }] })}
+                            >
+                              <span className="text-[10px] font-bold text-muted-foreground w-[18px] text-center shrink-0">{cat.code}</span>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-[11px] text-foreground group-hover:text-primary transition-colors truncate pr-2">{cat.name}</span>
+                                  <div className="flex items-center gap-1.5 shrink-0">
+                                    <span className="text-[11px] font-semibold text-foreground">{cat.count}</span>
+                                    <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: barColor }}></div>
+                                  </div>
+                                </div>
+                                <div className="w-full h-1 bg-muted/60 rounded-full overflow-hidden">
+                                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${barWidth}%`, backgroundColor: barColor, opacity: 0.7 }}></div>
+                                </div>
+                              </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-muted-foreground text-[10px]">♀</span>
-                              <span className="text-[11px] font-semibold text-foreground">{cat.count.toLocaleString()}</span>
-                              <div className={`w-3 h-3 rounded-sm ${cat.color}`}></div>
-                            </div>
-                          </div>
-                        )}
+                          );
+                        })}
                       </div>
-                      <div className="flex items-center justify-center w-full h-full min-h-[280px]">
-                        <ResponsiveContainer width="100%" height="100%">
+                      <div className="flex items-center justify-center">
+                        <ResponsiveContainer width="100%" height={260}>
                             <PieChart>
-                              <Pie data={pieData} cx="50%" cy="50%" innerRadius={40} outerRadius="80%" dataKey="value" label={({ name }) => name} labelLine={false}>
+                              <Pie data={pieData} cx="50%" cy="50%" innerRadius={35} outerRadius={90} dataKey="value" strokeWidth={2} stroke="hsl(var(--background))">
                                 {pieData.map((entry, i) => (
                                   <Cell key={i} fill={entry.fill} />
                                 ))}
