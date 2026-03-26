@@ -650,8 +650,24 @@ const ValueChainPathways = () => {
               })}
             </div>
 
-            {/* Search + Sort */}
+            {/* Tabs: All / Shortlisted */}
             <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center bg-muted rounded-lg p-0.5">
+                <button
+                  onClick={() => setActiveTab('all')}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${activeTab === 'all' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  All ({allPathways.length})
+                </button>
+                <button
+                  onClick={() => setActiveTab('saved')}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${activeTab === 'saved' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  <Bookmark className="w-3 h-3" />
+                  Shortlisted ({savedPathways.size})
+                </button>
+              </div>
+
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                 <Input
@@ -676,7 +692,8 @@ const ValueChainPathways = () => {
             </div>
 
             {/* Table Header */}
-            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+            <div className="border border-border rounded-t-lg bg-muted/50 px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest"></span>
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
@@ -806,11 +823,18 @@ const ValueChainPathways = () => {
               return (
                 <div
                   key={originalIndex}
-                  className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
+                   className={`px-3 py-1.5 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
                 >
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
+                    className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                    title={savedPathways.has(originalIndex) ? 'Remove from shortlist' : 'Add to shortlist'}
+                  >
+                    <Bookmark className={`w-3.5 h-3.5 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
+                  </button>
                   <div className="text-[11px] font-bold text-foreground">{vcgScore}</div>
                   <div className={`text-[10px] font-medium truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
