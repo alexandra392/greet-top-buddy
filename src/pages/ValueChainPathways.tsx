@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { ArrowLeft, GitBranch, Zap, Factory, Leaf, ChevronRight, ChevronDown, ArrowRight, Star, Bookmark, ThumbsDown, Package, Target, Plus, Download, ArrowRight as ArrowRightIcon, Clock, Network, FolderKanban, Search, SlidersHorizontal, ArrowUpDown, ExternalLink, Info } from "lucide-react";
+import { ArrowLeft, GitBranch, Zap, Factory, Leaf, ChevronRight, ChevronDown, ArrowRight, Star, Bookmark, ThumbsDown, Package, Target, Plus, Download, ArrowRight as ArrowRightIcon, Clock, Network, FolderKanban, Search, SlidersHorizontal, ArrowUpDown, ExternalLink, Info, Medal } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import VCGScoreBadge from '@/components/VCGScoreBadge';
@@ -808,7 +808,7 @@ const ValueChainPathways = () => {
 
             {/* Table Rows */}
             <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
-              {filteredPathways.map(({ pathway, originalIndex }) => {
+              {filteredPathways.map(({ pathway, originalIndex }, filteredIndex) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
@@ -824,13 +824,26 @@ const ValueChainPathways = () => {
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
                 >
-                  <button
-                    onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
-                    className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-                    title={savedPathways.has(originalIndex) ? 'Remove from shortlist' : 'Add to shortlist'}
-                  >
-                    <Bookmark className={`w-4 h-4 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
-                  </button>
+                  {(() => {
+                    if (filteredIndex < 3) {
+                      const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-700'];
+                      return (
+                        <div className="flex items-center justify-center relative">
+                          <Medal className={`w-5 h-5 ${medalColors[filteredIndex]}`} />
+                          <span className={`absolute text-[7px] font-black ${medalColors[filteredIndex]} mt-0.5`}>{filteredIndex + 1}</span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
+                        className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
+                        title={savedPathways.has(originalIndex) ? 'Remove from shortlist' : 'Add to shortlist'}
+                      >
+                        <Bookmark className={`w-4 h-4 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
+                      </button>
+                    );
+                  })()}
                   <div className="text-xs font-bold text-foreground text-center">{vcgScore}</div>
                   <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
