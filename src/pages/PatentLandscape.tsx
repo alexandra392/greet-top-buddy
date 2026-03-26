@@ -843,6 +843,7 @@ const PatentLandscape = () => {
                     <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
                       <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Patents</div>
                       <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.totalPatents).toLocaleString()}</div>
+                    </div>
                     <div className="rounded-lg border border-border/40 bg-background p-2.5">
                       <div className="text-[8px] text-muted-foreground uppercase tracking-wide mb-1.5 text-center">Chart Legend</div>
                       <div className="space-y-1">
