@@ -844,22 +844,6 @@ const PatentLandscape = () => {
                       <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Patents</div>
                       <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.totalPatents).toLocaleString()}</div>
                     </div>
-                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center cursor-pointer hover:bg-muted/30 transition-colors" onClick={() => setSelectedCategory({ name: 'Granted Patents', patents: Number(activeConfig.grantedCount), share: `${Math.round(Number(activeConfig.grantedCount) / Number(activeConfig.totalPatents) * 100)}%`, cagr: '+12%', subs: [] })}>
-                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide flex items-center justify-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'hsl(142, 71%, 45%)' }} />
-                        Granted
-                      </div>
-                      <div className="text-lg font-bold text-primary mt-0.5">{Number(activeConfig.grantedCount).toLocaleString()}</div>
-                      <div className="text-[8px] text-muted-foreground mt-0.5">{Math.round(Number(activeConfig.grantedCount) / Number(activeConfig.totalPatents) * 100)}% of total</div>
-                    </div>
-                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center cursor-pointer hover:bg-muted/30 transition-colors" onClick={() => setSelectedCategory({ name: 'Filed Patents', patents: Number(activeConfig.filedCount), share: `${Math.round(Number(activeConfig.filedCount) / Number(activeConfig.totalPatents) * 100)}%`, cagr: '+18%', subs: [] })}>
-                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide flex items-center justify-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
-                        Filed
-                      </div>
-                      <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.filedCount).toLocaleString()}</div>
-                      <div className="text-[8px] text-muted-foreground mt-0.5">{Math.round(Number(activeConfig.filedCount) / Number(activeConfig.totalPatents) * 100)}% of total</div>
-                    </div>
                     <div className="rounded-lg border border-border/40 bg-background p-2.5">
                       <div className="text-[8px] text-muted-foreground uppercase tracking-wide mb-1.5 text-center">Chart Legend</div>
                       <div className="space-y-1">
