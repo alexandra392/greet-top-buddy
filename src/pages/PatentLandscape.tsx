@@ -813,7 +813,7 @@ const PatentLandscape = () => {
       <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0 flex flex-col">
         <div className="mb-2 flex-shrink-0 flex items-baseline gap-3">
           <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Patent Landscape: <span className="text-primary">{decodedTopic}</span></h2>
-          <span className="text-lg font-bold text-foreground">{currentConfig.totalPatents}</span>
+          <span className="text-lg font-bold text-foreground">{activeConfig.totalPatents}</span>
           <span className="text-[10px] text-muted-foreground -ml-2">total patents</span>
         </div>
 
