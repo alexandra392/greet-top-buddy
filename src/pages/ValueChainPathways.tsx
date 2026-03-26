@@ -692,7 +692,7 @@ const ValueChainPathways = () => {
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider"></span>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
+                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     VCG
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -735,7 +735,7 @@ const ValueChainPathways = () => {
                 <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Feedstock</span>
               ) : (
                 <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
-                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
+                  <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                     <SelectValue placeholder="Feedstock" />
                   </SelectTrigger>
                   <SelectContent>
@@ -745,7 +745,7 @@ const ValueChainPathways = () => {
                 </Select>
               )}
               <Select value={processValueFilter} onValueChange={setProcessValueFilter}>
-                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
+                <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                   <SelectValue placeholder="Process" />
                 </SelectTrigger>
                 <SelectContent>
@@ -757,7 +757,7 @@ const ValueChainPathways = () => {
                 <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Product</span>
               ) : (
                 <Select value={productValueFilter} onValueChange={setProductValueFilter}>
-                  <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
+                  <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                     <SelectValue placeholder="Product" />
                   </SelectTrigger>
                   <SelectContent>
@@ -767,7 +767,7 @@ const ValueChainPathways = () => {
                 </Select>
               )}
               <Select value={applicationValueFilter} onValueChange={setApplicationValueFilter}>
-                <SelectTrigger className="h-5 text-[8px] font-bold text-muted-foreground uppercase tracking-widest border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
+                <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
                   <SelectValue placeholder="Application" />
                 </SelectTrigger>
                 <SelectContent>
@@ -777,7 +777,7 @@ const ValueChainPathways = () => {
               </Select>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
+                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     Research
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -791,7 +791,7 @@ const ValueChainPathways = () => {
               </Popover>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
+                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     IP
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -803,7 +803,7 @@ const ValueChainPathways = () => {
                   </p>
                 </PopoverContent>
               </Popover>
-              <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">TRL</span>
+              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
             </div>
 
             {/* Table Rows */}
