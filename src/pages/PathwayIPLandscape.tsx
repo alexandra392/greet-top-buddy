@@ -74,11 +74,11 @@ const dataByView = {
   },
   application: {
     trend: [
-      { year: '2019', US: 35, EU: 25, Other: 15 },
-      { year: '2020', US: 45, EU: 35, Other: 20 },
-      { year: '2021', US: 65, EU: 50, Other: 30 },
-      { year: '2022', US: 85, EU: 65, Other: 40 },
-      { year: '2023', US: 100, EU: 78, Other: 50 },
+      { year: '2019', Filed: 35, Granted: 25, Total: 60 },
+      { year: '2020', Filed: 48, Granted: 32, Total: 80 },
+      { year: '2021', Filed: 65, Granted: 48, Total: 113 },
+      { year: '2022', Filed: 80, Granted: 62, Total: 142 },
+      { year: '2023', Filed: 95, Granted: 75, Total: 170 },
     ],
     developers: [
       { org: "NatureWorks LLC", total: 92, granted: 68, filed: 24 },
@@ -241,9 +241,9 @@ const PathwayIPLandscape = () => {
                           <XAxis dataKey="year" tick={{ fontSize: 8, fill: 'hsl(var(--muted-foreground))' }} tickLine={false} axisLine={{ stroke: 'hsl(var(--border))' }} />
                           <YAxis tick={{ fontSize: 8, fill: 'hsl(var(--muted-foreground))' }} tickLine={false} axisLine={false} />
                           <Tooltip contentStyle={{ fontSize: 9, borderRadius: 6, border: '1px solid hsl(var(--border))', background: 'hsl(var(--card))', padding: '4px 8px' }} />
-                          <Line type="monotone" dataKey="US" stroke="#3b82f6" strokeWidth={1.5} dot={{ r: 2.5, fill: '#3b82f6', stroke: '#fff', strokeWidth: 1 }} name="US" />
-                          <Line type="monotone" dataKey="EU" stroke="hsl(var(--primary))" strokeWidth={1.5} dot={{ r: 2.5, fill: 'hsl(var(--primary))', stroke: '#fff', strokeWidth: 1 }} name="EU" />
-                          <Line type="monotone" dataKey="Other" stroke="#f59e0b" strokeWidth={1.5} dot={{ r: 2.5, fill: '#f59e0b', stroke: '#fff', strokeWidth: 1 }} name="Other" />
+                          <Line type="monotone" dataKey="Total" stroke="#3b82f6" strokeWidth={1.5} dot={{ r: 2.5, fill: '#3b82f6', stroke: '#fff', strokeWidth: 1 }} name="Total" />
+                          <Line type="monotone" dataKey="Granted" stroke="hsl(142 71% 45%)" strokeWidth={1.5} dot={{ r: 2.5, fill: 'hsl(142, 71%, 45%)', stroke: '#fff', strokeWidth: 1 }} name="Granted" />
+                          <Line type="monotone" dataKey="Filed" stroke="#f59e0b" strokeWidth={1.5} dot={{ r: 2.5, fill: '#f59e0b', stroke: '#fff', strokeWidth: 1 }} name="Filed" />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
