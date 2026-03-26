@@ -687,128 +687,9 @@ const ValueChainPathways = () => {
               </Select>
             </div>
 
-            {/* Table Header */}
-            <div className="border border-border rounded-t-lg bg-muted/50 px-4 py-2.5 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
-              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider"></span>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
-                    VCG
-                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-72 p-3" side="bottom" align="start">
-                  <div className="space-y-2.5">
-                    <div>
-                      <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">VCG Score Methodology</h4>
-                      <p className="text-[10px] text-muted-foreground leading-relaxed">
-                        The VCG Score evaluates pathways by blending three positive performance indicators and subtracting one negative indicator.
-                      </p>
-                    </div>
-                    <div className="space-y-1.5">
-                      {[
-                        { label: 'Research', weight: '25%', value: 65, color: 'bg-blue-500' },
-                        { label: 'TRL', weight: '40%', value: 70, color: 'bg-emerald-500' },
-                        { label: 'Market Size', weight: '35%', value: 60, color: 'bg-amber-500' },
-                        { label: 'IP Score', weight: '−20%', value: 40, color: 'bg-red-400', negative: true },
-                      ].map((w) => (
-                        <div key={w.label} className="flex items-center gap-2">
-                          <span className="text-[9px] font-medium text-foreground w-16 shrink-0">{w.label}</span>
-                          <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
-                            <div className={`h-full ${w.color} rounded-full`} style={{ width: `${w.value}%` }} />
-                          </div>
-                          <span className={`text-[9px] font-semibold w-8 text-right ${w.negative ? 'text-red-500' : 'text-muted-foreground'}`}>
-                            {w.weight}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="border-t border-border pt-2">
-                      <p className="text-[9px] text-muted-foreground leading-relaxed">
-                        A <span className="font-semibold text-foreground">high score</span> means strong research, high technical readiness, and a large market — with low patent saturation (more room to operate).
-                      </p>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
-              {category === 'Feedstock' ? (
-                <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Feedstock</span>
-              ) : (
-                <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
-                  <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                    <SelectValue placeholder="Feedstock" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all" className="text-[10px]">All Feedstocks</SelectItem>
-                    {uniqueFeedstocks.map(f => <SelectItem key={f} value={f} className="text-[10px]">{f}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              )}
-              <Select value={processValueFilter} onValueChange={setProcessValueFilter}>
-                <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                  <SelectValue placeholder="Process" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all" className="text-[10px]">All Processes</SelectItem>
-                  {uniqueProcesses.map(p => <SelectItem key={p} value={p} className="text-[10px]">{p}</SelectItem>)}
-                </SelectContent>
-              </Select>
-              {isProductRoute ? (
-                <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Product</span>
-              ) : (
-                <Select value={productValueFilter} onValueChange={setProductValueFilter}>
-                  <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                    <SelectValue placeholder="Product" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all" className="text-[10px]">All Products</SelectItem>
-                    {uniqueProducts.map(p => <SelectItem key={p} value={p} className="text-[10px]">{p}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              )}
-              <Select value={applicationValueFilter} onValueChange={setApplicationValueFilter}>
-                <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                  <SelectValue placeholder="Application" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all" className="text-[10px]">All Applications</SelectItem>
-                  {uniqueApplications.map(a => <SelectItem key={a} value={a} className="text-[10px]">{a}</SelectItem>)}
-                </SelectContent>
-              </Select>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
-                    Research
-                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Measures the volume and quality of scientific publications supporting this pathway. Based on publication count.
-                  </p>
-                </PopoverContent>
-              </Popover>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
-                    IP
-                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
-                  </p>
-                </PopoverContent>
-              </Popover>
-              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
-            </div>
-
-            {/* Table Rows */}
-            <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
-              {filteredPathways.map(({ pathway, originalIndex }) => {
+            {/* Pathway Cards */}
+            <div className="space-y-3">
+              {filteredPathways.map(({ pathway, originalIndex }, displayIndex) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
@@ -816,46 +697,75 @@ const ValueChainPathways = () => {
                 const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
                 const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
                 const trlLabel = getTRLStageLabel(pathway.trl);
+                const rank = displayIndex + 1;
               return (
                 <div
                   key={originalIndex}
-                   className={`px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
+                  className={`border border-border rounded-lg bg-card p-4 cursor-pointer hover:shadow-md transition-all duration-200 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
                 >
-                  <button
-                    onClick={(e) => { e.stopPropagation(); toggleSavePathway(originalIndex); }}
-                    className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
-                    title={savedPathways.has(originalIndex) ? 'Remove from shortlist' : 'Add to shortlist'}
-                  >
-                    <Bookmark className={`w-4 h-4 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
-                  </button>
-                  <div className="text-xs font-bold text-foreground text-center">{vcgScore}</div>
-                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
-                    {pathway.feedstock}
+                  {/* Top row: Rank + VCG Score + TRL Badge + Research/IP + Chevron */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-bold text-muted-foreground w-6 text-center">{rank}</span>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-muted/30 text-xs text-muted-foreground">
+                        VCG Score: <span className="font-bold text-foreground">{vcgScore}</span>
+                        <Info className="w-3 h-3 text-muted-foreground/50" />
+                      </span>
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
+                        {trlLabel}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        Research: <span className="font-semibold text-blue-600">{researchScore}</span>
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        IP: <span className={`font-semibold ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</span>
+                      </span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
                   </div>
-                  <div className="text-xs font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
-                    {pathway.technology}
-                  </div>
-                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isProductRoute ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
-                    {pathway.product}
-                  </div>
-                  <div className="text-xs text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
-                    {pathway.application}
-                  </div>
-                  <div className="text-xs font-medium text-blue-600 text-center">{researchScore}</div>
-                  <div className={`text-xs font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
-                  <div className="text-center">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
-                      {trlLabel}
-                    </span>
+
+                  {/* Bottom row: Pathway flow */}
+                  <div className="grid grid-cols-4 gap-0 items-center pl-9">
+                    {/* Feedstock */}
+                    <div>
+                      <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Feedstock</div>
+                      <div className={`border rounded-lg px-3 py-2.5 text-sm font-medium mr-2 ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'border-border text-foreground'}`}>
+                        {pathway.feedstock}
+                      </div>
+                    </div>
+                    {/* Arrow + Process */}
+                    <div className="relative">
+                      <span className="absolute -left-3 top-1/2 translate-y-1 text-muted-foreground/40 text-xs">›</span>
+                      <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Process</div>
+                      <div className="border border-border rounded-lg px-3 py-2.5 text-sm font-medium text-foreground mr-2">
+                        {pathway.technology}
+                      </div>
+                    </div>
+                    {/* Arrow + Product */}
+                    <div className="relative">
+                      <span className="absolute -left-3 top-1/2 translate-y-1 text-muted-foreground/40 text-xs">›</span>
+                      <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Product</div>
+                      <div className={`border rounded-lg px-3 py-2.5 text-sm font-medium mr-2 ${isProductRoute ? 'border-primary/40 bg-primary/5 text-primary' : 'border-border text-foreground'}`}>
+                        {pathway.product}
+                      </div>
+                    </div>
+                    {/* Arrow + Application */}
+                    <div className="relative">
+                      <span className="absolute -left-3 top-1/2 translate-y-1 text-muted-foreground/40 text-xs">›</span>
+                      <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Application</div>
+                      <div className="border border-border rounded-lg px-3 py-2.5 text-sm font-medium text-foreground">
+                        {pathway.application}
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
             })}
             {filteredPathways.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground">
+              <div className="text-center py-12 text-muted-foreground border border-border rounded-lg bg-card">
                 <Search className="w-8 h-8 mx-auto mb-2 opacity-30" />
                 <p className="text-xs">No pathways match your current filters.</p>
                 <Button variant="link" size="sm" className="text-xs" onClick={() => { setSearchQuery(''); setViabilityFilter(null); setActiveTab('all'); }}>
