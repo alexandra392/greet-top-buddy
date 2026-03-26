@@ -453,7 +453,7 @@ const PathwayDetail = () => {
                 <div className="flex items-center justify-between mb-1">
                   <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Evaluation</h4>
                 </div>
-                <p className="text-[9px] text-muted-foreground leading-relaxed mb-1.5 max-w-[550px]">
+                <p className="text-xs text-muted-foreground leading-relaxed mb-1.5 max-w-[550px]">
                   This evaluation scores the pathway across key economic and technical dimensions. Higher scores indicate stronger commercial viability and lower investment risk.
                 </p>
                 <div className="flex gap-3 flex-1">
