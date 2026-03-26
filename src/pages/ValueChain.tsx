@@ -1623,199 +1623,66 @@ const ValueChain = () => {
                        {/* Top 3 Pathways */}
                        <div className="space-y-2">
                          <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
-                          <p className="text-xs text-muted-foreground leading-relaxed">Ranked by <span className="font-semibold text-foreground">VCG Score</span>. Click on any pathway to explore its full profile.</p>
-                        <div className="space-y-2">
-                          {scatterData.slice(0, 3).map((row: any, idx: number) => {
-                              const isHovered = hoveredPathwayIdx === idx;
-                              const rawParts = row.pathway.split(' > ');
-                              // For feedstock routes, prepend the feedstock (topic) as the first node
-                              const parts = isFeedstockRoute && rawParts.length === 3
-                                ? [decodeURIComponent(topic || ''), ...rawParts]
-                                : rawParts;
-                              const trlNum = row.trl;
-                              const stageLabel = trlNum >= 8 ? 'Commercial' : trlNum >= 6 ? 'Pilot' : trlNum >= 4 ? 'Lab' : 'R&D';
-                              const stageColors = trlNum >= 8 ? 'bg-primary/10 text-primary border-primary/30' : trlNum >= 6 ? 'bg-blue-50 text-blue-700 border-blue-200' : trlNum >= 4 ? 'bg-muted text-muted-foreground border-border' : 'bg-amber-50 text-amber-700 border-amber-200';
-                              const scoreColor = row.score >= 70 ? 'text-primary font-bold' : row.score >= 40 ? 'text-amber-600 font-bold' : 'text-muted-foreground font-bold';
-                               const medalConfig = [
-                               { icon: Trophy, label: 'High-Feasibility Pathway', color: 'text-amber-500', reason: 'Highest TRL with commercially proven technology, strong research base, and large addressable market with low IP barriers.' },
-                               { icon: Award, label: 'Breakthrough Innovation Pathway', color: 'text-sky-500', reason: 'High technology readiness combined with exceptional market size and growing demand, supported by robust research output.' },
-                               { icon: Medal, label: 'Emerging Opportunity Pathway', color: 'text-violet-500', reason: 'Strong commercial maturity and established supply chains, with moderate market size and minimal patent congestion.' }][
-                               idx];
-                              const MedalIcon = medalConfig.icon;
-                              return (
-                                <div key={idx} className="space-y-1">
-                                {/* Trophy + number outside the card */}
-                                
-
-
-
-
-
-                                  
-
-                                {/* Card */}
-                                <div
-                                    className={`border border-border rounded-lg bg-card px-3 py-2.5 cursor-pointer transition-all duration-200 ${
-                                    isHovered ? 'ring-1 ring-primary/40 shadow-sm' : 'hover:shadow-md hover:border-primary/30'}`
-                                    }
-                                    onMouseEnter={() => setHoveredPathwayIdx(idx)}
-                                    onMouseLeave={() => setHoveredPathwayIdx(null)}
-                                    onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}>
-                                    
-                                  {/* VCG Scoring + Stage badge */}
-                                  <div className="flex items-center justify-between mb-2">
-                                     <div className="flex items-center gap-2">
-                                       <VCGScoreBadge score={row.score} />
-                                       <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
-                                         {stageLabel}
-                                       </span>
-                                     </div>
-                                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                                  </div>
-
-                                  {/* Pathway flow row */}
-                                  <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-x-2">
-                                    {parts.map((part, pi) => {
-                                      const labels = ['Feedstock', 'Process', 'Product', 'Application'];
-                                      const isAnchor = (isProductRoute && pi === 2) || (isFeedstockRoute && pi === 0);
-                                      return (
-                                        <React.Fragment key={pi}>
-                                          {pi > 0 && <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 mt-3" />}
-                                          <div>
-                                            <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wider block mb-0.5">
-                                              {labels[pi]}
-                                            </span>
-                                            <div className={`rounded-md border px-2 py-1.5 ${isAnchor ? 'border-primary/50 bg-primary/10' : 'border-border bg-muted/30'}`}>
-                                              <span className={`text-[11px] font-medium ${isAnchor ? 'text-primary' : 'text-foreground'}`}>{part}</span>
-                                            </div>
-                                          </div>
-                                        </React.Fragment>
-                                      );
-                                    })}
-                                   </div>
-
+                         <p className="text-xs text-muted-foreground leading-relaxed">Ranked by <span className="font-semibold text-foreground">VCG Score</span>. Click on any pathway to explore its full profile.</p>
+                         
+                         {/* Table header */}
+                         <div className="grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">VCG</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Research</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">IP</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
+                         </div>
+                         
+                         {/* Table rows */}
+                         <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
+                           {scatterData.slice(0, 3).map((row: any, idx: number) => {
+                             const rawParts = row.pathway.split(' > ');
+                             const parts = isFeedstockRoute && rawParts.length === 3
+                               ? [decodeURIComponent(topic || ''), ...rawParts]
+                               : rawParts;
+                             const trlNum = row.trl;
+                             const stageLabel = trlNum >= 8 ? 'Commercial' : trlNum >= 6 ? 'Pilot' : trlNum >= 4 ? 'Lab' : 'R&D';
+                             const stageColors = trlNum >= 8 ? 'bg-primary/10 text-primary border-primary/30' : trlNum >= 6 ? 'bg-blue-50 text-blue-700 border-blue-200' : trlNum >= 4 ? 'bg-muted text-muted-foreground border-border' : 'bg-amber-50 text-amber-700 border-amber-200';
+                             const researchScore = Math.min(100, Math.round(row.score * 0.95 + (idx % 5) * 2));
+                             const ipScore = Math.max(0, Math.min(100, Math.round(100 - row.score + (idx % 7) * 3)));
+                             const isAnchorFeedstock = isFeedstockRoute;
+                             const isAnchorProduct = isProductRoute;
+                             
+                             return (
+                               <div
+                                 key={idx}
+                                 className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
+                                 onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
+                               >
+                                 <div className="text-xs font-bold text-foreground text-center">{row.score}</div>
+                                 <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                                   {parts[0] || '—'}
                                  </div>
-                              </div>);
-
-                            })}
-                        </div>
-                      </div>
-                    </div>);
-
-                  })()}
-
-              {/* Opportunity Map */}
-              <div className="border border-border/60 rounded-lg p-4 space-y-3 bg-card/50 backdrop-blur-sm mt-4">
-              <div className="flex items-center">
-                <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Opportunity Map</h3>
-              </div>
-
-              {/* Category Tabs — pill style, exclude the anchor category */}
-              <div className="flex items-center bg-muted rounded-lg p-0.5">
-                {(() => {
-                  const allTabs = [
-                    { key: 'feedstocks' as const, icon: Sprout, label: 'Feedstocks', count: feedstockData.length },
-                    { key: 'technologies' as const, icon: Settings, label: 'Technologies', count: technologyData.reduce((sum, c) => sum + c.technologies.length, 0) },
-                    { key: 'products' as const, icon: Box, label: 'Products', count: scatterData.length },
-                    { key: 'applications' as const, icon: Target, label: 'Applications', count: marketDataDetail.reduce((sum, m) => sum + m.subcategories.length, 0) },
-                  ];
-                  const filteredTabs = allTabs.filter(tab => {
-                    if (isProductRoute && tab.key === 'products') return false;
-                    if (isFeedstockRoute && tab.key === 'feedstocks') return false;
-                    return true;
-                  });
-                  return filteredTabs.map((tab) =>
-                    <button
-                      key={tab.key}
-                      onClick={() => handleOpportunityTabChange(tab.key)}
-                      className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-medium transition-all ${
-                      opportunityTab === tab.key ?
-                      'bg-foreground text-background shadow-sm' :
-                      'text-muted-foreground hover:text-foreground'}`
-                      }>
-                      
-                  <tab.icon className="w-3.5 h-3.5" />
-                  <span>{tab.label}</span>
-                  <span className="text-[9px] font-normal">({tab.count})</span>
-                </button>
-                  );
-                })()}
-              </div>
-
-              {/* Content Area */}
-              <div className="min-h-[300px]">
-                {!opportunityTab &&
-                      <div className="flex flex-col items-center justify-center h-[350px] text-center px-8">
-                    <Settings className="w-8 h-8 text-muted-foreground/20 mb-3" />
-                    <h3 className="text-sm font-semibold text-foreground mb-1">Select a category to explore</h3>
-                    <p className="text-xs text-muted-foreground max-w-sm">
-                      Choose a category above to see opportunities, maturity levels, and key players.
-                    </p>
-                  </div>
-                      }
-
-                {opportunityTab === 'feedstocks' &&
-                      <TooltipProvider>
-                  <div className="pt-2">
-                    <div className="w-full">
-                      <div className="flex flex-col overflow-hidden">
-                        <Table>
-                          <TableHeader>
-                            <TableRow className="border-b border-border hover:bg-transparent">
-                              <TableHead className="w-8 py-2.5 px-3"></TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Feedstock</TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'quantity') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('quantity'); setFeedstockSortDir('desc'); } }}>
-                                <span className="flex items-center gap-1">Quantity (EU) {feedstockSortKey === 'quantity' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
-                              </TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
-                                <span className="flex items-center gap-1">Price {feedstockSortKey === 'price' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
-                              </TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 text-center cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
-                                <span className="flex items-center justify-center gap-1">Market Players {feedstockSortKey === 'players' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
-                              </TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {currentFeedstocks.map((item, index) => {
-                              if (!item) return null;
-                              const rank = startFeedstockIndex + index + 1;
-                              const playerCount = [8, 12, 6, 4, 9, 3, 2, 15, 5, 7, 11, 3][(startFeedstockIndex + index) % 12];
-                              return (
-                                <TableRow key={index} onClick={() => toggleOpportunityItem(item.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
-                                  <TableCell className="py-3 px-3">
-                                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
-                                      {selectedOpportunityItems.has(item.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
-                                    </div>
-                                  </TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-xs font-semibold text-foreground py-3">{item.name}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{item.categories.join(', ')}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{item.quantity}</TableCell>
-                                  <TableCell className="text-xs text-muted-foreground py-3">{item.price}</TableCell>
-                                  <TableCell className="text-xs font-semibold text-primary tabular-nums text-center py-3">{playerCount}</TableCell>
-                                </TableRow>
-                              );
-                            })}
-                          </TableBody>
-                        </Table>
-
-                        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border">
-                          <span className="text-xs text-muted-foreground">
-                            {startFeedstockIndex + 1}-{Math.min(endFeedstockIndex, filteredFeedstockData.length)} of {filteredFeedstockData.length}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" onClick={handlePreviousFeedstockPage} disabled={currentFeedstockPage === 1} className="h-7 w-7 p-0">
-                              <ChevronLeft className="w-3.5 h-3.5" />
-                            </Button>
-                            <span className="text-xs text-muted-foreground">Page {currentFeedstockPage} of {totalFeedstockPages}</span>
-                            <Button variant="outline" size="sm" onClick={handleNextFeedstockPage} disabled={currentFeedstockPage === totalFeedstockPages} className="h-7 w-7 p-0">
-                              <ChevronRight className="w-3.5 h-3.5" />
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
+                                 <div className="text-xs font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                                   {parts[1] || '—'}
+                                 </div>
+                                 <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorProduct ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                                   {parts[2] || '—'}
+                                 </div>
+                                 <div className="text-xs text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                                   {parts[3] || '—'}
+                                 </div>
+                                 <div className="text-xs font-medium text-blue-600 text-center">{researchScore}</div>
+                                 <div className={`text-xs font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
+                                 <div className="text-center">
+                                   <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
+                                     {stageLabel}
+                                   </span>
+                                 </div>
+                               </div>
+                             );
+                           })}
+                         </div>
+                       </div>
                     </div>
                   </div>
                   </TooltipProvider>
