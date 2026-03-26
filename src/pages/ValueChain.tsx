@@ -1828,17 +1828,17 @@ const ValueChain = () => {
                               const playerCount = [14, 22, 8, 6, 18, 3, 10, 5, 12, 7, 9, 16, 4, 11, 2][(startAppIndex + index) % 15];
                               return (
                                 <TableRow key={index} onClick={() => toggleOpportunityItem(app.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(app.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
-                                  <TableCell className="py-3 px-3">
+                                  <TableCell className="py-1.5 px-3">
                                     <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(app.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
                                       {selectedOpportunityItems.has(app.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-[10px] font-semibold text-foreground py-3">{app.name}</TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{app.category}</TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{(app as any).description || ''}</TableCell>
-                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums text-center py-3">{playerCount}</TableCell>
-                                  <TableCell className="py-3">
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-1.5">{app.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{app.category}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{(app as any).description || ''}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums text-center py-1.5">{playerCount}</TableCell>
+                                  <TableCell className="py-1.5">
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${matBadge.bgClass} ${matBadge.textClass}`}>{app.maturity}</span>
                                   </TableCell>
                                 </TableRow>
