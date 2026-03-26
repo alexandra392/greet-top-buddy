@@ -122,38 +122,32 @@ export default function ValueChainPathwaysFunnel() {
   };
 
   return (
-    <div className="h-screen bg-background overflow-hidden">
-      <div className="h-full pt-4 px-4 pb-4 max-w-[1600px] mx-auto flex flex-col">
-        <div className="w-full flex flex-col" style={{ height: 'calc(100% - 0px)' }}>
-          {/* Header */}
-          <div className="flex gap-4 mb-4 flex-shrink-0">
-            <div className="flex-1">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => navigate(`/landscape/${category}/${topic}/value-chain`)}
-                className="gap-1.5 h-7 text-xs"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                Back
-              </Button>
-            </div>
-            <div className="flex gap-2">
-              <Button 
-                onClick={handleNext}
-                className="flex items-center gap-2 h-9 bg-green-600 hover:bg-green-700 text-white"
-              >
-                Next
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
+    <div className="h-full bg-background flex flex-col">
+      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => navigate(`/landscape/${category}/${topic}/value-chain`)}
+          className="gap-1.5 h-7 text-xs"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Back
+        </Button>
+        <Button 
+          onClick={handleNext}
+          className="flex items-center gap-2 h-8 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+        >
+          Next
+          <ArrowRight className="w-4 h-4" />
+        </Button>
+      </div>
 
-          {/* Main Content */}
-          <div className="flex gap-4 relative w-full" style={{ height: 'calc(100vh - 158px)', maxWidth: '1400px', margin: '0 auto' }}>
-            <div className="flex-1 flex flex-col gap-4" style={{ height: 'calc(100vh - 158px)' }}>
-              {/* Main white box - Funnel Chart */}
-              <Card className="bg-white border-2 border-gray-200 shadow-sm rounded-lg overflow-hidden" style={{ height: 'calc(100vh - 158px)' }}>
+      <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0 flex flex-col">
+        <div className="mb-2 flex-shrink-0">
+          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Portfolio: <span className="text-primary">{decodedTopic}</span></h2>
+        </div>
+
+        <Card className="bg-card border border-border/60 shadow-sm flex-1 min-w-0 flex flex-col overflow-hidden">
                 <CardContent className="py-4" style={{ paddingLeft: '21.5px', paddingRight: '21.5px' }}>
                   <div className="space-y-2">
                     <div>
