@@ -256,9 +256,13 @@ const ScientificPublications = () => {
                       <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
                       <span className="text-[10px] font-semibold text-foreground truncate">{cat.name}</span>
                     </div>
-                    <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
+                    <div className="flex-1 h-3 bg-muted/60 rounded-full overflow-hidden relative">
                       <div
-                        className="h-full rounded-full transition-all duration-500"
+                        className="absolute inset-0 rounded-full"
+                        style={{ backgroundColor: 'hsl(222 20% 88%)' }}
+                      />
+                      <div
+                        className="h-full rounded-full transition-all duration-500 relative z-10"
                         style={{
                           width: `${pct}%`,
                           backgroundColor: idx === 0
