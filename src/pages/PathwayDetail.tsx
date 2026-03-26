@@ -315,20 +315,6 @@ const PathwayDetail = () => {
           <ArrowLeft className="w-3.5 h-3.5" />
           Back
         </Button>
-        <div className="flex items-center gap-2.5">
-            <button
-            onClick={toggleSave}
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            title="Save">
-              <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-primary text-primary' : ''}`} />
-            </button>
-            <button
-            onClick={toggleFavorite}
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            title="Not interested">
-              <ThumbsDown className={`w-4 h-4 ${isFavorited ? 'fill-primary text-primary' : ''}`} />
-            </button>
-        </div>
       </div>
 
       <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0">
