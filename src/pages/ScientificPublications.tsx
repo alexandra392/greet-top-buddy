@@ -434,8 +434,10 @@ const ScientificPublications = () => {
                 </div>
 
 
-                {/* Distribution Bar Charts */}
-                {sections.map(renderDistributionBars)}
+                {/* Distribution Bar Charts - Side by Side */}
+                <div className="grid grid-cols-2 gap-3">
+                  {sections.map(renderDistributionBars)}
+                </div>
 
                 {/* Leading Research Institutions */}
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
