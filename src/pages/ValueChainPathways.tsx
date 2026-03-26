@@ -670,7 +670,7 @@ const ValueChainPathways = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search..."
-                  className="pl-7 h-7 text-[10px] bg-background rounded-md placeholder:text-[10px]"
+                  className="pl-7 h-7 !text-[10px] bg-background rounded-md"
                 />
               </div>
               <Select value={sortBy} onValueChange={(v) => setSortBy(v as 'vcg' | 'research' | 'ip' | 'trl')}>
