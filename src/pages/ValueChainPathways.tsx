@@ -692,7 +692,7 @@ const ValueChainPathways = () => {
               <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest"></span>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     VCG
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -777,7 +777,7 @@ const ValueChainPathways = () => {
               </Select>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     Research
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -791,7 +791,7 @@ const ValueChainPathways = () => {
               </Popover>
               <Popover>
                 <PopoverTrigger asChild>
-                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-0.5 cursor-help hover:text-foreground transition-colors">
+                  <button className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
                     IP
                     <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
                   </button>
@@ -831,7 +831,7 @@ const ValueChainPathways = () => {
                   >
                     <Bookmark className={`w-3.5 h-3.5 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
                   </button>
-                  <div className="text-[11px] font-bold text-foreground">{vcgScore}</div>
+                  <div className="text-[11px] font-bold text-foreground text-center">{vcgScore}</div>
                   <div className={`text-[10px] font-medium truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
                   </div>
@@ -844,8 +844,8 @@ const ValueChainPathways = () => {
                   <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-1.5 py-1 bg-muted/20 text-center">
                     {pathway.application}
                   </div>
-                  <div className="text-[11px] font-medium text-blue-600">{researchScore}</div>
-                  <div className={`text-[11px] font-medium ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
+                  <div className="text-[11px] font-medium text-blue-600 text-center">{researchScore}</div>
+                  <div className={`text-[11px] font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
                   <div className="text-center">
                     <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
                       {trlLabel}
