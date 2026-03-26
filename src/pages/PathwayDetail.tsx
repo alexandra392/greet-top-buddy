@@ -306,7 +306,7 @@ const PathwayDetail = () => {
 
   return (
     <div className="h-full bg-background flex flex-col animate-fade-in">
-      <div className="max-w-[1400px] w-full mx-auto px-6 pt-3 pb-1 flex items-center justify-between flex-shrink-0">
+      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
         <Button
             variant="outline"
             size="sm"
@@ -331,11 +331,18 @@ const PathwayDetail = () => {
         </div>
       </div>
 
-      <div className="max-w-[1400px] w-full mx-auto px-6 pb-8 flex-1 min-h-0">
-        <div className="grid gap-5 h-full" style={{ gridTemplateColumns: '1fr 280px' }}>
+      <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0">
+        <div className="grid gap-5 h-full" style={{ gridTemplateColumns: '1fr 280px', rowGap: '12px' }}>
+          {/* Titles row */}
+          <div>
+            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Profile</h3>
+          </div>
+          <div>
+            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Landscape Analytics</h3>
+          </div>
+
           {/* Left: Pathway Profile */}
           <div className="min-w-0">
-            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Pathway Profile</h3>
               <div className="border border-border rounded-xl bg-card p-5 shadow-sm flex flex-col gap-3 h-full">
               <div className="border border-border rounded-lg bg-card px-5 py-4 shadow-sm">
                 {/* Top row: VCG Scoring + TRL badge */}
@@ -532,7 +539,6 @@ const PathwayDetail = () => {
             
             {/* Right: Sidebar */}
             <div className="space-y-2.5">
-              <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Landscape Analytics</h3>
               <PathwayResourcesTab productName={topic ? decodeURIComponent(topic) : "Product"} pathwayNumber={pathwayNumber} showFooter={true} />
             </div>
           </div>
