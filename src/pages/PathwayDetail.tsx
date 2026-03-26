@@ -467,7 +467,7 @@ const PathwayDetail = () => {
                   <div className="flex-shrink-0 w-[340px] border border-border rounded-lg bg-muted/50 p-1 flex flex-col">
                     <div className="flex flex-col items-center flex-1 justify-center">
                        <div className="relative">
-                         <ResponsiveContainer width={330} height={200}>
+                         <ResponsiveContainer width={380} height={220}>
                           <RadarChart data={[
                             { param: 'Feedstock Price', value: activeMetrics.radar.feedstockPrice, fullMark: 100, metricType: 'feedstock' },
                             { param: 'Feedstock Qty', value: activeMetrics.radar.supplyVolume, fullMark: 100, metricType: 'feedstock' },
