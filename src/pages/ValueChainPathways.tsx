@@ -688,7 +688,7 @@ const ValueChainPathways = () => {
             </div>
 
             {/* Table Header */}
-            <div className="border border-border rounded-t-lg bg-muted/50 px-4 py-2.5 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+            <div className="border border-border rounded-t-lg bg-muted/70 px-4 py-2.5 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider"></span>
               <Popover>
                 <PopoverTrigger asChild>
@@ -807,7 +807,7 @@ const ValueChainPathways = () => {
             </div>
 
             {/* Table Rows */}
-            <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
+            <div className="border-x border-b border-border rounded-b-lg divide-y divide-border">
               {filteredPathways.map(({ pathway, originalIndex }) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
