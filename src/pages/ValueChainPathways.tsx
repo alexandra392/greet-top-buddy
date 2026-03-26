@@ -676,17 +676,13 @@ const ValueChainPathways = () => {
                   <SelectItem value="trl" className="text-[10px]">TRL Level</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-
-            {/* Search */}
-            <div className="mb-2">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
+              <div className="relative w-36">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search pathways..."
-                  className="pl-7 h-6 text-[9px] bg-background"
+                  placeholder="Search..."
+                  className="pl-6 h-6 text-[9px] bg-background"
                 />
               </div>
             </div>
