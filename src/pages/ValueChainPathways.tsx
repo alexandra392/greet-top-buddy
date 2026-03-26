@@ -825,8 +825,7 @@ const ValueChainPathways = () => {
                   onClick={() => handleCardClick(originalIndex)}
                 >
                   {(() => {
-                    const rowIndex = filteredPathways.indexOf(filteredPathways.find(f => f.originalIndex === originalIndex)!);
-                    if (rowIndex < 3) {
+                    if (filteredIndex < 3) {
                       const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-700'];
                       return (
                         <div className="flex items-center justify-center relative">
