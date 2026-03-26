@@ -259,21 +259,15 @@ const ScientificPublications = () => {
                     <div className="flex-1 h-3 bg-muted/60 rounded-full overflow-hidden relative">
                       <div
                         className="absolute inset-0 rounded-full"
-                        style={{ backgroundColor: 'hsl(222 20% 88%)' }}
+                        style={{ backgroundColor: sectionIdx === 0 ? 'hsl(222 20% 88%)' : 'hsl(160 20% 88%)' }}
                       />
                       <div
                         className="h-full rounded-full transition-all duration-500 relative z-10"
                         style={{
                           width: `${pct}%`,
-                          backgroundColor: idx === 0
-                            ? 'hsl(222 47% 36%)'
-                            : idx === 1
-                            ? 'hsl(222 40% 46%)'
-                            : idx === 2
-                            ? 'hsl(222 35% 56%)'
-                            : idx === 3
-                            ? 'hsl(222 30% 66%)'
-                            : 'hsl(222 25% 76%)'
+                          backgroundColor: sectionIdx === 0
+                            ? (idx === 0 ? 'hsl(222 47% 36%)' : idx === 1 ? 'hsl(222 40% 46%)' : idx === 2 ? 'hsl(222 35% 56%)' : idx === 3 ? 'hsl(222 30% 66%)' : 'hsl(222 25% 76%)')
+                            : (idx === 0 ? 'hsl(160 45% 32%)' : idx === 1 ? 'hsl(160 38% 42%)' : idx === 2 ? 'hsl(160 32% 52%)' : idx === 3 ? 'hsl(160 26% 62%)' : 'hsl(160 20% 72%)')
                         }}
                       />
                     </div>
