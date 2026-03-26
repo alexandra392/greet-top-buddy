@@ -419,6 +419,32 @@ const ScientificPublications = () => {
                   </div>
                 </div>
 
+                {/* Distribution Bar Charts */}
+                {sections.map(renderDistributionBars)}
+
+                {/* Trending Topic */}
+                <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
+                  <div className="mb-2">
+                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">🔥 Trending Topic</h3>
+                    <p className="text-[9px] text-muted-foreground">Topic with the highest year-over-year citation growth in the last year.</p>
+                  </div>
+                  <div className="flex items-center gap-4 bg-background border border-border/40 rounded-lg p-3">
+                    <div className="flex-1">
+                      <div className="text-[12px] font-bold text-foreground">{trending.topic.name}</div>
+                      <div className="text-[9px] text-muted-foreground mt-0.5">{trending.topic.total.toLocaleString()} total publications</div>
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {trending.topic.subItems.map(sub => (
+                          <Badge key={sub.name} variant="secondary" className="text-[8px] px-1.5 py-0">{sub.name}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-primary">+{trending.growth.toFixed(1)}%</div>
+                      <div className="text-[8px] text-muted-foreground">YoY citation growth</div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Leading Research Institutions */}
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
                   <div className="mb-2">
@@ -435,7 +461,6 @@ const ScientificPublications = () => {
                               <th className="text-left py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
                               <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
                               <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
-                              
                             </tr>
                           </thead>
                           <tbody>
@@ -472,32 +497,6 @@ const ScientificPublications = () => {
                         </table>
                       </React.Fragment>
                     ))}
-                  </div>
-                </div>
-
-                {/* Distribution Bar Charts */}
-                {sections.map(renderDistributionBars)}
-
-                {/* Trending Topic */}
-                <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
-                  <div className="mb-2">
-                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">🔥 Trending Topic</h3>
-                    <p className="text-[9px] text-muted-foreground">Topic with the highest year-over-year citation growth in the last year.</p>
-                  </div>
-                  <div className="flex items-center gap-4 bg-background border border-border/40 rounded-lg p-3">
-                    <div className="flex-1">
-                      <div className="text-[12px] font-bold text-foreground">{trending.topic.name}</div>
-                      <div className="text-[9px] text-muted-foreground mt-0.5">{trending.topic.total.toLocaleString()} total publications</div>
-                      <div className="flex flex-wrap gap-1 mt-1.5">
-                        {trending.topic.subItems.map(sub => (
-                          <Badge key={sub.name} variant="secondary" className="text-[8px] px-1.5 py-0">{sub.name}</Badge>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-primary">+{trending.growth.toFixed(1)}%</div>
-                      <div className="text-[8px] text-muted-foreground">YoY citation growth</div>
-                    </div>
                   </div>
                 </div>
 
