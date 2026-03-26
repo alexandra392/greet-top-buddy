@@ -1759,56 +1759,59 @@ const ValueChain = () => {
                   <div className="pt-2">
                     <div className="w-full">
                       <div className="flex flex-col overflow-hidden">
-                         <div className="grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr] gap-1.5 px-3 py-1.5 bg-muted/50">
-                          <div className="w-4" />
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Feedstock</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'quantity') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('quantity'); setFeedstockSortDir('desc'); } }}>
-                            Quantity (EU) {feedstockSortKey === 'quantity' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
-                            Price {feedstockSortKey === 'price' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
-                            Market Players {feedstockSortKey === 'players' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                        </div>
-                        {currentFeedstocks.map((item, index) => {
-                                if (!item) return null;
-                                const rank = startFeedstockIndex + index + 1;
-                                const isTop3 = rank <= 3;
-                                const statusTag = getStatusTagStyle(item.maturity || 'Research');
-                                const playerCount = [8, 12, 6, 4, 9, 3, 2, 15, 5, 7, 11, 3][(startFeedstockIndex + index) % 12];
-                                return (
-                                  <div key={index} onClick={() => toggleOpportunityItem(item.name)} className={`grid grid-cols-[auto,0.3fr,2.5fr,2.5fr,2fr,1.2fr,1fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
-                              <div className="flex items-center">
-                                <div className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
-                                  {selectedOpportunityItems.has(item.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
-                                </div>
-                              </div>
-                              <div className="text-[10px] tabular-nums font-medium flex items-center gap-1">
-                                <span className="text-muted-foreground">{rank}</span>
-                              </div>
-                              <div className="text-[10px] font-medium text-foreground">{item.name}</div>
-                              <div className="text-[10px] text-muted-foreground">{item.categories.join(', ')}</div>
-                              <div className="text-[10px] text-muted-foreground">{item.quantity}</div>
-                              <div className="text-[10px] text-muted-foreground">{item.price}</div>
-                              <div className="text-[10px] font-semibold text-green-700 tabular-nums text-center">{playerCount}</div>
-                            </div>);
-                              })}
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-b border-border hover:bg-transparent">
+                              <TableHead className="w-8 py-2.5 px-3"></TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Feedstock</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'quantity') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('quantity'); setFeedstockSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Quantity (EU) {feedstockSortKey === 'quantity' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Price {feedstockSortKey === 'price' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 text-center cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'players') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('players'); setFeedstockSortDir('desc'); } }}>
+                                <span className="flex items-center justify-center gap-1">Market Players {feedstockSortKey === 'players' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {currentFeedstocks.map((item, index) => {
+                              if (!item) return null;
+                              const rank = startFeedstockIndex + index + 1;
+                              const playerCount = [8, 12, 6, 4, 9, 3, 2, 15, 5, 7, 11, 3][(startFeedstockIndex + index) % 12];
+                              return (
+                                <TableRow key={index} onClick={() => toggleOpportunityItem(item.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
+                                  <TableCell className="py-3 px-3">
+                                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(item.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
+                                      {selectedOpportunityItems.has(item.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-xs font-semibold text-foreground py-3">{item.name}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{item.categories.join(', ')}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{item.quantity}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{item.price}</TableCell>
+                                  <TableCell className="text-xs font-semibold text-primary tabular-nums text-center py-3">{playerCount}</TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
 
-                        <div className="flex items-center justify-between px-3 py-2 border-t border-border">
-                          <span className="text-[10px] text-muted-foreground">
+                        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border">
+                          <span className="text-xs text-muted-foreground">
                             {startFeedstockIndex + 1}-{Math.min(endFeedstockIndex, filteredFeedstockData.length)} of {filteredFeedstockData.length}
                           </span>
                           <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" onClick={handlePreviousFeedstockPage} disabled={currentFeedstockPage === 1} className="h-6 w-6 p-0">
-                              <ChevronLeft className="w-3 h-3" />
+                            <Button variant="outline" size="sm" onClick={handlePreviousFeedstockPage} disabled={currentFeedstockPage === 1} className="h-7 w-7 p-0">
+                              <ChevronLeft className="w-3.5 h-3.5" />
                             </Button>
-                            <span className="text-[10px] text-muted-foreground">Page {currentFeedstockPage} of {totalFeedstockPages}</span>
-                            <Button variant="outline" size="sm" onClick={handleNextFeedstockPage} disabled={currentFeedstockPage === totalFeedstockPages} className="h-6 w-6 p-0">
-                              <ChevronRight className="w-3 h-3" />
+                            <span className="text-xs text-muted-foreground">Page {currentFeedstockPage} of {totalFeedstockPages}</span>
+                            <Button variant="outline" size="sm" onClick={handleNextFeedstockPage} disabled={currentFeedstockPage === totalFeedstockPages} className="h-7 w-7 p-0">
+                              <ChevronRight className="w-3.5 h-3.5" />
                             </Button>
                           </div>
                         </div>
@@ -1823,51 +1826,54 @@ const ValueChain = () => {
                   <div className="pt-2">
                     <div className="w-full">
                       <div className="flex flex-col overflow-hidden">
-                          <div className="grid grid-cols-[auto,0.3fr,2.5fr,1.5fr,3fr,1.2fr] gap-1.5 px-3 py-1.5 bg-muted/50">
-                          <div className="w-4" />
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Process</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Description</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (techSortKey === 'status') setTechSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setTechSortKey('status'); setTechSortDir('desc'); } }}>
-                            Status {techSortKey === 'status' ? (techSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                        </div>
-                        {currentTechnologies.map((tech, index) => {
-                                const rank = startTechIndex + index + 1;
-                                const isTop3 = rank <= 3;
-                                const statusTag = getStatusTagStyle(tech.status);
-                                const playerCount = [5, 9, 3, 7, 2, 4, 6, 11, 8, 1][(startTechIndex + index) % 10];
-                                return (
-                                  <div key={index} onClick={() => toggleOpportunityItem(tech.name)} className={`grid grid-cols-[auto,0.3fr,2.5fr,1.5fr,3fr,1.2fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(tech.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
-                              <div className="flex items-center">
-                                <div className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(tech.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
-                                  {selectedOpportunityItems.has(tech.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
-                                </div>
-                              </div>
-                              <div className="text-[10px] tabular-nums font-medium flex items-center gap-1">
-                                <span className="text-muted-foreground">{rank}</span>
-                              </div>
-                              <div className="text-[10px] font-medium text-foreground">{tech.name}</div>
-                              <div className="text-[10px] text-muted-foreground">{tech.category}</div>
-                              <div className="text-[10px] text-muted-foreground">{tech.description}</div>
-                              <div className="flex items-center">
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[9px] font-semibold tracking-wide border ${statusTag}`}>{tech.status}</span>
-                              </div>
-                            </div>);
-                              })}
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-b border-border hover:bg-transparent">
+                              <TableHead className="w-8 py-2.5 px-3"></TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Process</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Description</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (techSortKey === 'status') setTechSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setTechSortKey('status'); setTechSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Status {techSortKey === 'status' ? (techSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {currentTechnologies.map((tech, index) => {
+                              const rank = startTechIndex + index + 1;
+                              const statusTag = getStatusTagStyle(tech.status);
+                              return (
+                                <TableRow key={index} onClick={() => toggleOpportunityItem(tech.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(tech.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
+                                  <TableCell className="py-3 px-3">
+                                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(tech.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
+                                      {selectedOpportunityItems.has(tech.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-xs font-semibold text-foreground py-3">{tech.name}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{tech.category}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{tech.description}</TableCell>
+                                  <TableCell className="py-3">
+                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${statusTag}`}>{tech.status}</span>
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
 
-                        <div className="flex items-center justify-between px-3 py-2 border-t border-border">
-                          <span className="text-[10px] text-muted-foreground">
+                        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border">
+                          <span className="text-xs text-muted-foreground">
                             {startTechIndex + 1}-{Math.min(startTechIndex + techPerPage, flatTechnologies.length)} of {flatTechnologies.length}
                           </span>
                           <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" onClick={() => setCurrentTechPage((p) => Math.max(p - 1, 1))} disabled={currentTechPage === 1} className="h-6 w-6 p-0">
-                              <ChevronLeft className="w-3 h-3" />
+                            <Button variant="outline" size="sm" onClick={() => setCurrentTechPage((p) => Math.max(p - 1, 1))} disabled={currentTechPage === 1} className="h-7 w-7 p-0">
+                              <ChevronLeft className="w-3.5 h-3.5" />
                             </Button>
-                            <span className="text-[10px] text-muted-foreground">Page {currentTechPage} of {totalTechPages}</span>
-                            <Button variant="outline" size="sm" onClick={() => setCurrentTechPage((p) => Math.min(p + 1, totalTechPages))} disabled={currentTechPage === totalTechPages} className="h-6 w-6 p-0">
-                              <ChevronRight className="w-3 h-3" />
+                            <span className="text-xs text-muted-foreground">Page {currentTechPage} of {totalTechPages}</span>
+                            <Button variant="outline" size="sm" onClick={() => setCurrentTechPage((p) => Math.min(p + 1, totalTechPages))} disabled={currentTechPage === totalTechPages} className="h-7 w-7 p-0">
+                              <ChevronRight className="w-3.5 h-3.5" />
                             </Button>
                           </div>
                         </div>
@@ -1882,56 +1888,59 @@ const ValueChain = () => {
                   <div className="pt-2">
                     <div className="w-full">
                       <div className="flex flex-col overflow-hidden">
-                         <div className="grid grid-cols-[auto,0.3fr,2fr,1.5fr,3fr,1fr,1fr] gap-1.5 px-3 py-1.5 bg-muted/50">
-                          <div className="w-4" />
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Application</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Description</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide text-center cursor-pointer hover:text-foreground select-none flex items-center justify-center gap-0.5" onClick={() => { if (appSortKey === 'players') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('players'); setAppSortDir('desc'); } }}>
-                            Market Players {appSortKey === 'players' ? (appSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (appSortKey === 'maturity') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('maturity'); setAppSortDir('desc'); } }}>
-                            Market Maturity {appSortKey === 'maturity' ? (appSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                        </div>
-                        {currentApplications.map((app, index) => {
-                                const rank = startAppIndex + index + 1;
-                                const isTop3 = rank <= 3;
-                                const matBadge = getMaturityBadge(app.maturity);
-                                const gpBadge = getGreenPremiumBadge(app.greenPremium);
-                                const playerCount = [14, 22, 8, 6, 18, 3, 10, 5, 12, 7, 9, 16, 4, 11, 2][(startAppIndex + index) % 15];
-                                return (
-                                  <div key={index} onClick={() => toggleOpportunityItem(app.name)} className={`grid grid-cols-[auto,0.3fr,2fr,1.5fr,3fr,1fr,1fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(app.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
-                              <div className="flex items-center">
-                                <div className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(app.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
-                                  {selectedOpportunityItems.has(app.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
-                                </div>
-                              </div>
-                              <div className="text-[10px] tabular-nums font-medium flex items-center gap-1">
-                                <span className="text-muted-foreground">{rank}</span>
-                              </div>
-                              <div className="text-[10px] font-medium text-foreground">{app.name}</div>
-                              <div className="text-[10px] text-muted-foreground">{app.category}</div>
-                              <div className="text-[10px] text-muted-foreground">{(app as any).description || ''}</div>
-                              <div className="text-[10px] font-semibold text-amber-700 tabular-nums text-center">{playerCount}</div>
-                              <div>
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[9px] font-semibold tracking-wide border ${matBadge.bgClass} ${matBadge.textClass}`}>{app.maturity}</span>
-                              </div>
-                            </div>);
-                              })}
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-b border-border hover:bg-transparent">
+                              <TableHead className="w-8 py-2.5 px-3"></TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Application</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Description</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 text-center cursor-pointer hover:text-foreground select-none" onClick={() => { if (appSortKey === 'players') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('players'); setAppSortDir('desc'); } }}>
+                                <span className="flex items-center justify-center gap-1">Market Players {appSortKey === 'players' ? (appSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (appSortKey === 'maturity') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('maturity'); setAppSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Market Maturity {appSortKey === 'maturity' ? (appSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {currentApplications.map((app, index) => {
+                              const rank = startAppIndex + index + 1;
+                              const matBadge = getMaturityBadge(app.maturity);
+                              const playerCount = [14, 22, 8, 6, 18, 3, 10, 5, 12, 7, 9, 16, 4, 11, 2][(startAppIndex + index) % 15];
+                              return (
+                                <TableRow key={index} onClick={() => toggleOpportunityItem(app.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(app.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
+                                  <TableCell className="py-3 px-3">
+                                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(app.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
+                                      {selectedOpportunityItems.has(app.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-xs font-semibold text-foreground py-3">{app.name}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{app.category}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{(app as any).description || ''}</TableCell>
+                                  <TableCell className="text-xs font-semibold text-primary tabular-nums text-center py-3">{playerCount}</TableCell>
+                                  <TableCell className="py-3">
+                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${matBadge.bgClass} ${matBadge.textClass}`}>{app.maturity}</span>
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
 
-                        <div className="flex items-center justify-between px-3 py-2 border-t border-border">
-                          <span className="text-[10px] text-muted-foreground">
+                        <div className="flex items-center justify-between px-4 py-2.5 border-t border-border">
+                          <span className="text-xs text-muted-foreground">
                             {startAppIndex + 1}-{Math.min(startAppIndex + appsPerPage, flatApplications.length)} of {flatApplications.length}
                           </span>
                           <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" onClick={() => setCurrentAppPage((p) => Math.max(p - 1, 1))} disabled={currentAppPage === 1} className="h-6 w-6 p-0">
-                              <ChevronLeft className="w-3 h-3" />
+                            <Button variant="outline" size="sm" onClick={() => setCurrentAppPage((p) => Math.max(p - 1, 1))} disabled={currentAppPage === 1} className="h-7 w-7 p-0">
+                              <ChevronLeft className="w-3.5 h-3.5" />
                             </Button>
-                            <span className="text-[10px] text-muted-foreground">Page {currentAppPage} of {totalAppPages}</span>
-                            <Button variant="outline" size="sm" onClick={() => setCurrentAppPage((p) => Math.min(p + 1, totalAppPages))} disabled={currentAppPage === totalAppPages} className="h-6 w-6 p-0">
-                              <ChevronRight className="w-3 h-3" />
+                            <span className="text-xs text-muted-foreground">Page {currentAppPage} of {totalAppPages}</span>
+                            <Button variant="outline" size="sm" onClick={() => setCurrentAppPage((p) => Math.min(p + 1, totalAppPages))} disabled={currentAppPage === totalAppPages} className="h-7 w-7 p-0">
+                              <ChevronRight className="w-3.5 h-3.5" />
                             </Button>
                           </div>
                         </div>
@@ -1946,45 +1955,50 @@ const ValueChain = () => {
                       <TooltipProvider>
                   <div className="pt-2">
                     <div className="w-full">
-                       <div className="flex flex-col overflow-hidden">
-                         <div className="grid grid-cols-[auto,0.3fr,2fr,1.5fr,1.5fr,1fr] gap-1.5 px-3 py-1.5 bg-muted/50">
-                          <div className="w-4" />
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">#</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Product</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide">Category</div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (prodSortKey === 'marketSize') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('marketSize'); setProdSortDir('desc'); } }}>
-                            Market Size {prodSortKey === 'marketSize' ? (prodSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                          <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wide cursor-pointer hover:text-foreground select-none flex items-center gap-0.5" onClick={() => { if (prodSortKey === 'growth') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('growth'); setProdSortDir('desc'); } }}>
-                            Growth {prodSortKey === 'growth' ? (prodSortDir === 'asc' ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />) : <ArrowUpDown className="w-2.5 h-2.5 opacity-40" />}
-                          </div>
-                        </div>
-                        {(() => {
-                          const sorted = prodSortKey ? [...scatterData.slice(0, 10)].sort((a: any, b: any) => {
-                            let cmp = 0;
-                            if (prodSortKey === 'marketSize') cmp = (a.marketSize || 0) - (b.marketSize || 0);
-                            else if (prodSortKey === 'growth') cmp = ((a.marketGrowth || a.cagr || 0) as number) - ((b.marketGrowth || b.cagr || 0) as number);
-                            return prodSortDir === 'asc' ? cmp : -cmp;
-                          }) : scatterData.slice(0, 10);
-                          return sorted;
-                        })().map((product: any, index: number) => {
-                                const rank = index + 1;
-                                return (
-                                  <div key={index} onClick={() => toggleOpportunityItem(product.name)} className={`grid grid-cols-[auto,0.3fr,2fr,1.5fr,1.5fr,1fr] gap-1.5 px-3 py-2 transition-colors border-b border-border/50 last:border-0 cursor-pointer ${selectedOpportunityItems.has(product.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'bg-card hover:bg-muted/30'}`}>
-                              <div className="flex items-center">
-                                <div className={`w-3.5 h-3.5 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(product.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
-                                  {selectedOpportunityItems.has(product.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
-                                </div>
-                              </div>
-                              <div className="text-[10px] tabular-nums font-medium flex items-center gap-1">
-                                <span className="text-muted-foreground">{rank}</span>
-                              </div>
-                              <div className="text-[10px] font-medium text-foreground">{product.name}</div>
-                              <div className="text-[10px] text-muted-foreground">{product.category}</div>
-                              <div className="text-[10px] text-muted-foreground">${product.marketSize}B</div>
-                              <div className="text-[10px] font-semibold text-primary tabular-nums">{product.marketGrowth}%</div>
-                            </div>);
-                              })}
+                      <div className="flex flex-col overflow-hidden">
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-b border-border hover:bg-transparent">
+                              <TableHead className="w-8 py-2.5 px-3"></TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Product</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (prodSortKey === 'marketSize') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('marketSize'); setProdSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Market Size {prodSortKey === 'marketSize' ? (prodSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (prodSortKey === 'growth') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('growth'); setProdSortDir('desc'); } }}>
+                                <span className="flex items-center gap-1">Growth {prodSortKey === 'growth' ? (prodSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {(() => {
+                              const sorted = prodSortKey ? [...scatterData.slice(0, 10)].sort((a: any, b: any) => {
+                                let cmp = 0;
+                                if (prodSortKey === 'marketSize') cmp = (a.marketSize || 0) - (b.marketSize || 0);
+                                else if (prodSortKey === 'growth') cmp = ((a.marketGrowth || a.cagr || 0) as number) - ((b.marketGrowth || b.cagr || 0) as number);
+                                return prodSortDir === 'asc' ? cmp : -cmp;
+                              }) : scatterData.slice(0, 10);
+                              return sorted;
+                            })().map((product: any, index: number) => {
+                              const rank = index + 1;
+                              return (
+                                <TableRow key={index} onClick={() => toggleOpportunityItem(product.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(product.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
+                                  <TableCell className="py-3 px-3">
+                                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(product.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
+                                      {selectedOpportunityItems.has(product.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{rank}</TableCell>
+                                  <TableCell className="text-xs font-semibold text-foreground py-3">{product.name}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">{product.category}</TableCell>
+                                  <TableCell className="text-xs text-muted-foreground py-3">${product.marketSize}B</TableCell>
+                                  <TableCell className="text-xs font-semibold text-primary tabular-nums py-3">{product.marketGrowth}%</TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        </Table>
                       </div>
                     </div>
                   </div>
