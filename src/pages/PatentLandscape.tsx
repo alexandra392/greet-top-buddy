@@ -840,6 +840,10 @@ const PatentLandscape = () => {
                 <div className="grid grid-cols-[150px_1fr] gap-2">
                   {/* Legend / Filter Panel */}
                   <div className="bg-muted/30 border border-border/40 rounded-xl p-3 flex flex-col">
+                    <div className="rounded-lg border border-border/40 bg-background p-3 text-center mb-3">
+                      <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Patents</div>
+                      <div className="text-lg font-bold text-foreground mt-0.5">{Number(activeConfig.totalPatents).toLocaleString()}</div>
+                    </div>
                     <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Filters</h4>
                     <div className="space-y-2.5">
                       <div>
