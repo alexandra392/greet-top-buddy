@@ -774,6 +774,7 @@ const ValueChainPathways = () => {
               </div>
             )}
             </div>
+          </div>
 
           {/* RIGHT: Filter Sidebar */}
           <div className="border border-border rounded-lg bg-card px-3 py-3 sticky top-16 self-start shadow-sm">
