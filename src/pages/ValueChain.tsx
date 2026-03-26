@@ -1745,7 +1745,7 @@ const ValueChain = () => {
                       <div className="flex flex-col overflow-hidden">
                         <Table>
                           <TableHeader>
-                            <TableRow className="border-b border-border hover:bg-transparent">
+                            <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
                               <TableHead className="w-8 py-2.5 px-3"></TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Process</TableHead>
@@ -1807,7 +1807,7 @@ const ValueChain = () => {
                       <div className="flex flex-col overflow-hidden">
                         <Table>
                           <TableHeader>
-                            <TableRow className="border-b border-border hover:bg-transparent">
+                            <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
                               <TableHead className="w-8 py-2.5 px-3"></TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Application</TableHead>
@@ -1875,7 +1875,7 @@ const ValueChain = () => {
                       <div className="flex flex-col overflow-hidden">
                         <Table>
                           <TableHeader>
-                            <TableRow className="border-b border-border hover:bg-transparent">
+                            <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
                               <TableHead className="w-8 py-2.5 px-3"></TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Product</TableHead>
