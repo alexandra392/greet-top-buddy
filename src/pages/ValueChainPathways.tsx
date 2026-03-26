@@ -832,16 +832,16 @@ const ValueChainPathways = () => {
                     <Bookmark className={`w-4 h-4 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
                   </button>
                   <div className="text-xs font-bold text-foreground text-center">{vcgScore}</div>
-                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
                   </div>
-                  <div className="text-xs font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                  <div className="text-[10px] font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
                     {pathway.technology}
                   </div>
-                  <div className={`text-xs font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isProductRoute ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isProductRoute ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.product}
                   </div>
-                  <div className="text-xs text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                  <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
                     {pathway.application}
                   </div>
                   <div className="text-xs font-medium text-blue-600 text-center">{researchScore}</div>
