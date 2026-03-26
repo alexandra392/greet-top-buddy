@@ -318,17 +318,10 @@ const PathwayDetail = () => {
       </div>
 
       <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 min-h-0">
-        <div className="grid gap-5 h-full" style={{ gridTemplateColumns: '1fr 280px', rowGap: '12px' }}>
-          {/* Titles row */}
-          <div>
-            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pathway Profile</h3>
-          </div>
-          <div>
-            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Landscape Analytics</h3>
-          </div>
-
+        <div className="grid gap-5 h-full" style={{ gridTemplateColumns: '1fr 280px' }}>
           {/* Left: Pathway Profile */}
           <div className="min-w-0">
+              <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Pathway Profile</h3>
               <div className="border border-border rounded-xl bg-card p-5 shadow-sm flex flex-col gap-3 h-full">
               <div className="border border-border rounded-lg bg-card shadow-sm">
                 {/* Header row */}
