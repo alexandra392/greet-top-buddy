@@ -171,7 +171,7 @@ export default function ValueChainPathwaysFunnel() {
                     <h3 className="text-lg font-bold text-foreground mb-1">
                       {selectedFunnelStage} Stage Pathways
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       Detailed breakdown of pathways at the {selectedFunnelStage.toLowerCase()} development stage
                     </p>
                   </div>
