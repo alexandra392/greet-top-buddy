@@ -258,7 +258,6 @@ export default function ValueChainPathwaysFunnel() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
