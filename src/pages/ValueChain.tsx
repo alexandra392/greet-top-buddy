@@ -1711,7 +1711,7 @@ const ValueChain = () => {
               </div>
 
               {/* Category Tabs — pill style, exclude the anchor category */}
-              <div className="flex items-center gap-1 bg-muted/60 rounded-lg p-1">
+              <div className="flex items-center bg-muted rounded-lg p-0.5">
                 {(() => {
                   const allTabs = [
                     { key: 'feedstocks' as const, icon: Sprout, label: 'Feedstocks', count: feedstockData.length },
@@ -1719,8 +1719,6 @@ const ValueChain = () => {
                     { key: 'products' as const, icon: Box, label: 'Products', count: scatterData.length },
                     { key: 'applications' as const, icon: Target, label: 'Applications', count: marketDataDetail.reduce((sum, m) => sum + m.subcategories.length, 0) },
                   ];
-                  // For product route: exclude 'products' (anchor is the product)
-                  // For feedstock route: exclude 'feedstocks' (anchor is the feedstock)
                   const filteredTabs = allTabs.filter(tab => {
                     if (isProductRoute && tab.key === 'products') return false;
                     if (isFeedstockRoute && tab.key === 'feedstocks') return false;
@@ -1730,15 +1728,15 @@ const ValueChain = () => {
                     <button
                       key={tab.key}
                       onClick={() => handleOpportunityTabChange(tab.key)}
-                      className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-[10px] font-semibold transition-all ${
+                      className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-medium transition-all ${
                       opportunityTab === tab.key ?
-                      'bg-card text-foreground shadow-sm' :
+                      'bg-foreground text-background shadow-sm' :
                       'text-muted-foreground hover:text-foreground'}`
                       }>
                       
                   <tab.icon className="w-3.5 h-3.5" />
                   <span>{tab.label}</span>
-                  <span className="text-[9px] text-muted-foreground font-normal">({tab.count})</span>
+                  <span className="text-[9px] font-normal">({tab.count})</span>
                 </button>
                   );
                 })()}

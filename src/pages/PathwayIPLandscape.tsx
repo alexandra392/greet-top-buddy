@@ -167,16 +167,16 @@ const PathwayIPLandscape = () => {
         <Card className="bg-card border border-border/60 shadow-sm flex-1 min-w-0 flex flex-col">
           <CardContent className="px-4 py-3 flex flex-col h-full">
             {/* Production / Application Toggle */}
-            <div className="flex items-center gap-0.5 mb-3 flex-shrink-0">
+            <div className="flex items-center bg-muted rounded-lg p-0.5 mb-3 flex-shrink-0 self-start">
               <button
                 onClick={() => setActiveView('production')}
-                className={`px-3 py-1 rounded text-[10px] font-medium transition-all ${activeView === 'production' ? 'bg-foreground text-background shadow-sm' : 'bg-background border border-border text-foreground hover:bg-muted'}`}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${activeView === 'production' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
               >
                 Production
               </button>
               <button
                 onClick={() => setActiveView('application')}
-                className={`px-3 py-1 rounded text-[10px] font-medium transition-all ${activeView === 'application' ? 'bg-foreground text-background shadow-sm' : 'bg-background border border-border text-foreground hover:bg-muted'}`}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${activeView === 'application' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
               >
                 Application
               </button>
