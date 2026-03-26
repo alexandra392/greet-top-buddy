@@ -334,13 +334,13 @@ const PathwayDetail = () => {
                 {/* Header row */}
                 <div className="px-3 py-1.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
                   <span></span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">VCG</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center flex items-center justify-center gap-0.5">VCG <Info className="w-2.5 h-2.5 text-muted-foreground/50" /></span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Feedstock</span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Process</span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Product</span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Application</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Research</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">IP</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center flex items-center justify-center gap-0.5">Research <Info className="w-2.5 h-2.5 text-muted-foreground/50" /></span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center flex items-center justify-center gap-0.5">IP <Info className="w-2.5 h-2.5 text-muted-foreground/50" /></span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">TRL</span>
                 </div>
                 {/* Single row matching table format */}
