@@ -664,18 +664,18 @@ const ValueChainPathways = () => {
                   Shortlisted ({savedPathways.size})
                 </button>
               </div>
-              <div className="relative w-32 ml-auto">
-                <Search className="absolute left-1.5 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-muted-foreground" />
+              <div className="relative w-36 ml-auto">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search..."
-                  className="pl-5 h-5 text-[8px] bg-background"
+                  className="pl-7 h-7 text-[10px] bg-background rounded-md"
                 />
               </div>
               <Select value={sortBy} onValueChange={(v) => setSortBy(v as 'vcg' | 'research' | 'ip' | 'trl')}>
-                <SelectTrigger className="h-5 w-auto text-[8px] text-muted-foreground gap-1 px-2 border-border">
-                  <ArrowUpDown className="w-2.5 h-2.5 shrink-0" />
+                <SelectTrigger className="h-7 w-auto text-[10px] text-muted-foreground gap-1 px-2.5 border-border rounded-md">
+                  <ArrowUpDown className="w-3 h-3 shrink-0" />
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
