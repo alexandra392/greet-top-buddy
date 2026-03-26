@@ -827,10 +827,11 @@ const ValueChainPathways = () => {
                   {(() => {
                     if (filteredIndex < 3) {
                       const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-700'];
+                      const bgColors = ['bg-yellow-50', 'bg-gray-50', 'bg-amber-50'];
                       return (
-                        <div className="flex items-center justify-center relative">
-                          <Medal className={`w-5 h-5 ${medalColors[filteredIndex]}`} />
-                          <span className={`absolute text-[7px] font-black ${medalColors[filteredIndex]} mt-0.5`}>{filteredIndex + 1}</span>
+                        <div className="flex items-center justify-center relative w-7 h-7">
+                          <Award className={`w-6 h-6 ${medalColors[filteredIndex]}`} />
+                          <span className={`absolute text-[8px] font-black ${medalColors[filteredIndex]}`} style={{ top: '12px' }}>{filteredIndex + 1}</span>
                         </div>
                       );
                     }
