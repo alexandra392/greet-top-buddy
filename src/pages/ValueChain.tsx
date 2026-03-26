@@ -1901,16 +1901,16 @@ const ValueChain = () => {
                               const rank = index + 1;
                               return (
                                 <TableRow key={index} onClick={() => toggleOpportunityItem(product.name)} className={`cursor-pointer transition-colors ${selectedOpportunityItems.has(product.name) ? 'bg-primary/10 ring-1 ring-primary/30' : 'hover:bg-muted/30'}`}>
-                                  <TableCell className="py-3 px-3">
+                                  <TableCell className="py-1.5 px-3">
                                     <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedOpportunityItems.has(product.name) ? 'bg-primary border-primary' : 'border-muted-foreground/40'}`}>
                                       {selectedOpportunityItems.has(product.name) && <Check className="w-2.5 h-2.5 text-primary-foreground" />}
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{rank}</TableCell>
-                                  <TableCell className="text-[10px] font-semibold text-foreground py-3">{product.name}</TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">{product.category}</TableCell>
-                                  <TableCell className="text-[10px] text-muted-foreground py-3">${product.marketSize}B</TableCell>
-                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums py-3">{product.marketGrowth}%</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{rank}</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-foreground py-1.5">{product.name}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">{product.category}</TableCell>
+                                  <TableCell className="text-[10px] text-muted-foreground py-1.5">${product.marketSize}B</TableCell>
+                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums py-1.5">{product.marketGrowth}%</TableCell>
                                 </TableRow>
                               );
                             })}
