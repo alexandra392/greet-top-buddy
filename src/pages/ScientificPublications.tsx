@@ -212,118 +212,108 @@ const ScientificPublications = () => {
   const [selectedCategory, setSelectedCategory] = useState<{ name: string; total: number; subs: { name: string; total: number }[] } | null>(null);
   const [selectedPublicationDetail, setSelectedPublicationDetail] = useState<typeof publications[0] | null>(null);
 
-  const renderHeatMatrix = (section: typeof sections[0]) => {
-    const activeCategoryName = expandedCategory[section.title] || null;
-    const activeCategory = activeCategoryName ? section.data.find(c => c.name === activeCategoryName) : null;
-    const displayData = activeCategory ? activeCategory.subItems : section.data;
-    const maxVal = Math.max(...displayData.flatMap((r) => r.values));
+  // Trending topic: find the topic with highest citation growth
+  const getTrendingTopic = () => {
+    const activeData = isFeedstockRoute ? technologyHeatData : feedstockHeatData;
+    let bestGrowth = -Infinity;
+    let bestTopic = activeData[0];
+    for (const cat of activeData) {
+      const lastYear = cat.values[cat.values.length - 1];
+      const prevYear = cat.values[cat.values.length - 2];
+      const growth = prevYear > 0 ? ((lastYear - prevYear) / prevYear) * 100 : 0;
+      if (growth > bestGrowth) {
+        bestGrowth = growth;
+        bestTopic = cat;
+      }
+    }
+    return { topic: bestTopic, growth: bestGrowth };
+  };
+
+  const trending = getTrendingTopic();
+
+  const renderDistributionBars = (section: typeof sections[0]) => {
+    const maxTotal = Math.max(...section.data.map(d => d.total));
+    const sortedData = [...section.data].sort((a, b) => b.total - a.total);
 
     return (
       <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4">
-        <div className="mb-2">
+        <div className="mb-3">
           <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">{section.title}</h3>
           <p className="text-[9px] text-muted-foreground">{section.description}</p>
         </div>
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-[9px] text-muted-foreground">{section.subtitle}</p>
-          {activeCategory && (
-            <span className="text-[9px] font-semibold text-foreground">{activeCategory.name}</span>
-          )}
-        </div>
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-[8px] text-muted-foreground">Low</span>
-          <div className="flex h-2 rounded overflow-hidden">
-            {['hsl(220 20% 94%)', 'hsl(220 25% 86%)', 'hsl(222 30% 76%)', 'hsl(222 35% 66%)', 'hsl(222 40% 56%)', 'hsl(222 42% 46%)', 'hsl(222 47% 36%)'].map((c, i) =>
-              <div key={i} className="w-4" style={{ backgroundColor: c }} />
-            )}
-          </div>
-          <span className="text-[8px] text-muted-foreground">High</span>
-          <span className="text-[8px] text-muted-foreground ml-1">Annual publications</span>
-        </div>
-        <table className="w-full text-xs">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="text-left py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground w-1/4">
-                {section.columnLabel}
-              </th>
-              {years.map((y) =>
-                <th key={y} className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">{y}</th>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {section.data.map((cat) => {
-              const isExpanded = expandedCategory[section.title] === cat.name;
-              const catMaxVal = Math.max(...section.data.flatMap((r) => r.values));
-              return (
-                <React.Fragment key={cat.name}>
-                  <tr
-                    className="border-b border-border/30 cursor-pointer hover:bg-muted/30 transition-colors"
-                    onClick={() => {
-                      setExpandedCategory(prev => ({
-                        ...prev,
-                        [section.title]: isExpanded ? null : cat.name
-                      }));
-                    }}
-                  >
-                    <td className="py-[3px]">
-                      <div className="flex items-center gap-1">
-                        <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
-                        <div>
-                          <div className="font-bold text-[10px] text-foreground">{cat.name}</div>
-                          <div className="text-[8px] text-muted-foreground">{cat.total.toLocaleString()} total</div>
-                        </div>
-                      </div>
-                    </td>
-                    {cat.values.map((v, i) => {
-                      const intensity = v / catMaxVal;
-                      const lightness = 94 - intensity * 58;
-                      const saturation = 20 + intensity * 27;
-                      const bgColor = `hsl(222 ${saturation}% ${lightness}%)`;
-                      const textColor = lightness < 55 ? 'white' : 'hsl(222, 47%, 11%)';
+        <div className="space-y-2">
+          {sortedData.map((cat, idx) => {
+            const pct = (cat.total / maxTotal) * 100;
+            const isExpanded = expandedCategory[section.title] === cat.name;
+            return (
+              <div key={cat.name}>
+                <div
+                  className="cursor-pointer hover:bg-muted/30 rounded-lg p-1.5 transition-colors"
+                  onClick={() => {
+                    setExpandedCategory(prev => ({
+                      ...prev,
+                      [section.title]: isExpanded ? null : cat.name
+                    }));
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-1.5">
+                      <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
+                      <span className="text-[10px] font-semibold text-foreground">{cat.name}</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-foreground">{cat.total.toLocaleString()}</span>
+                  </div>
+                  <div className="ml-4.5 h-3 bg-muted rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${pct}%`,
+                        backgroundColor: idx === 0
+                          ? 'hsl(222 47% 36%)'
+                          : idx === 1
+                          ? 'hsl(222 40% 46%)'
+                          : idx === 2
+                          ? 'hsl(222 35% 56%)'
+                          : idx === 3
+                          ? 'hsl(222 30% 66%)'
+                          : 'hsl(222 25% 76%)'
+                      }}
+                    />
+                  </div>
+                </div>
+                {isExpanded && (
+                  <div className="ml-7 mt-1 space-y-1.5 pb-1">
+                    {cat.subItems.sort((a, b) => b.total - a.total).map((sub) => {
+                      const subMax = Math.max(...cat.subItems.map(s => s.total));
+                      const subPct = (sub.total / subMax) * 100;
                       return (
-                        <td key={i} className="text-center py-[3px]">
-                          <div className="mx-0.5 py-1.5 rounded-md text-[10px] font-bold" style={{ backgroundColor: bgColor, color: textColor }}>
-                            {v}
+                        <div
+                          key={sub.name}
+                          className="cursor-pointer hover:bg-primary/[0.06] rounded-md p-1 transition-colors"
+                          onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
+                        >
+                          <div className="flex items-center justify-between mb-0.5">
+                            <span className="text-[9px] font-medium text-foreground">{sub.name}</span>
+                            <span className="text-[9px] font-semibold text-muted-foreground">{sub.total.toLocaleString()}</span>
                           </div>
-                        </td>
+                          <div className="h-2 bg-muted rounded-full overflow-hidden">
+                            <div
+                              className="h-full rounded-full transition-all duration-500"
+                              style={{
+                                width: `${subPct}%`,
+                                backgroundColor: 'hsl(152 35% 50%)'
+                              }}
+                            />
+                          </div>
+                        </div>
                       );
                     })}
-                  </tr>
-                  {isExpanded && cat.subItems.map((sub) => {
-                    const subMaxVal = Math.max(...cat.subItems.flatMap((s) => s.values));
-                    return (
-                      <tr key={sub.name} className="border-b border-border/20 bg-primary/[0.03] hover:bg-primary/[0.06] transition-colors cursor-pointer"
-                        onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
-                      >
-                        <td className="py-[3px] pl-7">
-                          <div>
-                            <div className="font-medium text-[10px] text-foreground">{sub.name}</div>
-                            <div className="text-[8px] text-muted-foreground">{sub.total.toLocaleString()} total</div>
-                          </div>
-                        </td>
-                        {sub.values.map((v, i) => {
-                          const intensity = v / subMaxVal;
-                          const lightness = 94 - intensity * 58;
-                          const saturation = 20 + intensity * 27;
-                          const bgColor = `hsl(152 ${saturation}% ${lightness}%)`;
-                          const textColor = lightness < 55 ? 'white' : 'hsl(152, 47%, 11%)';
-                          return (
-                            <td key={i} className="text-center py-[3px]">
-                              <div className="mx-0.5 py-1.5 rounded-md text-[10px] font-bold" style={{ backgroundColor: bgColor, color: textColor }}>
-                                {v}
-                              </div>
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </React.Fragment>
-              );
-            })}
-          </tbody>
-        </table>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   };
