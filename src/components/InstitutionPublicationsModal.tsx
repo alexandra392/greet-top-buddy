@@ -114,7 +114,6 @@ const InstitutionPublicationsModal = ({
   hIndex,
   topic = 'Lactic Acid',
 }: InstitutionPublicationsModalProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
 
   const allPublications = useMemo(() =>
@@ -122,21 +121,9 @@ const InstitutionPublicationsModal = ({
     [institution, totalPapers, topic]
   );
 
-  const filteredPublications = useMemo(() => {
-    let filtered = allPublications;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.authors.some(a => a.toLowerCase().includes(q)) ||
-        p.topics.some(t => t.toLowerCase().includes(q))
-      );
-    }
-    return filtered;
-  }, [allPublications, searchQuery]);
+  const filteredPublications = allPublications;
 
   const handleClose = () => {
-    setSearchQuery('');
     setSelectedPublication(null);
     onOpenChange(false);
   };
@@ -157,13 +144,6 @@ const InstitutionPublicationsModal = ({
           </div>
           <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3">
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Research Type</p>
-                <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
-                  <FileText className="w-3 h-3 text-muted-foreground" />
-                  {researchTypeLabels[selectedPublication.researchType] || selectedPublication.researchType}
-                </p>
-              </div>
               <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
                 <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Date Published</p>
                 <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
@@ -189,27 +169,10 @@ const InstitutionPublicationsModal = ({
             </div>
 
             <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Institution</p>
-              <p className="text-[11px] font-medium text-foreground flex items-center gap-1">
-                <Building2 className="w-3 h-3 text-muted-foreground" />
-                {institution}
-              </p>
-            </div>
-
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Authors</p>
               <div className="flex flex-wrap gap-1">
                 {selectedPublication.authors.map((author, i) => (
                   <span key={i} className="text-[10px] bg-background px-2 py-0.5 rounded border border-border/40 text-foreground">{author}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Topics</p>
-              <div className="flex flex-wrap gap-1">
-                {selectedPublication.topics.map((t, i) => (
-                  <span key={i} className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/20 font-medium">{t}</span>
                 ))}
               </div>
             </div>
@@ -220,11 +183,6 @@ const InstitutionPublicationsModal = ({
                 <p className="text-[10px] font-mono text-primary">{selectedPublication.doi}</p>
               </div>
             )}
-
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Abstract</p>
-              <p className="text-[10px] text-foreground leading-relaxed">{selectedPublication.summary}</p>
-            </div>
           </div>
         </DialogContent>
       </Dialog>
@@ -252,21 +210,9 @@ const InstitutionPublicationsModal = ({
           </div>
         </div>
 
-        <div className="px-4 py-2 border-b border-border flex-shrink-0">
-          <div className="relative">
-            <Search className="w-3 h-3 absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search publications..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-7 h-7 text-[10px]"
-            />
-          </div>
-        </div>
-
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {filteredPublications.length} of {allPublications.length} publications
+            Showing {filteredPublications.length} publications
           </div>
           <div className="space-y-1.5">
             {filteredPublications.map((pub, idx) => (
@@ -281,17 +227,16 @@ const InstitutionPublicationsModal = ({
                   <span className="text-[9px] text-muted-foreground">·</span>
                   <span className="text-[9px] text-muted-foreground">{pub.authors.slice(0, 2).join(', ')}{pub.authors.length > 2 ? ' et al.' : ''}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <Badge variant="outline" className="text-[8px] px-1.5 py-0 font-medium">
-                    {researchTypeLabels[pub.researchType] || pub.researchType}
-                  </Badge>
-                  {pub.journal && (
-                    <span className="text-[8px] text-muted-foreground italic">{pub.journal}</span>
-                  )}
-                  {pub.citations !== undefined && (
-                    <span className="text-[8px] text-muted-foreground ml-auto">{pub.citations} citations</span>
-                  )}
-                </div>
+                {(pub.journal || pub.citations !== undefined) && (
+                  <div className="flex items-center gap-1.5">
+                    {pub.journal && (
+                      <span className="text-[8px] text-muted-foreground italic">{pub.journal}</span>
+                    )}
+                    {pub.citations !== undefined && (
+                      <span className="text-[8px] text-muted-foreground ml-auto">{pub.citations} citations</span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

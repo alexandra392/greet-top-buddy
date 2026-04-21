@@ -499,20 +499,6 @@ const ScientificPublications = () => {
                       <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Latest Publications</h3>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="relative">
-                        <Search className="w-3 h-3 absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-                        <Input placeholder="Search" className="pl-7 w-44 h-7 text-[10px]" />
-                      </div>
-                      <Select value={selectedResearchType} onValueChange={setSelectedResearchType}>
-                        <SelectTrigger className="w-40 h-7 text-[10px]">
-                          <SelectValue placeholder="Research Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {researchTypes.map((type) => (
-                            <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
                       <Select defaultValue="date">
                         <SelectTrigger className="w-24 h-7 text-[10px]">
                           <SelectValue placeholder="Sort by" />
@@ -528,21 +514,12 @@ const ScientificPublications = () => {
                   <div className="space-y-1.5">
                     {filteredPublications.map((pub) => (
                       <div key={pub.id} className="border-l-2 border-l-border border border-border/30 bg-background rounded-lg p-3 hover:border-border/60 transition-colors cursor-pointer" onClick={() => setSelectedPublicationDetail(pub)}>
-                        <div className="grid grid-cols-[2fr_auto_1fr_2fr_auto] gap-4 items-start">
+                        <div className="grid grid-cols-[2fr_auto_1fr_auto] gap-4 items-start">
                           <div className="min-w-0">
                             <div className="text-[11px] font-semibold text-foreground leading-snug">{pub.title}</div>
-                            <div className="flex flex-wrap gap-1 mt-1.5">
-                              <Badge variant="outline" className="text-[8px] px-1.5 py-0.5 font-medium">
-                                {researchTypes.find(t => t.value === pub.researchType)?.label || pub.researchType}
-                              </Badge>
-                              {pub.topics.map((t, i) => (
-                                <Badge key={i} variant="secondary" className="text-[8px] px-1.5 py-0.5">{t}</Badge>
-                              ))}
-                            </div>
                           </div>
                           <div className="text-[9px] text-muted-foreground whitespace-nowrap pt-0.5">{pub.date}</div>
                           <div className="text-[9px] text-muted-foreground pt-0.5">{pub.authors.join(", ")}</div>
-                          <div className="text-[9px] text-muted-foreground leading-snug pt-0.5">{pub.summary}</div>
                           <div className="flex-shrink-0 pt-0.5">
                             <Button size="sm" variant="ghost" className="h-6 w-6 p-0"><ExternalLink className="w-3.5 h-3.5" /></Button>
                           </div>
