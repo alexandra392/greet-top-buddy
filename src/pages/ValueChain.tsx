@@ -1913,7 +1913,6 @@ const ValueChain = () => {
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{app.category}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{(app as any).description || ''}</TableCell>
                                 </TableRow>
-                                </TableRow>
                               );
                             })}
                           </TableBody>
