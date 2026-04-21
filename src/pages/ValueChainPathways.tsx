@@ -751,20 +751,6 @@ const ValueChainPathways = () => {
                   {uniqueApplications.map(a => <SelectItem key={a} value={a} className="text-[10px]">{a}</SelectItem>)}
                 </SelectContent>
               </Select>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
-                    Research
-                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">Research Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Measures the volume and quality of scientific publications supporting this pathway. Based on publication count.
-                  </p>
-                </PopoverContent>
-              </Popover>
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
             </div>
 
