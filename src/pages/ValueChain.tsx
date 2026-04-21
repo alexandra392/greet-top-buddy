@@ -1629,12 +1629,11 @@ const ValueChain = () => {
                        {/* Top 3 Pathways */}
                        <div className="space-y-2">
                          <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
-                         <p className="text-xs text-muted-foreground leading-relaxed">Ranked by <span className="font-semibold text-foreground">VCG Score</span>. Click on any pathway to explore its full profile.</p>
+                         <p className="text-xs text-muted-foreground leading-relaxed">Click on any pathway to explore its full profile.</p>
                          
                          {/* Table header */}
-                         <div className="grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
+                         <div className="grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">VCG</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
