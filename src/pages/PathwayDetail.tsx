@@ -326,7 +326,7 @@ const PathwayDetail = () => {
               <p className="text-xs text-muted-foreground leading-relaxed mt-1">Detailed breakdown of this pathway's value chain, scoring, and key metrics. Click on any node to explore alternatives.</p>
               <div className="border border-border rounded-lg bg-card shadow-sm">
                 {/* Header row */}
-                <div className="px-3 py-1.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2">
+                <div className="px-3 py-1.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_100px] items-center gap-2">
                   <span></span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Rank</span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Feedstock</span>
@@ -343,7 +343,7 @@ const PathwayDetail = () => {
                   const trlLabel = getTRLStageLabel(pathway.trl);
                   const trlNum = parseInt(pathway.trl.replace('TRL ', ''));
                   return (
-                    <div className="px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2">
+                    <div className="px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_100px] items-center gap-2">
                       <button
                         onClick={toggleSave}
                         className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
