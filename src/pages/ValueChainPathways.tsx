@@ -394,8 +394,8 @@ const ValueChainPathways = () => {
       if (aDisliked && !bDisliked) return 1;
       if (!aDisliked && bDisliked) return -1;
 
-      const aVcg = Math.max(20, 95 - a.originalIndex * 3);
-      const bVcg = Math.max(20, 95 - b.originalIndex * 3);
+      const aVcg = getPathwayScore(a.pathway);
+      const bVcg = getPathwayScore(b.pathway);
       const aResearch = Math.min(100, Math.round(aVcg * 0.95 + (a.originalIndex % 5) * 2));
       const bResearch = Math.min(100, Math.round(bVcg * 0.95 + (b.originalIndex % 5) * 2));
       const aIp = Math.max(0, Math.min(100, Math.round(100 - aVcg + (a.originalIndex % 7) * 3)));
