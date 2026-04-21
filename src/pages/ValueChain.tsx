@@ -1912,10 +1912,7 @@ const ValueChain = () => {
                                   <TableCell className="text-[10px] font-semibold text-foreground py-1.5">{app.name}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{app.category}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{(app as any).description || ''}</TableCell>
-                                  <TableCell className="text-[10px] font-semibold text-primary tabular-nums text-center py-1.5">{playerCount}</TableCell>
-                                  <TableCell className="py-1.5">
-                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${matBadge.bgClass} ${matBadge.textClass}`}>{app.maturity}</span>
-                                  </TableCell>
+                                </TableRow>
                                 </TableRow>
                               );
                             })}
