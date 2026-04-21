@@ -24,8 +24,24 @@ const Index = () => {
       {/* My Portfolio Section */}
       <VCGWelcomeWidget />
 
-      {/* Latest Updates Section */}
-      <PortfolioUpdatesWidget />
+      {/* Latest Updates Section - Coming Soon */}
+      <div className="space-y-2.5">
+        <div>
+          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Latest Updates</h2>
+          <p className="text-[11px] text-muted-foreground mt-0.5">
+            Real-time updates across your portfolio topics
+          </p>
+        </div>
+        <div className="border border-dashed border-border/60 rounded-xl px-6 py-10 flex flex-col items-center justify-center text-center bg-muted/20">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/20 mb-2">
+            <Sparkles className="w-3 h-3 text-success" />
+            <span className="text-[10px] font-bold tracking-widest text-success uppercase">Coming Soon</span>
+          </div>
+          <p className="text-xs text-muted-foreground max-w-md">
+            We're putting the finishing touches on a unified feed of research, patents, projects, and market activity for your portfolio topics.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
