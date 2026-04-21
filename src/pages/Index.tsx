@@ -1,5 +1,6 @@
 import VCGWelcomeWidget from "@/components/VCGWelcomeWidget";
-import { Sparkles } from "lucide-react";
+import PortfolioUpdatesWidget from "@/components/PortfolioUpdatesWidget";
+import { Sparkles, Clock } from "lucide-react";
 
 const Index = () => {
   return (
