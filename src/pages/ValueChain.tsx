@@ -1629,12 +1629,11 @@ const ValueChain = () => {
                        {/* Top 3 Pathways */}
                        <div className="space-y-2">
                          <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Top 3 Pathways Identified</h4>
-                         <p className="text-xs text-muted-foreground leading-relaxed">Ranked by <span className="font-semibold text-foreground">VCG Score</span>. Click on any pathway to explore its full profile.</p>
+                         <p className="text-xs text-muted-foreground leading-relaxed">Click on any pathway to explore its full profile.</p>
                          
                          {/* Table header */}
-                         <div className="grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
+                         <div className="grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">VCG</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
@@ -1662,15 +1661,14 @@ const ValueChain = () => {
                              return (
                                <div
                                  key={idx}
-                                  className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
-                                  onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
-                                >
-                                  <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
-                                    idx === 0 ? 'border-amber-400 text-amber-600 bg-amber-50' :
-                                    idx === 1 ? 'border-gray-300 text-gray-500 bg-gray-50' :
-                                    'border-orange-300 text-orange-600 bg-orange-50'
-                                  }`}>{idx + 1}</div>
-                                  <div className="text-[10px] font-bold text-foreground text-center">{row.score}</div>
+                                   className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
+                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
+                                 >
+                                   <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
+                                     idx === 0 ? 'border-amber-400 text-amber-600 bg-amber-50' :
+                                     idx === 1 ? 'border-gray-300 text-gray-500 bg-gray-50' :
+                                     'border-orange-300 text-orange-600 bg-orange-50'
+                                   }`}>{idx + 1}</div>
                                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                                    {parts[0] || '—'}
                                  </div>
