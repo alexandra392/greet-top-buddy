@@ -124,7 +124,6 @@ const InstitutionPublicationsModal = ({
   const filteredPublications = allPublications;
 
   const handleClose = () => {
-    setSearchQuery('');
     setSelectedPublication(null);
     onOpenChange(false);
   };
@@ -145,13 +144,6 @@ const InstitutionPublicationsModal = ({
           </div>
           <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3">
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Research Type</p>
-                <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
-                  <FileText className="w-3 h-3 text-muted-foreground" />
-                  {researchTypeLabels[selectedPublication.researchType] || selectedPublication.researchType}
-                </p>
-              </div>
               <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
                 <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Date Published</p>
                 <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
@@ -177,27 +169,10 @@ const InstitutionPublicationsModal = ({
             </div>
 
             <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Institution</p>
-              <p className="text-[11px] font-medium text-foreground flex items-center gap-1">
-                <Building2 className="w-3 h-3 text-muted-foreground" />
-                {institution}
-              </p>
-            </div>
-
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Authors</p>
               <div className="flex flex-wrap gap-1">
                 {selectedPublication.authors.map((author, i) => (
                   <span key={i} className="text-[10px] bg-background px-2 py-0.5 rounded border border-border/40 text-foreground">{author}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Topics</p>
-              <div className="flex flex-wrap gap-1">
-                {selectedPublication.topics.map((t, i) => (
-                  <span key={i} className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/20 font-medium">{t}</span>
                 ))}
               </div>
             </div>
@@ -208,11 +183,6 @@ const InstitutionPublicationsModal = ({
                 <p className="text-[10px] font-mono text-primary">{selectedPublication.doi}</p>
               </div>
             )}
-
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Abstract</p>
-              <p className="text-[10px] text-foreground leading-relaxed">{selectedPublication.summary}</p>
-            </div>
           </div>
         </DialogContent>
       </Dialog>
