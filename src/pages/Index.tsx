@@ -1,5 +1,4 @@
 import VCGWelcomeWidget from "@/components/VCGWelcomeWidget";
-import PortfolioUpdatesWidget from "@/components/PortfolioUpdatesWidget";
 import { Sparkles } from "lucide-react";
 
 const Index = () => {
