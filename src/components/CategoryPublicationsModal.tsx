@@ -1,10 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, ArrowLeft, Calendar, BookOpen, FileText } from "lucide-react";
+import { ArrowLeft, Calendar, BookOpen } from "lucide-react";
 
 interface Publication {
   title: string;
@@ -83,7 +81,6 @@ const generateCategoryPublications = (category: string, subs: Subcategory[], tot
 const CategoryPublicationsModal = ({
   open, onOpenChange, categoryName, totalPublications, subcategories, topic = 'Lactic Acid',
 }: CategoryPublicationsModalProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedSub, setSelectedSub] = useState<string>('all');
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
 
@@ -93,23 +90,11 @@ const CategoryPublicationsModal = ({
   );
 
   const filteredPublications = useMemo(() => {
-    let filtered = allPublications;
-    if (selectedSub !== 'all') {
-      filtered = filtered.filter(p => p.topics.some(t => t === selectedSub));
-    }
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.authors.some(a => a.toLowerCase().includes(q)) ||
-        p.topics.some(t => t.toLowerCase().includes(q))
-      );
-    }
-    return filtered;
-  }, [allPublications, searchQuery, selectedSub]);
+    if (selectedSub === 'all') return allPublications;
+    return allPublications.filter(p => p.topics.some(t => t === selectedSub));
+  }, [allPublications, selectedSub]);
 
   const handleClose = () => {
-    setSearchQuery('');
     setSelectedSub('all');
     setSelectedPublication(null);
     onOpenChange(false);
@@ -131,13 +116,6 @@ const CategoryPublicationsModal = ({
           </div>
           <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3">
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Research Type</p>
-                <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
-                  <FileText className="w-3 h-3 text-muted-foreground" />
-                  {researchTypeLabels[selectedPublication.researchType] || selectedPublication.researchType}
-                </p>
-              </div>
               <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
                 <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Date Published</p>
                 <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
@@ -169,24 +147,12 @@ const CategoryPublicationsModal = ({
                 ))}
               </div>
             </div>
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Topics</p>
-              <div className="flex flex-wrap gap-1">
-                {selectedPublication.topics.map((t, i) => (
-                  <span key={i} className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/20 font-medium">{t}</span>
-                ))}
-              </div>
-            </div>
             {selectedPublication.doi && (
               <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
                 <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">DOI</p>
                 <p className="text-[10px] font-mono text-primary">{selectedPublication.doi}</p>
               </div>
             )}
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Abstract</p>
-              <p className="text-[10px] text-foreground leading-relaxed">{selectedPublication.summary}</p>
-            </div>
           </div>
         </DialogContent>
       </Dialog>
@@ -201,17 +167,8 @@ const CategoryPublicationsModal = ({
           <p className="text-[10px] text-muted-foreground mt-0.5">{totalPublications.toLocaleString()} publications</p>
         </div>
 
-        <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
-          <div className="relative flex-1">
-            <Search className="w-3 h-3 absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search publications..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-7 h-7 text-[10px]"
-            />
-          </div>
-          {subcategories.length > 0 && (
+        {subcategories.length > 0 && (
+          <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
             <Select value={selectedSub} onValueChange={setSelectedSub}>
               <SelectTrigger className="h-7 w-[160px] text-[10px]">
                 <SelectValue placeholder="All subcategories" />
@@ -223,12 +180,12 @@ const CategoryPublicationsModal = ({
                 ))}
               </SelectContent>
             </Select>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {filteredPublications.length} of {allPublications.length} publications
+            Showing {filteredPublications.length} publications
           </div>
           <div className="space-y-1.5">
             {filteredPublications.map((pub, idx) => (
@@ -243,17 +200,16 @@ const CategoryPublicationsModal = ({
                   <span className="text-[9px] text-muted-foreground">·</span>
                   <span className="text-[9px] text-muted-foreground">{pub.authors.slice(0, 2).join(', ')}{pub.authors.length > 2 ? ' et al.' : ''}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <Badge variant="outline" className="text-[8px] px-1.5 py-0 font-medium">
-                    {researchTypeLabels[pub.researchType] || pub.researchType}
-                  </Badge>
-                  {pub.journal && (
-                    <span className="text-[8px] text-muted-foreground italic">{pub.journal}</span>
-                  )}
-                  {pub.citations !== undefined && (
-                    <span className="text-[8px] text-muted-foreground ml-auto">{pub.citations} citations</span>
-                  )}
-                </div>
+                {(pub.journal || pub.citations !== undefined) && (
+                  <div className="flex items-center gap-1.5">
+                    {pub.journal && (
+                      <span className="text-[8px] text-muted-foreground italic">{pub.journal}</span>
+                    )}
+                    {pub.citations !== undefined && (
+                      <span className="text-[8px] text-muted-foreground ml-auto">{pub.citations} citations</span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
