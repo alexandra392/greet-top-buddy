@@ -607,7 +607,7 @@ const ValueChainPathways = () => {
           <div className="border border-border rounded-lg bg-card p-5 shadow-sm min-w-0">
               <div className="flex items-start justify-between gap-4 mb-3">
                 <p className="text-xs text-muted-foreground max-w-2xl leading-relaxed">
-                  Every pathway from <span className="font-bold text-foreground">{decodedTopic}</span> to a market application, ranked by <span className="font-semibold text-foreground">TRL (60%)</span> and <span className="font-semibold text-foreground">feedstock availability (40%)</span>. Compare, shortlist, and decide which pathways deserve your attention.
+                  Every pathway from <span className="font-bold text-foreground">{decodedTopic}</span> to a market application, ranked by <span className="font-semibold text-foreground">TRL</span> and <span className="font-semibold text-foreground">feedstock availability</span>. Compare, shortlist, and decide which pathways deserve your attention.
                 </p>
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">
                   <SlidersHorizontal className="w-3.5 h-3.5" />
