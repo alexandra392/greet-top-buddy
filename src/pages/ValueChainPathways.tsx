@@ -784,7 +784,7 @@ const ValueChainPathways = () => {
 
             {/* Table Rows */}
             <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
-              {filteredPathways.map(({ pathway, originalIndex }) => {
+              {filteredPathways.map(({ pathway, originalIndex }, displayIdx) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
@@ -792,6 +792,7 @@ const ValueChainPathways = () => {
                 const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
                 const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
                 const trlLabel = getTRLStageLabel(pathway.trl);
+                const rank = displayIdx + 1;
               return (
                 <div
                   key={originalIndex}
@@ -807,7 +808,14 @@ const ValueChainPathways = () => {
                   >
                     <Bookmark className={`w-4 h-4 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
                   </button>
-                  <div className="text-xs font-bold text-foreground text-center">{vcgScore}</div>
+                  <div className="flex justify-center">
+                    <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
+                      rank === 1 ? 'border-amber-400 text-amber-600 bg-amber-50' :
+                      rank === 2 ? 'border-gray-300 text-gray-500 bg-gray-50' :
+                      rank === 3 ? 'border-orange-300 text-orange-600 bg-orange-50' :
+                      'border-border text-muted-foreground bg-muted/30'
+                    }`}>{rank}</div>
+                  </div>
                   <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
                   </div>
