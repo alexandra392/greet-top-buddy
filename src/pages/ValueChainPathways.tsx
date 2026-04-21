@@ -277,6 +277,22 @@ const ValueChainPathways = () => {
     };
   };
 
+  // Feedstock availability score (0-100) — higher = more abundant / accessible
+  const FEEDSTOCK_AVAILABILITY: Record<string, number> = {
+    'Corn Starch': 92, 'Sugarcane Molasses': 88, 'Whey Permeate': 70, 'Corn Stover': 85,
+    'Cassava Starch': 72, 'Glucose Syrup': 78, 'Food Waste': 95, 'Potato Starch': 60,
+    'Microalgae Biomass': 25, 'Sugar Beet Pulp': 65, 'Wheat Bran': 68, 'Wheat Straw': 80,
+    'Rice Bran': 62, 'Rice Straw': 75, 'Bagasse': 82, 'Sorghum Grain': 55, 'Barley Straw': 70,
+  };
+  const getFeedstockAvailability = (feedstock: string) => FEEDSTOCK_AVAILABILITY[feedstock] ?? 50;
+
+  // Blended pathway score: 60% TRL (normalized) + 40% Feedstock Availability
+  const getPathwayScore = (pathway: { trl: string; feedstock: string }) => {
+    const trlPct = (getTRLNumber(pathway.trl) / 9) * 100;
+    const fa = getFeedstockAvailability(pathway.feedstock);
+    return Math.round(trlPct * 0.6 + fa * 0.4);
+  };
+
   // Generate a mock description for pathways
   const getPathwayDescription = (pathway: CustomPathway, index: number) => {
     const descriptions = [
