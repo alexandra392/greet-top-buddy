@@ -49,10 +49,7 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
         onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${pathwayId}/research-landscape`)}
         className="w-full rounded-lg border border-border/60 bg-card px-4 py-3 text-left hover:border-primary/40 transition-colors">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-semibold text-foreground">Research Landscape</span>
-            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[7px] font-semibold">High</span>
-          </div>
+          <span className="text-[11px] font-semibold text-foreground">Research Landscape</span>
           <span className="text-xs font-bold text-primary tabular-nums">89</span>
         </div>
         <p className="text-[9px] text-muted-foreground mt-0.5">Scientific publications & academic research</p>
