@@ -37,7 +37,7 @@ const Index = () => {
             <PortfolioUpdatesWidget />
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/50 pointer-events-none" />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-x-0 top-[28%] flex items-center justify-center pointer-events-none">
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-warning/15 border border-warning/40 backdrop-blur-sm shadow-sm">
               <Clock className="w-3 h-3 text-warning" />
               <span className="text-[10px] font-bold tracking-widest text-warning uppercase">Coming Soon</span>
