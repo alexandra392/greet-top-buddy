@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft, ArrowRight, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, Search, X, Beaker, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, Search, X, Beaker, ExternalLink, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
@@ -939,13 +939,14 @@ const PatentLandscape = () => {
 
                 {/* Sectors + Market Concentration (for feedstock, technology, applications) */}
                 {hasDetailedSections && activeConfig.sectors && activeConfig.concentration &&
-                <div className="grid grid-cols-12 gap-3">
-                    <div className="col-span-12 bg-muted/30 border border-border/40 rounded-xl p-4">
+                <div className="grid grid-cols-12 gap-3 relative">
+                    <div className="col-span-12 bg-muted/30 border border-border/40 rounded-xl p-4 relative overflow-hidden">
                       <div className="flex items-center justify-between mb-3">
                          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{activeConfig.sectorTitle}</h3>
                          <p className="text-[9px] text-muted-foreground">Share of total patents</p>
                        </div>
 
+                      <div className="opacity-40 grayscale pointer-events-none select-none">
                       {/* Production tab: split into Feedstock (left) / Technology (right) */}
                       {activeConfig.productionSectorGroups ? (
                         <div className="grid grid-cols-2 gap-4">
@@ -1007,6 +1008,13 @@ const PatentLandscape = () => {
                           </div>
                         )
                       )}
+                      </div>
+                      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-warning/15 border border-warning/40 backdrop-blur-sm shadow-sm">
+                          <Clock className="w-3 h-3 text-warning" />
+                          <span className="text-[10px] font-bold tracking-widest text-warning uppercase">Coming Soon</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 }
