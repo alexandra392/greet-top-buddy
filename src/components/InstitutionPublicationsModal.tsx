@@ -114,7 +114,6 @@ const InstitutionPublicationsModal = ({
   hIndex,
   topic = 'Lactic Acid',
 }: InstitutionPublicationsModalProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
 
   const allPublications = useMemo(() =>
@@ -122,18 +121,7 @@ const InstitutionPublicationsModal = ({
     [institution, totalPapers, topic]
   );
 
-  const filteredPublications = useMemo(() => {
-    let filtered = allPublications;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.authors.some(a => a.toLowerCase().includes(q)) ||
-        p.topics.some(t => t.toLowerCase().includes(q))
-      );
-    }
-    return filtered;
-  }, [allPublications, searchQuery]);
+  const filteredPublications = allPublications;
 
   const handleClose = () => {
     setSearchQuery('');
