@@ -706,47 +706,7 @@ const ValueChainPathways = () => {
             {/* Table Header */}
             <div className="border border-border rounded-t-lg bg-muted/50 px-4 py-2.5 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider"></span>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
-                    VCG
-                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-72 p-3" side="bottom" align="start">
-                  <div className="space-y-2.5">
-                    <div>
-                      <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">VCG Score Methodology</h4>
-                      <p className="text-[10px] text-muted-foreground leading-relaxed">
-                        The VCG Score evaluates pathways by blending three positive performance indicators and subtracting one negative indicator.
-                      </p>
-                    </div>
-                    <div className="space-y-1.5">
-                      {[
-                        { label: 'Research', weight: '25%', value: 65, color: 'bg-blue-500' },
-                        { label: 'TRL', weight: '40%', value: 70, color: 'bg-emerald-500' },
-                        { label: 'Market Size', weight: '35%', value: 60, color: 'bg-amber-500' },
-                        { label: 'IP Score', weight: '−20%', value: 40, color: 'bg-red-400', negative: true },
-                      ].map((w) => (
-                        <div key={w.label} className="flex items-center gap-2">
-                          <span className="text-[9px] font-medium text-foreground w-16 shrink-0">{w.label}</span>
-                          <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
-                            <div className={`h-full ${w.color} rounded-full`} style={{ width: `${w.value}%` }} />
-                          </div>
-                          <span className={`text-[9px] font-semibold w-8 text-right ${w.negative ? 'text-red-500' : 'text-muted-foreground'}`}>
-                            {w.weight}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="border-t border-border pt-2">
-                      <p className="text-[9px] text-muted-foreground leading-relaxed">
-                        A <span className="font-semibold text-foreground">high score</span> means strong research, high technical readiness, and a large market — with low patent saturation (more room to operate).
-                      </p>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
               {category === 'Feedstock' ? (
                 <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Feedstock</span>
               ) : (
@@ -824,7 +784,7 @@ const ValueChainPathways = () => {
 
             {/* Table Rows */}
             <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
-              {filteredPathways.map(({ pathway, originalIndex }) => {
+              {filteredPathways.map(({ pathway, originalIndex }, displayIdx) => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
@@ -832,6 +792,7 @@ const ValueChainPathways = () => {
                 const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
                 const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
                 const trlLabel = getTRLStageLabel(pathway.trl);
+                const rank = displayIdx + 1;
               return (
                 <div
                   key={originalIndex}
@@ -847,7 +808,14 @@ const ValueChainPathways = () => {
                   >
                     <Bookmark className={`w-4 h-4 ${savedPathways.has(originalIndex) ? 'fill-primary text-primary' : ''}`} />
                   </button>
-                  <div className="text-xs font-bold text-foreground text-center">{vcgScore}</div>
+                  <div className="flex justify-center">
+                    <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
+                      rank === 1 ? 'border-amber-400 text-amber-600 bg-amber-50' :
+                      rank === 2 ? 'border-gray-300 text-gray-500 bg-gray-50' :
+                      rank === 3 ? 'border-orange-300 text-orange-600 bg-orange-50' :
+                      'border-border text-muted-foreground bg-muted/30'
+                    }`}>{rank}</div>
+                  </div>
                   <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${!isProductRoute && category === 'Feedstock' ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                     {pathway.feedstock}
                   </div>
