@@ -27,12 +27,10 @@ const PathwayResourcesTab = ({ productName = "Product", pathwayNumber, showFoote
 
   return (
     <div className="space-y-1.5">
-      <button
-        onClick={handleMarketActivityClick}
-        className="w-full rounded-lg border border-border/60 bg-card px-4 py-3 text-left hover:border-primary/40 transition-colors">
+      <button disabled className="w-full rounded-lg border border-border/40 bg-card px-4 py-3 text-left opacity-50 cursor-default">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold text-foreground">Market Players</span>
-          <span className="text-xs font-bold text-primary tabular-nums">325</span>
+          <span className="inline-flex items-center px-1.5 py-0 rounded-md border border-muted-foreground/30 text-muted-foreground text-[8px] font-normal">Soon</span>
         </div>
         <p className="text-[9px] text-muted-foreground mt-0.5">Companies & startups across the value chain</p>
       </button>
