@@ -939,13 +939,14 @@ const PatentLandscape = () => {
 
                 {/* Sectors + Market Concentration (for feedstock, technology, applications) */}
                 {hasDetailedSections && activeConfig.sectors && activeConfig.concentration &&
-                <div className="grid grid-cols-12 gap-3">
-                    <div className="col-span-12 bg-muted/30 border border-border/40 rounded-xl p-4">
+                <div className="grid grid-cols-12 gap-3 relative">
+                    <div className="col-span-12 bg-muted/30 border border-border/40 rounded-xl p-4 relative overflow-hidden">
                       <div className="flex items-center justify-between mb-3">
                          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{activeConfig.sectorTitle}</h3>
                          <p className="text-[9px] text-muted-foreground">Share of total patents</p>
                        </div>
 
+                      <div className="opacity-40 grayscale pointer-events-none select-none">
                       {/* Production tab: split into Feedstock (left) / Technology (right) */}
                       {activeConfig.productionSectorGroups ? (
                         <div className="grid grid-cols-2 gap-4">
