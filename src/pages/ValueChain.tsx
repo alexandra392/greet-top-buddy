@@ -1645,7 +1645,13 @@ const ValueChain = () => {
                          
                          {/* Table rows */}
                          <div className="border-x border-b border-border rounded-b-lg divide-y divide-border/50">
-                           {scatterData.slice(0, 3).map((row: any, idx: number) => {
+                           {[...scatterData].sort((a: any, b: any) => {
+                             const aAvail = a.availability ?? a.marketSize ?? 50;
+                             const bAvail = b.availability ?? b.marketSize ?? 50;
+                             const aScore = (a.trl / 9) * 100 * 0.6 + aAvail * 0.4;
+                             const bScore = (b.trl / 9) * 100 * 0.6 + bAvail * 0.4;
+                             return bScore - aScore;
+                           }).slice(0, 3).map((row: any, idx: number) => {
                              const rawParts = row.pathway.split(' > ');
                              const parts = isFeedstockRoute && rawParts.length === 3
                                ? [decodeURIComponent(topic || ''), ...rawParts]

@@ -277,6 +277,22 @@ const ValueChainPathways = () => {
     };
   };
 
+  // Feedstock availability score (0-100) — higher = more abundant / accessible
+  const FEEDSTOCK_AVAILABILITY: Record<string, number> = {
+    'Corn Starch': 92, 'Sugarcane Molasses': 88, 'Whey Permeate': 70, 'Corn Stover': 85,
+    'Cassava Starch': 72, 'Glucose Syrup': 78, 'Food Waste': 95, 'Potato Starch': 60,
+    'Microalgae Biomass': 25, 'Sugar Beet Pulp': 65, 'Wheat Bran': 68, 'Wheat Straw': 80,
+    'Rice Bran': 62, 'Rice Straw': 75, 'Bagasse': 82, 'Sorghum Grain': 55, 'Barley Straw': 70,
+  };
+  const getFeedstockAvailability = (feedstock: string) => FEEDSTOCK_AVAILABILITY[feedstock] ?? 50;
+
+  // Blended pathway score: 60% TRL (normalized) + 40% Feedstock Availability
+  const getPathwayScore = (pathway: { trl: string; feedstock: string }) => {
+    const trlPct = (getTRLNumber(pathway.trl) / 9) * 100;
+    const fa = getFeedstockAvailability(pathway.feedstock);
+    return Math.round(trlPct * 0.6 + fa * 0.4);
+  };
+
   // Generate a mock description for pathways
   const getPathwayDescription = (pathway: CustomPathway, index: number) => {
     const descriptions = [
@@ -378,8 +394,8 @@ const ValueChainPathways = () => {
       if (aDisliked && !bDisliked) return 1;
       if (!aDisliked && bDisliked) return -1;
 
-      const aVcg = Math.max(20, 95 - a.originalIndex * 3);
-      const bVcg = Math.max(20, 95 - b.originalIndex * 3);
+      const aVcg = getPathwayScore(a.pathway);
+      const bVcg = getPathwayScore(b.pathway);
       const aResearch = Math.min(100, Math.round(aVcg * 0.95 + (a.originalIndex % 5) * 2));
       const bResearch = Math.min(100, Math.round(bVcg * 0.95 + (b.originalIndex % 5) * 2));
       const aIp = Math.max(0, Math.min(100, Math.round(100 - aVcg + (a.originalIndex % 7) * 3)));
@@ -812,7 +828,7 @@ const ValueChainPathways = () => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
-                const vcgScore = Math.max(20, 95 - originalIndex * 3);
+                const vcgScore = getPathwayScore(pathway);
                 const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
                 const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
                 const trlLabel = getTRLStageLabel(pathway.trl);
