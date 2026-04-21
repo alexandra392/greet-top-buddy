@@ -210,21 +210,9 @@ const InstitutionPublicationsModal = ({
           </div>
         </div>
 
-        <div className="px-4 py-2 border-b border-border flex-shrink-0">
-          <div className="relative">
-            <Search className="w-3 h-3 absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search publications..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-7 h-7 text-[10px]"
-            />
-          </div>
-        </div>
-
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {filteredPublications.length} of {allPublications.length} publications
+            Showing {filteredPublications.length} publications
           </div>
           <div className="space-y-1.5">
             {filteredPublications.map((pub, idx) => (
@@ -239,17 +227,16 @@ const InstitutionPublicationsModal = ({
                   <span className="text-[9px] text-muted-foreground">·</span>
                   <span className="text-[9px] text-muted-foreground">{pub.authors.slice(0, 2).join(', ')}{pub.authors.length > 2 ? ' et al.' : ''}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <Badge variant="outline" className="text-[8px] px-1.5 py-0 font-medium">
-                    {researchTypeLabels[pub.researchType] || pub.researchType}
-                  </Badge>
-                  {pub.journal && (
-                    <span className="text-[8px] text-muted-foreground italic">{pub.journal}</span>
-                  )}
-                  {pub.citations !== undefined && (
-                    <span className="text-[8px] text-muted-foreground ml-auto">{pub.citations} citations</span>
-                  )}
-                </div>
+                {(pub.journal || pub.citations !== undefined) && (
+                  <div className="flex items-center gap-1.5">
+                    {pub.journal && (
+                      <span className="text-[8px] text-muted-foreground italic">{pub.journal}</span>
+                    )}
+                    {pub.citations !== undefined && (
+                      <span className="text-[8px] text-muted-foreground ml-auto">{pub.citations} citations</span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
