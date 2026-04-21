@@ -1769,9 +1769,6 @@ const ValueChain = () => {
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'price') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('price'); setFeedstockSortDir('desc'); } }}>
                                 <span className="flex items-center gap-1">Price {feedstockSortKey === 'price' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
                               </TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (feedstockSortKey === 'status') setFeedstockSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setFeedstockSortKey('status'); setFeedstockSortDir('desc'); } }}>
-                                <span className="flex items-center gap-1">Status {feedstockSortKey === 'status' ? (feedstockSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
-                              </TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -1790,9 +1787,6 @@ const ValueChain = () => {
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.categories[0]}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.quantity}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.price}</TableCell>
-                                  <TableCell className="py-1.5">
-                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${statusTag}`}>{feedstock.maturity}</span>
-                                  </TableCell>
                                 </TableRow>
                               );
                             })}
