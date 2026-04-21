@@ -1894,12 +1894,6 @@ const ValueChain = () => {
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Application</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Description</TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 text-center cursor-pointer hover:text-foreground select-none" onClick={() => { if (appSortKey === 'players') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('players'); setAppSortDir('desc'); } }}>
-                                <span className="flex items-center justify-center gap-1">Market Players {appSortKey === 'players' ? (appSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
-                              </TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (appSortKey === 'maturity') setAppSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setAppSortKey('maturity'); setAppSortDir('desc'); } }}>
-                                <span className="flex items-center gap-1">Market Maturity {appSortKey === 'maturity' ? (appSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>
-                              </TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
