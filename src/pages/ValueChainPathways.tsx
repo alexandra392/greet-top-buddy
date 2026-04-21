@@ -696,7 +696,7 @@ const ValueChainPathways = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="vcg" className="text-[10px]">VCG Score</SelectItem>
-                  <SelectItem value="research" className="text-[10px]">Research Score</SelectItem>
+                  
                   
                   <SelectItem value="trl" className="text-[10px]">TRL Level</SelectItem>
                 </SelectContent>
