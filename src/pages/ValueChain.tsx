@@ -1661,15 +1661,14 @@ const ValueChain = () => {
                              return (
                                <div
                                  key={idx}
-                                  className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
-                                  onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
-                                >
-                                  <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
-                                    idx === 0 ? 'border-amber-400 text-amber-600 bg-amber-50' :
-                                    idx === 1 ? 'border-gray-300 text-gray-500 bg-gray-50' :
-                                    'border-orange-300 text-orange-600 bg-orange-50'
-                                  }`}>{idx + 1}</div>
-                                  <div className="text-[10px] font-bold text-foreground text-center">{row.score}</div>
+                                   className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
+                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
+                                 >
+                                   <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
+                                     idx === 0 ? 'border-amber-400 text-amber-600 bg-amber-50' :
+                                     idx === 1 ? 'border-gray-300 text-gray-500 bg-gray-50' :
+                                     'border-orange-300 text-orange-600 bg-orange-50'
+                                   }`}>{idx + 1}</div>
                                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
                                    {parts[0] || '—'}
                                  </div>
