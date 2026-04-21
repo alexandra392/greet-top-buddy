@@ -1787,9 +1787,6 @@ const ValueChain = () => {
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.categories[0]}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.quantity}</TableCell>
                                   <TableCell className="text-[10px] text-muted-foreground py-1.5">{feedstock.price}</TableCell>
-                                  <TableCell className="py-1.5">
-                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide border ${statusTag}`}>{feedstock.maturity}</span>
-                                  </TableCell>
                                 </TableRow>
                               );
                             })}
