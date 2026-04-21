@@ -697,14 +697,14 @@ const ValueChainPathways = () => {
                 <SelectContent>
                   <SelectItem value="vcg" className="text-[10px]">VCG Score</SelectItem>
                   <SelectItem value="research" className="text-[10px]">Research Score</SelectItem>
-                  <SelectItem value="ip" className="text-[10px]">IP Score (low first)</SelectItem>
+                  
                   <SelectItem value="trl" className="text-[10px]">TRL Level</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             {/* Table Header */}
-            <div className="border border-border rounded-t-lg bg-muted/50 px-4 py-2.5 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2">
+            <div className="border border-border rounded-t-lg bg-muted/50 px-4 py-2.5 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_75px] items-center gap-2">
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider"></span>
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
               {category === 'Feedstock' ? (
@@ -765,20 +765,6 @@ const ValueChainPathways = () => {
                   </p>
                 </PopoverContent>
               </Popover>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <button className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-center gap-0.5 cursor-help hover:text-foreground transition-colors w-full">
-                    IP
-                    <Info className="w-2.5 h-2.5 text-muted-foreground/50" />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-2.5" side="bottom" align="start">
-                  <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider mb-1">IP Score</h4>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">
-                    Indicates patent saturation. A high IP score means dense patent coverage — less room to operate. A low score signals open IP space and greater freedom to innovate.
-                  </p>
-                </PopoverContent>
-              </Popover>
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
             </div>
 
@@ -796,7 +782,7 @@ const ValueChainPathways = () => {
               return (
                 <div
                   key={originalIndex}
-                   className={`px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_55px_75px] items-center gap-2 ${
+                   className={`px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_65px_75px] items-center gap-2 ${
                     transitioningPathway === originalIndex ? 'animate-fade-out scale-95 opacity-50' : ''
                   } ${dislikedPathways.has(originalIndex) ? 'opacity-40' : ''}`}
                   onClick={() => handleCardClick(originalIndex)}
@@ -829,7 +815,6 @@ const ValueChainPathways = () => {
                     {pathway.application}
                   </div>
                   <div className="text-xs font-medium text-blue-600 text-center">{researchScore}</div>
-                  <div className={`text-xs font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
                   <div className="text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
                       {trlLabel}
