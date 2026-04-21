@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft, ArrowRight, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, Search, X, Beaker, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, Search, X, Beaker, ExternalLink, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
