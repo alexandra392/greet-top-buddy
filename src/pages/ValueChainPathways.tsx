@@ -800,7 +800,7 @@ const ValueChainPathways = () => {
                   <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
                     {pathway.application}
                   </div>
-                  <div className="text-xs font-medium text-blue-600 text-center">{researchScore}</div>
+                  
                   <div className="text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
                       {trlLabel}
