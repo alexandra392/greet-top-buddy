@@ -326,38 +326,45 @@ const PathwayDetail = () => {
               <p className="text-xs text-muted-foreground leading-relaxed mt-1">Detailed breakdown of this pathway's value chain, scoring, and key metrics. Click on any node to explore alternatives.</p>
               <div className="border border-border rounded-lg bg-card shadow-sm">
                 {/* Header row */}
-                <div className="px-3 py-1.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_100px] items-center gap-2">
-                  <span></span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Rank</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Feedstock</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Process</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Product</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">Application</span>
-                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest text-center">TRL</span>
+                <div className="px-4 py-2.5 border-b border-border bg-muted/50 rounded-t-lg grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2">
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider"></span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
                 </div>
                 {/* Single row matching table format */}
                 {(() => {
-                  const score = Math.max(20, 95 - (parseInt(pathwayId || "0")) * 3);
-                  const researchScore = Math.min(100, Math.round(score * 0.95 + (parseInt(pathwayId || "0") % 5) * 2));
-                  const ipScore = Math.max(0, Math.min(100, Math.round(100 - score + (parseInt(pathwayId || "0") % 7) * 3)));
                   const trlLabel = getTRLStageLabel(pathway.trl);
                   const trlNum = parseInt(pathway.trl.replace('TRL ', ''));
+                  const rank = pathwayNumber;
+                  const isProductRoute = category === 'Product';
                   return (
-                    <div className="px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_100px] items-center gap-2">
+                    <div className="px-4 py-3 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2">
                       <button
                         onClick={toggleSave}
                         className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
                         title={isSaved ? 'Remove from shortlist' : 'Add to shortlist'}
                       >
-                        <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-primary text-primary' : ''}`} />
+                        <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-primary text-primary' : ''}`} />
                       </button>
-                      <div className="text-[11px] font-bold text-foreground text-center">
-                        #{pathwayNumber}
+                      <div className="flex justify-center">
+                        {rank <= 3 ? (
+                          <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
+                            rank === 1 ? 'border-amber-400 text-amber-600 bg-amber-50' :
+                            rank === 2 ? 'border-gray-300 text-gray-500 bg-gray-50' :
+                            'border-orange-300 text-orange-600 bg-orange-50'
+                          }`}>{rank}</div>
+                        ) : (
+                          <span className="text-[10px] font-semibold text-muted-foreground">{rank}</span>
+                        )}
                       </div>
                       {([
                         { label: 'Feedstock', value: currentFeedstock, type: 'feedstock' as const, isAnchor: category === 'Feedstock' },
                         { label: 'Process', value: currentTechnology, type: 'technology' as const, isAnchor: false },
-                        { label: 'Product', value: currentProduct, type: 'product' as const, isAnchor: category === 'Product' },
+                        { label: 'Product', value: currentProduct, type: 'product' as const, isAnchor: isProductRoute },
                         { label: 'Application', value: currentApplication, type: 'application' as const, isAnchor: false },
                       ]).map((node, pi) => (
                         <div
@@ -372,16 +379,17 @@ const PathwayDetail = () => {
                             onSwap={(v) => handleSwap(node.type, v)}
                             onRestore={() => setSwaps(prev => { const next = { ...prev }; delete next[node.type]; return next; })}
                           >
-                            <div className={`text-[10px] font-medium truncate border rounded px-1.5 py-1 text-center transition-all ${node.isAnchor ? 'border-primary/40 bg-primary/5 text-primary' : hoveredFlowType === node.type ? 'border-primary/40 bg-primary/5 ring-1 ring-primary/20 text-foreground' : 'border-border bg-muted/20 text-foreground'}`}>
+                            <div className={`text-[10px] font-medium truncate border rounded px-2 py-1.5 text-center transition-all cursor-pointer ${node.isAnchor ? 'border-primary/40 bg-primary/5 text-primary' : hoveredFlowType === node.type ? 'border-primary/40 bg-primary/5 ring-1 ring-primary/20 text-foreground' : 'border-border bg-muted/20 text-foreground'}`}>
                               {node.value}
                             </div>
                           </PathwayFlowPopover>
                         </div>
                       ))}
                       <div className="text-center">
-                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold ${
-                          trlNum >= 8 ? 'bg-green-100 text-green-800 border border-green-200' :
-                          trlNum >= 6 ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${
+                          trlNum >= 8 ? 'bg-green-50 text-green-700 border border-green-200' :
+                          trlNum >= 6 ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                          trlNum >= 4 ? 'bg-amber-50 text-amber-700 border border-amber-200' :
                           'bg-muted text-muted-foreground border border-border'
                         }`}>
                           {trlLabel}
