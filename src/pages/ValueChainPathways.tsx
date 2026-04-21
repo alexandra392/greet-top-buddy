@@ -907,10 +907,6 @@ const ValueChainPathways = () => {
                     <label className="text-[9px] font-medium text-muted-foreground block mb-0.5">Category</label>
                     <Select><SelectTrigger className="w-full text-[11px] h-7 bg-background"><SelectValue placeholder="Any" /></SelectTrigger><SelectContent><SelectItem value="all">Any</SelectItem><SelectItem value="packaging">Packaging</SelectItem><SelectItem value="textiles">Textiles</SelectItem><SelectItem value="automotive">Automotive</SelectItem><SelectItem value="construction">Construction</SelectItem><SelectItem value="food">Food & Beverage</SelectItem></SelectContent></Select>
                   </div>
-                  <div>
-                    <label className="text-[9px] font-medium text-muted-foreground block mb-0.5">Maturity</label>
-                    <Select><SelectTrigger className="w-full text-[11px] h-7 bg-background"><SelectValue placeholder="Any" /></SelectTrigger><SelectContent><SelectItem value="all">Any</SelectItem><SelectItem value="mature">Mature</SelectItem><SelectItem value="growing">Growing</SelectItem><SelectItem value="emerging">Emerging</SelectItem><SelectItem value="nascent">Nascent</SelectItem></SelectContent></Select>
-                  </div>
                 </div>
               </div>
 
