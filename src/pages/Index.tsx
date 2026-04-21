@@ -1,5 +1,6 @@
 import VCGWelcomeWidget from "@/components/VCGWelcomeWidget";
-import { Sparkles } from "lucide-react";
+import PortfolioUpdatesWidget from "@/components/PortfolioUpdatesWidget";
+import { Sparkles, Clock } from "lucide-react";
 
 const Index = () => {
   return (
@@ -23,22 +24,28 @@ const Index = () => {
       {/* My Portfolio Section */}
       <VCGWelcomeWidget />
 
-      {/* Latest Updates Section - Coming Soon */}
-      <div className="space-y-2.5">
-        <div>
-          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Latest Updates</h2>
-          <p className="text-[11px] text-muted-foreground mt-0.5">
-            Real-time updates across your portfolio topics
-          </p>
-        </div>
-        <div className="border border-dashed border-border/60 rounded-xl px-6 py-10 flex flex-col items-center justify-center text-center bg-muted/20">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 border border-success/20 mb-2">
-            <Sparkles className="w-3 h-3 text-success" />
-            <span className="text-[10px] font-bold tracking-widest text-success uppercase">Coming Soon</span>
+      {/* Latest Updates Section - Coming Soon (preview with mock data) */}
+      <div className="space-y-2.5 relative">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Latest Updates</h2>
+            <p className="text-[11px] text-muted-foreground mt-0.5">
+              Preview of upcoming feed — sample data shown
+            </p>
           </div>
-          <p className="text-xs text-muted-foreground max-w-md">
-            We're putting the finishing touches on a unified feed of research, patents, projects, and market activity for your portfolio topics.
-          </p>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-warning/10 border border-warning/30">
+            <Clock className="w-3 h-3 text-warning" />
+            <span className="text-[10px] font-bold tracking-widest text-warning uppercase">Coming Soon</span>
+          </div>
+        </div>
+        <div className="relative rounded-xl overflow-hidden border border-dashed border-border/60">
+          <div className="opacity-40 grayscale pointer-events-none select-none p-3 bg-muted/10">
+            <PortfolioUpdatesWidget />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background/40 pointer-events-none" />
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-background/90 backdrop-blur-sm border border-border shadow-sm">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Mock preview</span>
+          </div>
         </div>
       </div>
     </div>
