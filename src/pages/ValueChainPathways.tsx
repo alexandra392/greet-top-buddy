@@ -859,8 +859,8 @@ const ValueChainPathways = () => {
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pathway</span>
                 <div className="mt-1.5 space-y-1">
                   <div>
-                    <label className="text-[9px] font-medium text-muted-foreground block mb-0.5">VCG Score</label>
-                    <Select><SelectTrigger className="w-full text-[11px] h-7 bg-background"><SelectValue placeholder="Any" /></SelectTrigger><SelectContent><SelectItem value="all">Any</SelectItem><SelectItem value="90">90+</SelectItem><SelectItem value="75">75+</SelectItem><SelectItem value="50">50+</SelectItem><SelectItem value="25">25+</SelectItem></SelectContent></Select>
+                    <label className="text-[9px] font-medium text-muted-foreground block mb-0.5">Rank</label>
+                    <Select><SelectTrigger className="w-full text-[11px] h-7 bg-background"><SelectValue placeholder="Any" /></SelectTrigger><SelectContent><SelectItem value="all">Any</SelectItem><SelectItem value="top3">Top 3</SelectItem><SelectItem value="top10">Top 10</SelectItem><SelectItem value="top25">Top 25</SelectItem><SelectItem value="top50">Top 50</SelectItem></SelectContent></Select>
                   </div>
                 </div>
               </div>
