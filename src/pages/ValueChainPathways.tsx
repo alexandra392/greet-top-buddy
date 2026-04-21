@@ -828,7 +828,7 @@ const ValueChainPathways = () => {
                 const trlNum = getTRLNumber(pathway.trl);
                 const viability = getViability(pathway.trl);
                 const colors = getViabilityColor(viability);
-                const vcgScore = Math.max(20, 95 - originalIndex * 3);
+                const vcgScore = getPathwayScore(pathway);
                 const researchScore = Math.min(100, Math.round(vcgScore * 0.95 + (originalIndex % 5) * 2));
                 const ipScore = Math.max(0, Math.min(100, Math.round(100 - vcgScore + (originalIndex % 7) * 3)));
                 const trlLabel = getTRLStageLabel(pathway.trl);
