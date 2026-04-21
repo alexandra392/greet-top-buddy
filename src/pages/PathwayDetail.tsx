@@ -343,7 +343,7 @@ const PathwayDetail = () => {
                   const trlLabel = getTRLStageLabel(pathway.trl);
                   const trlNum = parseInt(pathway.trl.replace('TRL ', ''));
                   return (
-                    <div className="px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2">
+                    <div className="px-3 py-2 grid grid-cols-[28px_50px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_100px] items-center gap-2">
                       <button
                         onClick={toggleSave}
                         className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors"
