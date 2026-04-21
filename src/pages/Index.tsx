@@ -33,7 +33,7 @@ const Index = () => {
           </p>
         </div>
         <div className="relative rounded-xl overflow-hidden border border-dashed border-border/60">
-          <div className="opacity-40 grayscale pointer-events-none select-none p-3 bg-muted/10 [&_h2]:hidden [&_h2+p]:hidden">
+          <div className="opacity-40 grayscale pointer-events-none select-none p-3 bg-muted/10 [&>div>div:first-child]:hidden">
             <PortfolioUpdatesWidget />
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/50 pointer-events-none" />
