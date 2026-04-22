@@ -1638,8 +1638,28 @@ const ValueChain = () => {
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Material</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Research</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">IP</span>
+                           <UiTooltip>
+                             <TooltipTrigger asChild>
+                               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center inline-flex items-center justify-center gap-0.5 cursor-help">
+                                 Research Index
+                                 <Info className="w-2.5 h-2.5 opacity-60" />
+                               </span>
+                             </TooltipTrigger>
+                             <UiTooltipContent side="top" className="max-w-[240px] text-[10px] leading-relaxed">
+                               Measures the volume of scientific publications supporting this pathway across its first three nodes (Feedstock → Process → Material). Shown as a 0–100 percentile rank against all pathways.
+                             </UiTooltipContent>
+                           </UiTooltip>
+                           <UiTooltip>
+                             <TooltipTrigger asChild>
+                               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center inline-flex items-center justify-center gap-0.5 cursor-help">
+                                 IP Index
+                                 <Info className="w-2.5 h-2.5 opacity-60" />
+                               </span>
+                             </TooltipTrigger>
+                             <UiTooltipContent side="top" className="max-w-[240px] text-[10px] leading-relaxed">
+                               Indicates patent saturation across the pathway's first three nodes. Red = high density (saturated, less room to operate); green = open space (more freedom to operate).
+                             </UiTooltipContent>
+                           </UiTooltip>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
                          </div>
                          
