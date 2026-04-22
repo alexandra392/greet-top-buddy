@@ -106,7 +106,7 @@ const AnalysisSectionWidget = () => {
               <div className="w-7 h-7 rounded-lg bg-application-purple/10 flex items-center justify-center">
                 <Settings className="w-3.5 h-3.5 text-application-purple" />
               </div>
-              <span className="text-sm font-semibold text-application-purple">Products</span>
+              <span className="text-sm font-semibold text-application-purple">Materials</span>
             </div>
             <Badge variant="outline" className="text-xs font-medium px-2 py-0.5 rounded-full border-border text-muted-foreground">
               {productItems.length}

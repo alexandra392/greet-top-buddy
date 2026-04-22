@@ -230,7 +230,7 @@ const NewsContent = ({ articles, selectedFeedstock, selectedTechnology, selected
       );
     } else if (selectedType === 'products') {
       tags.push(
-        { type: 'category', value: 'Product', color: 'bg-application-purple text-application-purple-foreground' },
+        { type: 'category', value: 'Material', color: 'bg-application-purple text-application-purple-foreground' },
         { type: 'item', value: getDisplayName(article.products[0], 'product'), color: 'bg-application-purple/10 text-application-purple border border-application-purple/20' }
       );
     }

@@ -131,7 +131,7 @@ const FilterSection = ({ title, options, selectedItems, onToggleSelection, onClo
   return (
     <div className="border border-border rounded-lg bg-background p-2">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="text-sm font-medium">Select {title} Topics</h4>
+        <h4 className="text-sm font-medium">Select {title === "Product" ? "Material" : title} Topics</h4>
         <Button variant="ghost" size="sm" onClick={onClose}>
           <ChevronsUpDown className="w-4 h-4" />
         </Button>

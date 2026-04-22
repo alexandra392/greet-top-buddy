@@ -85,13 +85,13 @@ export const ValueChainProductDetail: React.FC<ValueChainProductDetailProps> = (
       <div className="flex flex-col border border-gray-300 rounded-lg bg-white overflow-hidden shadow-md max-h-[360px]" style={{ width: '380px', minWidth: '380px', maxWidth: '380px' }}>
         <div className="px-3 h-8 border-b border-gray-300 bg-gradient-to-b from-gray-100 to-gray-50 flex items-center">
           <h3 className="font-semibold text-[10px] text-gray-800 uppercase tracking-wider">
-            Product Market Analysis
+            Material Market Analysis
           </h3>
         </div>
         <div className="flex-1 flex items-center justify-center p-3 overflow-hidden bg-gradient-to-br from-white to-gray-50/30">
           <img
             src={productMarketChart}
-            alt="Product Market Analysis"
+            alt="Material Market Analysis"
             style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
           />
         </div>
@@ -102,7 +102,7 @@ export const ValueChainProductDetail: React.FC<ValueChainProductDetailProps> = (
         <Table>
           <TableHeader className="sticky top-0 bg-gradient-to-b from-gray-100 to-gray-50 z-10">
             <TableRow className="border-b border-gray-300">
-              <TableHead className="font-semibold text-[10px] h-8 py-1.5 text-gray-800 uppercase tracking-wider text-left">Product</TableHead>
+              <TableHead className="font-semibold text-[10px] h-8 py-1.5 text-gray-800 uppercase tracking-wider text-left">Material</TableHead>
               <TableHead className="font-semibold text-[10px] h-8 py-1.5 text-gray-800 uppercase tracking-wider text-center">
                 <div className="flex items-center justify-center gap-1.5">
                   Market Size

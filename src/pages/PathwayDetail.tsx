@@ -331,7 +331,7 @@ const PathwayDetail = () => {
                   <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
                   <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                   <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
-                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
+                  <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Material</span>
                   <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
                   <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
                 </div>
@@ -364,7 +364,7 @@ const PathwayDetail = () => {
                       {([
                         { label: 'Feedstock', value: currentFeedstock, type: 'feedstock' as const, isAnchor: category === 'Feedstock' },
                         { label: 'Process', value: currentTechnology, type: 'technology' as const, isAnchor: false },
-                        { label: 'Product', value: currentProduct, type: 'product' as const, isAnchor: isProductRoute },
+                        { label: 'Material', value: currentProduct, type: 'product' as const, isAnchor: isProductRoute },
                         { label: 'Application', value: currentApplication, type: 'application' as const, isAnchor: false },
                       ]).map((node, pi) => (
                         <div
@@ -486,11 +486,11 @@ const PathwayDetail = () => {
                       { label: 'Feedstock Quantity (EU)', value: activeMetrics.metrics.feedstockQty, url: 'https://ec.europa.eu/eurostat', sources: 3, type: 'feedstock' },
                       { label: 'Process CAPEX Investment', value: activeMetrics.metrics.capex, url: 'https://www.grandviewresearch.com', sources: 2, type: 'technology' },
                       { label: 'Process TRL', value: activeMetrics.metrics.trl, url: 'https://www.sciencedirect.com', sources: 5, type: 'technology' },
-                      { label: 'Product Market Size (Global)', value: activeMetrics.metrics.marketGlobal, url: 'https://www.marketsandmarkets.com', sources: 6, type: 'product' },
-                      { label: 'Product Market Size (EU)', value: activeMetrics.metrics.marketEU, url: 'https://www.marketsandmarkets.com', sources: 4, type: 'product' },
-                      { label: 'Product Market Growth (Global)', value: activeMetrics.metrics.growthGlobal, url: 'https://www.grandviewresearch.com', sources: 5, type: 'product' },
-                      { label: 'Product Market Growth (EU)', value: activeMetrics.metrics.growthEU, url: 'https://www.grandviewresearch.com', sources: 3, type: 'product' },
-                      { label: 'Application Product Price', value: activeMetrics.metrics.appPrice, url: 'https://www.plasticsinsight.com', sources: 2, type: 'application' },
+                      { label: 'Material Market Size (Global)', value: activeMetrics.metrics.marketGlobal, url: 'https://www.marketsandmarkets.com', sources: 6, type: 'product' },
+                      { label: 'Material Market Size (EU)', value: activeMetrics.metrics.marketEU, url: 'https://www.marketsandmarkets.com', sources: 4, type: 'product' },
+                      { label: 'Material Market Growth (Global)', value: activeMetrics.metrics.growthGlobal, url: 'https://www.grandviewresearch.com', sources: 5, type: 'product' },
+                      { label: 'Material Market Growth (EU)', value: activeMetrics.metrics.growthEU, url: 'https://www.grandviewresearch.com', sources: 3, type: 'product' },
+                      { label: 'Application Material Price', value: activeMetrics.metrics.appPrice, url: 'https://www.plasticsinsight.com', sources: 2, type: 'application' },
                     ].map((item, i) => {
                       const isHighlighted = hoveredFlowType === item.type;
                       return (

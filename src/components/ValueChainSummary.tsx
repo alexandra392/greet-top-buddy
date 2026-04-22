@@ -43,7 +43,7 @@ const ValueChainSummary = ({ productName, onExpand, onCardClick }: ValueChainSum
     },
     {
       id: 'products',
-      title: 'Products',
+      title: 'Materials',
       icon: <Box className="w-5 h-5" />,
       signal: 'positive' as SignalType,
       total: 11,

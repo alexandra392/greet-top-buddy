@@ -120,7 +120,7 @@ const FilterCategories = ({
                     : "border-input bg-background hover:bg-accent hover:text-accent-foreground"
                 }`}
               >
-                <div className="font-medium text-sm leading-tight">{category}</div>
+                <div className="font-medium text-sm leading-tight">{category === "Product" ? "Material" : category}</div>
                 <div className="text-xs opacity-75 leading-tight -mt-0.5">
                   {selectedCount} selected
                 </div>

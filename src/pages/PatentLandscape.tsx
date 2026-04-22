@@ -576,7 +576,7 @@ const viewConfigs: Record<PatentView, {
     concentration: { hhi: '0.128', hhiLabel: 'Moderately Fragmented', top5: '62.4%', top10: '81.2%', gini: '0.54' }
   },
   products: {
-    label: "Products & Derivatives",
+    label: "Materials & Derivatives",
     icon: ShoppingBag,
     description: (topic) => `Patents related to the products and chemical derivatives produced from ${topic} through various conversion pathways.`,
     trendData: [
@@ -640,17 +640,17 @@ const viewConfigs: Record<PatentView, {
     { org: "DSM-Firmenich", total: 4, granted: 3, filed: 1 }],
 
     trendDescription: (topic) => `Filing trends for patents covering products and chemical derivatives produced from ${topic}.`,
-    developerLabel: "Products",
-    developerDescription: "Top organisations filing patents for product synthesis and derivative manufacturing.",
-    geoDescription: "Where product and derivative IP is being filed globally.",
-    cpcDescription: "CPC classification breakdown for product-related patents. Chemistry & Metallurgy dominates product innovation.",
-    patentDescription: "Most recent patent filings for products and derivatives.",
+    developerLabel: "Materials",
+    developerDescription: "Top organisations filing patents for material synthesis and derivative manufacturing.",
+    geoDescription: "Where material and derivative IP is being filed globally.",
+    cpcDescription: "CPC classification breakdown for material-related patents. Chemistry & Metallurgy dominates material innovation.",
+    patentDescription: "Most recent patent filings for materials and derivatives.",
     totalPatents: '246',
     filedCount: '165',
     grantedCount: '81',
-    sectorTitle: "Product Sectors",
-    heatMatrixTitle: "Product Heat Matrix",
-    bubbleTitle: "Product Concentration & Innovation Map",
+    sectorTitle: "Material Sectors",
+    heatMatrixTitle: "Material Heat Matrix",
+    bubbleTitle: "Material Concentration & Innovation Map",
     bubbleSubtitle: "Patent volume × HHI · Bubble size = growth rate",
     sectors: [
     [

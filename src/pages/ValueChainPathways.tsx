@@ -730,7 +730,7 @@ const ValueChainPathways = () => {
                 </SelectContent>
               </Select>
               {isProductRoute ? (
-                <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Product</span>
+                <span className="text-[8px] font-bold text-primary uppercase tracking-widest text-center">Material</span>
               ) : (
                 <Select value={productValueFilter} onValueChange={setProductValueFilter}>
                   <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
@@ -888,7 +888,7 @@ const ValueChainPathways = () => {
               {category === 'Feedstock' && (
               <>
               <div className="py-3">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Product</span>
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Material</span>
                 <div className="mt-2 space-y-1.5">
                   <div>
                     <label className="text-[9px] font-medium text-muted-foreground block mb-0.5">Category</label>

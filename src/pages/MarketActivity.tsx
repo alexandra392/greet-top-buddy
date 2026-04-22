@@ -412,7 +412,7 @@ const MarketActivity = () => {
       case 'technology':
         return 'Technology';
       case 'product':
-        return 'Product';
+        return 'Material';
       case 'market_uptaker':
         return 'Market Off-taker';
       default:
@@ -680,7 +680,7 @@ const MarketActivity = () => {
                       Feedstock Suppliers ({filterCompaniesByType('feedstock').length})
                     </TabsTrigger>
                     <TabsTrigger value="producers" className="h-7 px-3 text-[10px] font-medium flex items-center justify-center gap-1 rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
-                      Product Producers ({filterCompaniesByType('product').length})
+                      Material Producers ({filterCompaniesByType('product').length})
                     </TabsTrigger>
                     <TabsTrigger value="uptakers" className="h-7 px-3 text-[10px] font-medium flex items-center justify-center gap-1 rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
                       Market Off-takers ({filterCompaniesByType('market_uptaker').length})

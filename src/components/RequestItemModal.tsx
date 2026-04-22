@@ -140,6 +140,7 @@ const RequestItemModal = ({ category, trigger }: RequestItemModalProps) => {
 
   const colors = getCategoryColors(category);
   const CategoryIcon = getCategoryIcon(category);
+  const displayCategory = category === "Product" ? "Material" : category;
 
   const handleItemSelect = (itemName: string) => {
     // Get existing items from localStorage
@@ -176,7 +177,7 @@ const RequestItemModal = ({ category, trigger }: RequestItemModalProps) => {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <CategoryIcon className={`w-5 h-5 ${colors.text}`} />
-            Select {category} to Analyze
+            Select {displayCategory} to Analyze
           </DialogTitle>
         </DialogHeader>
         
@@ -187,7 +188,7 @@ const RequestItemModal = ({ category, trigger }: RequestItemModalProps) => {
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={`Search ${category.toLowerCase()}s...`}
+              placeholder={`Search ${displayCategory.toLowerCase()}s...`}
               className="pl-10"
             />
           </div>
@@ -217,7 +218,7 @@ const RequestItemModal = ({ category, trigger }: RequestItemModalProps) => {
                 ))
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground mb-2">No {category.toLowerCase()}s found</p>
+                  <p className="text-muted-foreground mb-2">No {displayCategory.toLowerCase()}s found</p>
                   <p className="text-sm text-muted-foreground">Try a different search term</p>
                 </div>
               )}
@@ -227,7 +228,7 @@ const RequestItemModal = ({ category, trigger }: RequestItemModalProps) => {
           {/* Footer */}
           <div className="flex items-center justify-between pt-4 border-t">
             <p className="text-sm text-muted-foreground">
-              {filteredItems.length} {category.toLowerCase()}{filteredItems.length !== 1 ? 's' : ''} available
+              {filteredItems.length} {displayCategory.toLowerCase()}{filteredItems.length !== 1 ? 's' : ''} available
             </p>
             <Button variant="outline" size="sm" onClick={() => setIsOpen(false)}>
               Cancel
