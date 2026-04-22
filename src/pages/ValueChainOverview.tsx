@@ -117,7 +117,7 @@ const ValueChainOverview = () => {
   },
   {
     id: 'products',
-    title: 'Products',
+    title: 'Materials',
     count: '1',
     icon: Box,
     color: 'purple',

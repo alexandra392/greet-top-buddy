@@ -12,7 +12,7 @@ interface ProductSectionProps {
 const ProductSection: React.FC<ProductSectionProps> = ({ items }) => {
   return (
     <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">Product</h3>
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">Material</h3>
       
       <div className="space-y-3">
         {items.map((item, index) => (

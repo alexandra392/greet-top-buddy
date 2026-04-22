@@ -1547,10 +1547,10 @@ const ValueChain = () => {
                     const yLabel = isFeedstockRoute ? 'MARKET SIZE ($B)' : 'FEEDSTOCK AVAILABILITY';
                     const yDomain = isFeedstockRoute ? [0, 100] : [0, 100];
                     const chartTitle = isFeedstockRoute
-                      ? 'Pathway Scalability - TRL vs Product Market Size'
+                      ? 'Pathway Scalability - TRL vs Material Market Size'
                       : 'Pathway Scalability - TRL vs Feedstock Availability';
                     const chartSubtitle = isFeedstockRoute
-                      ? 'Pathways mapped by technology readiness and downstream product market size.'
+                      ? 'Pathways mapped by technology readiness and downstream material market size.'
                       : 'Scatter plot of all identified pathways mapped by technology readiness level and feedstock availability.';
 
                     return (
@@ -1636,7 +1636,7 @@ const ValueChain = () => {
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Product</span>
+                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Material</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Research</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">IP</span>
@@ -1715,7 +1715,7 @@ const ValueChain = () => {
                   const allTabs = [
                     { key: 'feedstocks' as const, icon: Sprout, label: 'Feedstocks', count: feedstockData.length },
                     { key: 'technologies' as const, icon: Settings, label: 'Technologies', count: technologyData.reduce((sum, c) => sum + c.technologies.length, 0) },
-                    { key: 'products' as const, icon: Box, label: 'Products', count: scatterData.length },
+                    { key: 'products' as const, icon: Box, label: 'Materials', count: scatterData.length },
                     { key: 'applications' as const, icon: Target, label: 'Applications', count: marketDataDetail.reduce((sum, m) => sum + m.subcategories.length, 0) },
                   ];
                   const filteredTabs = allTabs.filter(tab => {
@@ -1943,7 +1943,7 @@ const ValueChain = () => {
                             <TableRow className="border-b border-border hover:bg-transparent bg-muted/70">
                               <TableHead className="w-8 py-2.5 px-3"></TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 w-10">#</TableHead>
-                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Product</TableHead>
+                              <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Material</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5">Category</TableHead>
                               <TableHead className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider py-2.5 cursor-pointer hover:text-foreground select-none" onClick={() => { if (prodSortKey === 'marketSize') setProdSortDir(d => d === 'asc' ? 'desc' : 'asc'); else { setProdSortKey('marketSize'); setProdSortDir('desc'); } }}>
                                 <span className="flex items-center gap-1">Market Size {prodSortKey === 'marketSize' ? (prodSortDir === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />) : <ArrowUpDown className="w-3 h-3 opacity-40" />}</span>

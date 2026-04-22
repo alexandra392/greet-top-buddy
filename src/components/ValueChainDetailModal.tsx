@@ -280,7 +280,7 @@ const ValueChainDetailModal = ({ isOpen, onClose, type }: ValueChainDetailModalP
     },
     products: {
       icon: <Box className="w-6 h-6" />,
-      title: 'Products (1)',
+      title: 'Materials (1)',
       color: 'text-purple-700',
       bgColor: 'bg-purple-100',
       signal: 'positive',
@@ -680,7 +680,7 @@ const ValueChainDetailModal = ({ isOpen, onClose, type }: ValueChainDetailModalP
                   </div>
 
                   <div className="space-y-1.5">
-                    <h4 className="text-[10px] font-semibold text-gray-700 uppercase tracking-wide">Product Description</h4>
+                    <h4 className="text-[10px] font-semibold text-gray-700 uppercase tracking-wide">Material Description</h4>
                     <p className="text-xs text-gray-600 leading-relaxed">
                       {details.products.productData.description}
                     </p>

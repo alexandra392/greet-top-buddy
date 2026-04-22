@@ -387,7 +387,7 @@ const DashboardNewsWidget = () => {
     } else if (article.products.length > 0 && article.feedstock.length === 0 && article.applications.length === 0) {
       // Pure product article
       tags.push(
-        { type: 'category', value: 'Product', color: 'bg-purple-100 text-purple-700' },
+        { type: 'category', value: 'Material', color: 'bg-purple-100 text-purple-700' },
         { type: 'item', value: getDisplayName(article.products[0], 'product'), color: 'bg-purple-50 text-purple-600' }
       );
     } else if (article.applications.length > 0 && article.feedstock.length === 0 && article.products.length === 0) {
@@ -400,7 +400,7 @@ const DashboardNewsWidget = () => {
       // Mixed article - show the most relevant based on content
       if (article.products.length > 0) {
         tags.push(
-          { type: 'category', value: 'Product', color: 'bg-purple-100 text-purple-700' },
+          { type: 'category', value: 'Material', color: 'bg-purple-100 text-purple-700' },
           { type: 'item', value: getDisplayName(article.products[0], 'product'), color: 'bg-purple-50 text-purple-600' }
         );
       } else if (article.applications.length > 0) {

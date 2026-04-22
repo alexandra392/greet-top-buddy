@@ -131,7 +131,7 @@ const MarketActivityReview = () => {
     switch(type) {
       case 'feedstock': return 'Feedstock';
       case 'technology': return 'Technology';
-      case 'product': return 'Product';
+      case 'product': return 'Material';
       case 'market_uptaker': return 'Market Off-taker';
       default: return type;
     }
@@ -388,7 +388,7 @@ const MarketActivityReview = () => {
                   value="product"
                   className="data-[state=active]:bg-purple-50 data-[state=active]:text-purple-700 data-[state=active]:shadow-sm transition-all"
                 >
-                  <span className="text-xs font-medium">Product Producers ({getCountByType('product')})</span>
+                  <span className="text-xs font-medium">Material Producers ({getCountByType('product')})</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="market_uptaker"

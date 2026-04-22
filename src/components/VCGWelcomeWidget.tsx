@@ -822,7 +822,7 @@ const VCGWelcomeWidget = () => {
                 <DialogHeader className="space-y-2 mb-3">
                   <div className="flex items-center gap-3">
                     <DialogTitle className="text-2xl font-semibold">
-                      {selectedBrowseType === "feedstock" ? "Feedstock Categories" : "Product Categories"}
+                      {selectedBrowseType === "feedstock" ? "Feedstock Categories" : "Material Categories"}
                     </DialogTitle>
                     <Badge variant="secondary" className={`text-sm rounded-sm ${selectedBrowseType === "feedstock" ? "bg-success/10 text-success border-success/20" : "bg-application-purple/10 text-application-purple border-application-purple/20"}`}>
                       {selectedBrowseType === "feedstock" ?
