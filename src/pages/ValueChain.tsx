@@ -1632,14 +1632,12 @@ const ValueChain = () => {
                          <p className="text-xs text-muted-foreground leading-relaxed">Click on any pathway to explore its full profile.</p>
                          
                          {/* Table header */}
-                         <div className="grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
+                         <div className="grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Material</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Research</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">IP</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
                          </div>
                          
@@ -1665,36 +1663,34 @@ const ValueChain = () => {
                              const isAnchorProduct = isProductRoute;
                              
                              return (
-                               <div
-                                 key={idx}
-                                   className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2"
-                                   onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
-                                 >
-                                   <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
-                                     idx === 0 ? 'border-amber-400 text-amber-600 bg-amber-50' :
-                                     idx === 1 ? 'border-gray-300 text-gray-500 bg-gray-50' :
-                                     'border-orange-300 text-orange-600 bg-orange-50'
-                                   }`}>{idx + 1}</div>
-                                 <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
-                                   {parts[0] || '—'}
-                                 </div>
-                                 <div className="text-[10px] font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
-                                   {parts[1] || '—'}
-                                 </div>
-                                 <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorProduct ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
-                                   {parts[2] || '—'}
-                                 </div>
-                                 <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
-                                   {parts[3] || '—'}
-                                 </div>
-                                 <div className="text-[10px] font-medium text-blue-600 text-center">{researchScore}</div>
-                                 <div className={`text-[10px] font-medium text-center ${ipScore > 60 ? 'text-red-500' : ipScore > 30 ? 'text-amber-600' : 'text-green-600'}`}>{ipScore}</div>
-                                 <div className="text-center">
-                                   <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
-                                     {stageLabel}
-                                   </span>
-                                 </div>
-                               </div>
+                                <div
+                                  key={idx}
+                                    className="px-4 py-3 cursor-pointer hover:bg-muted/30 transition-all duration-200 grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2"
+                                    onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways/${idx}`)}
+                                  >
+                                    <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold border ${
+                                      idx === 0 ? 'border-amber-400 text-amber-600 bg-amber-50' :
+                                      idx === 1 ? 'border-gray-300 text-gray-500 bg-gray-50' :
+                                      'border-orange-300 text-orange-600 bg-orange-50'
+                                    }`}>{idx + 1}</div>
+                                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorFeedstock ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                                    {parts[0] || '—'}
+                                  </div>
+                                  <div className="text-[10px] font-medium text-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                                    {parts[1] || '—'}
+                                  </div>
+                                  <div className={`text-[10px] font-medium truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center ${isAnchorProduct ? 'border-primary/40 bg-primary/5 text-primary' : 'text-foreground'}`}>
+                                    {parts[2] || '—'}
+                                  </div>
+                                  <div className="text-[10px] text-muted-foreground truncate border border-border rounded px-2 py-1.5 bg-muted/20 text-center">
+                                    {parts[3] || '—'}
+                                  </div>
+                                  <div className="text-center">
+                                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${stageColors} border`}>
+                                      {stageLabel}
+                                    </span>
+                                  </div>
+                                </div>
                              );
                            })}
                          </div>
