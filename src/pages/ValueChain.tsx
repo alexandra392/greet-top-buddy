@@ -1632,14 +1632,12 @@ const ValueChain = () => {
                          <p className="text-xs text-muted-foreground leading-relaxed">Click on any pathway to explore its full profile.</p>
                          
                          {/* Table header */}
-                         <div className="grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_55px_55px_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
+                         <div className="grid grid-cols-[28px_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.8fr)_minmax(0,1.5fr)_75px] items-center gap-2 px-4 py-2 border border-border rounded-t-lg bg-muted/30">
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">#</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Feedstock</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Process</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Material</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Application</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">Research</span>
-                           <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">IP</span>
                            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider text-center">TRL</span>
                          </div>
                          
