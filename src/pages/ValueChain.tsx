@@ -1554,7 +1554,7 @@ const ValueChain = () => {
                       : 'Scatter plot of all identified pathways mapped by technology readiness level and feedstock availability.';
 
                     return (
-                      <div className="border border-border/60 rounded-lg p-4 bg-card/50 backdrop-blur-sm mt-4">
+                      <div className="border border-border/60 rounded-lg p-4 bg-transparent mt-4">
                       {/* Pathway count banner */}
                       <div className="mb-4">
                         <div className="flex items-start justify-between mb-3">
