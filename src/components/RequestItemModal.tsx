@@ -140,6 +140,7 @@ const RequestItemModal = ({ category, trigger }: RequestItemModalProps) => {
 
   const colors = getCategoryColors(category);
   const CategoryIcon = getCategoryIcon(category);
+  const displayCategory = category === "Product" ? "Material" : category;
 
   const handleItemSelect = (itemName: string) => {
     // Get existing items from localStorage
