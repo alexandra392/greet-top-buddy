@@ -1546,9 +1546,7 @@ const ValueChain = () => {
                     const yKey = isFeedstockRoute ? 'marketSize' : 'availability';
                     const yLabel = isFeedstockRoute ? 'MARKET SIZE ($B)' : 'FEEDSTOCK AVAILABILITY';
                     const yDomain = isFeedstockRoute ? [0, 100] : [0, 100];
-                    const chartTitle = isFeedstockRoute
-                      ? 'Pathway Scalability - TRL vs Material Market Size'
-                      : 'Pathway Scalability - TRL vs Feedstock Availability';
+                    const chartTitle = 'Top Pathways Identified';
                     const chartSubtitle = isFeedstockRoute
                       ? 'Pathways mapped by technology readiness and downstream material market size.'
                       : 'Scatter plot of all identified pathways mapped by technology readiness level and feedstock availability.';
