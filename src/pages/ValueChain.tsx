@@ -1404,9 +1404,9 @@ const ValueChain = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             Back
           </Button>
-          <Button size="sm" className="gap-1.5 h-8 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md" onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways`)}>
-            <ArrowRight className="w-4 h-4" />
+          <Button size="sm" className="gap-1.5 h-7 text-xs bg-foreground text-background hover:bg-foreground/90" onClick={() => navigate(`/landscape/${category}/${topic}/value-chain/pathways`)}>
             Explore Pathways
+            <ArrowRight className="w-3.5 h-3.5" />
           </Button>
         </div>
 
