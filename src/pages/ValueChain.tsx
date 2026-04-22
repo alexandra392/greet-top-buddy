@@ -1572,10 +1572,10 @@ const ValueChain = () => {
                           <ResponsiveContainer width="100%" height="100%">
                              <ScatterChart margin={{ top: 20, right: 15, bottom: 15, left: isFeedstockRoute ? 15 : 5 }}>
                               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                              <ReferenceArea x1={1} x2={2.5} fill="#fee2e2" fillOpacity={0.4} label={{ value: 'R&D', position: 'top', style: { fontSize: 9, fill: '#991b1b', fontWeight: 600 } }} />
-                              <ReferenceArea x1={2.5} x2={4.5} fill="#fef9c3" fillOpacity={0.4} label={{ value: 'Lab', position: 'top', style: { fontSize: 9, fill: '#854d0e', fontWeight: 600 } }} />
-                              <ReferenceArea x1={4.5} x2={7.5} fill="#dbeafe" fillOpacity={0.4} label={{ value: 'Pilot', position: 'top', style: { fontSize: 9, fill: '#1e40af', fontWeight: 600 } }} />
-                              <ReferenceArea x1={7.5} x2={9} fill="#dcfce7" fillOpacity={0.4} label={{ value: 'Commercial', position: 'top', style: { fontSize: 9, fill: '#166534', fontWeight: 600 } }} />
+                              <ReferenceArea x1={1} x2={2.5} label={{ value: 'R&D', position: 'top', style: { fontSize: 9, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 } }} />
+                              <ReferenceArea x1={2.5} x2={4.5} label={{ value: 'Lab', position: 'top', style: { fontSize: 9, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 } }} />
+                              <ReferenceArea x1={4.5} x2={7.5} label={{ value: 'Pilot', position: 'top', style: { fontSize: 9, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 } }} />
+                              <ReferenceArea x1={7.5} x2={9} label={{ value: 'Commercial', position: 'top', style: { fontSize: 9, fill: 'hsl(var(--muted-foreground))', fontWeight: 600 } }} />
                               <XAxis type="number" dataKey="trl" name="TRL" domain={[1, 9]} ticks={[1, 2, 3, 4, 5, 6, 7, 8, 9]} label={{ value: 'TRL', position: 'insideBottom', offset: -8, style: { fontSize: 10, fill: 'hsl(var(--muted-foreground))' } }} tick={{ fontSize: 10 }} />
                               <YAxis type="number" dataKey={yKey} name={yLabel} domain={yDomain} label={{ value: yLabel, angle: -90, position: 'insideLeft', offset: isFeedstockRoute ? -5 : 10, dy: 0, style: { fontSize: 10, fill: 'hsl(var(--muted-foreground))', textAnchor: 'middle' } }} tick={{ fontSize: 10 }} />
                               <Tooltip cursor={{ strokeDasharray: '3 3' }} content={({ active, payload }) => {
