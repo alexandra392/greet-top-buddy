@@ -712,7 +712,11 @@ const ValueChainPathways = () => {
               ) : (
                 <Select value={feedstockValueFilter} onValueChange={setFeedstockValueFilter}>
                   <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                    <SelectValue placeholder="Feedstock" />
+                    {feedstockValueFilter === 'all' ? (
+                      <span>Feedstock</span>
+                    ) : (
+                      <SelectValue placeholder="Feedstock" />
+                    )}
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all" className="text-[10px]">All Feedstocks</SelectItem>
@@ -722,7 +726,11 @@ const ValueChainPathways = () => {
               )}
               <Select value={processValueFilter} onValueChange={setProcessValueFilter}>
                 <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                  <SelectValue placeholder="Process" />
+                  {processValueFilter === 'all' ? (
+                    <span>Process</span>
+                  ) : (
+                    <SelectValue placeholder="Process" />
+                  )}
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all" className="text-[10px]">All Processes</SelectItem>
@@ -734,17 +742,25 @@ const ValueChainPathways = () => {
               ) : (
                 <Select value={productValueFilter} onValueChange={setProductValueFilter}>
                   <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                    <SelectValue placeholder="Product" />
+                    {productValueFilter === 'all' ? (
+                      <span>Material</span>
+                    ) : (
+                      <SelectValue placeholder="Material" />
+                    )}
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all" className="text-[10px]">All Products</SelectItem>
+                    <SelectItem value="all" className="text-[10px]">All Materials</SelectItem>
                     {uniqueProducts.map(p => <SelectItem key={p} value={p} className="text-[10px]">{p}</SelectItem>)}
                   </SelectContent>
                 </Select>
               )}
               <Select value={applicationValueFilter} onValueChange={setApplicationValueFilter}>
                 <SelectTrigger className="h-5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider border-0 bg-transparent p-0 shadow-none gap-0.5 w-full justify-center">
-                  <SelectValue placeholder="Application" />
+                  {applicationValueFilter === 'all' ? (
+                    <span>Application</span>
+                  ) : (
+                    <SelectValue placeholder="Application" />
+                  )}
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all" className="text-[10px]">All Applications</SelectItem>
