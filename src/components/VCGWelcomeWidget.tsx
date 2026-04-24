@@ -605,14 +605,14 @@ const VCGWelcomeWidget = () => {
           setShowItemSelection(open);
         }}>
         
-              <DialogContent className="sm:max-w-2xl p-8 bg-gradient-to-br from-card to-card/95 border border-border/40 shadow-xl">
-                <DialogHeader className="pb-4 space-y-3 -mb-2">
-                  <DialogTitle className="text-2xl font-semibold">
+              <DialogContent className="sm:max-w-2xl p-5 bg-card border border-border/60 shadow-lg">
+                <DialogHeader className="space-y-1 mb-3">
+                  <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                     {selectedPath === "ai" ? "Your Tailored Suggestions" :
               selectedPath === "browse" && selectedBrowseCategory ? selectedBrowseCategory.category :
               "Select Items"}
                   </DialogTitle>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
                     {selectedPath === "ai" ?
               "Based on your goal, we've identified these relevant topics. Click on any suggestion to add it to your portfolio." :
               selectedPath === "browse" && selectedBrowseCategory ?
@@ -628,7 +628,7 @@ const VCGWelcomeWidget = () => {
                 setSelectedBrowseCategory(null);
                 setShowBrowseCategories(true);
               }}
-              className="text-xs text-muted-foreground hover:text-foreground">
+              className="text-[11px] text-muted-foreground hover:text-foreground h-6 px-2 self-start">
               
                       ← Back to categories
                     </Button>
