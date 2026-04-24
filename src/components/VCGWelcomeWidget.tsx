@@ -810,7 +810,7 @@ const VCGWelcomeWidget = () => {
         setShowBrowseCategories(open);
         if (!open) setSelectedCategoryInBrowse(null);
       }}>
-              <DialogContent className="sm:max-w-3xl p-5 bg-card border border-border/60 shadow-lg">
+              <DialogContent className="sm:max-w-2xl p-5 bg-card border border-border/60 shadow-lg">
                 <DialogHeader className="space-y-1 mb-3">
                   <div className="flex items-center gap-2">
                     <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
