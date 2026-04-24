@@ -936,7 +936,7 @@ const VCGWelcomeWidget = () => {
                       placeholder="Enter name..."
                       value={customItemName}
                       onChange={(e) => setCustomItemName(e.target.value)}
-                      className="w-full h-8 bg-muted/40 border border-border/60 rounded-md px-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150"
+                      className="w-full h-8 bg-muted/40 border border-border/60 rounded-md px-2.5 !text-[11px] text-foreground placeholder:text-muted-foreground placeholder:!text-[11px] focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150"
                     />
                   </div>
 
@@ -949,7 +949,7 @@ const VCGWelcomeWidget = () => {
                       onValueChange={(value) => setCustomItemSubcategory(value)}>
                       <SelectTrigger
                         id="custom-subcategory"
-                        className="w-full h-8 bg-muted/40 border border-border/60 rounded-md px-2.5 text-xs text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-0 focus:outline-none transition-all duration-150">
+                        className="w-full h-8 bg-muted/40 border border-border/60 rounded-md px-2.5 !text-[11px] text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-0 focus:outline-none transition-all duration-150">
                         <SelectValue placeholder={`Select ${customItemCategory.toLowerCase()} category...`} />
                       </SelectTrigger>
                       <SelectContent className="bg-background z-50">
@@ -978,7 +978,7 @@ const VCGWelcomeWidget = () => {
                       placeholder="Briefly describe this item..."
                       value={customItemDescription}
                       onChange={(e) => setCustomItemDescription(e.target.value)}
-                      className="w-full min-h-[44px] bg-muted/40 border border-border/60 rounded-md px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150 resize-none"
+                      className="w-full min-h-[44px] bg-muted/40 border border-border/60 rounded-md px-2.5 py-1.5 !text-[11px] text-foreground placeholder:text-muted-foreground placeholder:!text-[11px] focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150 resize-none"
                     />
                   </div>
 
