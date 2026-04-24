@@ -458,86 +458,82 @@ const VCGWelcomeWidget = () => {
             
             {/* Category Selection Dialog - For "I know what I want" path */}
             <Dialog open={showCategorySelection} onOpenChange={setShowCategorySelection}>
-              <DialogContent className="sm:max-w-2xl p-8 bg-gradient-to-br from-card to-card/95 border border-border/40 shadow-xl">
-                <DialogHeader className="space-y-3 mb-6">
-                  <DialogTitle className="text-2xl font-semibold text-foreground">
+              <DialogContent className="sm:max-w-2xl p-5 bg-card border border-border/60 shadow-lg">
+                <DialogHeader className="space-y-1 mb-3">
+                  <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                     What would you like to add?
                   </DialogTitle>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
                     Choose the type of item you want to add to your portfolio.
                   </p>
                 </DialogHeader>
-                
-                <div className="grid grid-cols-1 gap-3">
+
+                <div className="grid grid-cols-1 gap-2">
                   {/* Option 1: Valorise a side stream */}
                   <button
-              onClick={() => {
-                setCustomItemCategory("Feedstock");
-                setCustomItemSubcategory("Valorise a side stream");
-                setShowCategorySelection(false);
-                setShowCustomItemDialog(true);
-              }}
-              className="group flex items-center gap-4 py-2.5 px-3 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 shadow-sm hover:shadow-md">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-success/10 border border-success/20 group-hover:bg-success/20 transition-colors">
-                      <Trash2 className="w-4 h-4 text-success" />
+                    onClick={() => {
+                      setCustomItemCategory("Feedstock");
+                      setCustomItemSubcategory("Valorise a side stream");
+                      setShowCategorySelection(false);
+                      setShowCustomItemDialog(true);
+                    }}
+                    className="group flex items-center gap-2.5 py-2 px-2.5 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200">
+                    <div className="flex-shrink-0 p-1.5 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
+                      <Trash2 className="w-3.5 h-3.5 text-success" />
                     </div>
                     <div className="flex-1 text-left">
-                      <h3 className="font-semibold text-sm text-foreground">Valorise a side stream</h3>
+                      <h3 className="font-semibold text-xs text-foreground">Valorise a side stream</h3>
                     </div>
                   </button>
-                  
+
                   {/* Option 2: Valorise an intermediate */}
                   <button
-              onClick={() => {
-                setCustomItemCategory("Feedstock");
-                setCustomItemSubcategory("Valorise an intermediate");
-                setShowCategorySelection(false);
-                setShowCustomItemDialog(true);
-              }}
-              className="group flex items-center gap-4 py-2.5 px-3 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 shadow-sm hover:shadow-md">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-success/10 border border-success/20 group-hover:bg-success/20 transition-colors">
-                      <GitBranch className="w-4 h-4 text-success" />
+                    onClick={() => {
+                      setCustomItemCategory("Feedstock");
+                      setCustomItemSubcategory("Valorise an intermediate");
+                      setShowCategorySelection(false);
+                      setShowCustomItemDialog(true);
+                    }}
+                    className="group flex items-center gap-2.5 py-2 px-2.5 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200">
+                    <div className="flex-shrink-0 p-1.5 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
+                      <GitBranch className="w-3.5 h-3.5 text-success" />
                     </div>
                     <div className="flex-1 text-left">
-                      <h3 className="font-semibold text-sm text-foreground">Valorise an intermediate</h3>
+                      <h3 className="font-semibold text-xs text-foreground">Valorise an intermediate</h3>
                     </div>
                   </button>
-                  
+
                   {/* Option 3: Produce circular biobase material */}
                   <button
-              onClick={() => {
-                setCustomItemCategory("Product");
-                setCustomItemSubcategory("Produce circular biobase material");
-                setShowCategorySelection(false);
-                setShowCustomItemDialog(true);
-              }}
-              className="group flex items-center gap-4 py-2.5 px-3 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 shadow-sm hover:shadow-md">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-application-purple/10 border border-application-purple/20 group-hover:bg-application-purple/20 transition-colors">
-                      <Recycle className="w-4 h-4 text-application-purple" />
+                    onClick={() => {
+                      setCustomItemCategory("Product");
+                      setCustomItemSubcategory("Produce circular biobase material");
+                      setShowCategorySelection(false);
+                      setShowCustomItemDialog(true);
+                    }}
+                    className="group flex items-center gap-2.5 py-2 px-2.5 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200">
+                    <div className="flex-shrink-0 p-1.5 rounded-md bg-application-purple/10 border border-application-purple/20 group-hover:bg-application-purple/15 transition-colors">
+                      <Recycle className="w-3.5 h-3.5 text-application-purple" />
                     </div>
                     <div className="flex-1 text-left">
-                      <h3 className="font-semibold text-sm text-foreground">Produce circular biobase material</h3>
+                      <h3 className="font-semibold text-xs text-foreground">Produce circular biobase material</h3>
                     </div>
                   </button>
-                  
+
                   {/* Option 4: Source circular biobase raw material */}
                   <button
-              onClick={() => {
-                setCustomItemCategory("Product");
-                setCustomItemSubcategory("Source circular biobase raw material");
-                setShowCategorySelection(false);
-                setShowCustomItemDialog(true);
-              }}
-              className="group flex items-center gap-4 py-2.5 px-3 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 shadow-sm hover:shadow-md">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-application-purple/10 border border-application-purple/20 group-hover:bg-application-purple/20 transition-colors">
-                      <Sprout className="w-4 h-4 text-application-purple" />
+                    onClick={() => {
+                      setCustomItemCategory("Product");
+                      setCustomItemSubcategory("Source circular biobase raw material");
+                      setShowCategorySelection(false);
+                      setShowCustomItemDialog(true);
+                    }}
+                    className="group flex items-center gap-2.5 py-2 px-2.5 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200">
+                    <div className="flex-shrink-0 p-1.5 rounded-md bg-application-purple/10 border border-application-purple/20 group-hover:bg-application-purple/15 transition-colors">
+                      <Sprout className="w-3.5 h-3.5 text-application-purple" />
                     </div>
                     <div className="flex-1 text-left">
-                      <h3 className="font-semibold text-sm text-foreground">Source circular biobase raw material</h3>
+                      <h3 className="font-semibold text-xs text-foreground">Source circular biobase raw material</h3>
                     </div>
                   </button>
                 </div>
