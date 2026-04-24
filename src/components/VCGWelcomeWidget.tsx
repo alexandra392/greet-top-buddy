@@ -955,14 +955,14 @@ const VCGWelcomeWidget = () => {
                       <SelectContent className="bg-background z-50">
                         {customItemCategory === "Feedstock" ?
                           <>
-                            <SelectItem value="Primary">Primary</SelectItem>
-                            <SelectItem value="Secondary">Secondary</SelectItem>
-                            <SelectItem value="Tertiary">Tertiary</SelectItem>
+                            <SelectItem value="Primary" className="text-[11px]">Primary</SelectItem>
+                            <SelectItem value="Secondary" className="text-[11px]">Secondary</SelectItem>
+                            <SelectItem value="Tertiary" className="text-[11px]">Tertiary</SelectItem>
                           </> :
                           <>
-                            <SelectItem value="Primary">Primary Product</SelectItem>
-                            <SelectItem value="Intermediate">Intermediate Product</SelectItem>
-                            <SelectItem value="Final">Final Product</SelectItem>
+                            <SelectItem value="Primary" className="text-[11px]">Primary Product</SelectItem>
+                            <SelectItem value="Intermediate" className="text-[11px]">Intermediate Product</SelectItem>
+                            <SelectItem value="Final" className="text-[11px]">Final Product</SelectItem>
                           </>
                         }
                       </SelectContent>
