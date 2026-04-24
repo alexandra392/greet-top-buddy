@@ -916,19 +916,19 @@ const VCGWelcomeWidget = () => {
             
             {/* Custom Item Dialog */}
             <Dialog open={showCustomItemDialog} onOpenChange={setShowCustomItemDialog}>
-              <DialogContent className="sm:max-w-[640px] p-8 bg-card border-0 rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
-                <DialogHeader className="space-y-1.5 mb-8">
-                  <DialogTitle className="text-[11px] font-bold text-muted-foreground uppercase tracking-[0.15em]">
+              <DialogContent className="sm:max-w-2xl p-5 bg-card border border-border/60 shadow-lg">
+                <DialogHeader className="space-y-1 mb-3">
+                  <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                     {getCustomDialogTitle()}
                   </DialogTitle>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
                     Request a new topic for analysis in your portfolio.
                   </p>
                 </DialogHeader>
 
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <Label htmlFor="custom-name" className="text-[13px] font-semibold text-foreground">
+                <div className="space-y-3">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="custom-name" className="text-[11px] font-semibold text-foreground">
                       Name *
                     </Label>
                     <Input
@@ -936,12 +936,12 @@ const VCGWelcomeWidget = () => {
                       placeholder="Enter name..."
                       value={customItemName}
                       onChange={(e) => setCustomItemName(e.target.value)}
-                      className="w-full h-11 bg-muted/40 border border-border/60 rounded-lg px-4 text-sm text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150"
+                      className="w-full h-9 bg-muted/40 border border-border/60 rounded-md px-3 text-xs text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="custom-subcategory" className="text-[13px] font-semibold text-foreground">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="custom-subcategory" className="text-[11px] font-semibold text-foreground">
                       Category *
                     </Label>
                     <Select
@@ -949,7 +949,7 @@ const VCGWelcomeWidget = () => {
                       onValueChange={(value) => setCustomItemSubcategory(value)}>
                       <SelectTrigger
                         id="custom-subcategory"
-                        className="w-full h-11 bg-muted/40 border border-border/60 rounded-lg px-4 text-sm text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-0 focus:outline-none transition-all duration-150">
+                        className="w-full h-9 bg-muted/40 border border-border/60 rounded-md px-3 text-xs text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-0 focus:outline-none transition-all duration-150">
                         <SelectValue placeholder={`Select ${customItemCategory.toLowerCase()} category...`} />
                       </SelectTrigger>
                       <SelectContent className="bg-background z-50">
@@ -969,8 +969,8 @@ const VCGWelcomeWidget = () => {
                     </Select>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="custom-description" className="text-[13px] font-semibold text-foreground">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="custom-description" className="text-[11px] font-semibold text-foreground">
                       Description
                     </Label>
                     <Textarea
@@ -978,11 +978,11 @@ const VCGWelcomeWidget = () => {
                       placeholder="Briefly describe this item..."
                       value={customItemDescription}
                       onChange={(e) => setCustomItemDescription(e.target.value)}
-                      className="w-full min-h-[96px] bg-muted/40 border border-border/60 rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150 resize-none"
+                      className="w-full min-h-[60px] bg-muted/40 border border-border/60 rounded-md px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150 resize-none"
                     />
                   </div>
 
-                  <div className="flex gap-3 mt-8">
+                  <div className="flex gap-2 mt-4">
                     <Button
                       onClick={() => {
                         setShowCustomItemDialog(false);
@@ -990,7 +990,7 @@ const VCGWelcomeWidget = () => {
                         setCustomItemSubcategory("");
                         setCustomItemDescription("");
                       }}
-                      className="flex-1 h-12 bg-muted/40 hover:bg-muted/60 text-foreground font-semibold text-sm rounded-lg border-0 shadow-none">
+                      className="flex-1 h-9 bg-muted/40 hover:bg-muted/60 text-foreground font-semibold text-xs rounded-md border-0 shadow-none">
                       Cancel
                     </Button>
                     <Button
@@ -1014,7 +1014,7 @@ const VCGWelcomeWidget = () => {
                         }
                       }}
                       disabled={!customItemName.trim() || !customItemSubcategory}
-                      className="flex-1 h-12 bg-primary hover:bg-primary/90 disabled:bg-primary/40 disabled:opacity-100 text-primary-foreground font-semibold text-sm rounded-lg border-0 shadow-none">
+                      className="flex-1 h-9 bg-primary hover:bg-primary/90 disabled:bg-primary/40 disabled:opacity-100 text-primary-foreground font-semibold text-xs rounded-md border-0 shadow-none">
                       Request Topic
                     </Button>
                   </div>
