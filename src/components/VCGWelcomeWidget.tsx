@@ -810,105 +810,103 @@ const VCGWelcomeWidget = () => {
         setShowBrowseCategories(open);
         if (!open) setSelectedCategoryInBrowse(null);
       }}>
-              <DialogContent className="sm:max-w-3xl p-6 bg-gradient-to-br from-card to-card/95 border border-border/40 shadow-xl">
-                <DialogHeader className="space-y-2 mb-3">
-                  <div className="flex items-center gap-3">
-                    <DialogTitle className="text-2xl font-semibold">
+              <DialogContent className="sm:max-w-3xl p-5 bg-card border border-border/60 shadow-lg">
+                <DialogHeader className="space-y-1 mb-3">
+                  <div className="flex items-center gap-2">
+                    <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                       {selectedBrowseType === "feedstock" ? "Feedstock Categories" : "Material Categories"}
                     </DialogTitle>
-                    <Badge variant="secondary" className={`text-sm rounded-sm ${selectedBrowseType === "feedstock" ? "bg-success/10 text-success border-success/20" : "bg-application-purple/10 text-application-purple border-application-purple/20"}`}>
+                    <span className={`inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-bold ${selectedBrowseType === "feedstock" ? "bg-success/10 border border-success/20 text-success" : "bg-application-purple/10 border border-application-purple/20 text-application-purple"}`}>
                       {selectedBrowseType === "feedstock" ?
-                Object.keys(browseLibrary.feedstocks).length :
-                Object.keys(browseLibrary.products).length}
-                    </Badge>
+                        Object.keys(browseLibrary.feedstocks).length :
+                        Object.keys(browseLibrary.products).length}
+                    </span>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
                     Click on any category to browse topics within it.
                   </p>
                 </DialogHeader>
-                
+
                 {/* Search Bar */}
                 <div className="mb-3">
                   <Input
-              placeholder="Search categories..."
-              className="w-full h-9" />
-            
+                    placeholder="Search categories..."
+                    className={`w-full h-9 !text-[11px] placeholder:!text-[11px] bg-muted/40 rounded-md transition-all duration-150 ${
+                      selectedBrowseType === "feedstock"
+                        ? "border-2 border-success/60 focus:border-success focus-visible:ring-2 focus-visible:ring-success/15 focus-visible:ring-offset-0"
+                        : "border-2 border-application-purple/60 focus:border-application-purple focus-visible:ring-2 focus-visible:ring-application-purple/15 focus-visible:ring-offset-0"
+                    }`} />
                 </div>
-                
+
                 {/* Two Column Layout: Categories Left, Items Right */}
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-4 min-h-[240px]">
                   {/* Categories Column */}
-                  <div className="space-y-3">
-                  <div className="divide-y divide-border max-h-[220px] overflow-y-auto">
-                    {selectedBrowseType === "feedstock" ?
-                Object.entries(browseLibrary.feedstocks).map(([category, items]) =>
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategoryInBrowse(category)}
-                  className={`w-full flex items-center justify-between px-3 py-3 transition-colors cursor-pointer text-left ${
-                  selectedCategoryInBrowse === category ? 'bg-success/10' : 'hover:bg-muted/30'}`
-                  }>
-                  
-                          <span className="text-sm text-foreground font-medium">{category}</span>
-                          <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
-                        </button>
-                ) :
-                Object.entries(browseLibrary.products).map(([category, items]) =>
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategoryInBrowse(category)}
-                  className={`w-full flex items-center justify-between px-3 py-3 transition-colors cursor-pointer text-left ${
-                  selectedCategoryInBrowse === category ? 'bg-application-purple/10' : 'hover:bg-muted/30'}`
-                  }>
-                  
-                          <span className="text-sm text-foreground font-medium">{category}</span>
-                          <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
-                        </button>
-                )}
+                  <div className="rounded-md border border-border/60 overflow-hidden bg-card">
+                    <div className="divide-y divide-border/60 max-h-[240px] overflow-y-auto">
+                      {selectedBrowseType === "feedstock" ?
+                        Object.entries(browseLibrary.feedstocks).map(([category, items]) =>
+                          <button
+                            key={category}
+                            onClick={() => setSelectedCategoryInBrowse(category)}
+                            className={`group w-full flex items-center justify-between px-3 py-2.5 transition-colors cursor-pointer text-left ${
+                              selectedCategoryInBrowse === category ? 'bg-accent/40' : 'hover:bg-accent/30'}`
+                            }>
+                            <span className="text-[11px] font-semibold text-foreground">{category}</span>
+                            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground -rotate-90 group-hover:text-foreground" />
+                          </button>
+                        ) :
+                        Object.entries(browseLibrary.products).map(([category, items]) =>
+                          <button
+                            key={category}
+                            onClick={() => setSelectedCategoryInBrowse(category)}
+                            className={`group w-full flex items-center justify-between px-3 py-2.5 transition-colors cursor-pointer text-left ${
+                              selectedCategoryInBrowse === category ? 'bg-accent/40' : 'hover:bg-accent/30'}`
+                            }>
+                            <span className="text-[11px] font-semibold text-foreground">{category}</span>
+                            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground -rotate-90 group-hover:text-foreground" />
+                          </button>
+                        )}
+                    </div>
+                  </div>
+
+                  {/* Items Column */}
+                  <div>
+                    {selectedCategoryInBrowse ?
+                      <div className="space-y-1 max-h-[240px] overflow-y-auto">
+                        {selectedBrowseType === "feedstock" ?
+                          browseLibrary.feedstocks[selectedCategoryInBrowse]?.map((item, index) =>
+                            <button
+                              key={index}
+                              onClick={() => {
+                                handleAddSuggestion(item, 'Feedstock');
+                                setShowBrowseCategories(false);
+                                setSelectedCategoryInBrowse(null);
+                              }}
+                              className="w-full flex items-center justify-between px-3 py-2 rounded-md bg-success/5 hover:bg-success/10 transition-colors cursor-pointer text-left">
+                              <span className="text-[11px] text-foreground">{item}</span>
+                              <Plus className="w-3.5 h-3.5 text-success" />
+                            </button>
+                          ) :
+                          browseLibrary.products[selectedCategoryInBrowse]?.map((item, index) =>
+                            <button
+                              key={index}
+                              onClick={() => {
+                                handleAddSuggestion(item, 'Product');
+                                setShowBrowseCategories(false);
+                                setSelectedCategoryInBrowse(null);
+                              }}
+                              className="w-full flex items-center justify-between px-3 py-2 rounded-md bg-application-purple/5 hover:bg-application-purple/10 transition-colors cursor-pointer text-left">
+                              <span className="text-[11px] text-foreground">{item}</span>
+                              <Plus className="w-3.5 h-3.5 text-application-purple" />
+                            </button>
+                          )}
+                      </div> :
+                      <div className="rounded-md border border-dashed border-border/60 flex items-center justify-center h-full min-h-[240px] p-6">
+                        <p className="text-[11px] text-muted-foreground">Select a category to view items</p>
+                      </div>
+                    }
                   </div>
                 </div>
-                
-                {/* Items Column */}
-                <div className="space-y-2">
-                  {selectedCategoryInBrowse ?
-              <div className="space-y-1 max-h-[220px] overflow-y-auto">
-                        {selectedBrowseType === "feedstock" ?
-                browseLibrary.feedstocks[selectedCategoryInBrowse]?.map((item, index) =>
-                <button
-                  key={index}
-                  onClick={() => {
-                    handleAddSuggestion(item, 'Feedstock');
-                    setShowBrowseCategories(false);
-                    setSelectedCategoryInBrowse(null);
-                  }}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md bg-success/5 hover:bg-success/10 transition-colors cursor-pointer text-left">
-                  
-                              <span className="text-sm text-foreground">{item}</span>
-                              <Plus className="w-4 h-4 text-success" />
-                            </button>
-                ) :
-                browseLibrary.products[selectedCategoryInBrowse]?.map((item, index) =>
-                <button
-                  key={index}
-                  onClick={() => {
-                    handleAddSuggestion(item, 'Product');
-                    setShowBrowseCategories(false);
-                    setSelectedCategoryInBrowse(null);
-                  }}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md bg-application-purple/5 hover:bg-application-purple/10 transition-colors cursor-pointer text-left">
-                  
-                              <span className="text-sm text-foreground">{item}</span>
-                              <Plus className="w-4 h-4 text-application-purple" />
-                            </button>
-                )}
-                      </div> :
-
-              <div className="flex items-center justify-center h-[220px] text-muted-foreground text-sm">
-                      Select a category to view items
-                    </div>
-              }
-                </div>
-              </div>
               </DialogContent>
             </Dialog>
             
