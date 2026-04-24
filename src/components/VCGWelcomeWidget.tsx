@@ -770,11 +770,11 @@ const VCGWelcomeWidget = () => {
                       setShowBrowseTypeSelection(false);
                       setShowBrowseCategories(true);
                     }}
-                    className="group relative flex flex-col items-start gap-4 p-4 min-h-[160px] rounded-lg border border-border/60 bg-background hover:border-success/40 hover:bg-success/5 transition-all duration-200 text-left">
+                    className="group relative flex flex-col items-center justify-center gap-3 p-4 min-h-[160px] rounded-lg border border-border/60 bg-background hover:border-success/40 hover:bg-success/5 transition-all duration-200 text-center">
                     <div className="p-1.5 rounded-md bg-success/10 border border-success/20">
                       <Settings2 className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1 mt-auto">
+                    <div className="flex flex-col gap-1">
                       <h3 className="text-xs font-bold text-foreground">Browse Feedstocks</h3>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Explore available feedstock categories and items.
