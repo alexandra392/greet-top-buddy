@@ -422,11 +422,11 @@ const VCGWelcomeWidget = () => {
                       setShowPathSelection(false);
                       setShowCategorySelection(true);
                     }}
-                    className="group flex flex-col items-start gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-left min-h-[180px]">
+                    className="group flex flex-col items-center justify-center gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-center min-h-[160px]">
                     <div className="flex-shrink-0 p-2 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
                       <CheckCircle className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1 my-auto">
+                    <div className="flex flex-col gap-1">
                       <h3 className="font-semibold text-xs text-foreground">I know what I want</h3>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Choose your use case and add the specific feedstocks or products you want to analyze.
@@ -441,11 +441,11 @@ const VCGWelcomeWidget = () => {
                       setShowPathSelection(false);
                       setShowBrowseTypeSelection(true);
                     }}
-                    className="group flex flex-col items-start gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-left min-h-[180px]">
+                    className="group flex flex-col items-center justify-center gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-center min-h-[160px]">
                     <div className="flex-shrink-0 p-2 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
                       <FolderOpen className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1 my-auto">
+                    <div className="flex flex-col gap-1">
                       <h3 className="font-semibold text-xs text-foreground">Browse our library</h3>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Explore our complete database of available feedstocks and products.
