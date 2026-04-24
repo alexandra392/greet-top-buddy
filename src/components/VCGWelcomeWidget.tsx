@@ -422,7 +422,7 @@ const VCGWelcomeWidget = () => {
                       setShowPathSelection(false);
                       setShowCategorySelection(true);
                     }}
-                    className="group flex flex-col items-center justify-center gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-center min-h-[160px]">
+                    className="group flex flex-col items-start gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-left min-h-[180px]">
                     <div className="flex-shrink-0 p-2 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
                       <CheckCircle className="w-4 h-4 text-success" />
                     </div>
