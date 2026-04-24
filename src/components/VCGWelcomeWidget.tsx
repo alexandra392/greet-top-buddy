@@ -770,7 +770,7 @@ const VCGWelcomeWidget = () => {
                       setShowBrowseTypeSelection(false);
                       setShowBrowseCategories(true);
                     }}
-                    className="group relative flex flex-col items-center justify-center gap-3 p-4 min-h-[160px] rounded-lg border border-border/60 bg-background hover:border-success/40 hover:bg-success/5 transition-all duration-200 text-center">
+                    className="group relative flex flex-col items-center justify-center gap-2 p-3 min-h-[120px] rounded-lg border border-border/60 bg-background hover:border-success/40 hover:bg-success/5 transition-all duration-200 text-center">
                     <div className="p-1.5 rounded-md bg-success/10 border border-success/20">
                       <Settings2 className="w-4 h-4 text-success" />
                     </div>
@@ -790,7 +790,7 @@ const VCGWelcomeWidget = () => {
                       setShowBrowseTypeSelection(false);
                       setShowBrowseCategories(true);
                     }}
-                    className="group relative flex flex-col items-center justify-center gap-3 p-4 min-h-[160px] rounded-lg border border-border/60 bg-background hover:border-application-purple/40 hover:bg-application-purple/5 transition-all duration-200 text-center">
+                    className="group relative flex flex-col items-center justify-center gap-2 p-3 min-h-[120px] rounded-lg border border-border/60 bg-background hover:border-application-purple/40 hover:bg-application-purple/5 transition-all duration-200 text-center">
                     <div className="p-1.5 rounded-md bg-application-purple/10 border border-application-purple/20">
                       <Package className="w-4 h-4 text-application-purple" />
                     </div>
