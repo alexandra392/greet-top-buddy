@@ -928,7 +928,7 @@ const VCGWelcomeWidget = () => {
 
                 <div className="space-y-2.5">
                   <div className="space-y-1">
-                    <Label htmlFor="custom-name" className="!text-[11px] font-semibold text-foreground">
+                    <Label htmlFor="custom-name" className="!text-[10px] font-semibold text-foreground uppercase tracking-wider">
                       Name *
                     </Label>
                     <Input
@@ -941,7 +941,7 @@ const VCGWelcomeWidget = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <Label htmlFor="custom-subcategory" className="!text-[11px] font-semibold text-foreground">
+                    <Label htmlFor="custom-subcategory" className="!text-[10px] font-semibold text-foreground uppercase tracking-wider">
                       Category *
                     </Label>
                     <Select
@@ -970,7 +970,7 @@ const VCGWelcomeWidget = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <Label htmlFor="custom-description" className="!text-[11px] font-semibold text-foreground">
+                    <Label htmlFor="custom-description" className="!text-[10px] font-semibold text-foreground uppercase tracking-wider">
                       Description
                     </Label>
                     <Textarea
