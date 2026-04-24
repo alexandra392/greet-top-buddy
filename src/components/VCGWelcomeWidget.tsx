@@ -445,7 +445,7 @@ const VCGWelcomeWidget = () => {
                     <div className="flex-shrink-0 p-2 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
                       <FolderOpen className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 my-auto">
                       <h3 className="font-semibold text-xs text-foreground">Browse our library</h3>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Explore our complete database of available feedstocks and products.
