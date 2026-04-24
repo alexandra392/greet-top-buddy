@@ -751,54 +751,52 @@ const VCGWelcomeWidget = () => {
             
             {/* Browse Type Selection Dialog - For "Browse library" path */}
             <Dialog open={showBrowseTypeSelection} onOpenChange={setShowBrowseTypeSelection}>
-              <DialogContent className="sm:max-w-2xl p-8 bg-gradient-to-br from-card to-card/95 border border-border/40 shadow-xl">
-                <DialogHeader className="space-y-3 mb-6">
-                  <DialogTitle className="text-2xl font-semibold text-foreground">
-                    What would you like to browse?
+              <DialogContent className="sm:max-w-2xl p-5 bg-card border border-border/60 shadow-lg">
+                <DialogHeader className="space-y-1 mb-3">
+                  <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                    What Would You Like to Browse?
                   </DialogTitle>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
                     Choose the type of items you want to explore.
                   </p>
                 </DialogHeader>
-                
+
                 <div className="grid grid-cols-2 gap-3">
                   {/* Feedstock Option */}
                   <button
-              onClick={() => {
-                setSelectedBrowseType("feedstock");
-                setSelectedCategoryInBrowse(null);
-                setShowBrowseTypeSelection(false);
-                setShowBrowseCategories(true);
-              }}
-              className="group flex flex-col items-center justify-center gap-3 p-5 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 text-center shadow-sm hover:shadow-md h-64">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-success/10 border border-success/20 group-hover:bg-success/20 transition-colors">
-                      <Settings2 className="w-6 h-6 text-success" />
+                    onClick={() => {
+                      setSelectedBrowseType("feedstock");
+                      setSelectedCategoryInBrowse(null);
+                      setShowBrowseTypeSelection(false);
+                      setShowBrowseCategories(true);
+                    }}
+                    className="group relative flex flex-col items-start gap-4 p-4 min-h-[160px] rounded-lg border border-border/60 bg-background hover:border-success/40 hover:bg-success/5 transition-all duration-200 text-left">
+                    <div className="p-1.5 rounded-md bg-success/10 border border-success/20">
+                      <Settings2 className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <h3 className="font-semibold text-base text-foreground">Browse Feedstocks</h3>
-                      <p className="text-[11px] text-muted-foreground leading-tight px-1">
+                    <div className="flex flex-col gap-1 mt-auto">
+                      <h3 className="text-xs font-bold text-foreground">Browse Feedstocks</h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Explore available feedstock categories and items.
                       </p>
                     </div>
                   </button>
-                  
+
                   {/* Product Option */}
                   <button
-              onClick={() => {
-                setSelectedBrowseType("product");
-                setSelectedCategoryInBrowse(null);
-                setShowBrowseTypeSelection(false);
-                setShowBrowseCategories(true);
-              }}
-              className="group flex flex-col items-center justify-center gap-3 p-5 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 text-center shadow-sm hover:shadow-md h-64">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-application-purple/10 border border-application-purple/20 group-hover:bg-application-purple/20 transition-colors">
-                      <Package className="w-6 h-6 text-application-purple" />
+                    onClick={() => {
+                      setSelectedBrowseType("product");
+                      setSelectedCategoryInBrowse(null);
+                      setShowBrowseTypeSelection(false);
+                      setShowBrowseCategories(true);
+                    }}
+                    className="group relative flex flex-col items-start gap-4 p-4 min-h-[160px] rounded-lg border border-border/60 bg-background hover:border-application-purple/40 hover:bg-application-purple/5 transition-all duration-200 text-left">
+                    <div className="p-1.5 rounded-md bg-application-purple/10 border border-application-purple/20">
+                      <Package className="w-4 h-4 text-application-purple" />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <h3 className="font-semibold text-base text-foreground">Browse Products</h3>
-                      <p className="text-[11px] text-muted-foreground leading-tight px-1">
+                    <div className="flex flex-col gap-1 mt-auto">
+                      <h3 className="text-xs font-bold text-foreground">Browse Products</h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Explore available product categories and items.
                       </p>
                     </div>
