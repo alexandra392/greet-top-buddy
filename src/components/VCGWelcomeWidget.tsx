@@ -404,52 +404,50 @@ const VCGWelcomeWidget = () => {
         <DialogTrigger asChild>
           <span className="hidden" />
         </DialogTrigger>
-              <DialogContent className="sm:max-w-2xl p-8 bg-gradient-to-br from-card to-card/95 border border-border/40 shadow-xl">
-                 <DialogHeader className="space-y-3 mb-6">
-                   <DialogTitle className="text-2xl font-semibold text-foreground">
-                     Request New Topics
-                   </DialogTitle>
-                   <p className="text-sm text-muted-foreground leading-relaxed">
-                     Choose how you'd like to add new feedstocks or products topics to your analysis portfolio.
-                   </p>
-                 </DialogHeader>
-                
-                <div className="grid grid-cols-2 gap-4">
+              <DialogContent className="sm:max-w-2xl p-5 bg-card border border-border/60 shadow-lg">
+                <DialogHeader className="space-y-1 mb-3">
+                  <DialogTitle className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                    Request New Topics
+                  </DialogTitle>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    Choose how you'd like to add new feedstocks or products to your analysis portfolio.
+                  </p>
+                </DialogHeader>
+
+                <div className="grid grid-cols-2 gap-3">
                   {/* Option 1: I know what I want */}
                   <button
-              onClick={() => {
-                setSelectedPath("know");
-                setShowPathSelection(false);
-                setShowCategorySelection(true);
-              }}
-              className="group flex flex-col items-center justify-center gap-3 p-5 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 text-center shadow-sm hover:shadow-md h-64">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-success/10 border border-success/20 group-hover:bg-success/20 transition-colors">
-                      <CheckCircle className="w-6 h-6 text-success" />
+                    onClick={() => {
+                      setSelectedPath("know");
+                      setShowPathSelection(false);
+                      setShowCategorySelection(true);
+                    }}
+                    className="group flex flex-col items-start gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-left min-h-[180px]">
+                    <div className="flex-shrink-0 p-2 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
+                      <CheckCircle className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <h3 className="font-semibold text-base text-foreground">I know what I want</h3>
-                      <p className="text-[11px] text-muted-foreground leading-tight px-1">
+                    <div className="flex flex-col gap-1 my-auto">
+                      <h3 className="font-semibold text-xs text-foreground">I know what I want</h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Choose your use case and add the specific feedstocks or products you want to analyze.
                       </p>
                     </div>
                   </button>
-                  
-                  {/* Option 3: Browse Library */}
+
+                  {/* Option 2: Browse Library */}
                   <button
-              onClick={() => {
-                setSelectedPath("browse");
-                setShowPathSelection(false);
-                setShowBrowseTypeSelection(true);
-              }}
-              className="group flex flex-col items-center justify-center gap-3 p-5 rounded-xl border-2 border-border/40 hover:border-primary/50 bg-background hover:bg-primary/5 transition-all duration-200 text-center shadow-sm hover:shadow-md h-64">
-              
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-success/10 border border-success/20 group-hover:bg-success/20 transition-colors">
-                      <FolderOpen className="w-6 h-6 text-success" />
+                    onClick={() => {
+                      setSelectedPath("browse");
+                      setShowPathSelection(false);
+                      setShowBrowseTypeSelection(true);
+                    }}
+                    className="group flex flex-col items-start gap-3 p-4 rounded-lg border border-border/60 hover:border-primary/60 bg-background hover:bg-accent/30 transition-all duration-200 text-left min-h-[180px]">
+                    <div className="flex-shrink-0 p-2 rounded-md bg-success/10 border border-success/20 group-hover:bg-success/15 transition-colors">
+                      <FolderOpen className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <h3 className="font-semibold text-base text-foreground">Browse our library</h3>
-                      <p className="text-[11px] text-muted-foreground leading-tight px-1">
+                    <div className="flex flex-col gap-1 my-auto">
+                      <h3 className="font-semibold text-xs text-foreground">Browse our library</h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Explore our complete database of available feedstocks and products.
                       </p>
                     </div>
