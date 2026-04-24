@@ -916,109 +916,105 @@ const VCGWelcomeWidget = () => {
             
             {/* Custom Item Dialog */}
             <Dialog open={showCustomItemDialog} onOpenChange={setShowCustomItemDialog}>
-              <DialogContent className="sm:max-w-2xl p-8 bg-gradient-to-br from-card to-card/95 border border-border/40 shadow-xl">
-                <DialogHeader className="space-y-3 -mb-2">
-                  <DialogTitle className="text-2xl font-semibold text-foreground">{getCustomDialogTitle()}</DialogTitle>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+              <DialogContent className="sm:max-w-[640px] p-8 bg-card border-0 rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)]">
+                <DialogHeader className="space-y-1.5 mb-8">
+                  <DialogTitle className="text-[11px] font-bold text-muted-foreground uppercase tracking-[0.15em]">
+                    {getCustomDialogTitle()}
+                  </DialogTitle>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed">
                     Request a new topic for analysis in your portfolio.
                   </p>
                 </DialogHeader>
-                <div className="space-y-1">
-                  <div className="space-y-1">
-                    <Label htmlFor="custom-name" className="text-sm font-semibold">
+
+                <div className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="custom-name" className="text-[13px] font-semibold text-foreground">
                       Name *
                     </Label>
                     <Input
-                id="custom-name"
-                placeholder="Enter name..."
-                value={customItemName}
-                onChange={(e) => setCustomItemName(e.target.value)}
-                className="border-2 border-success/20 focus:border-success/40 rounded-md h-9" />
-              
+                      id="custom-name"
+                      placeholder="Enter name..."
+                      value={customItemName}
+                      onChange={(e) => setCustomItemName(e.target.value)}
+                      className="w-full h-11 bg-muted/40 border border-border/60 rounded-lg px-4 text-sm text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150"
+                    />
                   </div>
-                  
-                  <div className="space-y-1">
-                    <Label htmlFor="custom-subcategory" className="text-sm font-semibold">
+
+                  <div className="space-y-2">
+                    <Label htmlFor="custom-subcategory" className="text-[13px] font-semibold text-foreground">
                       Category *
                     </Label>
                     <Select
-                value={customItemSubcategory}
-                onValueChange={(value) => setCustomItemSubcategory(value)}>
-                
-                      <SelectTrigger id="custom-subcategory" className="border-2 border-success/20 focus:border-success/40 rounded-md h-9 bg-background">
+                      value={customItemSubcategory}
+                      onValueChange={(value) => setCustomItemSubcategory(value)}>
+                      <SelectTrigger
+                        id="custom-subcategory"
+                        className="w-full h-11 bg-muted/40 border border-border/60 rounded-lg px-4 text-sm text-foreground focus:bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 focus:ring-offset-0 focus:outline-none transition-all duration-150">
                         <SelectValue placeholder={`Select ${customItemCategory.toLowerCase()} category...`} />
                       </SelectTrigger>
                       <SelectContent className="bg-background z-50">
                         {customItemCategory === "Feedstock" ?
-                  <>
+                          <>
                             <SelectItem value="Primary">Primary</SelectItem>
                             <SelectItem value="Secondary">Secondary</SelectItem>
                             <SelectItem value="Tertiary">Tertiary</SelectItem>
                           </> :
-
-                  <>
+                          <>
                             <SelectItem value="Primary">Primary Product</SelectItem>
                             <SelectItem value="Intermediate">Intermediate Product</SelectItem>
                             <SelectItem value="Final">Final Product</SelectItem>
                           </>
-                  }
+                        }
                       </SelectContent>
                     </Select>
                   </div>
 
-                  <div className="space-y-1 -mt-4">
-                    <Label htmlFor="custom-description" className="text-sm font-semibold">
+                  <div className="space-y-2">
+                    <Label htmlFor="custom-description" className="text-[13px] font-semibold text-foreground">
                       Description
                     </Label>
                     <Textarea
-                id="custom-description"
-                placeholder="Briefly describe this item..."
-                value={customItemDescription}
-                onChange={(e) => setCustomItemDescription(e.target.value)}
-                className="min-h-[50px] border-2 border-success/20 focus:border-success/40 rounded-md bg-background resize-none" />
-              
+                      id="custom-description"
+                      placeholder="Briefly describe this item..."
+                      value={customItemDescription}
+                      onChange={(e) => setCustomItemDescription(e.target.value)}
+                      className="w-full min-h-[96px] bg-muted/40 border border-border/60 rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-0 focus:outline-none transition-all duration-150 resize-none"
+                    />
                   </div>
 
-                  <div className="flex gap-3 pt-4">
+                  <div className="flex gap-3 mt-8">
                     <Button
-                variant="outline"
-                onClick={() => {
-                  setShowCustomItemDialog(false);
-                  setCustomItemName("");
-                  setCustomItemSubcategory("");
-                  setCustomItemDescription("");
-                }}
-                className="flex-1 h-9 border-2 rounded-md">
-                
+                      onClick={() => {
+                        setShowCustomItemDialog(false);
+                        setCustomItemName("");
+                        setCustomItemSubcategory("");
+                        setCustomItemDescription("");
+                      }}
+                      className="flex-1 h-12 bg-muted/40 hover:bg-muted/60 text-foreground font-semibold text-sm rounded-lg border-0 shadow-none">
                       Cancel
                     </Button>
                     <Button
-                onClick={() => {
-                  if (customItemName.trim() && customItemSubcategory) {
-                    if (selectedPath === "know") {
-                      // For "I know what I want" path: add directly to portfolio
-                      handleAddSuggestion(customItemName.trim(), customItemCategory);
-                    } else {
-                      // For AI and browse paths: add to suggestions list
-                      setCurrentSuggestions((prev) => ({
-                        ...prev,
-                        [customItemCategory.toLowerCase() === 'feedstock' ? 'feedstocks' : 'products']: [
-                        ...prev[customItemCategory.toLowerCase() === 'feedstock' ? 'feedstocks' : 'products'],
-                        customItemName.trim()]
-
-                      }));
-                      // Keep item selection dialog open to show the new item
-                      setShowItemSelection(true);
-                    }
-                    setShowCustomItemDialog(false);
-                    setCustomItemName("");
-                    setCustomItemSubcategory("");
-                    setCustomItemDescription("");
-                  }
-                }}
-                disabled={!customItemName.trim() || !customItemSubcategory}
-                className="flex-1 h-9 bg-success hover:bg-success/90 rounded-md">
-                
+                      onClick={() => {
+                        if (customItemName.trim() && customItemSubcategory) {
+                          if (selectedPath === "know") {
+                            handleAddSuggestion(customItemName.trim(), customItemCategory);
+                          } else {
+                            setCurrentSuggestions((prev) => ({
+                              ...prev,
+                              [customItemCategory.toLowerCase() === 'feedstock' ? 'feedstocks' : 'products']: [
+                                ...prev[customItemCategory.toLowerCase() === 'feedstock' ? 'feedstocks' : 'products'],
+                                customItemName.trim()]
+                            }));
+                            setShowItemSelection(true);
+                          }
+                          setShowCustomItemDialog(false);
+                          setCustomItemName("");
+                          setCustomItemSubcategory("");
+                          setCustomItemDescription("");
+                        }
+                      }}
+                      disabled={!customItemName.trim() || !customItemSubcategory}
+                      className="flex-1 h-12 bg-primary hover:bg-primary/90 disabled:bg-primary/40 disabled:opacity-100 text-primary-foreground font-semibold text-sm rounded-lg border-0 shadow-none">
                       Request Topic
                     </Button>
                   </div>
