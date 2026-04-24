@@ -643,7 +643,7 @@ const VCGWelcomeWidget = () => {
                       <div className="p-2 rounded-lg bg-success/10 border border-success/20 shadow-sm">
                         <Settings2 className="w-4 h-4 text-success" />
                       </div>
-                      <h3 className="font-semibold text-base text-foreground">
+                      <h3 className="font-semibold text-xs text-foreground">
                         {selectedPath === "ai" ? "Recommended Feedstocks" : selectedBrowseCategory?.category}
                       </h3>
                       <Badge variant="secondary" className="text-xs bg-success/10 text-success border-success/20">
