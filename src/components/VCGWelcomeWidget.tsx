@@ -696,7 +696,7 @@ const VCGWelcomeWidget = () => {
                       <div className="p-2 rounded-lg bg-application-purple/10 border border-application-purple/20 shadow-sm">
                         <Package className="w-4 h-4 text-application-purple" />
                       </div>
-                      <h3 className="font-semibold text-base text-foreground">
+                      <h3 className="font-semibold text-xs text-foreground">
                         {selectedPath === "ai" ? "Recommended Products" : selectedBrowseCategory?.category}
                       </h3>
                       <Badge variant="secondary" className="text-xs bg-application-purple/10 text-application-purple border-application-purple/20">
