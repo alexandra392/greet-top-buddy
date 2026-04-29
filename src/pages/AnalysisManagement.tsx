@@ -59,14 +59,14 @@ const AnalysisManagement = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: "Organisations", value: totalOrgs, icon: Building2, color: "text-success", bg: "bg-success/10", border: "border-success/20" },
-          { label: "Total Analyses", value: totalAnalyses, icon: Sparkles, color: "text-product-blue", bg: "bg-product-blue/10", border: "border-product-blue/20" },
-          { label: "Pending Requests", value: totalPending, icon: Bell, color: "text-warning", bg: "bg-warning/10", border: "border-warning/20" },
-          { label: "Databases", value: totalDatabases, icon: Database, color: "text-application-purple", bg: "bg-application-purple/10", border: "border-application-purple/20" },
+          { label: "Organisations", value: totalOrgs, icon: Building2 },
+          { label: "Total Analyses", value: totalAnalyses, icon: Sparkles },
+          { label: "Pending Requests", value: totalPending, icon: Bell, highlight: totalPending > 0 },
+          { label: "Databases", value: totalDatabases, icon: Database },
         ].map((stat) => (
-          <div key={stat.label} className="bg-card border border-border/40 rounded-xl px-3 py-2.5 flex items-center gap-2.5">
-            <div className={`w-6 h-6 rounded-md ${stat.bg} border ${stat.border} flex items-center justify-center flex-shrink-0`}>
-              <stat.icon className={`w-3 h-3 ${stat.color}`} />
+          <div key={stat.label} className="bg-card border border-border/40 rounded-lg px-3 py-2.5 flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-md bg-muted/50 border border-border/40 flex items-center justify-center flex-shrink-0">
+              <stat.icon className={`w-3 h-3 ${stat.highlight ? 'text-warning' : 'text-muted-foreground'}`} />
             </div>
             <div className="min-w-0">
               <div className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase truncate">{stat.label}</div>
