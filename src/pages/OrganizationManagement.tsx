@@ -729,56 +729,51 @@ const OrganizationManagement = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {/* Group 1: Platform Activity */}
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 px-1">
-                <div className="w-1 h-1 rounded-full bg-success" />
-                <span className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase">Platform Activity</span>
-                <div className="flex-1 h-px bg-border/40" />
-              </div>
-              <TabsList className="w-full bg-card border border-success/20 p-0.5 h-auto grid grid-cols-2 shadow-sm">
-                <TabsTrigger value="analyses" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
-                  <BarChart3 className="w-3 h-3" />
-                  Analysis Topics
-                  <span className="ml-1 text-[10px] font-bold opacity-70">{organization.totalAnalyses}</span>
-                  {pendingTopicsCount > 0 && (
-                    <span className="ml-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 rounded-full bg-warning text-warning-foreground text-[8px] font-bold leading-none self-center">
-                      {pendingTopicsCount}
-                    </span>
-                  )}
-                </TabsTrigger>
-                <TabsTrigger value="projects" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
-                  <Activity className="w-3 h-3" />
-                  Analyses
-                  <span className="ml-1 text-[10px] font-bold opacity-70">{activeProjects.length}</span>
-                </TabsTrigger>
-              </TabsList>
+          <TabsList className="w-full bg-card border border-border/40 p-1 h-auto flex items-stretch gap-1 shadow-sm rounded-lg">
+            {/* Platform group */}
+            <div className="flex-1 flex items-center gap-1 relative">
+              <span className="absolute -top-2 left-2 px-1.5 bg-card text-[8px] font-bold tracking-widest text-success/80 uppercase leading-none">
+                · Platform
+              </span>
+              <TabsTrigger value="analyses" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
+                <BarChart3 className="w-3 h-3" />
+                Analysis Topics
+                <span className="ml-1 text-[10px] font-bold opacity-70">{organization.totalAnalyses}</span>
+                {pendingTopicsCount > 0 && (
+                  <span className="ml-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 rounded-full bg-warning text-warning-foreground text-[8px] font-bold leading-none self-center">
+                    {pendingTopicsCount}
+                  </span>
+                )}
+              </TabsTrigger>
+              <TabsTrigger value="projects" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+                <Activity className="w-3 h-3" />
+                Analyses
+                <span className="ml-1 text-[10px] font-bold opacity-70">{activeProjects.length}</span>
+              </TabsTrigger>
             </div>
 
-            {/* Group 2: Organisation Management */}
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5 px-1">
-                <div className="w-1 h-1 rounded-full bg-primary" />
-                <span className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase">Organisation Management</span>
-                <div className="flex-1 h-px bg-border/40" />
-              </div>
-              <TabsList className="w-full bg-card border border-primary/20 p-0.5 h-auto grid grid-cols-2 shadow-sm">
-                <TabsTrigger value="users" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
-                  <Users className="w-3 h-3" />
-                  User Management
-                  <span className="ml-1 text-[10px] font-bold opacity-70">{organization.numberOfUsers}</span>
-                </TabsTrigger>
-                <TabsTrigger value="billing" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
-                  <Crown className="w-3 h-3" />
-                  Billing & Subscription
-                  <span className="ml-1 inline-flex items-center justify-center px-1.5 h-[14px] rounded-full bg-warning/15 text-warning text-[8px] font-bold tracking-widest uppercase leading-none self-center border border-warning/30">
-                    Soon
-                  </span>
-                </TabsTrigger>
-              </TabsList>
+            {/* Divider */}
+            <div className="w-px bg-border/60 my-1" />
+
+            {/* Management group */}
+            <div className="flex-1 flex items-center gap-1 relative">
+              <span className="absolute -top-2 left-2 px-1.5 bg-card text-[8px] font-bold tracking-widest text-primary/80 uppercase leading-none">
+                · Management
+              </span>
+              <TabsTrigger value="users" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+                <Users className="w-3 h-3" />
+                User Management
+                <span className="ml-1 text-[10px] font-bold opacity-70">{organization.numberOfUsers}</span>
+              </TabsTrigger>
+              <TabsTrigger value="billing" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
+                <Crown className="w-3 h-3" />
+                Billing & Subscription
+                <span className="ml-1 inline-flex items-center justify-center px-1.5 h-[14px] rounded-full bg-warning/15 text-warning text-[8px] font-bold tracking-widest uppercase leading-none self-center border border-warning/30">
+                  Soon
+                </span>
+              </TabsTrigger>
             </div>
-          </div>
+          </TabsList>
 
           {/* Billing & Subscription Tab — Coming Soon */}
           <TabsContent value="billing">
