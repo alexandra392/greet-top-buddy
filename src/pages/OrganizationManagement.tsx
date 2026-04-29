@@ -1165,13 +1165,15 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
+                                  className="h-6 px-2 text-[10px] font-medium border-success/40 text-success hover:bg-success/10 hover:text-success gap-1"
                                   onClick={() => handleChangeAnalysisStatus(topic.id, 'Active')}
+                                  title="Restore to Active"
                                 >
                                   <RotateCcw className="w-3 h-3" />
+                                  Unarchive
                                 </Button>
                               ) : (
-                                 <Button variant="outline" size="sm" className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50">
+                                 <Button variant="outline" size="sm" className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50" title="Refresh">
                                    <RefreshCw className="w-3 h-3" />
                                  </Button>
                               )}
