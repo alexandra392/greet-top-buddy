@@ -732,7 +732,7 @@ const OrganizationManagement = () => {
           <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto grid grid-cols-3">
             <TabsTrigger value="analyses" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
               <Activity className="w-3 h-3" />
-              Analysis Topics
+              Analyses Topics
               <span className="ml-1 text-[10px] font-bold opacity-70">{organization.totalAnalyses}</span>
               {pendingTopicsCount > 0 && (
                 <span className="ml-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 rounded-full bg-warning text-warning-foreground text-[8px] font-bold leading-none self-center">
@@ -1037,7 +1037,7 @@ const OrganizationManagement = () => {
             <Card className="border-border/40 shadow-sm">
               <div className="px-4 py-3 border-b border-border/30 flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Analysis Topics</h3>
+                  <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Analyses Topics</h3>
                   <p className="text-[11px] text-muted-foreground mt-0.5">All analysis topics and research areas being worked on by users in this organisation.</p>
                 </div>
                 <Button size="sm" className="h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium flex-shrink-0">
