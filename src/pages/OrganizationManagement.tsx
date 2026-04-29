@@ -723,34 +723,6 @@ const OrganizationManagement = () => {
                </div>
              </div>
 
-            {/* VCG Subscription Package — Coming Soon */}
-            <div className="relative bg-gradient-to-br from-muted/40 via-card to-success/5 border border-dashed border-border/60 p-3 rounded-lg overflow-hidden">
-              <div className="absolute top-2 right-2">
-                <Badge variant="outline" className="text-[9px] font-bold tracking-widest uppercase bg-warning/10 text-warning border-warning/30">
-                  Coming Soon
-                </Badge>
-              </div>
-              <div className="flex items-center gap-1.5 mb-2.5">
-                <Crown className="w-3 h-3 text-muted-foreground" />
-                <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">VCG Subscription Package</h3>
-              </div>
-              <p className="text-[11px] text-muted-foreground leading-relaxed mb-3 max-w-[90%]">
-                Track which VCG plan this organisation is subscribed to — tier, seat allowance, included analyses, and renewal date.
-              </p>
-              <div className="grid grid-cols-4 gap-2 opacity-60">
-                {[
-                  { label: "Plan", value: "—" },
-                  { label: "Seats", value: "—" },
-                  { label: "Analyses", value: "—" },
-                  { label: "Renews", value: "—" },
-                ].map((item) => (
-                  <div key={item.label} className="bg-background/50 border border-border/30 rounded-md px-2 py-1.5">
-                    <div className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase truncate">{item.label}</div>
-                    <div className="text-xs font-bold text-foreground/40 mt-0.5">{item.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
          </div>
        </div>
