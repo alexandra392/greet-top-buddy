@@ -89,6 +89,10 @@ const AnalysisManagement = () => {
               <Database className="w-3 h-3" />
               Database Repertoire
             </TabsTrigger>
+            <TabsTrigger value="pathways" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Sparkles className="w-3 h-3" />
+              VCG Pathways
+            </TabsTrigger>
           </TabsList>
         </div>
 
