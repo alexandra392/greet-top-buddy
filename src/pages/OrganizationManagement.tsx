@@ -606,31 +606,27 @@ const OrganizationManagement = () => {
       </div>
 
         {/* Main Content Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
-          <TabsList className="grid w-full grid-cols-3 mb-4">
-            <TabsTrigger value="analyses" className="flex items-center gap-2 text-sm relative">
-              <BarChart3 className="w-4 h-4" />
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
+          <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto grid grid-cols-3">
+            <TabsTrigger value="analyses" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
+              <BarChart3 className="w-3 h-3" />
               Analysis Topics
-              <Badge variant="secondary" className="ml-2 text-xs px-2 py-1 rounded-full">
-                {organization.totalAnalyses}
-              </Badge>
+              <span className="ml-1 text-[10px] font-bold opacity-70">{organization.totalAnalyses}</span>
               {pendingTopicsCount > 0 && (
-                <Bell className="absolute -top-1 -right-1 w-7 h-7 text-red-500 fill-red-500 animate-pulse drop-shadow-sm" />
+                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-warning text-background text-[8px] font-bold flex items-center justify-center">
+                  {pendingTopicsCount}
+                </span>
               )}
             </TabsTrigger>
-            <TabsTrigger value="projects" className="flex items-center gap-2 text-sm">
-              <Activity className="w-4 h-4" />
+            <TabsTrigger value="projects" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Activity className="w-3 h-3" />
               Analyses
-              <Badge variant="secondary" className="ml-2 text-xs">
-                {activeProjects.length}
-              </Badge>
+              <span className="ml-1 text-[10px] font-bold opacity-70">{activeProjects.length}</span>
             </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2 text-sm">
-              <Users className="w-4 h-4" />
+            <TabsTrigger value="users" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Users className="w-3 h-3" />
               User Management
-              <Badge variant="secondary" className="ml-2 text-xs">
-                {organization.numberOfUsers}
-              </Badge>
+              <span className="ml-1 text-[10px] font-bold opacity-70">{organization.numberOfUsers}</span>
             </TabsTrigger>
           </TabsList>
 
