@@ -1118,7 +1118,7 @@ const OrganizationManagement = () => {
                                  <Button 
                                    variant="outline" 
                                    size="sm" 
-                                   className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
+                                   className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
                                    onClick={() => handleApproveTopic(topic.id, topic.name, topic.description)}
                                  >
                                    <FileSearch className="w-3 h-3" />
@@ -1127,7 +1127,7 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="h-7 w-7 p-0 border-border/60 opacity-50 cursor-not-allowed"
+                                  className="h-6 w-6 p-0 border-border/60 opacity-50 cursor-not-allowed"
                                   disabled
                                 >
                                   <XCircle className="w-3 h-3" />
@@ -1136,13 +1136,13 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
+                                  className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
                                   onClick={() => handleChangeAnalysisStatus(topic.id, 'Active')}
                                 >
                                   <RotateCcw className="w-3 h-3" />
                                 </Button>
                               ) : (
-                                 <Button variant="outline" size="sm" className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50">
+                                 <Button variant="outline" size="sm" className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50">
                                    <RefreshCw className="w-3 h-3" />
                                  </Button>
                               )}
