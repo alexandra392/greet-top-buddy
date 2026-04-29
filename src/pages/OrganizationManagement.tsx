@@ -512,116 +512,98 @@ const OrganizationManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 pb-8">
-      <div className="p-4 space-y-4 animate-fade-in max-w-full">
-        {/* Header with Back Button and Action Buttons */}
-        <div className="flex items-center justify-between mb-4">
-          <Button 
-            variant="outline" 
-            onClick={() => navigate("/analysis-management")}
-            className="hover-scale"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Organizations
-          </Button>
-          
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="hover:bg-muted">
-              <Edit className="w-4 h-4 mr-2" />
-              Edit
-            </Button>
+    <div className="px-6 pt-4 pb-6 max-w-[1400px] w-full mx-auto space-y-4">
+      {/* Header with Back Button and Action Buttons */}
+      <div className="flex items-center justify-between">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate("/analysis-management")}
+          className="h-7 px-2 text-[11px] font-medium text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="w-3 h-3 mr-1" />
+          Back to Organisations
+        </Button>
+
+        <Button size="sm" variant="outline" className="h-7 px-2.5 text-[11px] font-medium border-border/40">
+          <Edit className="w-3 h-3 mr-1" />
+          Edit
+        </Button>
+      </div>
+
+      {/* Organisation Header Card */}
+      <div className="bg-card border border-border/40 rounded-xl p-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          {/* Left Column - Organization Title and Description */}
+          <div>
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Organisation</span>
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-success/10 border border-success/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-success" />
+                <span className="text-[9px] font-bold uppercase tracking-wider text-success">Active</span>
+              </span>
+            </div>
+            <h1 className="text-base font-bold text-foreground tracking-tight mb-1">
+              {organization.name}
+            </h1>
+            <p className="text-[11px] text-muted-foreground mb-3">
+              Registered {organization.registrationDate}
+            </p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {organization.description}
+            </p>
           </div>
-        </div>
 
-        {/* Single Organization Card */}
-        <Card className="shadow-sm border-border/40">
-          <CardContent className="p-4">
-
-            {/* Main Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left Column - Organization Title and Description */}
-              <div>
-                <div className="mb-3">
-                  <h1 className="text-base font-bold text-foreground">
-                    {organization.name}
-                  </h1>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="secondary" className="text-xs px-3 py-1.5 rounded-sm h-auto">
-                      Registered Date: 29/08/2025
-                    </Badge>
-                    <Badge variant="default" className="text-xs px-3 py-1.5 rounded-sm h-auto bg-green-600 hover:bg-green-700">
-                      Active
-                    </Badge>
-                  </div>
+          {/* Right Column - Company and Contact Information */}
+          <div className="space-y-3">
+            {/* Company Information */}
+            <div className="bg-muted/30 border border-border/40 p-3 rounded-lg">
+              <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase mb-2.5">Company Information</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] text-muted-foreground">Category</span>
+                  <span className="text-xs text-foreground font-medium">{organization.category}</span>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {organization.description}
-                </p>
-              </div>
-
-              {/* Right Column - Company and Contact Information */}
-              <div className="space-y-3">
-                {/* Company Information */}
-                <div className="bg-muted/50 p-3 rounded-lg">
-                  <div className="mb-3">
-                    <h3 className="text-base font-semibold text-foreground">Company Information</h3>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide min-w-[80px]">Category</span>
-                      <Badge variant="secondary" className="ml-4 rounded-sm text-xs">{organization.category}</Badge>
-                    </div>
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide min-w-[80px]">Location</span>
-                      <span className="text-xs text-foreground text-right ml-4">{organization.location}</span>
-                    </div>
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide min-w-[80px]">Website</span>
-                      <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80 ml-4 text-xs" asChild>
-                        <a href={organization.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
-                          Visit Website <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] text-muted-foreground">Location</span>
+                  <span className="text-xs text-foreground text-right">{organization.location}</span>
                 </div>
-
-                {/* Contact Information */}
-                <div className="bg-muted/50 p-3 rounded-lg">
-                  <div className="mb-3">
-                    <h3 className="text-base font-semibold text-foreground">Contact Information</h3>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide min-w-[100px]">Contact Email</span>
-                      <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80 ml-4 text-xs" asChild>
-                        <a href={`mailto:${organization.contactEmail}`} className="text-right">
-                          {organization.contactEmail}
-                        </a>
-                      </Button>
-                    </div>
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide min-w-[100px]">Contact Phone</span>
-                      <Button variant="link" className="p-0 h-auto text-foreground hover:text-primary font-mono ml-4 text-xs" asChild>
-                        <a href={`tel:${organization.contactPhone}`}>
-                          {organization.contactPhone}
-                        </a>
-                      </Button>
-                    </div>
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-wide min-w-[100px]">Personal Contact</span>
-                      <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80 ml-4 text-xs" asChild>
-                        <a href={`mailto:${organization.personalContactEmail}`} className="text-right">
-                          {organization.personalContactEmail}
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] text-muted-foreground">Website</span>
+                  <a href={organization.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-foreground hover:text-foreground/70 font-medium">
+                    Visit <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+
+            {/* Contact Information */}
+            <div className="bg-muted/30 border border-border/40 p-3 rounded-lg">
+              <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase mb-2.5">Contact Information</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-muted-foreground flex-shrink-0">Email</span>
+                  <a href={`mailto:${organization.contactEmail}`} className="text-xs text-foreground hover:text-foreground/70 font-medium truncate">
+                    {organization.contactEmail}
+                  </a>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] text-muted-foreground">Phone</span>
+                  <a href={`tel:${organization.contactPhone}`} className="text-xs text-foreground hover:text-foreground/70 font-mono">
+                    {organization.contactPhone}
+                  </a>
+                </div>
+                <div className="flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-muted-foreground flex-shrink-0">Personal</span>
+                  <a href={`mailto:${organization.personalContactEmail}`} className="text-xs text-foreground hover:text-foreground/70 font-medium truncate">
+                    {organization.personalContactEmail}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
