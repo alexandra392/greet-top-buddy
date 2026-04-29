@@ -81,11 +81,11 @@ const AnalysisManagement = () => {
         <div>
           <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Management</h2>
           <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto">
-            <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px]">
-              <FolderOpen className="w-3 h-3" />
+            <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Building2 className="w-3 h-3" />
               My Organisations
             </TabsTrigger>
-            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px]">
+            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
               <Database className="w-3 h-3" />
               Database Repertoire
             </TabsTrigger>
@@ -102,7 +102,7 @@ const AnalysisManagement = () => {
                   className="h-8 pl-8 text-xs bg-background border-border/40"
                 />
               </div>
-              <Button size="sm" className="h-8 bg-success hover:bg-success/90 text-success-foreground text-xs">
+              <Button size="sm" className="h-8 bg-foreground hover:bg-foreground/90 text-background text-xs">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Add Organisation
               </Button>
@@ -176,7 +176,7 @@ const AnalysisManagement = () => {
                 <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
                 Sync All
               </Button>
-              <Button size="sm" className="h-8 bg-success hover:bg-success/90 text-success-foreground text-xs">
+              <Button size="sm" className="h-8 bg-foreground hover:bg-foreground/90 text-background text-xs">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Add Database
               </Button>
