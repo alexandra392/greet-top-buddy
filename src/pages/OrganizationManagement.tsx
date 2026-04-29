@@ -951,26 +951,17 @@ const OrganizationManagement = () => {
 
           {/* Analysis Topics Tab */}
           <TabsContent value="analyses">
-            <Card className="animate-fade-in">
-              <CardHeader className="border-b">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                      <BarChart3 className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">Analysis Topics</CardTitle>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        All analysis topics and research areas being worked on by users in this organization.
-                      </p>
-                    </div>
-                  </div>
-                  <Button size="sm" className="hover-scale flex items-center gap-2 bg-primary hover:bg-primary/90">
-                    <Plus className="w-3 h-3" />
-                    New Topic
-                  </Button>
+            <Card className="border-border/40 shadow-sm">
+              <div className="px-4 py-3 border-b border-border/30 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Analysis Topics</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">All analysis topics and research areas being worked on by users in this organisation.</p>
                 </div>
-              </CardHeader>
+                <Button size="sm" className="h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium flex-shrink-0">
+                  <Plus className="w-3 h-3 mr-1" />
+                  New Topic
+                </Button>
+              </div>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full">
