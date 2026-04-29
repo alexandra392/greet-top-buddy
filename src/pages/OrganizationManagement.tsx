@@ -1228,10 +1228,28 @@ const OrganizationManagement = () => {
                                   <RotateCcw className="w-3 h-3" />
                                   Unarchive
                                 </Button>
+                              ) : topic.status === 'Active' ? (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="h-6 px-2 text-[10px] font-medium border-border/60 text-foreground hover:bg-muted/50 gap-1"
+                                  onClick={() => navigate(`/landscape/${encodeURIComponent(topic.category)}/${encodeURIComponent(topic.name)}`)}
+                                  title="Open topic"
+                                >
+                                  Open
+                                  <ChevronRight className="w-3 h-3" />
+                                </Button>
                               ) : (
-                                 <Button variant="outline" size="sm" className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50" title="Refresh">
-                                   <RefreshCw className="w-3 h-3" />
-                                 </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="h-6 px-2 text-[10px] font-medium border-border/60 text-muted-foreground opacity-60 cursor-not-allowed gap-1"
+                                  disabled
+                                  title="Not available"
+                                >
+                                  Open
+                                  <ChevronRight className="w-3 h-3" />
+                                </Button>
                               )}
                             </td>
                          </tr>
