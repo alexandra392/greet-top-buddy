@@ -11,12 +11,12 @@ const AnalysisManagement = () => {
 
   const databaseRepertoire = [
     { id: 1, name: "Wheat Straw Database", category: "Feedstock", records: 1245, lastUpdated: "2 days ago", status: "active" },
-    { id: 2, name: "Biochar Database", category: "Product", records: 892, lastUpdated: "1 week ago", status: "active" },
-    { id: 3, name: "Lignin Database", category: "Product", records: 567, lastUpdated: "3 days ago", status: "active" },
+    { id: 2, name: "Biochar Database", category: "Materials", records: 892, lastUpdated: "1 week ago", status: "active" },
+    { id: 3, name: "Lignin Database", category: "Materials", records: 567, lastUpdated: "3 days ago", status: "active" },
     { id: 4, name: "Sugar Beet Database", category: "Feedstock", records: 334, lastUpdated: "5 days ago", status: "active" },
-    { id: 5, name: "Cellulose Database", category: "Product", records: 2156, lastUpdated: "1 day ago", status: "active" },
-    { id: 6, name: "Xylose Database", category: "Product", records: 4521, lastUpdated: "4 hours ago", status: "syncing" },
-    { id: 7, name: "Hemicellulose Database", category: "Product", records: 8934, lastUpdated: "6 hours ago", status: "active" },
+    { id: 5, name: "Cellulose Database", category: "Materials", records: 2156, lastUpdated: "1 day ago", status: "active" },
+    { id: 6, name: "Xylose Database", category: "Materials", records: 4521, lastUpdated: "4 hours ago", status: "syncing" },
+    { id: 7, name: "Hemicellulose Database", category: "Materials", records: 8934, lastUpdated: "6 hours ago", status: "active" },
     { id: 8, name: "Corn Stover Database", category: "Feedstock", records: 156, lastUpdated: "2 weeks ago", status: "active" },
   ];
 
