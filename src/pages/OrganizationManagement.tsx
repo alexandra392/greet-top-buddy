@@ -1203,19 +1203,22 @@ const OrganizationManagement = () => {
                                  <Button 
                                    variant="outline" 
                                    size="sm" 
-                                   className="h-6 w-6 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
+                                   className="h-6 px-2 text-[10px] font-medium border-border/60 text-foreground hover:bg-muted/50 gap-1"
                                    onClick={() => handleApproveTopic(topic.id, topic.name, topic.description)}
+                                   title="Review request"
                                  >
-                                   <FileSearch className="w-3 h-3" />
+                                   Open
+                                   <ChevronRight className="w-3 h-3" />
                                  </Button>
                               ) : topic.approvalStatus === 'denied' ? (
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="h-6 w-6 p-0 border-border/60 opacity-50 cursor-not-allowed"
+                                  className="h-6 px-2 text-[10px] font-medium border-border/60 text-muted-foreground opacity-50 cursor-not-allowed gap-1"
                                   disabled
                                 >
-                                  <XCircle className="w-3 h-3" />
+                                  Open
+                                  <ChevronRight className="w-3 h-3" />
                                 </Button>
                               ) : topic.status === 'Archived' ? (
                                 <Button 
