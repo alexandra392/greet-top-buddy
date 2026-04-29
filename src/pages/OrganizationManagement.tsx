@@ -1062,6 +1062,9 @@ const OrganizationManagement = () => {
                           <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
                             Date Added
                           </th>
+                          <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
+                            Last Updated
+                          </th>
                           <th className="text-right py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
                             Actions
                           </th>
@@ -1192,6 +1195,16 @@ const OrganizationManagement = () => {
                              </td>
                            <td className="py-2.5 px-4">
                              <span className="text-muted-foreground text-[11px]">{topic.addedDate}</span>
+                           </td>
+                           <td className="py-2.5 px-4">
+                             <span className="text-muted-foreground text-[11px]">
+                               {topic.approvalStatus === 'pending'
+                                 ? '—'
+                                 : (() => {
+                                     const opts = ['2h ago', '5h ago', '1d ago', '3d ago', '1w ago', '2w ago', '1mo ago'];
+                                     return opts[Number(topic.id) % opts.length];
+                                   })()}
+                             </span>
                            </td>
                              <td className="py-2.5 px-4 text-right">
                                {isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? (
