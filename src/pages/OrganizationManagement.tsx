@@ -734,7 +734,7 @@ const OrganizationManagement = () => {
               Analysis Topics
               <span className="ml-1 text-[10px] font-bold opacity-70">{organization.totalAnalyses}</span>
               {pendingTopicsCount > 0 && (
-                <span className="ml-1 inline-flex items-center justify-center min-w-[14px] h-3.5 px-1 rounded-full bg-warning text-warning-foreground text-[8px] font-bold leading-none relative -top-px">
+                <span className="ml-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 rounded-full bg-warning text-warning-foreground text-[8px] font-bold leading-none self-center">
                   {pendingTopicsCount}
                 </span>
               )}
