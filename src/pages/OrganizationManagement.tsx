@@ -556,13 +556,13 @@ const OrganizationManagement = () => {
       {/* Header with Back Button and Action Buttons */}
       <div className="flex items-center justify-between">
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
           onClick={() => navigate("/analysis-management")}
-          className="h-7 px-2 text-[11px] font-medium text-muted-foreground hover:text-foreground"
+          className="h-8 px-3 text-xs font-medium gap-1.5"
         >
-          <ArrowLeft className="w-3 h-3 mr-1" />
-          Back to Organisations
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Back
         </Button>
 
         {isEditing ? (
