@@ -12,6 +12,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const OrganizationManagement = () => {
@@ -394,7 +396,42 @@ const OrganizationManagement = () => {
     }
   ];
 
-  const organization = organizations.find(org => org.id === parseInt(id || ""));
+  const baseOrganization = organizations.find(org => org.id === parseInt(id || ""));
+
+  // Editable organisation state
+  const [isEditing, setIsEditing] = useState(false);
+  const [orgEdits, setOrgEdits] = useState<Record<string, any> | null>(null);
+  const [orgDraft, setOrgDraft] = useState<Record<string, any> | null>(null);
+  const organization = baseOrganization
+    ? { ...baseOrganization, ...(orgEdits || {}) }
+    : baseOrganization;
+
+  const handleStartEdit = () => {
+    if (!organization) return;
+    setOrgDraft({
+      name: organization.name,
+      description: organization.description,
+      website: organization.website,
+      location: organization.location,
+      category: organization.category,
+      contactEmail: organization.contactEmail,
+      contactPhone: organization.contactPhone,
+      personalContactEmail: organization.personalContactEmail,
+    });
+    setIsEditing(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (!orgDraft) return;
+    setOrgEdits(orgDraft);
+    setIsEditing(false);
+    toast({ title: "Organisation updated", description: "Changes saved successfully." });
+  };
+
+  const handleCancelEdit = () => {
+    setOrgDraft(null);
+    setIsEditing(false);
+  };
 
   // Sample users data
   const [users, setUsers] = useState([
@@ -528,10 +565,22 @@ const OrganizationManagement = () => {
           Back to Organisations
         </Button>
 
-        <Button size="sm" variant="outline" className="h-7 px-2.5 text-[11px] font-medium border-border/40">
-          <Edit className="w-3 h-3 mr-1" />
-          Edit
-        </Button>
+        {isEditing ? (
+          <div className="flex items-center gap-1.5">
+            <Button size="sm" variant="ghost" onClick={handleCancelEdit} className="h-7 px-2.5 text-[11px] font-medium text-muted-foreground hover:text-foreground">
+              Cancel
+            </Button>
+            <Button size="sm" onClick={handleSaveEdit} className="h-7 px-2.5 text-[11px] font-medium bg-foreground hover:bg-foreground/90 text-background">
+              <Check className="w-3 h-3 mr-1" />
+              Save changes
+            </Button>
+          </div>
+        ) : (
+          <Button size="sm" variant="outline" onClick={handleStartEdit} className="h-7 px-2.5 text-[11px] font-medium border-border/40">
+            <Edit className="w-3 h-3 mr-1" />
+            Edit
+          </Button>
+        )}
       </div>
 
       {/* Organisation Header Card */}
@@ -546,15 +595,33 @@ const OrganizationManagement = () => {
                 <span className="text-[9px] font-bold uppercase tracking-wider text-success">Active</span>
               </span>
             </div>
-            <h1 className="text-base font-bold text-foreground tracking-tight mb-1">
-              {organization.name}
-            </h1>
+            {isEditing ? (
+              <Input
+                value={orgDraft?.name || ""}
+                onChange={(e) => setOrgDraft({ ...orgDraft, name: e.target.value })}
+                className="text-base font-bold h-8 mb-1 px-2"
+                maxLength={120}
+              />
+            ) : (
+              <h1 className="text-base font-bold text-foreground tracking-tight mb-1">
+                {organization.name}
+              </h1>
+            )}
             <p className="text-[11px] text-muted-foreground mb-3">
               Registered {organization.registrationDate}
             </p>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {organization.description}
-            </p>
+            {isEditing ? (
+              <Textarea
+                value={orgDraft?.description || ""}
+                onChange={(e) => setOrgDraft({ ...orgDraft, description: e.target.value })}
+                className="text-xs leading-relaxed min-h-[120px]"
+                maxLength={1000}
+              />
+            ) : (
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {organization.description}
+              </p>
+            )}
           </div>
 
           {/* Right Column - Company and Contact Information */}
@@ -563,19 +630,44 @@ const OrganizationManagement = () => {
             <div className="bg-muted/30 border border-border/40 p-3 rounded-lg">
               <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase mb-2.5">Company Information</h3>
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-[11px] text-muted-foreground">Category</span>
-                  <span className="text-xs text-foreground font-medium">{organization.category}</span>
+                <div className="flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-muted-foreground flex-shrink-0">Category</span>
+                  {isEditing ? (
+                    <Input
+                      value={orgDraft?.category || ""}
+                      onChange={(e) => setOrgDraft({ ...orgDraft, category: e.target.value })}
+                      className="h-6 text-xs px-2 max-w-[200px] text-right"
+                    />
+                  ) : (
+                    <span className="text-xs text-foreground font-medium">{organization.category}</span>
+                  )}
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[11px] text-muted-foreground">Location</span>
-                  <span className="text-xs text-foreground text-right">{organization.location}</span>
+                <div className="flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-muted-foreground flex-shrink-0">Location</span>
+                  {isEditing ? (
+                    <Input
+                      value={orgDraft?.location || ""}
+                      onChange={(e) => setOrgDraft({ ...orgDraft, location: e.target.value })}
+                      className="h-6 text-xs px-2 max-w-[240px] text-right"
+                    />
+                  ) : (
+                    <span className="text-xs text-foreground text-right">{organization.location}</span>
+                  )}
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[11px] text-muted-foreground">Website</span>
-                  <a href={organization.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-foreground hover:text-foreground/70 font-medium">
-                    Visit <ExternalLink className="w-2.5 h-2.5" />
-                  </a>
+                <div className="flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-muted-foreground flex-shrink-0">Website</span>
+                  {isEditing ? (
+                    <Input
+                      value={orgDraft?.website || ""}
+                      onChange={(e) => setOrgDraft({ ...orgDraft, website: e.target.value })}
+                      className="h-6 text-xs px-2 max-w-[240px] text-right"
+                      placeholder="https://"
+                    />
+                  ) : (
+                    <a href={organization.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-foreground hover:text-foreground/70 font-medium">
+                      Visit <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -586,21 +678,47 @@ const OrganizationManagement = () => {
               <div className="space-y-2">
                 <div className="flex justify-between items-center gap-3">
                   <span className="text-[11px] text-muted-foreground flex-shrink-0">Email</span>
-                  <a href={`mailto:${organization.contactEmail}`} className="text-xs text-foreground hover:text-foreground/70 font-medium truncate">
-                    {organization.contactEmail}
-                  </a>
+                  {isEditing ? (
+                    <Input
+                      value={orgDraft?.contactEmail || ""}
+                      onChange={(e) => setOrgDraft({ ...orgDraft, contactEmail: e.target.value })}
+                      className="h-6 text-xs px-2 max-w-[260px] text-right"
+                      type="email"
+                    />
+                  ) : (
+                    <a href={`mailto:${organization.contactEmail}`} className="text-xs text-foreground hover:text-foreground/70 font-medium truncate">
+                      {organization.contactEmail}
+                    </a>
+                  )}
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[11px] text-muted-foreground">Phone</span>
-                  <a href={`tel:${organization.contactPhone}`} className="text-xs text-foreground hover:text-foreground/70 font-mono">
-                    {organization.contactPhone}
-                  </a>
+                <div className="flex justify-between items-center gap-3">
+                  <span className="text-[11px] text-muted-foreground flex-shrink-0">Phone</span>
+                  {isEditing ? (
+                    <Input
+                      value={orgDraft?.contactPhone || ""}
+                      onChange={(e) => setOrgDraft({ ...orgDraft, contactPhone: e.target.value })}
+                      className="h-6 text-xs px-2 max-w-[200px] text-right font-mono"
+                    />
+                  ) : (
+                    <a href={`tel:${organization.contactPhone}`} className="text-xs text-foreground hover:text-foreground/70 font-mono">
+                      {organization.contactPhone}
+                    </a>
+                  )}
                 </div>
                 <div className="flex justify-between items-center gap-3">
                   <span className="text-[11px] text-muted-foreground flex-shrink-0">Personal</span>
-                  <a href={`mailto:${organization.personalContactEmail}`} className="text-xs text-foreground hover:text-foreground/70 font-medium truncate">
-                    {organization.personalContactEmail}
-                  </a>
+                  {isEditing ? (
+                    <Input
+                      value={orgDraft?.personalContactEmail || ""}
+                      onChange={(e) => setOrgDraft({ ...orgDraft, personalContactEmail: e.target.value })}
+                      className="h-6 text-xs px-2 max-w-[260px] text-right"
+                      type="email"
+                    />
+                  ) : (
+                    <a href={`mailto:${organization.personalContactEmail}`} className="text-xs text-foreground hover:text-foreground/70 font-medium truncate">
+                      {organization.personalContactEmail}
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
