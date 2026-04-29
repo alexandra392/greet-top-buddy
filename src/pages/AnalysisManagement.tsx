@@ -64,13 +64,13 @@ const AnalysisManagement = () => {
           { label: "Pending Requests", value: totalPending, icon: Bell, color: "text-warning", bg: "bg-warning/10", border: "border-warning/20" },
           { label: "Databases", value: totalDatabases, icon: Database, color: "text-application-purple", bg: "bg-application-purple/10", border: "border-application-purple/20" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-card border border-border/40 rounded-xl px-4 py-3 flex items-center gap-3">
-            <div className={`w-8 h-8 rounded-md ${stat.bg} border ${stat.border} flex items-center justify-center flex-shrink-0`}>
-              <stat.icon className={`w-4 h-4 ${stat.color}`} />
+          <div key={stat.label} className="bg-card border border-border/40 rounded-xl px-3 py-2.5 flex items-center gap-2.5">
+            <div className={`w-6 h-6 rounded-md ${stat.bg} border ${stat.border} flex items-center justify-center flex-shrink-0`}>
+              <stat.icon className={`w-3 h-3 ${stat.color}`} />
             </div>
             <div className="min-w-0">
               <div className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase truncate">{stat.label}</div>
-              <div className="text-lg font-bold text-foreground tracking-tight leading-tight">{stat.value}</div>
+              <div className="text-sm font-bold text-foreground tracking-tight leading-tight">{stat.value}</div>
             </div>
           </div>
         ))}
@@ -81,12 +81,12 @@ const AnalysisManagement = () => {
         <div>
           <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Management</h2>
           <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto">
-            <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-2 py-2 text-xs">
-              <FolderOpen className="w-3.5 h-3.5" />
+            <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px]">
+              <FolderOpen className="w-3 h-3" />
               My Organisations
             </TabsTrigger>
-            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-2 py-2 text-xs">
-              <Database className="w-3.5 h-3.5" />
+            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px]">
+              <Database className="w-3 h-3" />
               Database Repertoire
             </TabsTrigger>
           </TabsList>
