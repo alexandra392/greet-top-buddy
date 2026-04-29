@@ -396,7 +396,42 @@ const OrganizationManagement = () => {
     }
   ];
 
-  const organization = organizations.find(org => org.id === parseInt(id || ""));
+  const baseOrganization = organizations.find(org => org.id === parseInt(id || ""));
+
+  // Editable organisation state
+  const [isEditing, setIsEditing] = useState(false);
+  const [orgEdits, setOrgEdits] = useState<Record<string, any> | null>(null);
+  const [orgDraft, setOrgDraft] = useState<Record<string, any> | null>(null);
+  const organization = baseOrganization
+    ? { ...baseOrganization, ...(orgEdits || {}) }
+    : baseOrganization;
+
+  const handleStartEdit = () => {
+    if (!organization) return;
+    setOrgDraft({
+      name: organization.name,
+      description: organization.description,
+      website: organization.website,
+      location: organization.location,
+      category: organization.category,
+      contactEmail: organization.contactEmail,
+      contactPhone: organization.contactPhone,
+      personalContactEmail: organization.personalContactEmail,
+    });
+    setIsEditing(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (!orgDraft) return;
+    setOrgEdits(orgDraft);
+    setIsEditing(false);
+    toast({ title: "Organisation updated", description: "Changes saved successfully." });
+  };
+
+  const handleCancelEdit = () => {
+    setOrgDraft(null);
+    setIsEditing(false);
+  };
 
   // Sample users data
   const [users, setUsers] = useState([
