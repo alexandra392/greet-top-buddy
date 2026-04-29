@@ -85,13 +85,16 @@ const AnalysisManagement = () => {
               <Building2 className="w-3 h-3" />
               My Organisations
             </TabsTrigger>
-            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
-              <Database className="w-3 h-3" />
-              Database Repertoire
-            </TabsTrigger>
             <TabsTrigger value="pathways" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
               <Sparkles className="w-3 h-3" />
               VCG Pathways
+              <span className="ml-1 inline-flex items-center justify-center px-1.5 h-[14px] rounded-full bg-warning/15 text-warning text-[8px] font-bold tracking-widest uppercase leading-none border border-warning/30">
+                Soon
+              </span>
+            </TabsTrigger>
+            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Database className="w-3 h-3" />
+              Database Repertoire
             </TabsTrigger>
           </TabsList>
         </div>
