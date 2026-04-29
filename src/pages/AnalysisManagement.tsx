@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AnalysisManagement = () => {
@@ -129,7 +129,7 @@ const AnalysisManagement = () => {
                         <td className="py-2.5 px-4">
                           <div className="flex items-center gap-2.5">
                             <div className="w-6 h-6 rounded-md bg-success/10 border border-success/20 flex items-center justify-center flex-shrink-0">
-                              <FolderOpen className="w-3 h-3 text-success" />
+                              <Building2 className="w-3 h-3 text-success" />
                             </div>
                             <span className="font-medium text-foreground text-xs tracking-tight">{org.name}</span>
                           </div>
