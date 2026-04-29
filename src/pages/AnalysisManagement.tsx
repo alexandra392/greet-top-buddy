@@ -102,7 +102,7 @@ const AnalysisManagement = () => {
                   className="h-8 pl-8 text-xs md:text-xs bg-background border-border/40"
                 />
               </div>
-              <Button size="sm" className="h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
+              <Button size="sm" className="ml-auto h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
                 <Plus className="w-3 h-3 mr-1" />
                 Add Organisation
               </Button>
