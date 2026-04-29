@@ -56,26 +56,6 @@ const AnalysisManagement = () => {
         </p>
       </div>
 
-      {/* Stats Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {[
-          { label: "Organisations", value: totalOrgs, icon: Building2 },
-          { label: "Total Analyses", value: totalAnalyses, icon: Sparkles },
-          { label: "Total Pathways", value: 128, icon: Sparkles },
-          { label: "Databases", value: totalDatabases, icon: Database },
-        ].map((stat) => (
-          <div key={stat.label} className="bg-card border border-border/40 rounded-lg px-3 py-2.5 flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-md bg-muted/50 border border-border/40 flex items-center justify-center flex-shrink-0">
-              <stat.icon className="w-3 h-3 text-muted-foreground" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase truncate">{stat.label}</div>
-              <div className="text-sm font-bold text-foreground tracking-tight leading-tight">{stat.value}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
       {/* Tabs */}
       <Tabs defaultValue="organisations" className="w-full space-y-3">
         <div>
@@ -84,10 +64,12 @@ const AnalysisManagement = () => {
             <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
               <Building2 className="w-3 h-3" />
               My Organisations
+              <span className="ml-1 text-[10px] font-bold opacity-70">{totalOrgs}</span>
             </TabsTrigger>
             <TabsTrigger value="pathways" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
               <Sparkles className="w-3 h-3" />
               VCG Pathways
+              <span className="ml-1 text-[10px] font-bold opacity-70">128</span>
               <span className="ml-1 inline-flex items-center justify-center px-1.5 h-[14px] rounded-full bg-warning/15 text-warning text-[8px] font-bold tracking-widest uppercase leading-none border border-warning/30">
                 Soon
               </span>
@@ -95,6 +77,7 @@ const AnalysisManagement = () => {
             <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
               <Database className="w-3 h-3" />
               Database Repertoire
+              <span className="ml-1 text-[10px] font-bold opacity-70">{totalDatabases}</span>
             </TabsTrigger>
           </TabsList>
         </div>
