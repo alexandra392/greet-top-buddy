@@ -102,7 +102,7 @@ const AnalysisManagement = () => {
                   className="h-8 pl-8 text-xs bg-background border-border/40"
                 />
               </div>
-              <Button size="sm" className="h-8 bg-success hover:bg-success/90 text-success-foreground text-xs">
+              <Button size="sm" className="h-8 bg-foreground hover:bg-foreground/90 text-background text-xs">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Add Organisation
               </Button>
@@ -176,7 +176,7 @@ const AnalysisManagement = () => {
                 <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
                 Sync All
               </Button>
-              <Button size="sm" className="h-8 bg-success hover:bg-success/90 text-success-foreground text-xs">
+              <Button size="sm" className="h-8 bg-foreground hover:bg-foreground/90 text-background text-xs">
                 <Plus className="w-3.5 h-3.5 mr-1.5" />
                 Add Database
               </Button>
