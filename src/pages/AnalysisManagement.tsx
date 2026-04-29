@@ -59,7 +59,7 @@ const AnalysisManagement = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: "Organisations", value: totalOrgs, icon: FolderOpen, color: "text-success", bg: "bg-success/10", border: "border-success/20" },
+          { label: "Organisations", value: totalOrgs, icon: Building2, color: "text-success", bg: "bg-success/10", border: "border-success/20" },
           { label: "Total Analyses", value: totalAnalyses, icon: Sparkles, color: "text-product-blue", bg: "bg-product-blue/10", border: "border-product-blue/20" },
           { label: "Pending Requests", value: totalPending, icon: Bell, color: "text-warning", bg: "bg-warning/10", border: "border-warning/20" },
           { label: "Databases", value: totalDatabases, icon: Database, color: "text-application-purple", bg: "bg-application-purple/10", border: "border-application-purple/20" },
