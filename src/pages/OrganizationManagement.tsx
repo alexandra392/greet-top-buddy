@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Globe, MapPin, Calendar, UserCheck, Plus, Users, Key, Mail, Phone, User, BarChart3, Activity, ExternalLink, Edit, Settings, ChevronRight, FolderOpen, Clock, Grid3X3, RefreshCw, RotateCcw, ChevronDown, Archive, Check, Shield, Crown, CheckCircle, XCircle, Bell, FileSearch } from "lucide-react";
+import { ArrowLeft, Globe, MapPin, Calendar, UserCheck, Plus, Users, Key, Mail, Phone, User, BarChart3, Activity, ExternalLink, Edit, Settings, ChevronRight, FolderOpen, Clock, Grid3X3, ChevronDown, Archive, Check, Shield, Crown, CheckCircle, XCircle, Bell, FileSearch } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -1224,12 +1224,12 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="h-6 px-2 text-[10px] font-medium border-success/40 text-success hover:bg-success/10 hover:text-success gap-1"
-                                  onClick={() => handleChangeAnalysisStatus(topic.id, 'Active')}
-                                  title="Restore to Active"
+                                  className="h-6 px-2 text-[10px] font-medium border-border/60 text-foreground hover:bg-muted/50 gap-1"
+                                  onClick={() => navigate(`/landscape/${encodeURIComponent(topic.category)}/${encodeURIComponent(topic.name)}`)}
+                                  title="Open topic"
                                 >
-                                  <RotateCcw className="w-3 h-3" />
-                                  Unarchive
+                                  Open
+                                  <ChevronRight className="w-3 h-3" />
                                 </Button>
                               ) : topic.status === 'Active' ? (
                                 <Button
