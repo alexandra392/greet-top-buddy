@@ -61,7 +61,7 @@ const AnalysisManagement = () => {
         {[
           { label: "Organisations", value: totalOrgs, icon: Building2 },
           { label: "Total Analyses", value: totalAnalyses, icon: Sparkles },
-          { label: "Pending Requests", value: totalPending, icon: Bell, highlight: totalPending > 0 },
+          { label: "Total Pathways", value: 128, icon: Sparkles },
           { label: "Databases", value: totalDatabases, icon: Database },
         ].map((stat) => (
           <div key={stat.label} className="bg-card border border-border/40 rounded-lg px-3 py-2.5 flex items-center gap-2.5">
