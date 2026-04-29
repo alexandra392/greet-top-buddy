@@ -1110,15 +1110,15 @@ const OrganizationManagement = () => {
                                  </div>
                                )}
                              </td>
-                           <td className="py-3 px-4">
-                             <span className="text-muted-foreground text-xs">{topic.addedDate}</span>
+                           <td className="py-2.5 px-4">
+                             <span className="text-muted-foreground text-[11px]">{topic.addedDate}</span>
                            </td>
-                             <td className="py-3 px-4 text-right">
+                             <td className="py-2.5 px-4 text-right">
                                {isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? (
                                  <Button 
                                    variant="outline" 
                                    size="sm" 
-                                   className="hover-scale text-xs px-2 py-1.5 border-muted text-muted-foreground hover:bg-muted/50"
+                                   className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
                                    onClick={() => handleApproveTopic(topic.id, topic.name, topic.description)}
                                  >
                                    <FileSearch className="w-3 h-3" />
@@ -1127,7 +1127,7 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="hover-scale text-xs px-2 py-1 opacity-50 cursor-not-allowed"
+                                  className="h-7 w-7 p-0 border-border/60 opacity-50 cursor-not-allowed"
                                   disabled
                                 >
                                   <XCircle className="w-3 h-3" />
@@ -1136,13 +1136,13 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="hover-scale text-xs px-2 py-1"
+                                  className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
                                   onClick={() => handleChangeAnalysisStatus(topic.id, 'Active')}
                                 >
                                   <RotateCcw className="w-3 h-3" />
                                 </Button>
                               ) : (
-                                 <Button variant="outline" size="sm" className="hover-scale px-2 py-1">
+                                 <Button variant="outline" size="sm" className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50">
                                    <RefreshCw className="w-3 h-3" />
                                  </Button>
                               )}
