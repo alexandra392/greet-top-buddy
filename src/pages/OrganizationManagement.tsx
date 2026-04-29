@@ -753,49 +753,28 @@ const OrganizationManagement = () => {
 
           {/* User Management Tab */}
           <TabsContent value="users">
-            <Card className="animate-fade-in shadow-sm">
-              <CardHeader className="border-b pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Users className="w-4 h-4 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">Organization Users</CardTitle>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Manage users, roles, and permissions
-                      </p>
-                    </div>
-                  </div>
-                  <Button size="sm" className="hover-scale flex items-center gap-2 bg-primary hover:bg-primary/90">
-                    <Plus className="w-3 h-3" />
-                    Add User
-                  </Button>
+            <Card className="border-border/40 shadow-sm">
+              <div className="px-4 py-3 border-b border-border/30 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Organisation Users</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">Manage users, roles, and permissions.</p>
                 </div>
-              </CardHeader>
+                <Button size="sm" className="h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium flex-shrink-0">
+                  <Plus className="w-3 h-3 mr-1" />
+                  Add User
+                </Button>
+              </div>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-muted/30 border-b">
                       <tr>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Name
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Email
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Role
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Status
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Last Login
-                        </th>
-                         <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                           Actions
-                         </th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Name</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Email</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Role</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Status</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Last Login</th>
+                        <th className="text-right py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -805,262 +784,194 @@ const OrganizationManagement = () => {
                           className={`
                             border-b border-border/20 hover:bg-muted/20 transition-all duration-200
                             ${index === users.length - 1 ? 'border-b-0' : ''}
+                            ${user.status === 'Inactive' ? 'opacity-60' : ''}
                           `}
                         >
-                           <td className="py-3 px-4">
-                              <div className="flex items-center gap-3">
-                                <div>
-                                  <p className="font-medium text-sm text-foreground">{user.name}</p>
-                               </div>
-                             </div>
+                          <td className="py-2.5 px-4">
+                            <p className="font-medium text-[13px] text-foreground">{user.name}</p>
                           </td>
-                          <td className="py-3 px-4">
+                          <td className="py-2.5 px-4">
                             <a 
                               href={`mailto:${user.email}`}
-                              className="text-primary hover:underline text-xs story-link"
+                              className="text-[11px] text-foreground hover:text-foreground/70"
                             >
                               {user.email}
                             </a>
                           </td>
-                           <td className="py-3 px-4 relative">
-                             <div className="relative">
-                               <Badge 
-                                 variant={
-                                   user.role === 'Admin' ? 'default' : 
-                                   user.role === 'Super Admin' ? 'default' : 
-                                   'outline'
-                                 }
-                                 className="text-xs font-medium rounded-md cursor-pointer hover:shadow-md transition-all duration-200 inline-flex items-center gap-1.5 px-3 py-1.5"
-                                 onClick={(e) => {
-                                   e.stopPropagation();
-                                   console.log('Role badge clicked for user:', user.id);
-                                   setOpenRoleDropdown(openRoleDropdown === user.id ? null : user.id);
-                                 }}
-                               >
-                                 {user.role}
-                                 <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openRoleDropdown === user.id ? 'rotate-180' : ''}`} />
-                               </Badge>
-                               
-                               {openRoleDropdown === user.id && (
-                                 <>
-                                   {/* Backdrop */}
-                                   <div 
-                                     className="fixed inset-0 z-40" 
-                                     onClick={() => setOpenRoleDropdown(null)}
-                                   />
-                                   
-                                   {/* Dropdown */}
-                                   <div className="absolute top-full left-0 mt-2 w-40 bg-background border border-border rounded-lg shadow-xl z-[9999] py-1 animate-scale-in">
-                                     <div className="px-1" onClick={(e) => e.stopPropagation()}>
-                                       <div
-                                         className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
-                                           user.role === 'User' ? 'bg-primary/10 text-primary font-medium' : 'text-foreground'
-                                         }`}
-                                         onMouseDown={(e) => {
-                                           e.preventDefault();
-                                           e.stopPropagation();
-                                           console.log('User role clicked for user:', user.id);
-                                           handleChangeUserRole(user.id, 'User');
-                                           setOpenRoleDropdown(null);
-                                         }}
-                                       >
-                                         <span className="flex items-center gap-2">
-                                           <User className="w-3 h-3 text-blue-500" />
-                                           User
-                                         </span>
-                                         {user.role === 'User' && (
-                                           <Check className="w-3.5 h-3.5 text-primary animate-scale-in" />
-                                         )}
-                                       </div>
-                                       <div
-                                         className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
-                                           user.role === 'Admin' ? 'bg-primary/10 text-primary font-medium' : 'text-foreground'
-                                         }`}
-                                         onMouseDown={(e) => {
-                                           e.preventDefault();
-                                           e.stopPropagation();
-                                           console.log('Admin role clicked for user:', user.id);
-                                           handleChangeUserRole(user.id, 'Admin');
-                                           setOpenRoleDropdown(null);
-                                         }}
-                                       >
-                                         <span className="flex items-center gap-2">
-                                           <Shield className="w-3 h-3 text-orange-500" />
-                                           Admin
-                                         </span>
-                                         {user.role === 'Admin' && (
-                                           <Check className="w-3.5 h-3.5 text-primary animate-scale-in" />
-                                         )}
-                                       </div>
-                                       <div
-                                         className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
-                                           user.role === 'Super Admin' ? 'bg-primary/10 text-primary font-medium' : 'text-foreground'
-                                         }`}
-                                         onMouseDown={(e) => {
-                                           e.preventDefault();
-                                           e.stopPropagation();
-                                           console.log('Super Admin role clicked for user:', user.id);
-                                           handleChangeUserRole(user.id, 'Super Admin');
-                                           setOpenRoleDropdown(null);
-                                         }}
-                                       >
-                                         <span className="flex items-center gap-2">
-                                           <Crown className="w-3 h-3 text-purple-500" />
-                                           Super Admin
-                                         </span>
-                                         {user.role === 'Super Admin' && (
-                                           <Check className="w-3.5 h-3.5 text-primary animate-scale-in" />
-                                         )}
-                                       </div>
-                                     </div>
-                                   </div>
-                                 </>
-                               )}
-                             </div>
-                            </td>
-                             <td className="py-3 px-4 relative">
-                               <div className="relative">
-                                  <Badge 
-                                    variant={user.status === 'Active' ? 'default' : 'secondary'}
-                                    className={`text-xs font-medium rounded-md cursor-pointer transition-all duration-200 inline-flex items-center gap-1.5 px-3 py-1.5 w-24 justify-center ${
-                                      user.status === 'Active' 
-                                        ? 'bg-green-600 text-white hover:bg-green-700 hover:shadow-md' 
-                                        : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 hover:shadow-md'
-                                    }`}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      console.log('Status badge clicked for user:', user.id);
-                                      setOpenStatusDropdown(openStatusDropdown === user.id ? null : user.id);
-                                    }}
-                                  >
-                                    {user.status}
-                                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openStatusDropdown === user.id ? 'rotate-180' : ''}`} />
-                                  </Badge>
-                                 
-                                 {openStatusDropdown === user.id && (
-                                   <>
-                                     {/* Backdrop */}
-                                     <div 
-                                       className="fixed inset-0 z-40" 
-                                       onClick={() => setOpenStatusDropdown(null)}
-                                     />
-                                     
-                                     {/* Dropdown */}
-                                     <div className="absolute top-full left-0 mt-2 w-36 bg-background border border-border rounded-lg shadow-xl z-[9999] py-1 animate-scale-in">
-                                       <div className="px-1" onClick={(e) => e.stopPropagation()}>
-                                         <AlertDialog>
-                                           <AlertDialogTrigger asChild>
-                                             <div
-                                               className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
-                                                 user.status === 'Active' ? 'bg-green-50 text-green-700 font-medium dark:bg-green-950/20 dark:text-green-400' : 'text-foreground'
-                                               }`}
-                                             >
-                                               <span className="flex items-center gap-2">
-                                                 <div className={`w-2 h-2 rounded-full ${user.status === 'Active' ? 'bg-green-500' : 'bg-muted'}`} />
-                                                 Active
-                                               </span>
-                                               {user.status === 'Active' && (
-                                                 <Check className="w-3.5 h-3.5 text-green-600 animate-scale-in" />
-                                               )}
-                                             </div>
-                                           </AlertDialogTrigger>
-                                           <AlertDialogContent>
-                                             <AlertDialogHeader>
-                                               <AlertDialogTitle>
-                                                 {user.status === 'Active' ? 'Deactivate User' : 'Activate User'}
-                                               </AlertDialogTitle>
-                                               <AlertDialogDescription>
-                                                  {user.status === 'Active' 
-                                                    ? `Are you sure you want to deactivate ${user.name}? They will lose access to the organization and all associated analyses.`
-                                                    : `Are you sure you want to activate ${user.name}? They will regain access to the organization.`
-                                                  }
-                                               </AlertDialogDescription>
-                                             </AlertDialogHeader>
-                                             <AlertDialogFooter>
-                                               <AlertDialogCancel onClick={() => setOpenStatusDropdown(null)}>Cancel</AlertDialogCancel>
-                                               <AlertDialogAction
-                                                 onClick={() => {
-                                                   handleDeactivateUser(user.id);
-                                                   setOpenStatusDropdown(null);
-                                                 }}
-                                                 className={user.status === 'Active' ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}
-                                               >
-                                                 {user.status === 'Active' ? 'Deactivate' : 'Activate'}
-                                               </AlertDialogAction>
-                                             </AlertDialogFooter>
-                                           </AlertDialogContent>
-                                         </AlertDialog>
-                                         
-                                         <AlertDialog>
-                                           <AlertDialogTrigger asChild>
-                                             <div
-                                               className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
-                                                 user.status === 'Inactive' ? 'bg-red-50 text-red-700 font-medium dark:bg-red-950/20 dark:text-red-400' : 'text-foreground'
-                                               }`}
-                                             >
-                                               <span className="flex items-center gap-2">
-                                                 <div className={`w-2 h-2 rounded-full ${user.status === 'Inactive' ? 'bg-red-500' : 'bg-muted'}`} />
-                                                 Inactive
-                                               </span>
-                                               {user.status === 'Inactive' && (
-                                                 <Check className="w-3.5 h-3.5 text-red-600 animate-scale-in" />
-                                               )}
-                                             </div>
-                                           </AlertDialogTrigger>
-                                           <AlertDialogContent>
-                                             <AlertDialogHeader>
-                                               <AlertDialogTitle>
-                                                 {user.status === 'Inactive' ? 'Activate User' : 'Deactivate User'}
-                                               </AlertDialogTitle>
-                                               <AlertDialogDescription>
-                                                  {user.status === 'Inactive' 
-                                                    ? `Are you sure you want to activate ${user.name}? They will regain access to the organization.`
-                                                    : `Are you sure you want to deactivate ${user.name}? They will lose access to the organization and all associated analyses.`
-                                                  }
-                                               </AlertDialogDescription>
-                                             </AlertDialogHeader>
-                                             <AlertDialogFooter>
-                                               <AlertDialogCancel onClick={() => setOpenStatusDropdown(null)}>Cancel</AlertDialogCancel>
-                                               <AlertDialogAction
-                                                 onClick={() => {
-                                                   handleDeactivateUser(user.id);
-                                                   setOpenStatusDropdown(null);
-                                                 }}
-                                                 className={user.status === 'Inactive' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
-                                               >
-                                                 {user.status === 'Inactive' ? 'Activate' : 'Deactivate'}
-                                               </AlertDialogAction>
-                                             </AlertDialogFooter>
-                                           </AlertDialogContent>
-                                         </AlertDialog>
-                                       </div>
-                                     </div>
-                                   </>
-                                 )}
-                               </div>
-                             </td>
-                           <td className="py-3 px-4">
-                             <div className="flex items-center gap-2">
-                               <div className={`w-1.5 h-1.5 rounded-full ${
-                                 user.status === 'Inactive' ? 'bg-red-500' :
-                                 user.lastLogin === 'Never' ? 'bg-gray-400' : 
-                                 user.lastLogin.includes('hour') ? 'bg-green-500' : 
-                                 user.lastLogin.includes('day') ? 'bg-yellow-500' : 
-                                 'bg-red-500'
-                               }`} />
-                               <span className={`text-xs ${
-                                 user.status === 'Inactive' ? 'text-red-600 font-medium' : 'text-muted-foreground'
-                               }`}>
-                                 {user.status === 'Inactive' ? 'Inactive' : user.lastLogin}
-                               </span>
-                             </div>
-                           </td>
-                            <td className="py-3 px-4">
-                               <Button variant="outline" size="sm" className="hover-scale px-3 py-2 flex items-center justify-center gap-2">
-                                 <Key className="w-3 h-3" />
-                                 <span>Reset</span>
-                               </Button>
-                            </td>
+                          <td className="py-2.5 px-4 relative">
+                            <div className="relative">
+                              <Badge 
+                                variant="outline"
+                                className="text-[10px] font-medium rounded-sm cursor-pointer hover:bg-muted/60 transition-all inline-flex items-center gap-1 px-2 py-0 bg-muted/40 text-foreground border-border/60"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOpenRoleDropdown(openRoleDropdown === user.id ? null : user.id);
+                                }}
+                              >
+                                {user.role}
+                                <ChevronDown className={`w-2.5 h-2.5 transition-transform duration-200 ${openRoleDropdown === user.id ? 'rotate-180' : ''}`} />
+                              </Badge>
+                              {openRoleDropdown === user.id && (
+                                <>
+                                  <div 
+                                    className="fixed inset-0 z-40" 
+                                    onClick={() => setOpenRoleDropdown(null)}
+                                  />
+                                  <div className="absolute top-full left-0 mt-2 w-40 bg-background border border-border rounded-lg shadow-xl z-[9999] py-1 animate-scale-in">
+                                    <div className="px-1" onClick={(e) => e.stopPropagation()}>
+                                      {[
+                                        { role: 'User', icon: User, color: 'text-blue-500' },
+                                        { role: 'Admin', icon: Shield, color: 'text-orange-500' },
+                                        { role: 'Super Admin', icon: Crown, color: 'text-purple-500' },
+                                      ].map(({ role, icon: Icon, color }) => (
+                                        <div
+                                          key={role}
+                                          className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between cursor-pointer ${
+                                            user.role === role ? 'bg-primary/10 text-primary font-medium' : 'text-foreground'
+                                          }`}
+                                          onMouseDown={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            handleChangeUserRole(user.id, role);
+                                            setOpenRoleDropdown(null);
+                                          }}
+                                        >
+                                          <span className="flex items-center gap-2">
+                                            <Icon className={`w-3 h-3 ${color}`} />
+                                            {role}
+                                          </span>
+                                          {user.role === role && <Check className="w-3.5 h-3.5 text-primary animate-scale-in" />}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-2.5 px-4 relative">
+                            <div className="relative">
+                              <Badge 
+                                variant="outline"
+                                className={`text-[10px] font-medium rounded-sm cursor-pointer hover:bg-muted/60 transition-all inline-flex items-center gap-1 px-2 py-0 w-16 justify-center ${
+                                  user.status === 'Active' ? 'bg-success/10 text-success border-success/30' : 'bg-muted/50 text-muted-foreground border-border/60'
+                                }`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOpenStatusDropdown(openStatusDropdown === user.id ? null : user.id);
+                                }}
+                              >
+                                {user.status}
+                                <ChevronDown className={`w-2.5 h-2.5 transition-transform duration-200 ${openStatusDropdown === user.id ? 'rotate-180' : ''}`} />
+                              </Badge>
+                              {openStatusDropdown === user.id && (
+                                <>
+                                  <div 
+                                    className="fixed inset-0 z-40" 
+                                    onClick={() => setOpenStatusDropdown(null)}
+                                  />
+                                  <div className="absolute top-full left-0 mt-2 w-36 bg-background border border-border rounded-lg shadow-xl z-[9999] py-1 animate-scale-in">
+                                    <div className="px-1" onClick={(e) => e.stopPropagation()}>
+                                      <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                          <div
+                                            className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between cursor-pointer ${
+                                              user.status === 'Active' ? 'bg-success/10 text-success font-medium' : 'text-foreground'
+                                            }`}
+                                          >
+                                            <span className="flex items-center gap-2">
+                                              <div className={`w-2 h-2 rounded-full ${user.status === 'Active' ? 'bg-green-500' : 'bg-muted'}`} />
+                                              Active
+                                            </span>
+                                            {user.status === 'Active' && <Check className="w-3.5 h-3.5 text-success animate-scale-in" />}
+                                          </div>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                          <AlertDialogHeader>
+                                            <AlertDialogTitle>{user.status === 'Active' ? 'Deactivate User' : 'Activate User'}</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                              {user.status === 'Active' 
+                                                ? `Are you sure you want to deactivate ${user.name}? They will lose access to the organization and all associated analyses.`
+                                                : `Are you sure you want to activate ${user.name}? They will regain access to the organization.`}
+                                            </AlertDialogDescription>
+                                          </AlertDialogHeader>
+                                          <AlertDialogFooter>
+                                            <AlertDialogCancel onClick={() => setOpenStatusDropdown(null)}>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction
+                                              onClick={() => {
+                                                handleDeactivateUser(user.id);
+                                                setOpenStatusDropdown(null);
+                                              }}
+                                              className={user.status === 'Active' ? 'bg-destructive hover:bg-destructive/90' : 'bg-foreground hover:bg-foreground/90'}
+                                            >
+                                              {user.status === 'Active' ? 'Deactivate' : 'Activate'}
+                                            </AlertDialogAction>
+                                          </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                      </AlertDialog>
+                                      <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                          <div
+                                            className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between cursor-pointer ${
+                                              user.status === 'Inactive' ? 'bg-muted/60 text-muted-foreground font-medium' : 'text-foreground'
+                                            }`}
+                                          >
+                                            <span className="flex items-center gap-2">
+                                              <div className={`w-2 h-2 rounded-full ${user.status === 'Inactive' ? 'bg-gray-400' : 'bg-muted'}`} />
+                                              Inactive
+                                            </span>
+                                            {user.status === 'Inactive' && <Check className="w-3.5 h-3.5 text-muted-foreground animate-scale-in" />}
+                                          </div>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                          <AlertDialogHeader>
+                                            <AlertDialogTitle>{user.status === 'Inactive' ? 'Activate User' : 'Deactivate User'}</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                              {user.status === 'Inactive' 
+                                                ? `Are you sure you want to activate ${user.name}? They will regain access to the organization.`
+                                                : `Are you sure you want to deactivate ${user.name}? They will lose access to the organization and all associated analyses.`}
+                                            </AlertDialogDescription>
+                                          </AlertDialogHeader>
+                                          <AlertDialogFooter>
+                                            <AlertDialogCancel onClick={() => setOpenStatusDropdown(null)}>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction
+                                              onClick={() => {
+                                                handleDeactivateUser(user.id);
+                                                setOpenStatusDropdown(null);
+                                              }}
+                                              className={user.status === 'Inactive' ? 'bg-foreground hover:bg-foreground/90' : 'bg-destructive hover:bg-destructive/90'}
+                                            >
+                                              {user.status === 'Inactive' ? 'Activate' : 'Deactivate'}
+                                            </AlertDialogAction>
+                                          </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                      </AlertDialog>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-2.5 px-4">
+                            <div className="flex items-center gap-1.5">
+                              <div className={`w-1.5 h-1.5 rounded-full ${
+                                user.status === 'Inactive' ? 'bg-muted-foreground/50' :
+                                user.lastLogin === 'Never' ? 'bg-muted-foreground/40' : 
+                                user.lastLogin.includes('hour') ? 'bg-success' : 
+                                user.lastLogin.includes('day') ? 'bg-amber-500' : 
+                                'bg-muted-foreground/40'
+                              }`} />
+                              <span className="text-[11px] text-muted-foreground">
+                                {user.status === 'Inactive' ? 'Inactive' : user.lastLogin}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="py-2.5 px-4 text-right">
+                            <Button variant="outline" size="sm" className="h-7 px-2 text-[11px] font-medium border-border/60 text-muted-foreground hover:bg-muted/50 hover:text-foreground">
+                              <Key className="w-3 h-3 mr-1" />
+                              Reset
+                            </Button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -1276,45 +1187,24 @@ const OrganizationManagement = () => {
 
           {/* Active Projects Tab */}
           <TabsContent value="projects">
-            <Card className="animate-fade-in">
-              <CardHeader className="border-b">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
-                      <Activity className="w-4 h-4 text-green-600" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">Analyses</CardTitle>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Current analyses with ongoing progress and their status.
-                      </p>
-                    </div>
-                  </div>
+            <Card className="border-border/40 shadow-sm">
+              <div className="px-4 py-3 border-b border-border/30 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Analyses</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">Current analyses with ongoing progress and their status.</p>
                 </div>
-              </CardHeader>
+              </div>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-muted/30 border-b">
                       <tr>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Analysis Name
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Analysis Owner
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Date Created
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Last Modified
-                        </th>
-                        <th className="text-left py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Status
-                        </th>
-                        <th className="text-right py-3 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">
-                          Actions
-                        </th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Analysis Name</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Owner</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Date Created</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Last Modified</th>
+                        <th className="text-left py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Status</th>
+                        <th className="text-right py-2.5 px-4 font-medium text-[10px] text-muted-foreground uppercase tracking-wide">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1324,118 +1214,79 @@ const OrganizationManagement = () => {
                           className={`
                             border-b border-border/20 hover:bg-muted/20 transition-all duration-200
                             ${index === activeProjects.length - 1 ? 'border-b-0' : ''}
+                            ${project.status === 'Archived' ? 'opacity-60' : ''}
                           `}
                         >
-                          <td className="py-3 px-4">
+                          <td className="py-2.5 px-4">
                             <div className="min-w-0 flex-1">
-                              <p className="font-medium text-sm text-foreground mb-2">{project.name}</p>
-                                <div className="flex flex-wrap gap-2">
-                                  {project.keyTopics.map((topic, idx) => {
-                                      if (topic === 'Feedstock') {
-                                        return (
-                                          <span 
-                                            key={idx} 
-                                            className="inline-block px-2 py-0 text-xs font-medium rounded-sm bg-success text-success-foreground text-center"
-                                          >
-                                            {topic}
-                                          </span>
-                                        );
-                                      } else if (topic === 'Fructose' || topic === 'Beans') {
-                                        return (
-                                          <span 
-                                            key={idx} 
-                                            className="inline-block px-2 py-0 text-xs font-medium rounded-sm bg-success/10 text-success border border-success/30 text-center"
-                                          >
-                                            {topic}
-                                          </span>
-                                        );
-                                      } else if (topic === 'Bio-based-greens') {
-                                        return (
-                                          <span 
-                                            key={idx} 
-                                            className="inline-block px-2 py-0 text-xs font-medium rounded-sm bg-orange-100 text-orange-700 border border-orange-300 text-center"
-                                          >
-                                            {topic}
-                                          </span>
-                                        );
-                                      } else if (topic === 'Application') {
-                                        return (
-                                          <span 
-                                            key={idx} 
-                                            className="inline-block px-2 py-0 text-xs font-medium rounded-sm bg-orange-500 text-white text-center"
-                                          >
-                                            {topic}
-                                          </span>
-                                        );
-                                      } else {
-                                        return (
-                                          <span 
-                                            key={idx} 
-                                            className="inline-block px-2 py-0 text-xs font-medium rounded-sm bg-product-blue text-product-blue-foreground text-center"
-                                          >
-                                            {topic}
-                                          </span>
-                                        );
-                                    }
-                                  })}
-                                </div>
+                              <p className="font-medium text-[13px] text-foreground mb-1">{project.name}</p>
+                              <div className="flex flex-wrap gap-1">
+                                {project.keyTopics.map((topic, idx) => {
+                                  const cls =
+                                    topic === 'Feedstock' || topic === 'Fructose' || topic === 'Beans'
+                                      ? 'bg-success/10 text-success border-success/30'
+                                      : topic === 'Application' || topic === 'Bio-based-greens'
+                                      ? 'bg-market-orange/10 text-market-orange border-market-orange/30'
+                                      : 'bg-application-purple/10 text-application-purple border-application-purple/30';
+                                  return (
+                                    <Badge
+                                      key={idx}
+                                      variant="outline"
+                                      className={`text-[10px] rounded-sm px-1.5 py-0 font-medium ${cls}`}
+                                    >
+                                      {topic}
+                                    </Badge>
+                                  );
+                                })}
+                              </div>
                             </div>
                           </td>
-                          <td className="py-3 px-4">
-                            <div className="space-y-1">
+                          <td className="py-2.5 px-4">
+                            <div className="space-y-0.5">
                               {project.owners.map((owner, idx) => (
-                                <div key={idx} className="flex items-center gap-2">
-                                  <span className="text-sm text-foreground">{owner}</span>
-                                </div>
+                                <div key={idx} className="text-[11px] text-foreground">{owner}</div>
                               ))}
                             </div>
                           </td>
-                          <td className="py-3 px-4">
-                            <span className="text-sm text-foreground">{project.dateCreated}</span>
+                          <td className="py-2.5 px-4">
+                            <span className="text-[11px] text-muted-foreground">{project.dateCreated}</span>
                           </td>
-                          <td className="py-3 px-4">
-                            <div className="flex items-center gap-2">
-                              <div className={`w-1.5 h-1.5 rounded-full bg-green-500`} />
-                              <span className="text-sm text-muted-foreground">{project.lastModified}</span>
+                          <td className="py-2.5 px-4">
+                            <div className="flex items-center gap-1.5">
+                              <div className="w-1.5 h-1.5 rounded-full bg-success" />
+                              <span className="text-[11px] text-muted-foreground">{project.lastModified}</span>
                             </div>
                           </td>
-                          <td className="py-3 px-4 align-middle">
+                          <td className="py-2.5 px-4 align-middle">
                             <div className="relative">
                               <Badge 
-                                variant={project.status === 'Active' ? 'default' : 'secondary'}
-                                className={`text-xs font-medium rounded-md cursor-pointer hover:shadow-md transition-all duration-200 inline-flex items-center gap-1.5 px-3 py-1.5 w-20 justify-center ${
-                                  project.status === 'Active' ? 'bg-green-600 text-white hover:bg-green-700' :
-                                  'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400'
+                                variant="outline"
+                                className={`text-[10px] font-medium rounded-sm cursor-pointer hover:bg-muted/60 transition-all inline-flex items-center gap-1 px-2 py-0 w-16 justify-center ${
+                                  project.status === 'Active' ? 'bg-success/10 text-success border-success/30' : 'bg-muted/50 text-muted-foreground border-border/60'
                                 }`}
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  console.log('Project badge clicked for project:', project.id);
                                   setOpenProjectDropdown(openProjectDropdown === project.id ? null : project.id);
                                 }}
                               >
                                 {project.status}
-                                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openProjectDropdown === project.id ? 'rotate-180' : ''}`} />
+                                <ChevronDown className={`w-2.5 h-2.5 transition-transform duration-200 ${openProjectDropdown === project.id ? 'rotate-180' : ''}`} />
                               </Badge>
-                              
                               {openProjectDropdown === project.id && (
                                 <>
-                                  {/* Backdrop */}
                                   <div 
                                     className="fixed inset-0 z-40" 
                                     onClick={() => setOpenProjectDropdown(null)}
                                   />
-                                  
-                                  {/* Dropdown */}
                                   <div className="absolute top-full left-0 mt-2 w-36 bg-background border border-border rounded-lg shadow-xl z-[9999] py-1 animate-scale-in">
                                     <div className="px-1" onClick={(e) => e.stopPropagation()}>
                                       <div
-                                        className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
+                                        className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between cursor-pointer ${
                                           project.status === 'Active' ? 'bg-primary/10 text-primary font-medium' : 'text-foreground'
                                         }`}
                                         onMouseDown={(e) => {
                                           e.preventDefault();
                                           e.stopPropagation();
-                                          console.log('Active clicked for project:', project.id);
                                           handleChangeProjectStatus(project.id, 'Active');
                                           setOpenProjectDropdown(null);
                                         }}
@@ -1444,18 +1295,15 @@ const OrganizationManagement = () => {
                                           <div className={`w-2 h-2 rounded-full ${project.status === 'Active' ? 'bg-green-500' : 'bg-muted'}`} />
                                           Active
                                         </span>
-                                        {project.status === 'Active' && (
-                                          <Check className="w-3.5 h-3.5 text-primary animate-scale-in" />
-                                        )}
+                                        {project.status === 'Active' && <Check className="w-3.5 h-3.5 text-primary animate-scale-in" />}
                                       </div>
                                       <div
-                                        className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between group cursor-pointer ${
+                                        className={`w-full px-3 py-2 text-left text-xs rounded-md hover:bg-muted/80 transition-all duration-150 flex items-center justify-between cursor-pointer ${
                                           project.status === 'Archived' ? 'bg-muted/50 text-muted-foreground font-medium' : 'text-foreground'
                                         }`}
                                         onMouseDown={(e) => {
                                           e.preventDefault();
                                           e.stopPropagation();
-                                          console.log('Archived clicked for project:', project.id);
                                           handleChangeProjectStatus(project.id, 'Archived');
                                           setOpenProjectDropdown(null);
                                         }}
@@ -1464,9 +1312,7 @@ const OrganizationManagement = () => {
                                           <div className={`w-2 h-2 rounded-full ${project.status === 'Archived' ? 'bg-gray-400' : 'bg-muted'}`} />
                                           Archived
                                         </span>
-                                        {project.status === 'Archived' && (
-                                          <Check className="w-3.5 h-3.5 text-muted-foreground animate-scale-in" />
-                                        )}
+                                        {project.status === 'Archived' && <Check className="w-3.5 h-3.5 text-muted-foreground animate-scale-in" />}
                                       </div>
                                     </div>
                                   </div>
@@ -1474,11 +1320,11 @@ const OrganizationManagement = () => {
                               )}
                             </div>
                           </td>
-                          <td className="py-3 px-4 text-right align-middle">
-                             <Button variant="outline" size="sm" className="hover-scale px-2 py-1">
-                               <ChevronRight className="w-3 h-3 mr-1" />
-                               Open
-                             </Button>
+                          <td className="py-2.5 px-4 text-right align-middle">
+                            <Button variant="outline" size="sm" className="h-7 px-2 text-[11px] font-medium border-border/60 text-muted-foreground hover:bg-muted/50 hover:text-foreground">
+                              Open
+                              <ChevronRight className="w-3 h-3 ml-1" />
+                            </Button>
                           </td>
                         </tr>
                       ))}
