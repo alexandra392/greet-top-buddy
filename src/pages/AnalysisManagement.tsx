@@ -99,7 +99,7 @@ const AnalysisManagement = () => {
                 <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                 <Input
                   placeholder="Search organisations..."
-                  className="h-8 pl-8 text-xs bg-background border-border/40"
+                  className="h-8 pl-8 text-xs md:text-xs bg-background border-border/40"
                 />
               </div>
               <Button size="sm" className="h-8 bg-foreground hover:bg-foreground/90 text-background text-xs">
