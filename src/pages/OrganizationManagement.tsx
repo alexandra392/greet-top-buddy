@@ -32,7 +32,7 @@ const OrganizationManagement = () => {
       id: 1,
       name: "Bioethanol Production Analysis",
       database: "Bioethanol",
-      category: "Product",
+      category: "Materials",
       users: 15,
       lastUpdated: "2 days ago",
       addedDate: "2024-08-26",
@@ -92,7 +92,7 @@ const OrganizationManagement = () => {
       id: 6,
       name: "Algae-Based Biofuels Research",
       database: null,
-      category: "Product",
+      category: "Materials",
       users: 18,
       lastUpdated: "6 hours ago",
       addedDate: "2025-09-15",
@@ -995,26 +995,26 @@ const OrganizationManagement = () => {
                                border-b border-border/20 hover:bg-muted/20 transition-all duration-200
                                ${index === sortedAnalysisTopics.length - 1 ? 'border-b-0' : ''}
                                ${topic.status === 'Archived' ? 'opacity-60' : ''}
-                               ${isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? 'bg-gradient-to-r from-gray-50/60 to-gray-50/60 dark:from-gray-900/20 dark:to-gray-900/20 border-l-2 border-l-gray-300' : ''}
+                               ${isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? 'bg-muted/20 border-l-2 border-l-foreground/40' : ''}
                              `}
                           >
-                            <td className="py-3 px-4">
-                              <Badge className={`text-xs rounded-sm px-2 py-0 font-medium ${getCategoryColorClasses(topic.category)}`}>
+                            <td className="py-2.5 px-4">
+                              <Badge variant="outline" className={`text-[10px] rounded-sm px-1.5 py-0 font-medium ${getCategoryColorClasses(topic.category)}`}>
                                 {topic.category}
                               </Badge>
                             </td>
-                            <td className="py-3 px-4">
+                            <td className="py-2.5 px-4">
                               <div className="flex items-start gap-3">
                                 <div className="min-w-0 flex-1">
-                                   <div className="flex items-center gap-2 mb-1">
-                                     <p className="font-medium text-sm text-foreground">{topic.name}</p>
+                                   <div className="flex items-center gap-2 mb-0.5">
+                                     <p className="font-medium text-[13px] text-foreground">{topic.name}</p>
                                       {isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' && (
-                                        <Badge className="text-xs px-2 py-0.5 bg-red-500 hover:bg-red-600 text-white border-0 shadow-sm animate-pulse rounded-full font-semibold">
+                                        <Badge variant="outline" className="text-[9px] px-1.5 py-0 bg-foreground text-background border-0 rounded-sm font-semibold tracking-wide uppercase">
                                           New
                                         </Badge>
                                       )}
                                    </div>
-                                   <p className="text-xs text-muted-foreground mt-1">
+                                   <p className="text-[11px] text-muted-foreground">
                                      {topic.approvalStatus === 'pending' 
                                        ? 'Database: To be assigned upon approval' 
                                        : `Database used: ${topic.database}`
@@ -1023,36 +1023,35 @@ const OrganizationManagement = () => {
                                 </div>
                               </div>
                             </td>
-                             <td className="py-3 px-4 relative">
+                             <td className="py-2.5 px-4 relative">
                                 {topic.approvalStatus === 'pending' ? (
                                   <Badge 
-                                    variant="secondary"
-                                    className="text-xs font-medium rounded-md px-3 py-1.5 bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300 w-20 justify-center"
+                                    variant="outline"
+                                    className="text-[10px] font-medium rounded-sm px-2 py-0 bg-muted/50 text-muted-foreground border-border/60 w-16 justify-center"
                                   >
                                     Pending
                                   </Badge>
                                 ) : topic.approvalStatus === 'denied' ? (
                                   <Badge 
-                                    variant="secondary"
-                                    className="text-xs font-medium rounded-md px-3 py-1.5 bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-300 w-20 justify-center"
+                                    variant="outline"
+                                    className="text-[10px] font-medium rounded-sm px-2 py-0 bg-destructive/10 text-destructive border-destructive/30 w-16 justify-center"
                                   >
                                     Denied
                                   </Badge>
                                 ) : (
                                   <div className="relative">
                                     <Badge 
-                                      variant={topic.status === 'Active' ? 'default' : 'secondary'}
-                                      className="text-xs font-medium rounded-md cursor-pointer hover:shadow-md transition-all duration-200 inline-flex items-center gap-1.5 px-3 py-1.5 w-20 justify-center"
+                                      variant="outline"
+                                      className={`text-[10px] font-medium rounded-sm cursor-pointer hover:bg-muted/60 transition-all inline-flex items-center gap-1 px-2 py-0 w-16 justify-center ${topic.status === 'Active' ? 'bg-success/10 text-success border-success/30' : 'bg-muted/50 text-muted-foreground border-border/60'}`}
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        console.log('Badge clicked for topic:', topic.id);
                                         setOpenDropdown(openDropdown === topic.id ? null : topic.id);
                                       }}
                                     >
                                       {topic.status}
-                                      <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openDropdown === topic.id ? 'rotate-180' : ''}`} />
+                                      <ChevronDown className={`w-2.5 h-2.5 transition-transform duration-200 ${openDropdown === topic.id ? 'rotate-180' : ''}`} />
                                     </Badge>
-                                   
+
                                    {openDropdown === topic.id && (
                                      <>
                                        {/* Backdrop */}
@@ -1111,15 +1110,15 @@ const OrganizationManagement = () => {
                                  </div>
                                )}
                              </td>
-                           <td className="py-3 px-4">
-                             <span className="text-muted-foreground text-xs">{topic.addedDate}</span>
+                           <td className="py-2.5 px-4">
+                             <span className="text-muted-foreground text-[11px]">{topic.addedDate}</span>
                            </td>
-                             <td className="py-3 px-4 text-right">
+                             <td className="py-2.5 px-4 text-right">
                                {isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? (
                                  <Button 
                                    variant="outline" 
                                    size="sm" 
-                                   className="hover-scale text-xs px-2 py-1.5 border-muted text-muted-foreground hover:bg-muted/50"
+                                   className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
                                    onClick={() => handleApproveTopic(topic.id, topic.name, topic.description)}
                                  >
                                    <FileSearch className="w-3 h-3" />
@@ -1128,7 +1127,7 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="hover-scale text-xs px-2 py-1 opacity-50 cursor-not-allowed"
+                                  className="h-7 w-7 p-0 border-border/60 opacity-50 cursor-not-allowed"
                                   disabled
                                 >
                                   <XCircle className="w-3 h-3" />
@@ -1137,13 +1136,13 @@ const OrganizationManagement = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="hover-scale text-xs px-2 py-1"
+                                  className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50"
                                   onClick={() => handleChangeAnalysisStatus(topic.id, 'Active')}
                                 >
                                   <RotateCcw className="w-3 h-3" />
                                 </Button>
                               ) : (
-                                 <Button variant="outline" size="sm" className="hover-scale px-2 py-1">
+                                 <Button variant="outline" size="sm" className="h-7 w-7 p-0 border-border/60 text-muted-foreground hover:bg-muted/50">
                                    <RefreshCw className="w-3 h-3" />
                                  </Button>
                               )}
