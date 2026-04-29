@@ -1382,7 +1382,7 @@ const OrganizationManagement = () => {
             </Card>
           </TabsContent>
         </Tabs>
-      </div>
+      
       
       {/* Approval Dialog */}
       <Dialog open={!!approvalDialog} onOpenChange={(open) => !open && setApprovalDialog(null)}>
