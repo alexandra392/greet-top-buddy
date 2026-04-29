@@ -251,6 +251,19 @@ const AnalysisManagement = () => {
 
         <TabsContent value="pathways" className="mt-0">
           <Card className="border-border/40 shadow-sm">
+            <div className="px-4 py-3 border-b border-border/30 flex items-center gap-3">
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  placeholder="Search pathways..."
+                  className="h-8 pl-8 text-xs md:text-xs bg-background border-border/40"
+                />
+              </div>
+              <Button size="sm" className="ml-auto h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
+                <Plus className="w-3 h-3 mr-1" />
+                Add Manual Pathway
+              </Button>
+            </div>
             <CardContent className="p-10 text-center">
               <div className="w-10 h-10 rounded-md bg-success/10 border border-success/20 flex items-center justify-center mx-auto mb-3">
                 <Sparkles className="w-4 h-4 text-success" />
