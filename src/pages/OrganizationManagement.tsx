@@ -599,7 +599,7 @@ const OrganizationManagement = () => {
               <Input
                 value={orgDraft?.name || ""}
                 onChange={(e) => setOrgDraft({ ...orgDraft, name: e.target.value })}
-                className="text-base font-bold h-8 mb-1 px-2"
+                className="text-base font-bold h-8 mb-1 px-2 animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "0ms" }}
                 maxLength={120}
               />
             ) : (
@@ -614,7 +614,7 @@ const OrganizationManagement = () => {
               <Textarea
                 value={orgDraft?.description || ""}
                 onChange={(e) => setOrgDraft({ ...orgDraft, description: e.target.value })}
-                className="text-xs leading-relaxed min-h-[120px]"
+                className="text-xs leading-relaxed min-h-[120px] animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "60ms" }}
                 maxLength={1000}
               />
             ) : (
@@ -636,7 +636,7 @@ const OrganizationManagement = () => {
                     <Input
                       value={orgDraft?.category || ""}
                       onChange={(e) => setOrgDraft({ ...orgDraft, category: e.target.value })}
-                      className="h-6 text-xs px-2 max-w-[200px] text-right"
+                      className="h-6 text-xs px-2 max-w-[200px] text-right animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "120ms" }}
                     />
                   ) : (
                     <span className="text-xs text-foreground font-medium">{organization.category}</span>
@@ -648,7 +648,7 @@ const OrganizationManagement = () => {
                     <Input
                       value={orgDraft?.location || ""}
                       onChange={(e) => setOrgDraft({ ...orgDraft, location: e.target.value })}
-                      className="h-6 text-xs px-2 max-w-[240px] text-right"
+                      className="h-6 text-xs px-2 max-w-[240px] text-right animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "180ms" }}
                     />
                   ) : (
                     <span className="text-xs text-foreground text-right">{organization.location}</span>
@@ -660,7 +660,7 @@ const OrganizationManagement = () => {
                     <Input
                       value={orgDraft?.website || ""}
                       onChange={(e) => setOrgDraft({ ...orgDraft, website: e.target.value })}
-                      className="h-6 text-xs px-2 max-w-[240px] text-right"
+                      className="h-6 text-xs px-2 max-w-[240px] text-right animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "240ms" }}
                       placeholder="https://"
                     />
                   ) : (
@@ -682,7 +682,7 @@ const OrganizationManagement = () => {
                     <Input
                       value={orgDraft?.contactEmail || ""}
                       onChange={(e) => setOrgDraft({ ...orgDraft, contactEmail: e.target.value })}
-                      className="h-6 text-xs px-2 max-w-[260px] text-right"
+                      className="h-6 text-xs px-2 max-w-[260px] text-right animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "300ms" }}
                       type="email"
                     />
                   ) : (
@@ -697,7 +697,7 @@ const OrganizationManagement = () => {
                     <Input
                       value={orgDraft?.contactPhone || ""}
                       onChange={(e) => setOrgDraft({ ...orgDraft, contactPhone: e.target.value })}
-                      className="h-6 text-xs px-2 max-w-[200px] text-right font-mono"
+                      className="h-6 text-xs px-2 max-w-[200px] text-right font-mono animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "360ms" }}
                     />
                   ) : (
                     <a href={`tel:${organization.contactPhone}`} className="text-xs text-foreground hover:text-foreground/70 font-mono">
@@ -711,7 +711,7 @@ const OrganizationManagement = () => {
                     <Input
                       value={orgDraft?.personalContactEmail || ""}
                       onChange={(e) => setOrgDraft({ ...orgDraft, personalContactEmail: e.target.value })}
-                      className="h-6 text-xs px-2 max-w-[260px] text-right"
+                      className="h-6 text-xs px-2 max-w-[260px] text-right animate-edit-pop transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/60 border-primary/30 bg-background" style={{ animationDelay: "420ms" }}
                       type="email"
                     />
                   ) : (
