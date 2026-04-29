@@ -729,7 +729,7 @@ const OrganizationManagement = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
-          <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto grid grid-cols-3">
+          <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto grid grid-cols-4">
             <TabsTrigger value="analyses" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
               <BarChart3 className="w-3 h-3" />
               Analysis Topics
@@ -750,7 +750,62 @@ const OrganizationManagement = () => {
               User Management
               <span className="ml-1 text-[10px] font-bold opacity-70">{organization.numberOfUsers}</span>
             </TabsTrigger>
+            <TabsTrigger value="billing" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
+              <Crown className="w-3 h-3" />
+              Billing & Subscription
+              <span className="ml-1 inline-flex items-center justify-center px-1.5 h-[14px] rounded-full bg-warning/15 text-warning text-[8px] font-bold tracking-widest uppercase leading-none self-center border border-warning/30">
+                Soon
+              </span>
+            </TabsTrigger>
           </TabsList>
+
+          {/* Billing & Subscription Tab — Coming Soon */}
+          <TabsContent value="billing">
+            <Card className="border-border/40 shadow-sm">
+              <CardContent className="p-6">
+                <div className="relative bg-gradient-to-br from-muted/40 via-card to-success/5 border border-dashed border-border/60 p-6 rounded-lg overflow-hidden">
+                  <div className="absolute top-3 right-3">
+                    <Badge variant="outline" className="text-[9px] font-bold tracking-widest uppercase bg-warning/10 text-warning border-warning/30">
+                      Coming Soon
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <Crown className="w-3.5 h-3.5 text-muted-foreground" />
+                    <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">VCG Subscription Package</h3>
+                  </div>
+                  <h2 className="text-base font-bold text-foreground tracking-tight mb-1.5">
+                    Manage <span className="text-success">billing & plan</span>
+                  </h2>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-5 max-w-[80%]">
+                    Track which VCG plan this organisation is subscribed to — tier, seat allowance, included analyses, renewal date, invoices, and payment method.
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 opacity-60 mb-5">
+                    {[
+                      { label: "Plan", value: "—" },
+                      { label: "Seats", value: "—" },
+                      { label: "Analyses", value: "—" },
+                      { label: "Renews", value: "—" },
+                    ].map((item) => (
+                      <div key={item.label} className="bg-background/60 border border-border/40 rounded-md px-3 py-2.5">
+                        <div className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase truncate">{item.label}</div>
+                        <div className="text-sm font-bold text-foreground/40 mt-0.5">{item.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 opacity-60">
+                    <div className="bg-background/60 border border-border/40 rounded-md px-3 py-2.5">
+                      <div className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase">Payment Method</div>
+                      <div className="text-xs text-foreground/50 mt-1">No payment method on file</div>
+                    </div>
+                    <div className="bg-background/60 border border-border/40 rounded-md px-3 py-2.5">
+                      <div className="text-[9px] font-bold tracking-widest text-muted-foreground uppercase">Invoice History</div>
+                      <div className="text-xs text-foreground/50 mt-1">Invoices will appear here</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           {/* User Management Tab */}
           <TabsContent value="users">
