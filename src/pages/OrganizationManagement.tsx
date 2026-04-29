@@ -729,7 +729,7 @@ const OrganizationManagement = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
-          <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto grid grid-cols-4">
+          <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto grid grid-cols-3">
             <TabsTrigger value="analyses" className="flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all relative">
               <Activity className="w-3 h-3" />
               Analysis Topics
