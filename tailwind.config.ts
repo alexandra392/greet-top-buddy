@@ -184,6 +184,20 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0) scale(1)'
 					}
+				},
+				'edit-pop': {
+					'0%': { opacity: '0', transform: 'translateY(-4px) scale(0.96)' },
+					'60%': { opacity: '1', transform: 'translateY(1px) scale(1.02)' },
+					'100%': { opacity: '1', transform: 'translateY(0) scale(1)' }
+				},
+				'edit-glow': {
+					'0%, 100%': { boxShadow: '0 0 0 0 hsl(var(--primary) / 0)', borderColor: 'hsl(var(--border))' },
+					'50%': { boxShadow: '0 0 0 3px hsl(var(--primary) / 0.12)', borderColor: 'hsl(var(--primary) / 0.6)' }
+				},
+				'edit-wiggle': {
+					'0%, 100%': { transform: 'rotate(0deg)' },
+					'25%': { transform: 'rotate(-0.6deg)' },
+					'75%': { transform: 'rotate(0.6deg)' }
 				}
 			},
 			animation: {
@@ -194,7 +208,10 @@ export default {
 				'slide-in-down': 'slide-in-down 0.5s ease-out',
 				'slide-up': 'slide-up 0.5s ease-out',
 				'float': 'float 3s ease-in-out infinite',
-				'page-in': 'page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+				'page-in': 'page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+				'edit-pop': 'edit-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+				'edit-glow': 'edit-glow 2.4s ease-in-out infinite',
+				'edit-wiggle': 'edit-wiggle 0.5s ease-in-out'
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
