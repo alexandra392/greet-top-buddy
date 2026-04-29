@@ -245,6 +245,20 @@ const AnalysisManagement = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="pathways" className="mt-0">
+          <Card className="border-border/40 shadow-sm">
+            <CardContent className="p-10 text-center">
+              <div className="w-10 h-10 rounded-md bg-success/10 border border-success/20 flex items-center justify-center mx-auto mb-3">
+                <Sparkles className="w-4 h-4 text-success" />
+              </div>
+              <h3 className="text-sm font-bold text-foreground tracking-tight mb-1">VCG Pathways</h3>
+              <p className="text-[11px] text-muted-foreground max-w-md mx-auto">
+                Curated value chain pathways across organisations — coming soon.
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
