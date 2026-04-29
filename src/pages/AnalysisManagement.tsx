@@ -1,9 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ClipboardList, Play, Pause, Clock, CheckCircle, AlertCircle, Eye, Trash2, Plus, Bell, Check, X, User, Search, Filter, RefreshCw, Building, Users, FolderOpen, Database } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AnalysisManagement = () => {
@@ -19,351 +19,139 @@ const AnalysisManagement = () => {
     { id: 7, name: "Hemicellulose Database", category: "Product", records: 8934, lastUpdated: "6 hours ago", status: "active" },
     { id: 8, name: "Corn Stover Database", category: "Feedstock", records: 156, lastUpdated: "2 weeks ago", status: "active" },
   ];
+
   const organizations = [
-    {
-      id: 1,
-      name: "Smart Cities and Communities",
-      registrationTime: "29/08/2025, 10:48:25",
-      lastLoginTime: "Not available",
-      totalAnalyses: 23,
-      description: "A collaborative initiative focused on developing sustainable urban solutions through innovative technology and community engagement.",
-      website: "https://smartcities-communities.org",
-      location: "Berlin, Germany",
-      registrationDate: "29/08/2025",
-      numberOfUsers: 156,
-      hasPendingRequests: true,
-      pendingRequestsCount: 3
-    },
-    {
-      id: 2,
-      name: "Regio Augsburg Wirtschaft GmbH",
-      registrationTime: "29/08/2025, 10:48:25", 
-      lastLoginTime: "Not available",
-      totalAnalyses: 15,
-      description: "Regional economic development agency promoting business growth and innovation in the Augsburg metropolitan area.",
-      website: "https://regio-augsburg.de",
-      location: "Augsburg, Germany",
-      registrationDate: "29/08/2025",
-      numberOfUsers: 87
-    },
-    {
-      id: 3,
-      name: "Invite test 06",
-      registrationTime: "03/09/2025, 07:11:09",
-      lastLoginTime: "03/09/2025, 07:11:13",
-      totalAnalyses: 8,
-      description: "Test organization for invitation and collaboration features development and quality assurance.",
-      website: "https://test.example.com",
-      location: "Munich, Germany",
-      registrationDate: "03/09/2025",
-      numberOfUsers: 12
-    },
-    {
-      id: 4,
-      name: "Packaging Excellence Region Stuttgart e.V.",
-      registrationTime: "29/08/2025, 10:48:25",
-      lastLoginTime: "Not available", 
-      totalAnalyses: 31,
-      description: "Leading association for packaging innovation and sustainability in the Stuttgart region, connecting industry leaders and research institutions.",
-      website: "https://packaging-stuttgart.org",
-      location: "Stuttgart, Germany",
-      registrationDate: "29/08/2025",
-      numberOfUsers: 203
-    },
-    {
-      id: 5,
-      name: "BioCampus Straubing GmbH",
-      registrationTime: "29/08/2025, 10:48:25",
-      lastLoginTime: "Not available",
-      totalAnalyses: 42,
-      description: "Biotechnology research and development center specializing in renewable resources and bioeconomy solutions.",
-      website: "https://biocampus-straubing.de",
-      location: "Straubing, Germany",
-      registrationDate: "29/08/2025",
-      numberOfUsers: 298,
-      hasPendingRequests: true,
-      pendingRequestsCount: 2
-    },
-    {
-      id: 6,
-      name: "Invite Test 08",
-      registrationTime: "03/09/2025, 12:15:20",
-      lastLoginTime: "04/09/2025, 11:05:29",
-      totalAnalyses: 12,
-      description: "Advanced testing organization for system integration and user experience validation processes.",
-      website: "https://test08.example.com",
-      location: "Frankfurt, Germany",
-      registrationDate: "03/09/2025",
-      numberOfUsers: 24
-    },
-    {
-      id: 7,
-      name: "Vegepolys Valley",
-      registrationTime: "29/08/2025, 10:48:25",
-      lastLoginTime: "Not available",
-      totalAnalyses: 19,
-      description: "French competitiveness cluster dedicated to vegetable production, processing, and plant-based innovations.",
-      website: "https://vegepolys-valley.eu",
-      location: "Angers, France",
-      registrationDate: "29/08/2025",
-      numberOfUsers: 134
-    },
-    {
-      id: 8,
-      name: "Plastics Cluster",
-      registrationTime: "29/08/2025, 10:48:25",
-      lastLoginTime: "Not available",
-      totalAnalyses: 27,
-      description: "Industrial cluster promoting sustainable plastic technologies and circular economy solutions in manufacturing.",
-      website: "https://plastics-cluster.org",
-      location: "Vienna, Austria",
-      registrationDate: "29/08/2025",
-      numberOfUsers: 178
-    },
-    {
-      id: 9,
-      name: "VCG",
-      registrationTime: "29/08/2025, 10:48:25",
-      lastLoginTime: "Not available",
-      totalAnalyses: 156
-    },
-    {
-      id: 10,
-      name: "david6",
-      registrationTime: "Not available",
-      lastLoginTime: "Not available",
-      totalAnalyses: 3
-    }
+    { id: 1, name: "Smart Cities and Communities", totalAnalyses: 23, numberOfUsers: 156, location: "Berlin, Germany", hasPendingRequests: true, pendingRequestsCount: 3 },
+    { id: 2, name: "Regio Augsburg Wirtschaft GmbH", totalAnalyses: 15, numberOfUsers: 87, location: "Augsburg, Germany" },
+    { id: 3, name: "Invite test 06", totalAnalyses: 8, numberOfUsers: 12, location: "Munich, Germany" },
+    { id: 4, name: "Packaging Excellence Region Stuttgart e.V.", totalAnalyses: 31, numberOfUsers: 203, location: "Stuttgart, Germany" },
+    { id: 5, name: "BioCampus Straubing GmbH", totalAnalyses: 42, numberOfUsers: 298, location: "Straubing, Germany", hasPendingRequests: true, pendingRequestsCount: 2 },
+    { id: 6, name: "Invite Test 08", totalAnalyses: 12, numberOfUsers: 24, location: "Frankfurt, Germany" },
+    { id: 7, name: "Vegepolys Valley", totalAnalyses: 19, numberOfUsers: 134, location: "Angers, France" },
+    { id: 8, name: "Plastics Cluster", totalAnalyses: 27, numberOfUsers: 178, location: "Vienna, Austria" },
+    { id: 9, name: "VCG", totalAnalyses: 156, numberOfUsers: 0, location: "—" },
+    { id: 10, name: "david6", totalAnalyses: 3, numberOfUsers: 0, location: "—" },
   ];
 
-  const notifications = [
-    {
-      id: 1,
-      type: "approval_request",
-      title: "New Analysis Request",
-      message: "John Smith has requested analysis for 'Wheat Straw Biorefinery' in Feedstock category",
-      requestedBy: "John Smith",
-      email: "john.smith@company.com",
-      category: "Feedstock",
-      itemName: "Wheat Straw Biorefinery",
-      industry: "Agriculture & Food",
-      description: "Comprehensive analysis of wheat straw as a feedstock for biorefinery applications, including technical feasibility and economic assessment.",
-      requestedAt: "2 hours ago",
-      estimatedCost: "$2,500",
-      estimatedDuration: "14-16 hours"
-    },
-    {
-      id: 2,
-      type: "approval_request", 
-      title: "Analysis Cost Approval",
-      message: "Sarah Johnson has requested analysis for 'Lignin Extraction Process' in Technology category",
-      requestedBy: "Sarah Johnson",
-      email: "sarah.j@company.com", 
-      category: "Process",
-      itemName: "Lignin Extraction Process",
-      industry: "Chemicals & Materials",
-      description: "Analysis of advanced lignin extraction technologies and their integration into existing biorefinery processes.",
-      requestedAt: "4 hours ago",
-      estimatedCost: "$3,200",
-      estimatedDuration: "18-20 hours"
-    }
-  ];
-
-  const activeAnalyses = [
-    {
-      id: 1,
-      name: "Cellulose Biorefinery Analysis",
-      category: "Feedstock",
-      status: "running",
-      progress: 65,
-      startedAt: "2 hours ago",
-      estimatedCompletion: "4 hours remaining",
-      industry: "Agriculture & Food"
-    },
-    {
-      id: 2,
-      name: "Enzymatic Processing Study",
-      category: "Process", 
-      status: "running",
-      progress: 30,
-      startedAt: "1 day ago",
-      estimatedCompletion: "8 hours remaining",
-      industry: "Chemicals & Materials"
-    }
-  ];
-
-  const completedAnalyses = [
-    {
-      id: 3,
-      name: "Sugar Beet Value Chain",
-      category: "Feedstock",
-      status: "completed",
-      completedAt: "3 days ago",
-      duration: "12 hours",
-      industry: "Agriculture & Food"
-    },
-    {
-      id: 4,
-      name: "Biochemical Processing Routes",
-      category: "Process",
-      status: "completed", 
-      completedAt: "1 week ago",
-      duration: "18 hours",
-      industry: "Chemicals & Materials"
-    }
-  ];
-
-  const pendingAnalyses = [
-    {
-      id: 5,
-      name: "Xylose Market Analysis",
-      category: "Products",
-      status: "pending",
-      requestedAt: "2 days ago",
-      industry: "Industrial Chemicals"
-    }
-  ];
-
-  const handleApprove = (notificationId: number) => {
-    console.log("Approved notification:", notificationId);
-  };
-
-  const handleDecline = (notificationId: number) => {
-    console.log("Declined notification:", notificationId);
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "running":
-        return <Play className="w-4 h-4 text-blue-500" />;
-      case "completed":
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case "pending":
-        return <Clock className="w-4 h-4 text-orange-500" />;
-      default:
-        return <AlertCircle className="w-4 h-4 text-gray-500" />;
-    }
-  };
-
-  const getStatusBadge = (status: string) => {
-    const variants = {
-      running: "bg-blue-100 text-blue-800 border-blue-200",
-      completed: "bg-green-100 text-green-800 border-green-200", 
-      pending: "bg-orange-100 text-orange-800 border-orange-200"
-    };
-    
-    return (
-      <Badge className={`${variants[status as keyof typeof variants]} text-xs`}>
-        {status.charAt(0).toUpperCase() + status.slice(1)}
-      </Badge>
-    );
-  };
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "Feedstock":
-        return "text-success";
-      case "Process":
-        return "text-product-blue";
-      case "Products":
-        return "text-application-purple";
-      case "Applications":
-        return "text-market-orange";
-      case "Sustainability":
-        return "text-green-600";
-      case "Economics":
-        return "text-blue-600";
-      default:
-        return "text-muted-foreground";
-    }
-  };
+  const totalOrgs = organizations.length;
+  const totalAnalyses = organizations.reduce((s, o) => s + o.totalAnalyses, 0);
+  const totalPending = organizations.reduce((s, o) => s + (o.pendingRequestsCount || 0), 0);
+  const totalDatabases = databaseRepertoire.length;
 
   return (
-    <div className="p-3 space-y-4">
-      {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">VCG Admin</h1>
-          <p className="text-sm text-gray-600 mt-2">Monitor and manage your organisations and their value chain analyses</p>
+    <div className="px-6 pt-4 pb-6 max-w-[1400px] w-full mx-auto space-y-6">
+      {/* Welcome Banner */}
+      <div className="bg-gradient-to-r from-card via-card to-success/8 border border-border/40 rounded-xl px-5 py-4">
+        <div className="flex items-center gap-1.5 mb-1.5">
+          <div className="w-4 h-4 rounded-md bg-success/20 flex items-center justify-center">
+            <ClipboardList className="w-2.5 h-2.5 text-success" />
+          </div>
+          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">VCG Admin</span>
         </div>
+        <h1 className="text-base font-bold text-foreground tracking-tight mb-1">
+          Manage your <span className="text-success">organisations & databases</span>
+        </h1>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          Monitor activity, review pending requests, and oversee the data repertoire powering value chain analyses.
+        </p>
       </div>
 
-      {/* Tabs Section */}
-      <Tabs defaultValue="organisations" className="w-full">
-        <TabsList className="mb-4 w-full bg-card border border-border/40 shadow-lg backdrop-blur-sm p-0.5 h-auto">
-          <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-2 py-2">
-            <FolderOpen className="w-4 h-4" />
-            My Organisations
-          </TabsTrigger>
-          <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-2 py-2">
-            <Database className="w-4 h-4" />
-            Database Repertoire
-          </TabsTrigger>
-        </TabsList>
+      {/* Stats Row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {[
+          { label: "Organisations", value: totalOrgs, icon: FolderOpen, color: "text-success", bg: "bg-success/10", border: "border-success/20" },
+          { label: "Total Analyses", value: totalAnalyses, icon: Sparkles, color: "text-product-blue", bg: "bg-product-blue/10", border: "border-product-blue/20" },
+          { label: "Pending Requests", value: totalPending, icon: Bell, color: "text-warning", bg: "bg-warning/10", border: "border-warning/20" },
+          { label: "Databases", value: totalDatabases, icon: Database, color: "text-application-purple", bg: "bg-application-purple/10", border: "border-application-purple/20" },
+        ].map((stat) => (
+          <div key={stat.label} className="bg-card border border-border/40 rounded-xl px-4 py-3 flex items-center gap-3">
+            <div className={`w-8 h-8 rounded-md ${stat.bg} border ${stat.border} flex items-center justify-center flex-shrink-0`}>
+              <stat.icon className={`w-4 h-4 ${stat.color}`} />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase truncate">{stat.label}</div>
+              <div className="text-lg font-bold text-foreground tracking-tight leading-tight">{stat.value}</div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-        <TabsContent value="organisations">
-          {/* My Organisations Section */}
-          <Card className="bg-gradient-to-br from-card to-card/90 border border-border/40 shadow-lg backdrop-blur-sm">
-            <CardHeader className="py-3 px-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 flex-1 max-w-[600px]">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full justify-start text-muted-foreground border-border/40 bg-gradient-to-r from-background to-background/80 hover:from-muted/20 hover:to-muted/10 transition-all duration-300 shadow-sm"
-                  >
-                    <Search className="w-4 h-4 mr-2" />
-                    Search
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white shadow-sm border-0">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Organization
-                  </Button>
-                </div>
+      {/* Tabs */}
+      <Tabs defaultValue="organisations" className="w-full space-y-3">
+        <div>
+          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Management</h2>
+          <TabsList className="w-full bg-card border border-border/40 p-0.5 h-auto">
+            <TabsTrigger value="organisations" className="flex-1 flex items-center justify-center gap-2 py-2 text-xs">
+              <FolderOpen className="w-3.5 h-3.5" />
+              My Organisations
+            </TabsTrigger>
+            <TabsTrigger value="repertoire" className="flex-1 flex items-center justify-center gap-2 py-2 text-xs">
+              <Database className="w-3.5 h-3.5" />
+              Database Repertoire
+            </TabsTrigger>
+          </TabsList>
+        </div>
+
+        <TabsContent value="organisations" className="mt-0">
+          <Card className="border-border/40 shadow-sm">
+            <div className="px-4 py-3 border-b border-border/30 flex items-center gap-3">
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  placeholder="Search organisations..."
+                  className="h-8 pl-8 text-xs bg-background border-border/40"
+                />
               </div>
-            </CardHeader>
+              <Button size="sm" className="h-8 bg-success hover:bg-success/90 text-success-foreground text-xs">
+                <Plus className="w-3.5 h-3.5 mr-1.5" />
+                Add Organisation
+              </Button>
+            </div>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gradient-to-r from-muted/40 to-muted/60 border-b border-border/30">
+                  <thead className="bg-muted/30 border-b border-border/30">
                     <tr>
-                      <th className="text-left py-3 px-4 font-medium text-foreground text-sm tracking-tight">
-                        Name
-                      </th>
-                      <th className="text-right py-3 px-4 font-medium text-foreground text-sm tracking-tight">
-                        New Requests
-                      </th>
+                      <th className="text-left py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Name</th>
+                      <th className="text-left py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Location</th>
+                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Users</th>
+                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Analyses</th>
+                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Requests</th>
                     </tr>
                   </thead>
                   <tbody>
                     {organizations.map((org, index) => (
-                      <tr 
-                        key={org.id} 
-                        className={`
-                          border-b border-border/20 hover:bg-muted/30 transition-all duration-200 cursor-pointer
-                          ${index === organizations.length - 1 ? 'border-b-0' : ''}
-                        `}
-                        onClick={() => {
-                          navigate(`/organization/${org.id}`);
-                        }}
+                      <tr
+                        key={org.id}
+                        className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === organizations.length - 1 ? 'border-b-0' : ''}`}
+                        onClick={() => navigate(`/organization/${org.id}`)}
                       >
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-3">
-                            <FolderOpen className="w-4 h-4 text-muted-foreground" />
-                            <span className="font-medium text-foreground text-sm tracking-tight">{org.name}</span>
+                        <td className="py-2.5 px-4">
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-6 h-6 rounded-md bg-success/10 border border-success/20 flex items-center justify-center flex-shrink-0">
+                              <FolderOpen className="w-3 h-3 text-success" />
+                            </div>
+                            <span className="font-medium text-foreground text-xs tracking-tight">{org.name}</span>
                           </div>
                         </td>
-                        <td className="py-3 px-4 text-right">
-                          <div className="flex items-center justify-end gap-2 pr-2">
-                            {org.hasPendingRequests && (
-                              <div className="flex items-center gap-1">
-                                <Bell className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
-                                <span className="text-xs text-red-500 font-medium">{org.pendingRequestsCount} new</span>
-                              </div>
-                            )}
-                          </div>
+                        <td className="py-2.5 px-4">
+                          <span className="text-[11px] text-muted-foreground">{org.location}</span>
+                        </td>
+                        <td className="py-2.5 px-4 text-right">
+                          <span className="text-xs text-foreground font-medium">{org.numberOfUsers || '—'}</span>
+                        </td>
+                        <td className="py-2.5 px-4 text-right">
+                          <span className="text-xs text-foreground font-medium">{org.totalAnalyses}</span>
+                        </td>
+                        <td className="py-2.5 px-4 text-right">
+                          {org.hasPendingRequests ? (
+                            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-warning/10 border border-warning/30">
+                              <Bell className="w-3 h-3 text-warning" />
+                              <span className="text-[10px] text-warning font-bold">{org.pendingRequestsCount} new</span>
+                            </div>
+                          ) : (
+                            <span className="text-[11px] text-muted-foreground">—</span>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -374,89 +162,79 @@ const AnalysisManagement = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="repertoire">
-          {/* Database Repertoire Section */}
-          <Card className="bg-gradient-to-br from-card to-card/90 border border-border/40 shadow-lg backdrop-blur-sm">
-            <CardHeader className="py-3 px-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 flex-1 max-w-[600px]">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full justify-start text-muted-foreground border-border/40 bg-gradient-to-r from-background to-background/80 hover:from-muted/20 hover:to-muted/10 transition-all duration-300 shadow-sm"
-                  >
-                    <Search className="w-4 h-4 mr-2" />
-                    Search databases
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button size="sm" variant="outline" className="border-border/40">
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Sync All
-                  </Button>
-                  <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white shadow-sm border-0">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add New Database
-                  </Button>
-                </div>
+        <TabsContent value="repertoire" className="mt-0">
+          <Card className="border-border/40 shadow-sm">
+            <div className="px-4 py-3 border-b border-border/30 flex items-center gap-3">
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  placeholder="Search databases..."
+                  className="h-8 pl-8 text-xs bg-background border-border/40"
+                />
               </div>
-            </CardHeader>
+              <Button size="sm" variant="outline" className="h-8 text-xs border-border/40">
+                <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+                Sync All
+              </Button>
+              <Button size="sm" className="h-8 bg-success hover:bg-success/90 text-success-foreground text-xs">
+                <Plus className="w-3.5 h-3.5 mr-1.5" />
+                Add Database
+              </Button>
+            </div>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gradient-to-r from-muted/40 to-muted/60 border-b border-border/30">
+                  <thead className="bg-muted/30 border-b border-border/30">
                     <tr>
-                      <th className="text-left py-3 px-4 font-medium text-foreground text-sm tracking-tight">
-                        Database Name
-                      </th>
-                      <th className="text-right py-3 px-4 font-medium text-foreground text-sm tracking-tight">
-                        Records
-                      </th>
-                      <th className="text-right py-3 px-4 font-medium text-foreground text-sm tracking-tight">
-                        Last Updated
-                      </th>
-                      <th className="text-right py-3 px-4 font-medium text-foreground text-sm tracking-tight">
-                        Status
-                      </th>
+                      <th className="text-left py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Database</th>
+                      <th className="text-left py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Category</th>
+                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Records</th>
+                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Last Updated</th>
+                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {databaseRepertoire.map((db, index) => (
-                      <tr 
-                        key={db.id} 
-                        className={`
-                          border-b border-border/20 hover:bg-muted/30 transition-all duration-200 cursor-pointer
-                          ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}
-                        `}
-                      >
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-3">
-                            <Database className="w-4 h-4 text-muted-foreground" />
-                            <div className="flex flex-col">
-                              <span className="font-medium text-foreground text-sm tracking-tight">{db.name}</span>
-                              <span className="text-xs text-muted-foreground">{db.category}</span>
+                    {databaseRepertoire.map((db, index) => {
+                      const isFeedstock = db.category === "Feedstock";
+                      return (
+                        <tr
+                          key={db.id}
+                          className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}`}
+                        >
+                          <td className="py-2.5 px-4">
+                            <div className="flex items-center gap-2.5">
+                              <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isFeedstock ? 'bg-success/10 border border-success/20' : 'bg-application-purple/10 border border-application-purple/20'}`}>
+                                <Database className={`w-3 h-3 ${isFeedstock ? 'text-success' : 'text-application-purple'}`} />
+                              </div>
+                              <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
                             </div>
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-right">
-                          <span className="text-sm text-muted-foreground">{db.records.toLocaleString()}</span>
-                        </td>
-                        <td className="py-3 px-4 text-right">
-                          <span className="text-sm text-muted-foreground">{db.lastUpdated}</span>
-                        </td>
-                        <td className="py-3 px-4 text-right">
-                          <Badge 
-                            variant="outline" 
-                            className={db.status === 'syncing' 
-                              ? 'bg-blue-100 text-blue-700 border-blue-200' 
-                              : 'bg-green-100 text-green-700 border-green-200'
-                            }
-                          >
-                            {db.status === 'syncing' ? 'Syncing...' : 'Active'}
-                          </Badge>
-                        </td>
-                      </tr>
-                    ))}
+                          </td>
+                          <td className="py-2.5 px-4">
+                            <span className={`text-[10px] font-bold tracking-widest uppercase ${isFeedstock ? 'text-success' : 'text-application-purple'}`}>
+                              {db.category}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-4 text-right">
+                            <span className="text-xs text-foreground font-medium">{db.records.toLocaleString()}</span>
+                          </td>
+                          <td className="py-2.5 px-4 text-right">
+                            <span className="text-[11px] text-muted-foreground">{db.lastUpdated}</span>
+                          </td>
+                          <td className="py-2.5 px-4 text-right">
+                            <Badge
+                              variant="outline"
+                              className={`text-[10px] font-bold tracking-wider uppercase ${
+                                db.status === 'syncing'
+                                  ? 'bg-product-blue/10 text-product-blue border-product-blue/30'
+                                  : 'bg-success/10 text-success border-success/30'
+                              }`}
+                            >
+                              {db.status === 'syncing' ? 'Syncing' : 'Active'}
+                            </Badge>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
