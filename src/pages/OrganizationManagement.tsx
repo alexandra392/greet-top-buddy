@@ -130,17 +130,20 @@ const OrganizationManagement = () => {
   const getCategoryColorClasses = (category: string) => {
     switch (category.toLowerCase()) {
       case 'feedstock':
-        return 'bg-green-600 text-white border-green-600';
+        return 'bg-success/10 text-success border-success/30';
       case 'technology':
-        return 'bg-blue-600 text-white border-blue-600';
+        return 'bg-product-blue/10 text-product-blue border-product-blue/30';
       case 'biochemical':
-        return 'bg-teal-600 text-white border-teal-600';
+        return 'bg-success/10 text-success border-success/30';
       case 'product':
-        return 'bg-purple-600 text-white border-purple-600';
+      case 'materials':
+        return 'bg-application-purple/10 text-application-purple border-application-purple/30';
+      case 'process':
+        return 'bg-muted text-muted-foreground border-border';
       case 'applications':
-        return 'bg-orange-600 text-white border-orange-600';
+        return 'bg-market-orange/10 text-market-orange border-market-orange/30';
       default:
-        return 'bg-gray-600 text-white border-gray-600';
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
 
