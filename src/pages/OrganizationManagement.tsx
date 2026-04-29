@@ -995,7 +995,7 @@ const OrganizationManagement = () => {
                                border-b border-border/20 hover:bg-muted/20 transition-all duration-200
                                ${index === sortedAnalysisTopics.length - 1 ? 'border-b-0' : ''}
                                ${topic.status === 'Archived' ? 'opacity-60' : ''}
-                               ${isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? 'bg-gradient-to-r from-gray-50/60 to-gray-50/60 dark:from-gray-900/20 dark:to-gray-900/20 border-l-2 border-l-gray-300' : ''}
+                               ${isNewTopic(topic.addedDate) && topic.approvalStatus === 'pending' ? 'bg-muted/20 border-l-2 border-l-foreground/40' : ''}
                              `}
                           >
                             <td className="py-2.5 px-4">
