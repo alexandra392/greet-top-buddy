@@ -176,6 +176,7 @@ const App = () => {
                 <Route path="/landscape/:category/:topic/value-chain/pathways/:pathwayId/ip-landscape" element={<PathwayIPLandscape />} />
                 <Route path="/landscape/:category/:topic/value-chain/pathways/:pathwayId/research-landscape" element={<PathwayResearchLandscape />} />
                 <Route path="/landscape/:category/:topic/value-chain/pathways/:pathwayId/innovation-projects" element={<InnovationProjects />} />
+                <Route path="/landscape/:category/:topic/value-chain/pathways/:pathwayId/market-players" element={<MarketActivity />} />
                 <Route path="/landscape/:category/:topic/publications" element={<ScientificPublications />} />
                 <Route path="/landscape/:category/:topic/patents" element={<PatentLandscape />} />
                 <Route path="/landscape/:category/:topic/market-activity" element={<MarketActivity />} />
