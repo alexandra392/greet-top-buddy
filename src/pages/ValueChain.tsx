@@ -2007,10 +2007,12 @@ const ValueChain = () => {
             {/* LANDSCAPE ANALYTICS - Right Sidebar */}
              <div className="space-y-1.5">
               
-              <button disabled className="w-full rounded-lg border border-border/40 bg-card px-4 py-3 text-left opacity-50 cursor-default">
+              <button
+                onClick={() => navigate(`/landscape/${category}/${topic}/market-activity`)}
+                className="w-full rounded-lg border border-border/60 bg-card px-4 py-3 text-left hover:border-primary/40 transition-colors">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-semibold text-foreground">Market Players</span>
-                  <Badge variant="outline" className="text-[8px] px-1.5 py-0 border-muted-foreground/30 text-muted-foreground font-normal">Soon</Badge>
+                  <Badge variant="outline" className="text-[8px] px-1.5 py-0 border-muted-foreground/30 text-muted-foreground/60 font-normal opacity-60">Soon</Badge>
                 </div>
                 <p className="text-[9px] text-muted-foreground mt-0.5">Companies & startups across the value chain</p>
               </button>
