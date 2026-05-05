@@ -195,13 +195,25 @@ const AnalysisManagement = () => {
                         <DialogTitle className="text-sm tracking-tight">Invite via email</DialogTitle>
                         <DialogDescription className="text-[11px] leading-relaxed">Send an invitation to join as an organisation.</DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-1">
-                        <Label htmlFor="invite-email" className="text-[11px] text-muted-foreground">Email address</Label>
-                        <Input id="invite-email" type="email" placeholder="name@organisation.com" className="h-8 text-xs md:text-xs" value={emailValue} onChange={(e) => setEmailValue(e.target.value)} />
+                      <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="space-y-1">
+                            <Label htmlFor="invite-name" className="text-[11px] text-muted-foreground">Recipient name</Label>
+                            <Input id="invite-name" placeholder="Jane Doe" className="h-8 text-xs md:text-xs" value={inviteName} onChange={(e) => setInviteName(e.target.value)} />
+                          </div>
+                          <div className="space-y-1">
+                            <Label htmlFor="invite-org" className="text-[11px] text-muted-foreground">Organisation</Label>
+                            <Input id="invite-org" placeholder="Acme Research Institute" className="h-8 text-xs md:text-xs" value={inviteOrg} onChange={(e) => setInviteOrg(e.target.value)} />
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <Label htmlFor="invite-email" className="text-[11px] text-muted-foreground">Email address</Label>
+                          <Input id="invite-email" type="email" placeholder="name@organisation.com" className="h-8 text-xs md:text-xs" value={emailValue} onChange={(e) => setEmailValue(e.target.value)} />
+                        </div>
                       </div>
                       <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
                         <Button variant="outline" size="sm" className="h-8 text-xs" onClick={closeDialog}>Cancel</Button>
-                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${emailValue}` }); closeDialog(); }} disabled={!emailValue}>Send invite</Button>
+                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${inviteName || emailValue}${inviteOrg ? ` at ${inviteOrg}` : ""}` }); closeDialog(); }} disabled={!emailValue}>Send invite</Button>
                       </DialogFooter>
                     </>
                   )}
