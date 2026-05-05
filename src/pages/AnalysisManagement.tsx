@@ -221,8 +221,8 @@ const AnalysisManagement = () => {
                       <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
                         <div className="space-y-2">
                           <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Organisation</div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="space-y-1">
+                          <div className="grid grid-cols-3 gap-2">
+                            <div className="space-y-1 col-span-2">
                               <Label htmlFor="org-name" className="text-[11px]">Organisation name</Label>
                               <Input id="org-name" className="h-8 text-xs md:text-xs" value={orgForm.name} onChange={(e) => setOrgForm({ ...orgForm, name: e.target.value })} placeholder="Acme Research Institute" />
                             </div>
@@ -239,9 +239,22 @@ const AnalysisManagement = () => {
                                 </SelectContent>
                               </Select>
                             </div>
-                            <div className="space-y-1">
+                          </div>
+                          <div className="space-y-1">
+                            <Label htmlFor="org-description" className="text-[11px]">Description</Label>
+                            <Textarea id="org-description" className="text-xs min-h-[56px]" value={orgForm.description} onChange={(e) => setOrgForm({ ...orgForm, description: e.target.value })} placeholder="Brief description of the organisation..." rows={2} />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Address</div>
+                          <div className="grid grid-cols-3 gap-2">
+                            <div className="space-y-1 col-span-2">
                               <Label htmlFor="org-street" className="text-[11px]">Street and number</Label>
                               <Input id="org-street" className="h-8 text-xs md:text-xs" value={orgForm.street} onChange={(e) => setOrgForm({ ...orgForm, street: e.target.value })} placeholder="Main Street 12" />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="org-postcode" className="text-[11px]">Postcode</Label>
+                              <Input id="org-postcode" className="h-8 text-xs md:text-xs" value={orgForm.postcode} onChange={(e) => setOrgForm({ ...orgForm, postcode: e.target.value })} placeholder="10115" />
                             </div>
                             <div className="space-y-1">
                               <Label htmlFor="org-city" className="text-[11px]">City</Label>
@@ -255,23 +268,15 @@ const AnalysisManagement = () => {
                               <Label htmlFor="org-country" className="text-[11px]">Country</Label>
                               <Input id="org-country" className="h-8 text-xs md:text-xs" value={orgForm.country} onChange={(e) => setOrgForm({ ...orgForm, country: e.target.value })} placeholder="Germany" />
                             </div>
-                            <div className="space-y-1">
-                              <Label htmlFor="org-postcode" className="text-[11px]">Postcode</Label>
-                              <Input id="org-postcode" className="h-8 text-xs md:text-xs" value={orgForm.postcode} onChange={(e) => setOrgForm({ ...orgForm, postcode: e.target.value })} placeholder="10115" />
-                            </div>
-                            <div className="space-y-1">
-                              <Label htmlFor="org-website" className="text-[11px]">Website</Label>
-                              <Input id="org-website" className="h-8 text-xs md:text-xs" value={orgForm.website} onChange={(e) => setOrgForm({ ...orgForm, website: e.target.value })} placeholder="https://example.org" />
-                            </div>
-                          </div>
-                          <div className="space-y-1">
-                            <Label htmlFor="org-description" className="text-[11px]">Description</Label>
-                            <Textarea id="org-description" className="text-xs min-h-[56px]" value={orgForm.description} onChange={(e) => setOrgForm({ ...orgForm, description: e.target.value })} placeholder="Brief description of the organisation..." rows={2} />
                           </div>
                         </div>
                         <div className="space-y-2">
                           <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Contact information</div>
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-3 gap-2">
+                            <div className="space-y-1">
+                              <Label htmlFor="org-website" className="text-[11px]">Website</Label>
+                              <Input id="org-website" className="h-8 text-xs md:text-xs" value={orgForm.website} onChange={(e) => setOrgForm({ ...orgForm, website: e.target.value })} placeholder="https://example.org" />
+                            </div>
                             <div className="space-y-1">
                               <Label htmlFor="org-email" className="text-[11px]">Email</Label>
                               <Input id="org-email" className="h-8 text-xs md:text-xs" type="email" value={orgForm.email} onChange={(e) => setOrgForm({ ...orgForm, email: e.target.value })} placeholder="info@organisation.org" />
@@ -280,7 +285,7 @@ const AnalysisManagement = () => {
                               <Label htmlFor="org-phone" className="text-[11px]">Phone</Label>
                               <Input id="org-phone" className="h-8 text-xs md:text-xs" value={orgForm.phone} onChange={(e) => setOrgForm({ ...orgForm, phone: e.target.value })} placeholder="+49 30 1234 5678" />
                             </div>
-                            <div className="space-y-1 col-span-2">
+                            <div className="space-y-1 col-span-3">
                               <Label htmlFor="org-personal" className="text-[11px]">Personal contact email</Label>
                               <Input id="org-personal" className="h-8 text-xs md:text-xs" type="email" value={orgForm.personalEmail} onChange={(e) => setOrgForm({ ...orgForm, personalEmail: e.target.value })} placeholder="contact@organisation.org" />
                             </div>
