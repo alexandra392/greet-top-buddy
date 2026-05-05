@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -468,6 +468,7 @@ const AnalysisManagement = () => {
                       <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Batch Status</th>
                       <th className="text-right py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Time / Paper</th>
                       <th className="text-right py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Elapsed / ETA</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -532,11 +533,48 @@ const AnalysisManagement = () => {
                           <td className="py-2.5 px-3 text-right">
                             <span className="text-[11px] text-muted-foreground whitespace-nowrap">{db.elapsed}</span>
                           </td>
+                          <td className="py-2.5 px-3">
+                            <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                              <button title="Copy link" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <Link2 className="w-3 h-3 text-success" />
+                              </button>
+                              <button title="History" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <History className="w-3 h-3 text-muted-foreground" />
+                              </button>
+                              <button title="Run" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <Play className="w-3 h-3 text-product-blue" />
+                              </button>
+                              <button title="Biolink" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <Sparkles className="w-3 h-3 text-application-purple" />
+                              </button>
+                              <button title="Refresh" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <RefreshCw className="w-3 h-3 text-foreground" />
+                              </button>
+                            </div>
+                          </td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
+              </div>
+              <div className="px-4 py-2.5 border-t border-border/30 flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <button className="h-7 px-2 rounded border border-border/50 flex items-center gap-1 text-[11px] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50" disabled>
+                    <ChevronLeft className="w-3 h-3" /> Previous
+                  </button>
+                  {[1, 2, 3, 4].map((p) => (
+                    <button key={p} className={`h-7 w-7 rounded border text-[11px] transition-colors ${p === 1 ? "bg-foreground text-background border-foreground" : "border-border/50 text-foreground hover:bg-muted"}`}>
+                      {p}
+                    </button>
+                  ))}
+                  <span className="px-1 text-[11px] text-muted-foreground">…</span>
+                  <button className="h-7 w-7 rounded border border-border/50 text-[11px] text-foreground hover:bg-muted transition-colors">8</button>
+                  <button className="h-7 px-2 rounded border border-border/50 flex items-center gap-1 text-[11px] text-foreground hover:bg-muted transition-colors">
+                    Next <ChevronRight className="w-3 h-3" />
+                  </button>
+                </div>
+                <span className="text-[11px] text-muted-foreground">Page 1 of 8</span>
               </div>
             </CardContent>
           </Card>
