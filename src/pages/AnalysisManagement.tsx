@@ -39,8 +39,7 @@ const AnalysisManagement = () => {
   const closeDialog = () => {
     setDialogMode(null);
     setEmailValue("");
-    setOrgName("");
-    setOrgLocation("");
+    setOrgForm({ name: "", category: "", location: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
     setCopied(false);
   };
 
