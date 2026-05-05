@@ -169,16 +169,6 @@ const AnalysisManagement = () => {
                     </div>
                   </button>
                   <button
-                    onClick={() => openMode("link")}
-                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
-                  >
-                    <Link2 className="w-3.5 h-3.5 text-success mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-[11px] font-semibold text-foreground">Share invite link</div>
-                      <div className="text-[10px] text-muted-foreground">Copy a link anyone can use</div>
-                    </div>
-                  </button>
-                  <button
                     onClick={() => openMode("manual")}
                     className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
                   >
@@ -253,29 +243,6 @@ const AnalysisManagement = () => {
                       <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
                         <Button variant="outline" size="sm" className="h-8 text-xs" onClick={closeDialog}>Cancel</Button>
                         <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${inviteFirstName} ${inviteLastName} at ${inviteOrg}` }); closeDialog(); }} disabled={!emailValue || !inviteFirstName || !inviteLastName || !inviteOrg}>Send invite</Button>
-                      </DialogFooter>
-                    </>
-                  )}
-                  {dialogMode === "link" && (
-                    <>
-                      <DialogHeader className="space-y-1.5">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-4 h-4 rounded-md bg-success/20 flex items-center justify-center">
-                            <Link2 className="w-2.5 h-2.5 text-success" />
-                          </div>
-                          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Invite</span>
-                        </div>
-                        <DialogTitle className="text-sm tracking-tight">Share invite link</DialogTitle>
-                        <DialogDescription className="text-[11px] leading-relaxed">Anyone with this link can request to join.</DialogDescription>
-                      </DialogHeader>
-                      <div className="flex gap-2">
-                        <Input readOnly value={inviteLink} className="h-8 text-xs md:text-xs" />
-                        <Button size="sm" variant="outline" className="h-8 text-xs" onClick={copyLink}>
-                          {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        </Button>
-                      </div>
-                      <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
-                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={closeDialog}>Done</Button>
                       </DialogFooter>
                     </>
                   )}
