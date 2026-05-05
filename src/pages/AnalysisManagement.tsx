@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -16,8 +18,16 @@ const AnalysisManagement = () => {
   const [addOpen, setAddOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
   const [emailValue, setEmailValue] = useState("");
-  const [orgName, setOrgName] = useState("");
-  const [orgLocation, setOrgLocation] = useState("");
+  const [orgForm, setOrgForm] = useState({
+    name: "",
+    category: "",
+    location: "",
+    website: "",
+    description: "",
+    email: "",
+    phone: "",
+    personalEmail: "",
+  });
   const inviteLink = typeof window !== "undefined" ? `${window.location.origin}/invite/org/${Math.random().toString(36).slice(2, 10)}` : "";
   const [copied, setCopied] = useState(false);
 
@@ -29,8 +39,7 @@ const AnalysisManagement = () => {
   const closeDialog = () => {
     setDialogMode(null);
     setEmailValue("");
-    setOrgName("");
-    setOrgLocation("");
+    setOrgForm({ name: "", category: "", location: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
     setCopied(false);
   };
 
@@ -203,21 +212,62 @@ const AnalysisManagement = () => {
                     <>
                       <DialogHeader>
                         <DialogTitle>Add organisation manually</DialogTitle>
-                        <DialogDescription>Create a new organisation record directly.</DialogDescription>
+                        <DialogDescription>Create a new organisation record with full details.</DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-3">
-                        <div className="space-y-1.5">
-                          <Label htmlFor="org-name" className="text-xs">Organisation name</Label>
-                          <Input id="org-name" value={orgName} onChange={(e) => setOrgName(e.target.value)} placeholder="Acme Research Institute" />
+                      <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
+                        <div className="space-y-2">
+                          <div className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Organisation</div>
+                          <div className="space-y-1.5">
+                            <Label htmlFor="org-name" className="text-xs">Organisation name</Label>
+                            <Input id="org-name" value={orgForm.name} onChange={(e) => setOrgForm({ ...orgForm, name: e.target.value })} placeholder="Acme Research Institute" />
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1.5">
+                              <Label htmlFor="org-category" className="text-xs">Category</Label>
+                              <Select value={orgForm.category} onValueChange={(v) => setOrgForm({ ...orgForm, category: v })}>
+                                <SelectTrigger id="org-category"><SelectValue placeholder="Select category" /></SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="Public Sector Initiative">Public Sector Initiative</SelectItem>
+                                  <SelectItem value="Research Institution">Research Institution</SelectItem>
+                                  <SelectItem value="Private Company">Private Company</SelectItem>
+                                  <SelectItem value="Cluster / Association">Cluster / Association</SelectItem>
+                                  <SelectItem value="NGO">NGO</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="space-y-1.5">
+                              <Label htmlFor="org-location" className="text-xs">Location</Label>
+                              <Input id="org-location" value={orgForm.location} onChange={(e) => setOrgForm({ ...orgForm, location: e.target.value })} placeholder="City, Region, Country" />
+                            </div>
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label htmlFor="org-website" className="text-xs">Website</Label>
+                            <Input id="org-website" value={orgForm.website} onChange={(e) => setOrgForm({ ...orgForm, website: e.target.value })} placeholder="https://example.org" />
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label htmlFor="org-description" className="text-xs">Description</Label>
+                            <Textarea id="org-description" value={orgForm.description} onChange={(e) => setOrgForm({ ...orgForm, description: e.target.value })} placeholder="Brief description of the organisation..." rows={4} />
+                          </div>
                         </div>
-                        <div className="space-y-1.5">
-                          <Label htmlFor="org-location" className="text-xs">Location</Label>
-                          <Input id="org-location" value={orgLocation} onChange={(e) => setOrgLocation(e.target.value)} placeholder="City, Country" />
+                        <div className="space-y-2">
+                          <div className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Contact information</div>
+                          <div className="space-y-1.5">
+                            <Label htmlFor="org-email" className="text-xs">Email</Label>
+                            <Input id="org-email" type="email" value={orgForm.email} onChange={(e) => setOrgForm({ ...orgForm, email: e.target.value })} placeholder="info@organisation.org" />
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label htmlFor="org-phone" className="text-xs">Phone</Label>
+                            <Input id="org-phone" value={orgForm.phone} onChange={(e) => setOrgForm({ ...orgForm, phone: e.target.value })} placeholder="+49 30 1234 5678" />
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label htmlFor="org-personal" className="text-xs">Personal contact email</Label>
+                            <Input id="org-personal" type="email" value={orgForm.personalEmail} onChange={(e) => setOrgForm({ ...orgForm, personalEmail: e.target.value })} placeholder="contact@organisation.org" />
+                          </div>
                         </div>
                       </div>
                       <DialogFooter>
                         <Button variant="outline" size="sm" onClick={closeDialog}>Cancel</Button>
-                        <Button size="sm" onClick={() => { toast({ title: "Organisation added", description: orgName }); closeDialog(); }} disabled={!orgName}>Create</Button>
+                        <Button size="sm" onClick={() => { toast({ title: "Organisation added", description: orgForm.name }); closeDialog(); }} disabled={!orgForm.name}>Create</Button>
                       </DialogFooter>
                     </>
                   )}
