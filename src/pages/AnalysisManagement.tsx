@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { toast } from "@/hooks/use-toast";
 
 const AnalysisManagement = () => {
@@ -21,6 +21,7 @@ const AnalysisManagement = () => {
   const [docsDb, setDocsDb] = useState<any>(null);
   const [docsSearch, setDocsSearch] = useState("");
   const [docsPage, setDocsPage] = useState(1);
+  const [expandedDoc, setExpandedDoc] = useState<number | null>(null);
   const [dbForm, setDbForm] = useState({
     name: "",
     keywordInput: "",
@@ -814,31 +815,60 @@ const AnalysisManagement = () => {
                     "Results and discussions",
                   ];
                   return (
-                    <tr key={i} className="border-b border-border/20 hover:bg-muted/20 transition-colors">
-                      <td className="py-2.5 px-3">
-                        <div className="flex items-center gap-2">
-                          <FileText className="w-3 h-3 text-muted-foreground flex-shrink-0" />
-                          <span className="text-[11px] font-mono text-muted-foreground">{ids[i]}...</span>
-                        </div>
-                      </td>
-                      <td className="py-2.5 px-3 max-w-[280px]">
-                        <span className="text-[11px] text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Base...</span>
-                      </td>
-                      <td className="py-2.5 px-3 max-w-[320px]">
-                        <span className="text-[11px] text-muted-foreground">{contents[i]}</span>
-                      </td>
-                      <td className="py-2.5 px-3">
-                        <button className="h-6 px-2 rounded border border-border/50 inline-flex items-center gap-1 text-[10px] text-foreground hover:bg-muted transition-colors">
-                          <ExternalLink className="w-3 h-3" /> Open
-                        </button>
-                      </td>
-                      <td className="py-2.5 px-3">
-                        <button className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground">
-                          <ChevronRightSm className="w-3 h-3" />
-                          <span>Authors: Nicoleta Mirela Marin, Gheorghe... · Year: 2020</span>
-                        </button>
-                      </td>
-                    </tr>
+                    <Fragment key={i}>
+                      <tr
+                        onClick={() => setExpandedDoc(expandedDoc === i ? null : i)}
+                        className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${expandedDoc === i ? "bg-product-blue/5" : ""}`}
+                      >
+                        <td className="py-2.5 px-3">
+                          <div className="flex items-center gap-2">
+                            <FileText className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                            <span className="text-[11px] font-mono text-muted-foreground">{ids[i]}...</span>
+                          </div>
+                        </td>
+                        <td className="py-2.5 px-3 max-w-[280px]">
+                          <span className="text-[11px] text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Base...</span>
+                        </td>
+                        <td className="py-2.5 px-3 max-w-[320px]">
+                          <span className="text-[11px] text-muted-foreground">{contents[i]}</span>
+                        </td>
+                        <td className="py-2.5 px-3" onClick={(e) => e.stopPropagation()}>
+                          <button className="h-6 px-2 rounded border border-border/50 inline-flex items-center gap-1 text-[10px] text-foreground hover:bg-muted transition-colors">
+                            <ExternalLink className="w-3 h-3" /> Open
+                          </button>
+                        </td>
+                        <td className="py-2.5 px-3">
+                          <div className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+                            {expandedDoc === i ? <ChevronDown className="w-3 h-3" /> : <ChevronRightSm className="w-3 h-3" />}
+                            <span>Authors: Nicoleta Mirela Marin, Gheorghe... · Year: 2020</span>
+                          </div>
+                        </td>
+                      </tr>
+                      {expandedDoc === i && (
+                        <tr className="border-b border-border/20 bg-muted/20">
+                          <td colSpan={5} className="px-5 py-4">
+                            <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-2.5">All Metadata</div>
+                            <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-[11px]">
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">references:</span><span className="text-foreground">[]</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">title:</span><span className="text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Based on Maize Stalk</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">authors:</span><span className="text-foreground break-all">["Nicoleta Mirela Marin","Gheorghe Batrinescu","Ioana Stanculescu","Lucian Constantin","Nicolae Cristea","Alexandra Ionescu","Gina Traistaru"]</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">year:</span><span className="text-foreground">2020</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">doi:</span><span className="text-foreground"></span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">abstract:</span><span className="text-foreground"></span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">venue:</span><span className="text-foreground"></span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">citation_count:</span><span className="text-foreground">4</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">paper_id:</span><span className="text-foreground font-mono break-all">03f2d175c8d8bbc7d0c5885814d65c7222039584</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">database_name:</span><span className="text-foreground font-mono">hydrochloric-nb-test-6</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">pdf_url:</span><span className="text-foreground break-all">https://revistadechimie.ro/pdf/39 MARIN N.pdf</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">pdf_s3_key:</span><span className="text-foreground font-mono break-all">pdfs/hydrochloric-nb-test-6/2020/03f2d175c8d8bbc7d0c5885814d65c7222039584.pdf</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">chunk_id:</span><span className="text-foreground">0</span></div>
+                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">source_xml:</span><span className="text-foreground font-mono break-all">xml/hydrochloric-nb-test-6/2020/03f2d175c8d8bbc7d0c5885814d65c7222039584.xml</span></div>
+                              <div className="flex gap-2 col-span-2"><span className="text-muted-foreground min-w-[90px]">doc_id:</span><span className="text-foreground font-mono break-all">{ids[i]}99b73d084f7ca82326fcfd30f76230faeddbc2f851</span></div>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
                   );
                 })}
               </tbody>
