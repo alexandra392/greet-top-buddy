@@ -21,7 +21,11 @@ const AnalysisManagement = () => {
   const [orgForm, setOrgForm] = useState({
     name: "",
     category: "",
-    location: "",
+    street: "",
+    city: "",
+    region: "",
+    country: "",
+    postcode: "",
     website: "",
     description: "",
     email: "",
@@ -39,7 +43,7 @@ const AnalysisManagement = () => {
   const closeDialog = () => {
     setDialogMode(null);
     setEmailValue("");
-    setOrgForm({ name: "", category: "", location: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
+    setOrgForm({ name: "", category: "", street: "", city: "", region: "", country: "", postcode: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
     setCopied(false);
   };
 
@@ -236,8 +240,24 @@ const AnalysisManagement = () => {
                               </Select>
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-location" className="text-[11px]">Location</Label>
-                              <Input id="org-location" className="h-8 text-xs md:text-xs" value={orgForm.location} onChange={(e) => setOrgForm({ ...orgForm, location: e.target.value })} placeholder="City, Region, Country" />
+                              <Label htmlFor="org-street" className="text-[11px]">Street and number</Label>
+                              <Input id="org-street" className="h-8 text-xs md:text-xs" value={orgForm.street} onChange={(e) => setOrgForm({ ...orgForm, street: e.target.value })} placeholder="Main Street 12" />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="org-city" className="text-[11px]">City</Label>
+                              <Input id="org-city" className="h-8 text-xs md:text-xs" value={orgForm.city} onChange={(e) => setOrgForm({ ...orgForm, city: e.target.value })} placeholder="Berlin" />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="org-region" className="text-[11px]">Region</Label>
+                              <Input id="org-region" className="h-8 text-xs md:text-xs" value={orgForm.region} onChange={(e) => setOrgForm({ ...orgForm, region: e.target.value })} placeholder="Bavaria" />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="org-country" className="text-[11px]">Country</Label>
+                              <Input id="org-country" className="h-8 text-xs md:text-xs" value={orgForm.country} onChange={(e) => setOrgForm({ ...orgForm, country: e.target.value })} placeholder="Germany" />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="org-postcode" className="text-[11px]">Postcode</Label>
+                              <Input id="org-postcode" className="h-8 text-xs md:text-xs" value={orgForm.postcode} onChange={(e) => setOrgForm({ ...orgForm, postcode: e.target.value })} placeholder="10115" />
                             </div>
                             <div className="space-y-1">
                               <Label htmlFor="org-website" className="text-[11px]">Website</Label>
