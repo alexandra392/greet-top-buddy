@@ -815,7 +815,7 @@ const AnalysisManagement = () => {
                     "Results and discussions",
                   ];
                   return (
-                    <React.Fragment key={i}>
+                    <Fragment key={i}>
                       <tr
                         onClick={() => setExpandedDoc(expandedDoc === i ? null : i)}
                         className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${expandedDoc === i ? "bg-product-blue/5" : ""}`}
@@ -868,7 +868,7 @@ const AnalysisManagement = () => {
                           </td>
                         </tr>
                       )}
-                    </React.Fragment>
+                    </Fragment>
                   );
                 })}
               </tbody>
