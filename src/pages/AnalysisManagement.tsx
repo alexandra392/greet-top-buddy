@@ -851,7 +851,7 @@ const AnalysisManagement = () => {
                             <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-[11px]">
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">references:</span><span className="text-foreground">[]</span></div>
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">title:</span><span className="text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Based on Maize Stalk</span></div>
-                              <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">authors:</span><span className="text-foreground break-all">["Nicoleta Mirela Marin","Gheorghe Batrinescu","Ioana Stanculescu","Lucian Constantin","Nicolae Cristea","Alexandra Ionescu","Gina Traistaru"]</span></div>
+                              <div className="flex gap-2 col-span-2"><span className="text-muted-foreground min-w-[90px]">authors:</span><span className="text-foreground">Nicoleta Mirela Marin, Gheorghe Batrinescu, Ioana Stanculescu, Lucian Constantin, Nicolae Cristea, Alexandra Ionescu, Gina Traistaru</span></div>
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">year:</span><span className="text-foreground">2020</span></div>
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">doi:</span><span className="text-foreground"></span></div>
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">abstract:</span><span className="text-foreground"></span></div>
