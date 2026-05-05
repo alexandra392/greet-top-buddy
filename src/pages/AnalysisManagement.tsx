@@ -3,11 +3,42 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2 } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const AnalysisManagement = () => {
   const navigate = useNavigate();
+  const [addOpen, setAddOpen] = useState(false);
+  const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
+  const [emailValue, setEmailValue] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [orgLocation, setOrgLocation] = useState("");
+  const inviteLink = typeof window !== "undefined" ? `${window.location.origin}/invite/org/${Math.random().toString(36).slice(2, 10)}` : "";
+  const [copied, setCopied] = useState(false);
+
+  const openMode = (mode: "email" | "link" | "manual") => {
+    setAddOpen(false);
+    setDialogMode(mode);
+  };
+
+  const closeDialog = () => {
+    setDialogMode(null);
+    setEmailValue("");
+    setOrgName("");
+    setOrgLocation("");
+    setCopied(false);
+  };
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(inviteLink);
+    setCopied(true);
+    toast({ title: "Link copied", description: "Invite link copied to clipboard." });
+  };
 
   const databaseRepertoire = [
     { id: 1, name: "Wheat Straw Database", category: "Feedstock", records: 1245, lastUpdated: "2 days ago", status: "active" },
