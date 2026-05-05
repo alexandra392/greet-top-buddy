@@ -16,6 +16,40 @@ import { toast } from "@/hooks/use-toast";
 const AnalysisManagement = () => {
   const navigate = useNavigate();
   const [addOpen, setAddOpen] = useState(false);
+  const [dbDialogOpen, setDbDialogOpen] = useState(false);
+  const [dbForm, setDbForm] = useState({
+    name: "",
+    keywordInput: "",
+    keywords: [] as string[],
+    suggestKeyword: "",
+    suggestCount: "10",
+    fieldOfStudy: "",
+    yearFrom: "1960",
+    yearTo: "2026",
+    minCitations: "0",
+    maxPapers: "100",
+    biolink: false,
+  });
+  const addKeyword = () => {
+    const k = dbForm.keywordInput.trim();
+    if (!k) return;
+    setDbForm((p) => ({ ...p, keywords: [...p.keywords, k], keywordInput: "" }));
+  };
+  const removeKeyword = (k: string) => setDbForm((p) => ({ ...p, keywords: p.keywords.filter((x) => x !== k) }));
+  const estPapers = Math.round(parseInt(dbForm.maxPapers || "0", 10) * 0.67);
+  const estCost = (estPapers * 0.005).toFixed(2);
+  const closeDbDialog = () => {
+    setDbDialogOpen(false);
+    setDbForm({ name: "", keywordInput: "", keywords: [], suggestKeyword: "", suggestCount: "10", fieldOfStudy: "", yearFrom: "1960", yearTo: "2026", minCitations: "0", maxPapers: "100", biolink: false });
+  };
+  const createDatabase = () => {
+    if (!dbForm.name.trim()) {
+      toast({ title: "Database name required", description: "Please enter a name for the database.", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Database created", description: `${dbForm.name} has been added to the repertoire.` });
+    closeDbDialog();
+  };
   const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
   const [emailValue, setEmailValue] = useState("");
   const [inviteFirstName, setInviteFirstName] = useState("");
