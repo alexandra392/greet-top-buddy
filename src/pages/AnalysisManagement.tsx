@@ -532,7 +532,17 @@ const AnalysisManagement = () => {
                             <span className="text-[11px] text-muted-foreground">{db.timePerPaper}</span>
                           </td>
                           <td className="py-2.5 px-3 text-right">
-                            <span className="text-[11px] text-muted-foreground whitespace-nowrap">{db.elapsed}</span>
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="text-[11px] text-muted-foreground whitespace-nowrap cursor-help">{db.elapsed}</span>
+                                </TooltipTrigger>
+                                <TooltipContent side="top" className="max-w-xs text-left">
+                                  <p className="mb-1"><span className="font-bold">Elapsed:</span> Total time the pipeline has run so far (download → verify → convert → upload → index). Biolink analysis not included.</p>
+                                  <p><span className="font-bold">ETA:</span> Estimated time remaining until indexing completes.</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
                           </td>
                           <td className="py-2.5 px-3">
                             <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
