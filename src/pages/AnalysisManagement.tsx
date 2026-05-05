@@ -43,7 +43,7 @@ const AnalysisManagement = () => {
   const closeDialog = () => {
     setDialogMode(null);
     setEmailValue("");
-    setOrgForm({ name: "", category: "", location: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
+    setOrgForm({ name: "", category: "", street: "", city: "", region: "", country: "", postcode: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
     setCopied(false);
   };
 
