@@ -51,8 +51,12 @@ const AnalysisManagement = () => {
   const closeDialog = () => {
     setDialogMode(null);
     setEmailValue("");
-    setInviteName("");
+    setInviteFirstName("");
+    setInviteLastName("");
     setInviteOrg("");
+    setInviteTax("");
+    setInviteMessage(defaultMessage("", ""));
+    setMessageEdited(false);
     setOrgForm({ name: "", category: "", street: "", city: "", region: "", country: "", postcode: "", website: "", description: "", email: "", phone: "", personalEmail: "" });
     setCopied(false);
   };
