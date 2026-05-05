@@ -483,14 +483,12 @@ const AnalysisManagement = () => {
                           key={db.id}
                           className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}`}
                         >
-                          <td className="py-2.5 px-3">
+                          <td className="py-3 px-3">
                             <div className="flex items-center gap-2.5">
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                                <Database className="w-4 h-4 text-muted-foreground" strokeWidth={1.75} />
-                              </div>
-                              <div className="flex flex-col">
+                              <Database className="w-4 h-4 text-muted-foreground/70 flex-shrink-0" strokeWidth={1.75} />
+                              <div className="flex flex-col leading-tight">
                                 <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
-                                <span className="text-[10px] text-muted-foreground">index</span>
+                                <span className="text-[10px] text-muted-foreground/70">index</span>
                               </div>
                             </div>
                           </td>
@@ -546,20 +544,20 @@ const AnalysisManagement = () => {
                           </td>
                           <td className="py-2.5 px-3">
                             <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-                              <button title="Copy link" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <Link2 className="w-3 h-3 text-success" />
+                              <button title="Copy link" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-success hover:border-success/40 hover:bg-success/5 transition-colors">
+                                <Link2 className="w-3 h-3" />
                               </button>
-                              <button title="History" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <History className="w-3 h-3 text-muted-foreground" />
+                              <button title="History" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                <History className="w-3 h-3" />
                               </button>
-                              <button title="Run" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <Play className="w-3 h-3 text-product-blue" />
+                              <button title="Run" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-product-blue hover:border-product-blue/40 hover:bg-product-blue/5 transition-colors">
+                                <Play className="w-3 h-3" />
                               </button>
-                              <button title="Biolink" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <Sparkles className="w-3 h-3 text-application-purple" />
+                              <button title="Biolink" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-application-purple hover:border-application-purple/40 hover:bg-application-purple/5 transition-colors">
+                                <Sparkles className="w-3 h-3" />
                               </button>
-                              <button title="Refresh" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <RefreshCw className="w-3 h-3 text-foreground" />
+                              <button title="Refresh" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                <RefreshCw className="w-3 h-3" />
                               </button>
                             </div>
                           </td>
