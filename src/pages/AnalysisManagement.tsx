@@ -815,9 +815,8 @@ const AnalysisManagement = () => {
                     "Results and discussions",
                   ];
                   return (
-                    <>
+                    <React.Fragment key={i}>
                       <tr
-                        key={i}
                         onClick={() => setExpandedDoc(expandedDoc === i ? null : i)}
                         className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${expandedDoc === i ? "bg-product-blue/5" : ""}`}
                       >
