@@ -169,16 +169,6 @@ const AnalysisManagement = () => {
                     </div>
                   </button>
                   <button
-                    onClick={() => openMode("link")}
-                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
-                  >
-                    <Link2 className="w-3.5 h-3.5 text-success mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-[11px] font-semibold text-foreground">Share invite link</div>
-                      <div className="text-[10px] text-muted-foreground">Copy a link anyone can use</div>
-                    </div>
-                  </button>
-                  <button
                     onClick={() => openMode("manual")}
                     className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
                   >
