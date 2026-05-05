@@ -102,14 +102,14 @@ const AnalysisManagement = () => {
   };
 
   const databaseRepertoire = [
-    { id: 1, name: "Wheat Straw Database", category: "Feedstock", records: 1245, lastUpdated: "2 days ago", status: "active" },
-    { id: 2, name: "Biochar Database", category: "Materials", records: 892, lastUpdated: "1 week ago", status: "active" },
-    { id: 3, name: "Lignin Database", category: "Materials", records: 567, lastUpdated: "3 days ago", status: "active" },
-    { id: 4, name: "Sugar Beet Database", category: "Feedstock", records: 334, lastUpdated: "5 days ago", status: "active" },
-    { id: 5, name: "Cellulose Database", category: "Materials", records: 2156, lastUpdated: "1 day ago", status: "active" },
-    { id: 6, name: "Xylose Database", category: "Materials", records: 4521, lastUpdated: "4 hours ago", status: "syncing" },
-    { id: 7, name: "Hemicellulose Database", category: "Materials", records: 8934, lastUpdated: "6 hours ago", status: "active" },
-    { id: 8, name: "Corn Stover Database", category: "Feedstock", records: 156, lastUpdated: "2 weeks ago", status: "active" },
+    { id: 1, name: "Wheat Straw Database", category: "Feedstock", records: 1245, lastUpdated: "Mar 13, 2026, 1:02 PM", status: "open", pipelineDone: 12, pipelineTotal: 20, pipelineFailed: 8, biolink: "—", batchStatus: "Completed", timePerPaper: "16s", elapsed: "3m 10s elapsed" },
+    { id: 2, name: "Biochar Database", category: "Materials", records: 892, lastUpdated: "Mar 11, 2026, 12:22 PM", status: "open", pipelineDone: 0, pipelineTotal: 0, pipelineFailed: 0, biolink: "—", batchStatus: "—", timePerPaper: "—", elapsed: "—" },
+    { id: 3, name: "Lignin Database", category: "Materials", records: 567, lastUpdated: "Mar 9, 2026, 1:54 PM", status: "open", pipelineDone: 0, pipelineTotal: 0, pipelineFailed: 0, biolink: "—", batchStatus: "—", timePerPaper: "—", elapsed: "—" },
+    { id: 4, name: "Sugar Beet Database", category: "Feedstock", records: 334, lastUpdated: "Mar 6, 2026, 11:01 AM", status: "open", pipelineDone: 0, pipelineTotal: 0, pipelineFailed: 0, biolink: "—", batchStatus: "—", timePerPaper: "—", elapsed: "—" },
+    { id: 5, name: "Cellulose Database", category: "Materials", records: 2156, lastUpdated: "Mar 6, 2026, 7:45 AM", status: "open", pipelineDone: 0, pipelineTotal: 0, pipelineFailed: 0, biolink: "—", batchStatus: "—", timePerPaper: "—", elapsed: "—" },
+    { id: 6, name: "Xylose Database", category: "Materials", records: 4521, lastUpdated: "Mar 5, 2026, 4:30 PM", status: "open", pipelineDone: 0, pipelineTotal: 0, pipelineFailed: 0, biolink: "—", batchStatus: "—", timePerPaper: "—", elapsed: "—" },
+    { id: 7, name: "Hemicellulose Database", category: "Materials", records: 8934, lastUpdated: "Mar 5, 2026, 3:18 PM", status: "open", pipelineDone: 6, pipelineTotal: 10, pipelineFailed: 4, biolink: "Pending", batchStatus: "Completed", timePerPaper: "14s", elapsed: "1m 25s elapsed" },
+    { id: 8, name: "Corn Stover Database", category: "Feedstock", records: 156, lastUpdated: "Mar 5, 2026, 1:49 PM", status: "open", pipelineDone: 18, pipelineTotal: 28, pipelineFailed: 10, biolink: "—", batchStatus: "Completed", timePerPaper: "5s", elapsed: "1m 28s elapsed" },
   ];
 
   const organizations = [
