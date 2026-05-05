@@ -3,11 +3,42 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2 } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const AnalysisManagement = () => {
   const navigate = useNavigate();
+  const [addOpen, setAddOpen] = useState(false);
+  const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
+  const [emailValue, setEmailValue] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [orgLocation, setOrgLocation] = useState("");
+  const inviteLink = typeof window !== "undefined" ? `${window.location.origin}/invite/org/${Math.random().toString(36).slice(2, 10)}` : "";
+  const [copied, setCopied] = useState(false);
+
+  const openMode = (mode: "email" | "link" | "manual") => {
+    setAddOpen(false);
+    setDialogMode(mode);
+  };
+
+  const closeDialog = () => {
+    setDialogMode(null);
+    setEmailValue("");
+    setOrgName("");
+    setOrgLocation("");
+    setCopied(false);
+  };
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(inviteLink);
+    setCopied(true);
+    toast({ title: "Link copied", description: "Invite link copied to clipboard." });
+  };
 
   const databaseRepertoire = [
     { id: 1, name: "Wheat Straw Database", category: "Feedstock", records: 1245, lastUpdated: "2 days ago", status: "active" },
@@ -92,10 +123,106 @@ const AnalysisManagement = () => {
                   className="h-8 pl-8 text-xs md:text-xs bg-background border-border/40"
                 />
               </div>
-              <Button size="sm" className="ml-auto h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
-                <Plus className="w-3 h-3 mr-1" />
-                Add Organisation
-              </Button>
+              <Popover open={addOpen} onOpenChange={setAddOpen}>
+                <PopoverTrigger asChild>
+                  <Button size="sm" className="ml-auto h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
+                    <Plus className="w-3 h-3 mr-1" />
+                    Add Organisation
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-64 p-1.5">
+                  <button
+                    onClick={() => openMode("email")}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-success mt-0.5 shrink-0" />
+                    <div>
+                      <div className="text-[11px] font-semibold text-foreground">Invite via email</div>
+                      <div className="text-[10px] text-muted-foreground">Send an invitation by email</div>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => openMode("link")}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
+                  >
+                    <Link2 className="w-3.5 h-3.5 text-success mt-0.5 shrink-0" />
+                    <div>
+                      <div className="text-[11px] font-semibold text-foreground">Share invite link</div>
+                      <div className="text-[10px] text-muted-foreground">Copy a link anyone can use</div>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => openMode("manual")}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-md hover:bg-muted/60 transition-colors text-left"
+                  >
+                    <UserPlus className="w-3.5 h-3.5 text-success mt-0.5 shrink-0" />
+                    <div>
+                      <div className="text-[11px] font-semibold text-foreground">Add manually</div>
+                      <div className="text-[10px] text-muted-foreground">Create an organisation directly</div>
+                    </div>
+                  </button>
+                </PopoverContent>
+              </Popover>
+
+              <Dialog open={dialogMode !== null} onOpenChange={(o) => !o && closeDialog()}>
+                <DialogContent className="max-w-md">
+                  {dialogMode === "email" && (
+                    <>
+                      <DialogHeader>
+                        <DialogTitle>Invite via email</DialogTitle>
+                        <DialogDescription>Send an invitation to join as an organisation.</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-2">
+                        <Label htmlFor="invite-email" className="text-xs">Email address</Label>
+                        <Input id="invite-email" type="email" placeholder="name@organisation.com" value={emailValue} onChange={(e) => setEmailValue(e.target.value)} />
+                      </div>
+                      <DialogFooter>
+                        <Button variant="outline" size="sm" onClick={closeDialog}>Cancel</Button>
+                        <Button size="sm" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${emailValue}` }); closeDialog(); }} disabled={!emailValue}>Send invite</Button>
+                      </DialogFooter>
+                    </>
+                  )}
+                  {dialogMode === "link" && (
+                    <>
+                      <DialogHeader>
+                        <DialogTitle>Share invite link</DialogTitle>
+                        <DialogDescription>Anyone with this link can request to join.</DialogDescription>
+                      </DialogHeader>
+                      <div className="flex gap-2">
+                        <Input readOnly value={inviteLink} className="text-xs" />
+                        <Button size="sm" variant="outline" onClick={copyLink}>
+                          {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                        </Button>
+                      </div>
+                      <DialogFooter>
+                        <Button size="sm" onClick={closeDialog}>Done</Button>
+                      </DialogFooter>
+                    </>
+                  )}
+                  {dialogMode === "manual" && (
+                    <>
+                      <DialogHeader>
+                        <DialogTitle>Add organisation manually</DialogTitle>
+                        <DialogDescription>Create a new organisation record directly.</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-3">
+                        <div className="space-y-1.5">
+                          <Label htmlFor="org-name" className="text-xs">Organisation name</Label>
+                          <Input id="org-name" value={orgName} onChange={(e) => setOrgName(e.target.value)} placeholder="Acme Research Institute" />
+                        </div>
+                        <div className="space-y-1.5">
+                          <Label htmlFor="org-location" className="text-xs">Location</Label>
+                          <Input id="org-location" value={orgLocation} onChange={(e) => setOrgLocation(e.target.value)} placeholder="City, Country" />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button variant="outline" size="sm" onClick={closeDialog}>Cancel</Button>
+                        <Button size="sm" onClick={() => { toast({ title: "Organisation added", description: orgName }); closeDialog(); }} disabled={!orgName}>Create</Button>
+                      </DialogFooter>
+                    </>
+                  )}
+                </DialogContent>
+              </Dialog>
             </div>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
