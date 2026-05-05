@@ -535,7 +535,7 @@ const AnalysisManagement = () => {
                                 <TooltipTrigger asChild>
                                   <span className="text-[11px] text-muted-foreground whitespace-nowrap cursor-help">{db.elapsed}</span>
                                 </TooltipTrigger>
-                                <TooltipContent side="top" className="max-w-xs text-left">
+                                <TooltipContent side="top" align="end" collisionPadding={16} className="max-w-[260px] bg-foreground text-background border-foreground text-[11px] leading-snug px-2.5 py-2">
                                   <p className="mb-1"><span className="font-bold">Elapsed:</span> Total time the pipeline has run so far (download → verify → convert → upload → index). Biolink analysis not included.</p>
                                   <p><span className="font-bold">ETA:</span> Estimated time remaining until indexing completes.</p>
                                 </TooltipContent>
@@ -688,7 +688,7 @@ const AnalysisManagement = () => {
                       </span>
                     </TooltipTrigger>
                     {!dbForm.name.trim() && (
-                      <TooltipContent side="top">Enter a database name above to enable keyword suggestions</TooltipContent>
+                      <TooltipContent side="top" collisionPadding={16} className="max-w-[240px] bg-foreground text-background border-foreground text-[11px] leading-snug px-2.5 py-1.5">Enter a database name above to enable keyword suggestions</TooltipContent>
                     )}
                   </Tooltip>
                 </TooltipProvider>
@@ -731,8 +731,8 @@ const AnalysisManagement = () => {
                 <TooltipTrigger asChild>
                   <Button type="button" variant="outline" size="sm" className="h-7 px-2.5 text-[11px] self-start">Test parameters</Button>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-xs">
-                  Sends your current search parameters to Semantic Scholar and shows how many papers match—without creating a database. Useful to experiment with keywords, filters, and dates before committing, so you can tune your query for the best results.
+                <TooltipContent side="top" align="start" collisionPadding={16} className="max-w-[260px] bg-foreground text-background border-foreground text-[11px] leading-snug px-2.5 py-2">
+                  Sends your current search parameters to Semantic Scholar and shows how many papers match—without creating a database. Useful to tune keywords, filters, and dates before committing.
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
