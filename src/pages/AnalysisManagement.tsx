@@ -544,35 +544,40 @@ const AnalysisManagement = () => {
       </Tabs>
 
       <Dialog open={dbDialogOpen} onOpenChange={(o) => !o && closeDbDialog()}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Add New Database</DialogTitle>
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto p-5">
+          <DialogHeader className="space-y-0.5">
+            <DialogTitle className="text-sm font-bold tracking-tight">Add New Database</DialogTitle>
+            <DialogDescription className="text-[11px] text-muted-foreground">
+              Configure a new research database for analysis.
+            </DialogDescription>
           </DialogHeader>
-          <div className="space-y-5 pt-2">
-            <div className="space-y-2">
-              <Label>Database Name</Label>
+          <div className="space-y-3 pt-2">
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Database Name</Label>
               <Input
                 placeholder="Enter database name"
                 value={dbForm.name}
                 onChange={(e) => setDbForm({ ...dbForm, name: e.target.value })}
+                className="h-8 text-xs"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label>Search Keywords</Label>
-              <div className="flex gap-2">
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Search Keywords</Label>
+              <div className="flex gap-1.5">
                 <Input
                   placeholder="Type a keyword"
                   value={dbForm.keywordInput}
                   onChange={(e) => setDbForm({ ...dbForm, keywordInput: e.target.value })}
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addKeyword(); } }}
+                  className="h-8 text-xs"
                 />
-                <Button type="button" variant="outline" onClick={addKeyword}>Add</Button>
+                <Button type="button" variant="outline" size="sm" onClick={addKeyword} className="h-8 px-2.5 text-[11px]">Add</Button>
               </div>
               {dbForm.keywords.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <div className="flex flex-wrap gap-1 pt-1">
                   {dbForm.keywords.map((k) => (
-                    <Badge key={k} variant="secondary" className="cursor-pointer" onClick={() => removeKeyword(k)}>
+                    <Badge key={k} variant="secondary" className="cursor-pointer text-[10px] py-0 px-1.5" onClick={() => removeKeyword(k)}>
                       {k} ✕
                     </Badge>
                   ))}
@@ -580,88 +585,87 @@ const AnalysisManagement = () => {
               )}
             </div>
 
-            <div className="rounded-lg border border-border/40 bg-muted/30 p-4 space-y-3">
+            <div className="rounded-md border border-border/40 bg-muted/30 p-2.5 space-y-2">
               <div>
-                <div className="text-sm font-semibold">Keyword suggestions</div>
-                <div className="text-xs text-muted-foreground">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
+                <div className="text-xs font-semibold">Keyword suggestions</div>
+                <div className="text-[10px] text-muted-foreground">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
               </div>
-              <div className="grid grid-cols-[1fr_120px_auto] gap-2">
+              <div className="grid grid-cols-[1fr_80px_auto] gap-1.5">
                 <Input
                   placeholder="e.g. Fumaric acid"
                   disabled={!dbForm.name.trim()}
                   value={dbForm.suggestKeyword}
                   onChange={(e) => setDbForm({ ...dbForm, suggestKeyword: e.target.value })}
+                  className="h-7 text-xs"
                 />
                 <Select value={dbForm.suggestCount} onValueChange={(v) => setDbForm({ ...dbForm, suggestCount: v })} disabled={!dbForm.name.trim()}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    {["5", "10", "15", "20"].map((n) => <SelectItem key={n} value={n}>{n}</SelectItem>)}
+                    {["5", "10", "15", "20"].map((n) => <SelectItem key={n} value={n} className="text-xs">{n}</SelectItem>)}
                   </SelectContent>
                 </Select>
-                <Button type="button" variant="outline" disabled={!dbForm.name.trim()}>
-                  <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Get suggestions
+                <Button type="button" variant="outline" size="sm" disabled={!dbForm.name.trim()} className="h-7 px-2 text-[11px]">
+                  <Sparkles className="w-3 h-3 mr-1" /> Get suggestions
                 </Button>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label>Fields of Study</Label>
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Fields of Study</Label>
               <Select value={dbForm.fieldOfStudy} onValueChange={(v) => setDbForm({ ...dbForm, fieldOfStudy: v })}>
-                <SelectTrigger><SelectValue placeholder="Select field" /></SelectTrigger>
+                <SelectTrigger className="h-8 text-xs"><SelectValue placeholder="Select field" /></SelectTrigger>
                 <SelectContent>
                   {["Biology", "Chemistry", "Materials Science", "Engineering", "Agricultural Science", "Environmental Science"].map((f) => (
-                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                    <SelectItem key={f} value={f} className="text-xs">{f}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label>Date Range (Years)</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <Input value={dbForm.yearFrom} onChange={(e) => setDbForm({ ...dbForm, yearFrom: e.target.value })} />
-                  <Input value={dbForm.yearTo} onChange={(e) => setDbForm({ ...dbForm, yearTo: e.target.value })} />
-                </div>
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Date Range (Years)</Label>
+              <div className="grid grid-cols-2 gap-1.5">
+                <Input value={dbForm.yearFrom} onChange={(e) => setDbForm({ ...dbForm, yearFrom: e.target.value })} className="h-8 text-xs" />
+                <Input value={dbForm.yearTo} onChange={(e) => setDbForm({ ...dbForm, yearTo: e.target.value })} className="h-8 text-xs" />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <Label>Minimum Citations</Label>
-                <Input value={dbForm.minCitations} onChange={(e) => setDbForm({ ...dbForm, minCitations: e.target.value })} />
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Minimum Citations</Label>
+                <Input value={dbForm.minCitations} onChange={(e) => setDbForm({ ...dbForm, minCitations: e.target.value })} className="h-8 text-xs" />
               </div>
-              <div className="space-y-2">
-                <Label>Max Papers</Label>
-                <Input value={dbForm.maxPapers} onChange={(e) => setDbForm({ ...dbForm, maxPapers: e.target.value })} />
+              <div className="space-y-1">
+                <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Max Papers</Label>
+                <Input value={dbForm.maxPapers} onChange={(e) => setDbForm({ ...dbForm, maxPapers: e.target.value })} className="h-8 text-xs" />
               </div>
             </div>
 
-            <Button type="button" variant="outline" size="sm">Test parameters</Button>
+            <Button type="button" variant="outline" size="sm" className="h-7 px-2.5 text-[11px]">Test parameters</Button>
 
-            <div className="border-t border-border/40 pt-4 flex items-center gap-3">
+            <div className="border-t border-border/40 pt-2.5 flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}
-                className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${dbForm.biolink ? "bg-success" : "bg-muted"}`}
+                className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${dbForm.biolink ? "bg-success" : "bg-muted"}`}
               >
-                <span className={`inline-block h-4 w-4 transform rounded-full bg-background transition-transform ${dbForm.biolink ? "translate-x-4" : "translate-x-0.5"}`} />
+                <span className={`inline-block h-3 w-3 transform rounded-full bg-background transition-transform ${dbForm.biolink ? "translate-x-3.5" : "translate-x-0.5"}`} />
               </button>
-              <Label className="cursor-pointer" onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}>
+              <Label className="cursor-pointer text-xs" onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}>
                 Also do biolink analysis
               </Label>
             </div>
 
-            <div className="rounded-lg bg-muted/40 p-4">
-              <div className="text-xs text-muted-foreground mb-1">Estimated cost</div>
-              <div className="text-2xl font-bold">${estCost}</div>
-              <div className="text-[11px] text-muted-foreground mt-1">~{estPapers} papers at 67% success rate</div>
-              <div className="text-[11px] text-muted-foreground">Pipeline: ${estCost}</div>
+            <div className="rounded-md bg-muted/40 p-2.5">
+              <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-0.5">Estimated cost</div>
+              <div className="text-lg font-bold tracking-tight">${estCost}</div>
+              <div className="text-[10px] text-muted-foreground mt-0.5">~{estPapers} papers at 67% success rate</div>
+              <div className="text-[10px] text-muted-foreground">Pipeline: ${estCost}</div>
             </div>
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={closeDbDialog}>Cancel</Button>
-            <Button onClick={createDatabase} className="bg-success hover:bg-success/90 text-background">Create Database</Button>
+          <DialogFooter className="gap-2 pt-2">
+            <Button variant="outline" size="sm" onClick={closeDbDialog} className="h-8 px-3 text-[11px]">Cancel</Button>
+            <Button size="sm" onClick={createDatabase} className="h-8 px-3 text-[11px] bg-success hover:bg-success/90 text-background">Create Database</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
