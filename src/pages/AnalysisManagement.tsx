@@ -16,6 +16,40 @@ import { toast } from "@/hooks/use-toast";
 const AnalysisManagement = () => {
   const navigate = useNavigate();
   const [addOpen, setAddOpen] = useState(false);
+  const [dbDialogOpen, setDbDialogOpen] = useState(false);
+  const [dbForm, setDbForm] = useState({
+    name: "",
+    keywordInput: "",
+    keywords: [] as string[],
+    suggestKeyword: "",
+    suggestCount: "10",
+    fieldOfStudy: "",
+    yearFrom: "1960",
+    yearTo: "2026",
+    minCitations: "0",
+    maxPapers: "100",
+    biolink: false,
+  });
+  const addKeyword = () => {
+    const k = dbForm.keywordInput.trim();
+    if (!k) return;
+    setDbForm((p) => ({ ...p, keywords: [...p.keywords, k], keywordInput: "" }));
+  };
+  const removeKeyword = (k: string) => setDbForm((p) => ({ ...p, keywords: p.keywords.filter((x) => x !== k) }));
+  const estPapers = Math.round(parseInt(dbForm.maxPapers || "0", 10) * 0.67);
+  const estCost = (estPapers * 0.005).toFixed(2);
+  const closeDbDialog = () => {
+    setDbDialogOpen(false);
+    setDbForm({ name: "", keywordInput: "", keywords: [], suggestKeyword: "", suggestCount: "10", fieldOfStudy: "", yearFrom: "1960", yearTo: "2026", minCitations: "0", maxPapers: "100", biolink: false });
+  };
+  const createDatabase = () => {
+    if (!dbForm.name.trim()) {
+      toast({ title: "Database name required", description: "Please enter a name for the database.", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Database created", description: `${dbForm.name} has been added to the repertoire.` });
+    closeDbDialog();
+  };
   const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
   const [emailValue, setEmailValue] = useState("");
   const [inviteFirstName, setInviteFirstName] = useState("");
@@ -415,7 +449,7 @@ const AnalysisManagement = () => {
                   className="h-8 pl-8 text-xs md:text-xs bg-background border-border/40"
                 />
               </div>
-              <Button size="sm" className="ml-auto h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
+              <Button onClick={() => setDbDialogOpen(true)} size="sm" className="ml-auto h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium">
                 <Plus className="w-3 h-3 mr-1" />
                 Add Database
               </Button>
@@ -508,6 +542,129 @@ const AnalysisManagement = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <Dialog open={dbDialogOpen} onOpenChange={(o) => !o && closeDbDialog()}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Add New Database</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-5 pt-2">
+            <div className="space-y-2">
+              <Label>Database Name</Label>
+              <Input
+                placeholder="Enter database name"
+                value={dbForm.name}
+                onChange={(e) => setDbForm({ ...dbForm, name: e.target.value })}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Search Keywords</Label>
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Type a keyword"
+                  value={dbForm.keywordInput}
+                  onChange={(e) => setDbForm({ ...dbForm, keywordInput: e.target.value })}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addKeyword(); } }}
+                />
+                <Button type="button" variant="outline" onClick={addKeyword}>Add</Button>
+              </div>
+              {dbForm.keywords.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {dbForm.keywords.map((k) => (
+                    <Badge key={k} variant="secondary" className="cursor-pointer" onClick={() => removeKeyword(k)}>
+                      {k} ✕
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-lg border border-border/40 bg-muted/30 p-4 space-y-3">
+              <div>
+                <div className="text-sm font-semibold">Keyword suggestions</div>
+                <div className="text-xs text-muted-foreground">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
+              </div>
+              <div className="grid grid-cols-[1fr_120px_auto] gap-2">
+                <Input
+                  placeholder="e.g. Fumaric acid"
+                  disabled={!dbForm.name.trim()}
+                  value={dbForm.suggestKeyword}
+                  onChange={(e) => setDbForm({ ...dbForm, suggestKeyword: e.target.value })}
+                />
+                <Select value={dbForm.suggestCount} onValueChange={(v) => setDbForm({ ...dbForm, suggestCount: v })} disabled={!dbForm.name.trim()}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {["5", "10", "15", "20"].map((n) => <SelectItem key={n} value={n}>{n}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <Button type="button" variant="outline" disabled={!dbForm.name.trim()}>
+                  <Sparkles className="w-3.5 h-3.5 mr-1.5" /> Get suggestions
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Fields of Study</Label>
+              <Select value={dbForm.fieldOfStudy} onValueChange={(v) => setDbForm({ ...dbForm, fieldOfStudy: v })}>
+                <SelectTrigger><SelectValue placeholder="Select field" /></SelectTrigger>
+                <SelectContent>
+                  {["Biology", "Chemistry", "Materials Science", "Engineering", "Agricultural Science", "Environmental Science"].map((f) => (
+                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label>Date Range (Years)</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input value={dbForm.yearFrom} onChange={(e) => setDbForm({ ...dbForm, yearFrom: e.target.value })} />
+                  <Input value={dbForm.yearTo} onChange={(e) => setDbForm({ ...dbForm, yearTo: e.target.value })} />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label>Minimum Citations</Label>
+                <Input value={dbForm.minCitations} onChange={(e) => setDbForm({ ...dbForm, minCitations: e.target.value })} />
+              </div>
+              <div className="space-y-2">
+                <Label>Max Papers</Label>
+                <Input value={dbForm.maxPapers} onChange={(e) => setDbForm({ ...dbForm, maxPapers: e.target.value })} />
+              </div>
+            </div>
+
+            <Button type="button" variant="outline" size="sm">Test parameters</Button>
+
+            <div className="border-t border-border/40 pt-4 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}
+                className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${dbForm.biolink ? "bg-success" : "bg-muted"}`}
+              >
+                <span className={`inline-block h-4 w-4 transform rounded-full bg-background transition-transform ${dbForm.biolink ? "translate-x-4" : "translate-x-0.5"}`} />
+              </button>
+              <Label className="cursor-pointer" onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}>
+                Also do biolink analysis
+              </Label>
+            </div>
+
+            <div className="rounded-lg bg-muted/40 p-4">
+              <div className="text-xs text-muted-foreground mb-1">Estimated cost</div>
+              <div className="text-2xl font-bold">${estCost}</div>
+              <div className="text-[11px] text-muted-foreground mt-1">~{estPapers} papers at 67% success rate</div>
+              <div className="text-[11px] text-muted-foreground">Pipeline: ${estCost}</div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={closeDbDialog}>Cancel</Button>
+            <Button onClick={createDatabase} className="bg-success hover:bg-success/90 text-background">Create Database</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
