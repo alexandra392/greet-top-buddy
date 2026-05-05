@@ -246,29 +246,6 @@ const AnalysisManagement = () => {
                       </DialogFooter>
                     </>
                   )}
-                  {dialogMode === "link" && (
-                    <>
-                      <DialogHeader className="space-y-1.5">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-4 h-4 rounded-md bg-success/20 flex items-center justify-center">
-                            <Link2 className="w-2.5 h-2.5 text-success" />
-                          </div>
-                          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Invite</span>
-                        </div>
-                        <DialogTitle className="text-sm tracking-tight">Share invite link</DialogTitle>
-                        <DialogDescription className="text-[11px] leading-relaxed">Anyone with this link can request to join.</DialogDescription>
-                      </DialogHeader>
-                      <div className="flex gap-2">
-                        <Input readOnly value={inviteLink} className="h-8 text-xs md:text-xs" />
-                        <Button size="sm" variant="outline" className="h-8 text-xs" onClick={copyLink}>
-                          {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        </Button>
-                      </div>
-                      <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
-                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={closeDialog}>Done</Button>
-                      </DialogFooter>
-                    </>
-                  )}
                   {dialogMode === "manual" && (
                     <>
                       <DialogHeader className="space-y-1.5">
