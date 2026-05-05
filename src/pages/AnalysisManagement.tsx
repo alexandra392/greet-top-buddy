@@ -459,51 +459,78 @@ const AnalysisManagement = () => {
                 <table className="w-full">
                   <thead className="bg-muted/30 border-b border-border/30">
                     <tr>
-                      <th className="text-left py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Database</th>
-                      <th className="text-left py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Category</th>
-                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Records</th>
-                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Last Updated</th>
-                      <th className="text-right py-2 px-4 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Status</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Database Name</th>
+                      <th className="text-right py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Records</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Last Updated</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Status</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Pipeline Progress</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Biolink Analysis</th>
+                      <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Batch Status</th>
+                      <th className="text-right py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Time / Paper</th>
+                      <th className="text-right py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Elapsed / ETA</th>
                     </tr>
                   </thead>
                   <tbody>
                     {databaseRepertoire.map((db, index) => {
                       const isFeedstock = db.category === "Feedstock";
+                      const total = db.pipelineTotal;
+                      const donePct = total > 0 ? (db.pipelineDone / total) * 100 : 0;
+                      const failedPct = total > 0 ? (db.pipelineFailed / total) * 100 : 0;
                       return (
                         <tr
                           key={db.id}
                           className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}`}
                         >
-                          <td className="py-2.5 px-4">
+                          <td className="py-2.5 px-3">
                             <div className="flex items-center gap-2.5">
                               <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isFeedstock ? 'bg-success/10 border border-success/20' : 'bg-application-purple/10 border border-application-purple/20'}`}>
                                 <Database className={`w-3 h-3 ${isFeedstock ? 'text-success' : 'text-application-purple'}`} />
                               </div>
-                              <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
+                              <div className="flex flex-col">
+                                <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
+                                <span className="text-[10px] text-muted-foreground">index</span>
+                              </div>
                             </div>
                           </td>
-                          <td className="py-2.5 px-4">
-                            <span className={`text-[10px] font-bold tracking-widest uppercase ${isFeedstock ? 'text-success' : 'text-application-purple'}`}>
-                              {db.category}
-                            </span>
-                          </td>
-                          <td className="py-2.5 px-4 text-right">
+                          <td className="py-2.5 px-3 text-right">
                             <span className="text-xs text-foreground font-medium">{db.records.toLocaleString()}</span>
                           </td>
-                          <td className="py-2.5 px-4 text-right">
-                            <span className="text-[11px] text-muted-foreground">{db.lastUpdated}</span>
+                          <td className="py-2.5 px-3">
+                            <span className="text-[11px] text-muted-foreground whitespace-nowrap">{db.lastUpdated}</span>
                           </td>
-                          <td className="py-2.5 px-4 text-right">
-                            <Badge
-                              variant="outline"
-                              className={`text-[10px] font-bold tracking-wider uppercase ${
-                                db.status === 'syncing'
-                                  ? 'bg-product-blue/10 text-product-blue border-product-blue/30'
-                                  : 'bg-success/10 text-success border-success/30'
-                              }`}
-                            >
-                              {db.status === 'syncing' ? 'Syncing' : 'Active'}
+                          <td className="py-2.5 px-3">
+                            <Badge variant="outline" className="text-[10px] font-bold tracking-wider lowercase bg-success/10 text-success border-success/30">
+                              {db.status}
                             </Badge>
+                          </td>
+                          <td className="py-2.5 px-3">
+                            {total > 0 ? (
+                              <div className="flex flex-col gap-0.5 min-w-[110px]">
+                                <div className="flex h-1 rounded-full overflow-hidden bg-muted">
+                                  <div className="bg-success" style={{ width: `${donePct}%` }} />
+                                  <div className="bg-destructive" style={{ width: `${failedPct}%` }} />
+                                </div>
+                                <span className="text-[10px] text-muted-foreground">
+                                  Done ({db.pipelineDone}/{db.pipelineTotal}) · {db.pipelineFailed} failed
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-[11px] text-muted-foreground">—</span>
+                            )}
+                          </td>
+                          <td className="py-2.5 px-3">
+                            <span className={`text-[11px] ${db.biolink === "Pending" ? "text-application-purple font-medium" : "text-muted-foreground"}`}>
+                              {db.biolink}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3">
+                            <span className="text-[11px] text-muted-foreground">{db.batchStatus}</span>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="text-[11px] text-muted-foreground">{db.timePerPaper}</span>
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <span className="text-[11px] text-muted-foreground whitespace-nowrap">{db.elapsed}</span>
                           </td>
                         </tr>
                       );
