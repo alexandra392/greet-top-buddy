@@ -18,8 +18,16 @@ const AnalysisManagement = () => {
   const [addOpen, setAddOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
   const [emailValue, setEmailValue] = useState("");
-  const [orgName, setOrgName] = useState("");
-  const [orgLocation, setOrgLocation] = useState("");
+  const [orgForm, setOrgForm] = useState({
+    name: "",
+    category: "",
+    location: "",
+    website: "",
+    description: "",
+    email: "",
+    phone: "",
+    personalEmail: "",
+  });
   const inviteLink = typeof window !== "undefined" ? `${window.location.origin}/invite/org/${Math.random().toString(36).slice(2, 10)}` : "";
   const [copied, setCopied] = useState(false);
 
