@@ -26,6 +26,8 @@ const OrganizationManagement = () => {
   const [openStatusDropdown, setOpenStatusDropdown] = useState<number | null>(null);
   const [approvalDialog, setApprovalDialog] = useState<{ topicId: number; topicName: string; description: string } | null>(null);
   const [selectedDatabase, setSelectedDatabase] = useState<string>("");
+  const [addUserOpen, setAddUserOpen] = useState(false);
+  const [newUser, setNewUser] = useState({ firstName: "", lastName: "", email: "", role: "User" });
   const { toast } = useToast();
   
   // Sample analysis topics data - using state so we can update it
