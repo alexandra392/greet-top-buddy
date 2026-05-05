@@ -533,6 +533,25 @@ const AnalysisManagement = () => {
                           <td className="py-2.5 px-3 text-right">
                             <span className="text-[11px] text-muted-foreground whitespace-nowrap">{db.elapsed}</span>
                           </td>
+                          <td className="py-2.5 px-3">
+                            <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                              <button title="Copy link" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <Link2 className="w-3 h-3 text-success" />
+                              </button>
+                              <button title="History" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <History className="w-3 h-3 text-muted-foreground" />
+                              </button>
+                              <button title="Run" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <Play className="w-3 h-3 text-product-blue" />
+                              </button>
+                              <button title="Biolink" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <Sparkles className="w-3 h-3 text-application-purple" />
+                              </button>
+                              <button title="Refresh" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
+                                <RefreshCw className="w-3 h-3 text-foreground" />
+                              </button>
+                            </div>
+                          </td>
                         </tr>
                       );
                     })}
