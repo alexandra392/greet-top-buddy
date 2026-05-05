@@ -275,7 +275,7 @@ const AnalysisManagement = () => {
                         </section>
                       </div>
                       <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
-                        <Button variant="outline" size="sm" className="h-8 text-xs" onClick={closeDialog}>Cancel</Button>
+                        <Button variant="outline" size="sm" className="h-8 text-xs md:text-xs" onClick={closeDialog}>Cancel</Button>
                         <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${inviteFirstName} ${inviteLastName} at ${inviteOrg}` }); closeDialog(); }} disabled={!emailValue || !inviteFirstName || !inviteLastName || !inviteOrg}>Send invite</Button>
                       </DialogFooter>
                     </>
@@ -376,7 +376,7 @@ const AnalysisManagement = () => {
                         </section>
                       </div>
                       <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
-                        <Button variant="outline" size="sm" className="h-8 text-xs" onClick={closeDialog}>Cancel</Button>
+                        <Button variant="outline" size="sm" className="h-8 text-xs md:text-xs" onClick={closeDialog}>Cancel</Button>
                         <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Organisation added", description: orgForm.name }); closeDialog(); }} disabled={!orgForm.name}>Create organisation</Button>
                       </DialogFooter>
                     </>
@@ -558,7 +558,7 @@ const AnalysisManagement = () => {
                 placeholder="Enter database name"
                 value={dbForm.name}
                 onChange={(e) => setDbForm({ ...dbForm, name: e.target.value })}
-                className="h-8 text-xs"
+                className="h-8 text-xs md:text-xs"
               />
             </div>
 
@@ -570,7 +570,7 @@ const AnalysisManagement = () => {
                   value={dbForm.keywordInput}
                   onChange={(e) => setDbForm({ ...dbForm, keywordInput: e.target.value })}
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addKeyword(); } }}
-                  className="h-8 text-xs"
+                  className="h-8 text-xs md:text-xs"
                 />
                 <Button type="button" variant="outline" size="sm" onClick={addKeyword} className="h-8 px-2.5 text-[11px]">Add</Button>
               </div>
@@ -596,10 +596,10 @@ const AnalysisManagement = () => {
                   disabled={!dbForm.name.trim()}
                   value={dbForm.suggestKeyword}
                   onChange={(e) => setDbForm({ ...dbForm, suggestKeyword: e.target.value })}
-                  className="h-7 text-xs"
+                  className="h-7 text-xs md:text-xs"
                 />
                 <Select value={dbForm.suggestCount} onValueChange={(v) => setDbForm({ ...dbForm, suggestCount: v })} disabled={!dbForm.name.trim()}>
-                  <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="h-7 text-xs md:text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {["5", "10", "15", "20"].map((n) => <SelectItem key={n} value={n} className="text-xs">{n}</SelectItem>)}
                   </SelectContent>
@@ -613,7 +613,7 @@ const AnalysisManagement = () => {
             <div className="space-y-1">
               <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Fields of Study</Label>
               <Select value={dbForm.fieldOfStudy} onValueChange={(v) => setDbForm({ ...dbForm, fieldOfStudy: v })}>
-                <SelectTrigger className="h-8 text-xs"><SelectValue placeholder="Select field" /></SelectTrigger>
+                <SelectTrigger className="h-8 text-xs md:text-xs"><SelectValue placeholder="Select field" /></SelectTrigger>
                 <SelectContent>
                   {["Biology", "Chemistry", "Materials Science", "Engineering", "Agricultural Science", "Environmental Science"].map((f) => (
                     <SelectItem key={f} value={f} className="text-xs">{f}</SelectItem>
@@ -625,19 +625,19 @@ const AnalysisManagement = () => {
             <div className="space-y-1">
               <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Date Range (Years)</Label>
               <div className="grid grid-cols-2 gap-1.5">
-                <Input value={dbForm.yearFrom} onChange={(e) => setDbForm({ ...dbForm, yearFrom: e.target.value })} className="h-8 text-xs" />
-                <Input value={dbForm.yearTo} onChange={(e) => setDbForm({ ...dbForm, yearTo: e.target.value })} className="h-8 text-xs" />
+                <Input value={dbForm.yearFrom} onChange={(e) => setDbForm({ ...dbForm, yearFrom: e.target.value })} className="h-8 text-xs md:text-xs" />
+                <Input value={dbForm.yearTo} onChange={(e) => setDbForm({ ...dbForm, yearTo: e.target.value })} className="h-8 text-xs md:text-xs" />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
                 <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Minimum Citations</Label>
-                <Input value={dbForm.minCitations} onChange={(e) => setDbForm({ ...dbForm, minCitations: e.target.value })} className="h-8 text-xs" />
+                <Input value={dbForm.minCitations} onChange={(e) => setDbForm({ ...dbForm, minCitations: e.target.value })} className="h-8 text-xs md:text-xs" />
               </div>
               <div className="space-y-1">
                 <Label className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Max Papers</Label>
-                <Input value={dbForm.maxPapers} onChange={(e) => setDbForm({ ...dbForm, maxPapers: e.target.value })} className="h-8 text-xs" />
+                <Input value={dbForm.maxPapers} onChange={(e) => setDbForm({ ...dbForm, maxPapers: e.target.value })} className="h-8 text-xs md:text-xs" />
               </div>
             </div>
 
