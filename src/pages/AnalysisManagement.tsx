@@ -846,9 +846,9 @@ const AnalysisManagement = () => {
                       </tr>
                       {expandedDoc === i && (
                         <tr className="border-b border-border/20 bg-muted/20">
-                          <td colSpan={5} className="px-5 py-4">
-                            <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-2.5">All Metadata</div>
-                            <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-[11px]">
+                          <td colSpan={5} className="px-5 py-2.5">
+                            <div className="text-[9px] font-semibold tracking-[0.12em] uppercase text-muted-foreground/70 mb-1.5">All Metadata</div>
+                            <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-[10.5px]">
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">references:</span><span className="text-foreground">[]</span></div>
                               <div className="flex gap-2"><span className="text-muted-foreground min-w-[90px]">title:</span><span className="text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Based on Maize Stalk</span></div>
                               <div className="flex gap-2 col-span-2"><span className="text-muted-foreground min-w-[90px]">authors:</span><span className="text-foreground">Nicoleta Mirela Marin, Gheorghe Batrinescu, Ioana Stanculescu, Lucian Constantin, Nicolae Cristea, Alexandra Ionescu, Gina Traistaru</span></div>
