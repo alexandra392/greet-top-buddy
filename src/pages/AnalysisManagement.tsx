@@ -18,6 +18,8 @@ const AnalysisManagement = () => {
   const [addOpen, setAddOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
   const [emailValue, setEmailValue] = useState("");
+  const [inviteName, setInviteName] = useState("");
+  const [inviteOrg, setInviteOrg] = useState("");
   const [orgForm, setOrgForm] = useState({
     name: "",
     category: "",
