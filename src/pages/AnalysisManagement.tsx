@@ -21,7 +21,11 @@ const AnalysisManagement = () => {
   const [orgForm, setOrgForm] = useState({
     name: "",
     category: "",
-    location: "",
+    street: "",
+    city: "",
+    region: "",
+    country: "",
+    postcode: "",
     website: "",
     description: "",
     email: "",
