@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight, FileText, ExternalLink, ChevronDown, ChevronRight as ChevronRightSm } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -18,6 +18,9 @@ const AnalysisManagement = () => {
   const navigate = useNavigate();
   const [addOpen, setAddOpen] = useState(false);
   const [dbDialogOpen, setDbDialogOpen] = useState(false);
+  const [docsDb, setDocsDb] = useState<any>(null);
+  const [docsSearch, setDocsSearch] = useState("");
+  const [docsPage, setDocsPage] = useState(1);
   const [dbForm, setDbForm] = useState({
     name: "",
     keywordInput: "",
@@ -481,6 +484,7 @@ const AnalysisManagement = () => {
                       return (
                         <tr
                           key={db.id}
+                          onClick={() => { setDocsDb(db); setDocsSearch(""); setDocsPage(1); }}
                           className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}`}
                         >
                           <td className="py-3 px-3">
@@ -762,6 +766,102 @@ const AnalysisManagement = () => {
             <Button variant="outline" size="sm" onClick={closeDbDialog} className="h-8 px-3 text-[11px]">Cancel</Button>
             <Button size="sm" onClick={createDatabase} className="h-8 px-3 text-[11px] bg-success hover:bg-success/90 text-background">Create Database</Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!docsDb} onOpenChange={(o) => !o && setDocsDb(null)}>
+        <DialogContent className="max-w-6xl max-h-[88vh] overflow-hidden flex flex-col p-0">
+          <DialogHeader className="px-5 pt-5 pb-3 border-b border-border/30">
+            <DialogTitle className="text-sm font-bold tracking-tight">
+              Documents: <span className="font-mono text-xs">{docsDb?.name?.toLowerCase().replace(/\s+/g, "-")}-test-{docsDb?.id}</span>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="px-5 py-3 border-b border-border/30">
+            <div className="relative max-w-sm">
+              <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+              <Input
+                placeholder="Search documents..."
+                value={docsSearch}
+                onChange={(e) => setDocsSearch(e.target.value)}
+                className="h-8 pl-8 text-xs md:text-xs bg-background border-border/40"
+              />
+            </div>
+          </div>
+          <div className="flex-1 overflow-auto">
+            <table className="w-full">
+              <thead className="bg-muted/30 border-b border-border/30 sticky top-0">
+                <tr>
+                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">ID</th>
+                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Title</th>
+                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Content</th>
+                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">URL</th>
+                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Metadata</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: 10 }).map((_, i) => {
+                  const ids = ["7bf5cb045351e01e1dde67", "e0074fa7de79168e1530c6d", "a57f0ae76e811a2006badc", "ba911867049a0087bcdc1a", "201fc2f1767edba5df3f6ba", "89153adc4a904cf4f38cd8", "339659d925ba4db31fb4a1", "0fe128d241735d4891caad", "8cc8bb308afc4c6dbfa55c", "4059af94deed3a6b371767"];
+                  const contents = [
+                    "Introduction Nowadays the pollution of the environment with dangerous metals is one of the major pro...",
+                    "Materials and methods",
+                    "Acid treatment of maize stalk The sieved maize stalk was inserted into glass column with inside diam...",
+                    "Reagents In our experiments HCl 37% (density 1.16 g/mL) purchased from Merck, without traces of meta...",
+                    "Methodology for sorption experiments (metallic cation-maize stalk) in synthetic solution All sorptio...",
+                    "Methodology for desorption study For desorption study, the batch procedure was applied to verify the...",
+                    "Material characterization In order to detect organic groups involved in retention of the metallic ca...",
+                    "Calculation of Cu(II) and Fe(III) sorption The quantity of each metallic cation removed from synthet...",
+                    "X100% ( The amount of metallic cations removed at time t (Qt), was calculated by the next equation: ...",
+                    "Results and discussions",
+                  ];
+                  return (
+                    <tr key={i} className="border-b border-border/20 hover:bg-muted/20 transition-colors">
+                      <td className="py-2.5 px-3">
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                          <span className="text-[11px] font-mono text-muted-foreground">{ids[i]}...</span>
+                        </div>
+                      </td>
+                      <td className="py-2.5 px-3 max-w-[280px]">
+                        <span className="text-[11px] text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Base...</span>
+                      </td>
+                      <td className="py-2.5 px-3 max-w-[320px]">
+                        <span className="text-[11px] text-muted-foreground">{contents[i]}</span>
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <button className="h-6 px-2 rounded border border-border/50 inline-flex items-center gap-1 text-[10px] text-foreground hover:bg-muted transition-colors">
+                          <ExternalLink className="w-3 h-3" /> Open
+                        </button>
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <button className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground">
+                          <ChevronRightSm className="w-3 h-3" />
+                          <span>Authors: Nicoleta Mirela Marin, Gheorghe... · Year: 2020</span>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className="px-4 py-2.5 border-t border-border/30 flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <button className="h-7 px-2 rounded border border-border/50 flex items-center gap-1 text-[11px] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50" disabled={docsPage === 1} onClick={() => setDocsPage((p) => Math.max(1, p - 1))}>
+                <ChevronLeft className="w-3 h-3" /> Previous
+              </button>
+              {[1, 2, 3, 4].map((p) => (
+                <button key={p} onClick={() => setDocsPage(p)} className={`h-7 w-7 rounded border text-[11px] transition-colors ${p === docsPage ? "bg-foreground text-background border-foreground" : "border-border/50 text-foreground hover:bg-muted"}`}>
+                  {p}
+                </button>
+              ))}
+              <span className="px-1 text-[11px] text-muted-foreground">…</span>
+              <button onClick={() => setDocsPage(37)} className="h-7 w-7 rounded border border-border/50 text-[11px] text-foreground hover:bg-muted transition-colors">37</button>
+              <button onClick={() => setDocsPage((p) => p + 1)} className="h-7 px-2 rounded border border-border/50 flex items-center gap-1 text-[11px] text-foreground hover:bg-muted transition-colors">
+                Next <ChevronRight className="w-3 h-3" />
+              </button>
+            </div>
+            <span className="text-[11px] text-muted-foreground">Page {docsPage} of 37</span>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
