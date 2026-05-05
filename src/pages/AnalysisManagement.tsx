@@ -670,9 +670,20 @@ const AnalysisManagement = () => {
                     {["5", "10", "15", "20"].map((n) => <SelectItem key={n} value={n} className="text-xs">{n}</SelectItem>)}
                   </SelectContent>
                 </Select>
-                <Button type="button" variant="outline" size="sm" disabled={!dbForm.name.trim()} className="h-7 px-2 text-[11px] bg-background">
-                  <Sparkles className="w-3 h-3 mr-1" /> Get suggestions
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span tabIndex={0}>
+                        <Button type="button" variant="outline" size="sm" disabled={!dbForm.name.trim()} className="h-7 px-2 text-[11px] bg-background pointer-events-auto">
+                          <Sparkles className="w-3 h-3 mr-1" /> Get suggestions
+                        </Button>
+                      </span>
+                    </TooltipTrigger>
+                    {!dbForm.name.trim() && (
+                      <TooltipContent side="top">Enter a database name above to enable keyword suggestions</TooltipContent>
+                    )}
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
