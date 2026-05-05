@@ -812,11 +812,78 @@ const OrganizationManagement = () => {
                   <h3 className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Organisation Users</h3>
                   <p className="text-[11px] text-muted-foreground mt-0.5">Manage users, roles, and permissions.</p>
                 </div>
-                <Button size="sm" className="h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium flex-shrink-0">
+                <Button size="sm" onClick={() => setAddUserOpen(true)} className="h-7 px-2.5 bg-foreground hover:bg-foreground/90 text-background text-[11px] font-medium flex-shrink-0">
                   <Plus className="w-3 h-3 mr-1" />
                   Add User
                 </Button>
               </div>
+              <Dialog open={addUserOpen} onOpenChange={setAddUserOpen}>
+                <DialogContent className="max-w-lg">
+                  <DialogHeader className="space-y-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-4 h-4 rounded-md bg-success/20 flex items-center justify-center">
+                        <User className="w-2.5 h-2.5 text-success" />
+                      </div>
+                      <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">New User</span>
+                    </div>
+                    <DialogTitle className="text-sm tracking-tight">Add user to organisation</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="space-y-1">
+                        <label className="text-[11px] text-muted-foreground">First name <span className="text-destructive">*</span></label>
+                        <Input className="h-8 text-xs md:text-xs" placeholder="Jane" value={newUser.firstName} onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })} />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[11px] text-muted-foreground">Surname <span className="text-destructive">*</span></label>
+                        <Input className="h-8 text-xs md:text-xs" placeholder="Doe" value={newUser.lastName} onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })} />
+                      </div>
+                      <div className="space-y-1 col-span-2">
+                        <label className="text-[11px] text-muted-foreground">Email address <span className="text-destructive">*</span></label>
+                        <Input type="email" className="h-8 text-xs md:text-xs" placeholder="name@organisation.com" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} />
+                      </div>
+                      <div className="space-y-1 col-span-2">
+                        <label className="text-[11px] text-muted-foreground">Role</label>
+                        <Select value={newUser.role} onValueChange={(v) => setNewUser({ ...newUser, role: v })}>
+                          <SelectTrigger className="h-8 text-xs md:text-xs"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="User" className="text-xs">User</SelectItem>
+                            <SelectItem value="Admin" className="text-xs">Admin</SelectItem>
+                            <SelectItem value="Owner" className="text-xs">Owner</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-2 border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
+                    <Button variant="outline" size="sm" className="h-8 text-xs" onClick={() => setAddUserOpen(false)}>Cancel</Button>
+                    <Button
+                      size="sm"
+                      className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground"
+                      disabled={!newUser.firstName || !newUser.lastName || !newUser.email}
+                      onClick={() => {
+                        const fullName = `${newUser.firstName} ${newUser.lastName}`.trim();
+                        setUsers((prev) => [
+                          ...prev,
+                          {
+                            id: Math.max(0, ...prev.map((u) => u.id)) + 1,
+                            name: fullName,
+                            email: newUser.email,
+                            role: newUser.role,
+                            lastLogin: "Never",
+                            status: "Active",
+                            analyses: 0,
+                            topics: [],
+                          },
+                        ]);
+                        toast({ title: "User added", description: `${fullName} has been added to the organisation.` });
+                        setAddUserOpen(false);
+                        setNewUser({ firstName: "", lastName: "", email: "", role: "User" });
+                      }}
+                    >Add user</Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full">
