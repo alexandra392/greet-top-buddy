@@ -21,6 +21,7 @@ const AnalysisManagement = () => {
   const [docsDb, setDocsDb] = useState<any>(null);
   const [docsSearch, setDocsSearch] = useState("");
   const [docsPage, setDocsPage] = useState(1);
+  const [expandedDoc, setExpandedDoc] = useState<number | null>(null);
   const [dbForm, setDbForm] = useState({
     name: "",
     keywordInput: "",
