@@ -214,20 +214,29 @@ const AnalysisManagement = () => {
                   )}
                   {dialogMode === "manual" && (
                     <>
-                      <DialogHeader>
-                        <DialogTitle className="text-sm">Add organisation manually</DialogTitle>
-                        <DialogDescription className="text-xs">Create a new organisation record with full details.</DialogDescription>
+                      <DialogHeader className="space-y-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-4 h-4 rounded-md bg-success/20 flex items-center justify-center">
+                            <UserPlus className="w-2.5 h-2.5 text-success" />
+                          </div>
+                          <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">New Organisation</span>
+                        </div>
+                        <DialogTitle className="text-sm tracking-tight">Add organisation manually</DialogTitle>
+                        <DialogDescription className="text-[11px] leading-relaxed">Create a new organisation record with full details.</DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
-                        <div className="space-y-2">
-                          <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Organisation</div>
-                          <div className="grid grid-cols-3 gap-2">
+                      <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1 -mr-1">
+                        <section className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Organisation</span>
+                            <div className="h-px flex-1 bg-border/60" />
+                          </div>
+                          <div className="grid grid-cols-3 gap-3">
                             <div className="space-y-1 col-span-2">
-                              <Label htmlFor="org-name" className="text-[11px]">Organisation name</Label>
+                              <Label htmlFor="org-name" className="text-[11px] text-muted-foreground">Organisation name</Label>
                               <Input id="org-name" className="h-8 text-xs md:text-xs" value={orgForm.name} onChange={(e) => setOrgForm({ ...orgForm, name: e.target.value })} placeholder="Acme Research Institute" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-category" className="text-[11px]">Category</Label>
+                              <Label htmlFor="org-category" className="text-[11px] text-muted-foreground">Category</Label>
                               <Select value={orgForm.category} onValueChange={(v) => setOrgForm({ ...orgForm, category: v })}>
                                 <SelectTrigger id="org-category" className="h-8 text-xs md:text-xs"><SelectValue placeholder="Select category" /></SelectTrigger>
                                 <SelectContent>
@@ -241,60 +250,66 @@ const AnalysisManagement = () => {
                             </div>
                           </div>
                           <div className="space-y-1">
-                            <Label htmlFor="org-description" className="text-[11px]">Description</Label>
-                            <Textarea id="org-description" className="text-xs min-h-[56px]" value={orgForm.description} onChange={(e) => setOrgForm({ ...orgForm, description: e.target.value })} placeholder="Brief description of the organisation..." rows={2} />
+                            <Label htmlFor="org-description" className="text-[11px] text-muted-foreground">Description</Label>
+                            <Textarea id="org-description" className="text-xs min-h-[56px] resize-none" value={orgForm.description} onChange={(e) => setOrgForm({ ...orgForm, description: e.target.value })} placeholder="Brief description of the organisation..." rows={2} />
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Address</div>
-                          <div className="grid grid-cols-3 gap-2">
+                        </section>
+                        <section className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Address</span>
+                            <div className="h-px flex-1 bg-border/60" />
+                          </div>
+                          <div className="grid grid-cols-3 gap-3">
                             <div className="space-y-1 col-span-2">
-                              <Label htmlFor="org-street" className="text-[11px]">Street and number</Label>
+                              <Label htmlFor="org-street" className="text-[11px] text-muted-foreground">Street and number</Label>
                               <Input id="org-street" className="h-8 text-xs md:text-xs" value={orgForm.street} onChange={(e) => setOrgForm({ ...orgForm, street: e.target.value })} placeholder="Main Street 12" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-postcode" className="text-[11px]">Postcode</Label>
+                              <Label htmlFor="org-postcode" className="text-[11px] text-muted-foreground">Postcode</Label>
                               <Input id="org-postcode" className="h-8 text-xs md:text-xs" value={orgForm.postcode} onChange={(e) => setOrgForm({ ...orgForm, postcode: e.target.value })} placeholder="10115" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-city" className="text-[11px]">City</Label>
+                              <Label htmlFor="org-city" className="text-[11px] text-muted-foreground">City</Label>
                               <Input id="org-city" className="h-8 text-xs md:text-xs" value={orgForm.city} onChange={(e) => setOrgForm({ ...orgForm, city: e.target.value })} placeholder="Berlin" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-region" className="text-[11px]">Region</Label>
+                              <Label htmlFor="org-region" className="text-[11px] text-muted-foreground">Region</Label>
                               <Input id="org-region" className="h-8 text-xs md:text-xs" value={orgForm.region} onChange={(e) => setOrgForm({ ...orgForm, region: e.target.value })} placeholder="Bavaria" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-country" className="text-[11px]">Country</Label>
+                              <Label htmlFor="org-country" className="text-[11px] text-muted-foreground">Country</Label>
                               <Input id="org-country" className="h-8 text-xs md:text-xs" value={orgForm.country} onChange={(e) => setOrgForm({ ...orgForm, country: e.target.value })} placeholder="Germany" />
                             </div>
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Contact information</div>
-                          <div className="grid grid-cols-3 gap-2">
+                        </section>
+                        <section className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Contact</span>
+                            <div className="h-px flex-1 bg-border/60" />
+                          </div>
+                          <div className="grid grid-cols-3 gap-3">
                             <div className="space-y-1">
-                              <Label htmlFor="org-website" className="text-[11px]">Website</Label>
+                              <Label htmlFor="org-website" className="text-[11px] text-muted-foreground">Website</Label>
                               <Input id="org-website" className="h-8 text-xs md:text-xs" value={orgForm.website} onChange={(e) => setOrgForm({ ...orgForm, website: e.target.value })} placeholder="https://example.org" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-email" className="text-[11px]">Email</Label>
+                              <Label htmlFor="org-email" className="text-[11px] text-muted-foreground">Email</Label>
                               <Input id="org-email" className="h-8 text-xs md:text-xs" type="email" value={orgForm.email} onChange={(e) => setOrgForm({ ...orgForm, email: e.target.value })} placeholder="info@organisation.org" />
                             </div>
                             <div className="space-y-1">
-                              <Label htmlFor="org-phone" className="text-[11px]">Phone</Label>
+                              <Label htmlFor="org-phone" className="text-[11px] text-muted-foreground">Phone</Label>
                               <Input id="org-phone" className="h-8 text-xs md:text-xs" value={orgForm.phone} onChange={(e) => setOrgForm({ ...orgForm, phone: e.target.value })} placeholder="+49 30 1234 5678" />
                             </div>
                             <div className="space-y-1 col-span-3">
-                              <Label htmlFor="org-personal" className="text-[11px]">Personal contact email</Label>
+                              <Label htmlFor="org-personal" className="text-[11px] text-muted-foreground">Personal contact email</Label>
                               <Input id="org-personal" className="h-8 text-xs md:text-xs" type="email" value={orgForm.personalEmail} onChange={(e) => setOrgForm({ ...orgForm, personalEmail: e.target.value })} placeholder="contact@organisation.org" />
                             </div>
                           </div>
-                        </div>
+                        </section>
                       </div>
-                      <DialogFooter>
+                      <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
                         <Button variant="outline" size="sm" className="h-8 text-xs" onClick={closeDialog}>Cancel</Button>
-                        <Button size="sm" className="h-8 text-xs" onClick={() => { toast({ title: "Organisation added", description: orgForm.name }); closeDialog(); }} disabled={!orgForm.name}>Create</Button>
+                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Organisation added", description: orgForm.name }); closeDialog(); }} disabled={!orgForm.name}>Create organisation</Button>
                       </DialogFooter>
                     </>
                   )}
