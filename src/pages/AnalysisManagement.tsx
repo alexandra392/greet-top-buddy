@@ -18,8 +18,14 @@ const AnalysisManagement = () => {
   const [addOpen, setAddOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<null | "email" | "link" | "manual">(null);
   const [emailValue, setEmailValue] = useState("");
-  const [inviteName, setInviteName] = useState("");
+  const [inviteFirstName, setInviteFirstName] = useState("");
+  const [inviteLastName, setInviteLastName] = useState("");
   const [inviteOrg, setInviteOrg] = useState("");
+  const [inviteTax, setInviteTax] = useState("");
+  const defaultMessage = (first: string, org: string) =>
+    `Hi ${first || "there"},\n\nYou've been invited to join the VCG platform${org ? ` on behalf of ${org}` : ""}. The platform helps you explore value chains, manage analyses and collaborate with stakeholders across the bioeconomy.\n\nClick the link in this invitation to set up your account and get started.\n\nLooking forward to having you onboard,\nThe VCG Team`;
+  const [inviteMessage, setInviteMessage] = useState(defaultMessage("", ""));
+  const [messageEdited, setMessageEdited] = useState(false);
   const [orgForm, setOrgForm] = useState({
     name: "",
     category: "",
