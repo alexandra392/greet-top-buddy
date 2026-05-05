@@ -483,14 +483,12 @@ const AnalysisManagement = () => {
                           key={db.id}
                           className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}`}
                         >
-                          <td className="py-2.5 px-3">
+                          <td className="py-3 px-3">
                             <div className="flex items-center gap-2.5">
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                                <Database className="w-4 h-4 text-muted-foreground" strokeWidth={1.75} />
-                              </div>
-                              <div className="flex flex-col">
+                              <Database className="w-4 h-4 text-muted-foreground/70 flex-shrink-0" strokeWidth={1.75} />
+                              <div className="flex flex-col leading-tight">
                                 <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
-                                <span className="text-[10px] text-muted-foreground">index</span>
+                                <span className="text-[10px] text-muted-foreground/70">index</span>
                               </div>
                             </div>
                           </td>
