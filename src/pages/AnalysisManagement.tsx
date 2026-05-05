@@ -868,7 +868,7 @@ const AnalysisManagement = () => {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </tbody>
