@@ -219,13 +219,13 @@ const AnalysisManagement = () => {
                           <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Organisation</div>
                           <div className="space-y-1">
                             <Label htmlFor="org-name" className="text-[11px]">Organisation name</Label>
-                            <Input id="org-name" className="h-8 text-xs" value={orgForm.name} onChange={(e) => setOrgForm({ ...orgForm, name: e.target.value })} placeholder="Acme Research Institute" />
+                            <Input id="org-name" className="h-8 text-xs md:text-xs" value={orgForm.name} onChange={(e) => setOrgForm({ ...orgForm, name: e.target.value })} placeholder="Acme Research Institute" />
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             <div className="space-y-1">
                               <Label htmlFor="org-category" className="text-[11px]">Category</Label>
                               <Select value={orgForm.category} onValueChange={(v) => setOrgForm({ ...orgForm, category: v })}>
-                                <SelectTrigger id="org-category" className="h-8 text-xs"><SelectValue placeholder="Select category" /></SelectTrigger>
+                                <SelectTrigger id="org-category" className="h-8 text-xs md:text-xs"><SelectValue placeholder="Select category" /></SelectTrigger>
                                 <SelectContent>
                                   <SelectItem value="Public Sector Initiative">Public Sector Initiative</SelectItem>
                                   <SelectItem value="Research Institution">Research Institution</SelectItem>
@@ -237,12 +237,12 @@ const AnalysisManagement = () => {
                             </div>
                             <div className="space-y-1">
                               <Label htmlFor="org-location" className="text-[11px]">Location</Label>
-                              <Input id="org-location" className="h-8 text-xs" value={orgForm.location} onChange={(e) => setOrgForm({ ...orgForm, location: e.target.value })} placeholder="City, Region, Country" />
+                              <Input id="org-location" className="h-8 text-xs md:text-xs" value={orgForm.location} onChange={(e) => setOrgForm({ ...orgForm, location: e.target.value })} placeholder="City, Region, Country" />
                             </div>
                           </div>
                           <div className="space-y-1">
                             <Label htmlFor="org-website" className="text-[11px]">Website</Label>
-                            <Input id="org-website" className="h-8 text-xs" value={orgForm.website} onChange={(e) => setOrgForm({ ...orgForm, website: e.target.value })} placeholder="https://example.org" />
+                            <Input id="org-website" className="h-8 text-xs md:text-xs" value={orgForm.website} onChange={(e) => setOrgForm({ ...orgForm, website: e.target.value })} placeholder="https://example.org" />
                           </div>
                           <div className="space-y-1">
                             <Label htmlFor="org-description" className="text-[11px]">Description</Label>
@@ -253,15 +253,15 @@ const AnalysisManagement = () => {
                           <div className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Contact information</div>
                           <div className="space-y-1">
                             <Label htmlFor="org-email" className="text-[11px]">Email</Label>
-                            <Input id="org-email" className="h-8 text-xs" type="email" value={orgForm.email} onChange={(e) => setOrgForm({ ...orgForm, email: e.target.value })} placeholder="info@organisation.org" />
+                            <Input id="org-email" className="h-8 text-xs md:text-xs" type="email" value={orgForm.email} onChange={(e) => setOrgForm({ ...orgForm, email: e.target.value })} placeholder="info@organisation.org" />
                           </div>
                           <div className="space-y-1">
                             <Label htmlFor="org-phone" className="text-[11px]">Phone</Label>
-                            <Input id="org-phone" className="h-8 text-xs" value={orgForm.phone} onChange={(e) => setOrgForm({ ...orgForm, phone: e.target.value })} placeholder="+49 30 1234 5678" />
+                            <Input id="org-phone" className="h-8 text-xs md:text-xs" value={orgForm.phone} onChange={(e) => setOrgForm({ ...orgForm, phone: e.target.value })} placeholder="+49 30 1234 5678" />
                           </div>
                           <div className="space-y-1">
                             <Label htmlFor="org-personal" className="text-[11px]">Personal contact email</Label>
-                            <Input id="org-personal" className="h-8 text-xs" type="email" value={orgForm.personalEmail} onChange={(e) => setOrgForm({ ...orgForm, personalEmail: e.target.value })} placeholder="contact@organisation.org" />
+                            <Input id="org-personal" className="h-8 text-xs md:text-xs" type="email" value={orgForm.personalEmail} onChange={(e) => setOrgForm({ ...orgForm, personalEmail: e.target.value })} placeholder="contact@organisation.org" />
                           </div>
                         </div>
                       </div>
