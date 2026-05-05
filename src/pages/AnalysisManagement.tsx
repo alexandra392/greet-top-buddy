@@ -800,7 +800,22 @@ const AnalysisManagement = () => {
                 </tr>
               </thead>
               <tbody>
-...
+                {Array.from({ length: 10 }).map((_, i) => {
+                  const ids = ["7bf5cb045351e01e1dde67", "e0074fa7de79168e1530c6d", "a57f0ae76e811a2006badc", "ba911867049a0087bcdc1a", "201fc2f1767edba5df3f6ba", "89153adc4a904cf4f38cd8", "339659d925ba4db31fb4a1", "0fe128d241735d4891caad", "8cc8bb308afc4c6dbfa55c", "4059af94deed3a6b371767"];
+                  const contents = [
+                    "Introduction Nowadays the pollution of the environment with dangerous metals is one of the major pro...",
+                    "Materials and methods",
+                    "Acid treatment of maize stalk The sieved maize stalk was inserted into glass column with inside diam...",
+                    "Reagents In our experiments HCl 37% (density 1.16 g/mL) purchased from Merck, without traces of meta...",
+                    "Methodology for sorption experiments (metallic cation-maize stalk) in synthetic solution All sorptio...",
+                    "Methodology for desorption study For desorption study, the batch procedure was applied to verify the...",
+                    "Material characterization In order to detect organic groups involved in retention of the metallic ca...",
+                    "Calculation of Cu(II) and Fe(III) sorption The quantity of each metallic cation removed from synthet...",
+                    "X100% ( The amount of metallic cations removed at time t (Qt), was calculated by the next equation: ...",
+                    "Results and discussions",
+                  ];
+                  return (
+                    <Fragment key={i}>
                       <tr
                         onClick={() => setExpandedDoc(expandedDoc === i ? null : i)}
                         className={`border-b border-border/15 hover:bg-muted/15 transition-colors cursor-pointer ${expandedDoc === i ? "bg-product-blue/5" : ""}`}
