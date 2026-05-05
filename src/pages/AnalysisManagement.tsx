@@ -585,7 +585,7 @@ const AnalysisManagement = () => {
               )}
             </div>
 
-            <div className="rounded-md border border-border bg-muted-foreground/10 p-2.5 space-y-2">
+            <div className="rounded-md border border-border bg-muted p-2.5 space-y-2">
               <div>
                 <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Keyword Suggestions</div>
                 <div className="text-[11px] text-muted-foreground mt-0.5">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
@@ -643,7 +643,7 @@ const AnalysisManagement = () => {
 
             <Button type="button" variant="outline" size="sm" className="h-7 px-2.5 text-[11px]">Test parameters</Button>
 
-            <div className="rounded-md border border-border bg-muted-foreground/10 p-2.5 flex items-center gap-2.5">
+            <div className="rounded-md border border-border bg-muted p-2.5 flex items-center gap-2.5">
               <button
                 type="button"
                 onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}
@@ -656,7 +656,7 @@ const AnalysisManagement = () => {
               </Label>
             </div>
 
-            <div className="rounded-md border border-border bg-muted-foreground/10 p-2.5 flex items-center justify-between">
+            <div className="rounded-md border border-border bg-muted p-2.5 flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Estimated Cost</div>
                 <div className="text-[10px] text-muted-foreground mt-0.5">~{estPapers} papers at 67% success rate · Pipeline: ${estCost}</div>
