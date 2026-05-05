@@ -585,26 +585,26 @@ const AnalysisManagement = () => {
               )}
             </div>
 
-            <div className="rounded-md border border-border/60 bg-muted/70 p-2.5 space-y-2">
+            <div className="rounded-md border border-border/60 bg-muted/60 p-2.5 space-y-2">
               <div>
-                <div className="text-xs font-semibold">Keyword suggestions</div>
-                <div className="text-[10px] text-muted-foreground">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
+                <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Keyword Suggestions</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
               </div>
-              <div className="grid grid-cols-[1fr_80px_auto] gap-1.5">
+              <div className="grid grid-cols-[1fr_72px_auto] gap-1.5">
                 <Input
                   placeholder="e.g. Fumaric acid"
                   disabled={!dbForm.name.trim()}
                   value={dbForm.suggestKeyword}
                   onChange={(e) => setDbForm({ ...dbForm, suggestKeyword: e.target.value })}
-                  className="h-7 text-xs md:text-xs"
+                  className="h-7 text-xs md:text-xs bg-background"
                 />
                 <Select value={dbForm.suggestCount} onValueChange={(v) => setDbForm({ ...dbForm, suggestCount: v })} disabled={!dbForm.name.trim()}>
-                  <SelectTrigger className="h-7 text-xs md:text-xs"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="h-7 text-xs md:text-xs bg-background"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {["5", "10", "15", "20"].map((n) => <SelectItem key={n} value={n} className="text-xs">{n}</SelectItem>)}
                   </SelectContent>
                 </Select>
-                <Button type="button" variant="outline" size="sm" disabled={!dbForm.name.trim()} className="h-7 px-2 text-[11px]">
+                <Button type="button" variant="outline" size="sm" disabled={!dbForm.name.trim()} className="h-7 px-2 text-[11px] bg-background">
                   <Sparkles className="w-3 h-3 mr-1" /> Get suggestions
                 </Button>
               </div>
@@ -643,7 +643,7 @@ const AnalysisManagement = () => {
 
             <Button type="button" variant="outline" size="sm" className="h-7 px-2.5 text-[11px]">Test parameters</Button>
 
-            <div className="rounded-md border border-border/40 bg-muted/30 p-2.5 flex items-center gap-2.5">
+            <div className="rounded-md border border-border/60 bg-muted/60 p-2.5 flex items-center gap-2.5">
               <button
                 type="button"
                 onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}
@@ -656,11 +656,12 @@ const AnalysisManagement = () => {
               </Label>
             </div>
 
-            <div className="rounded-md border border-border/60 bg-muted/70 p-2.5">
-              <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-0.5">Estimated cost</div>
-              <div className="text-lg font-bold tracking-tight">${estCost}</div>
-              <div className="text-[10px] text-muted-foreground mt-0.5">~{estPapers} papers at 67% success rate</div>
-              <div className="text-[10px] text-muted-foreground">Pipeline: ${estCost}</div>
+            <div className="rounded-md border border-border/60 bg-muted/60 p-2.5 flex items-center justify-between">
+              <div>
+                <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">Estimated Cost</div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">~{estPapers} papers at 67% success rate · Pipeline: ${estCost}</div>
+              </div>
+              <div className="text-base font-bold tracking-tight">${estCost}</div>
             </div>
           </div>
           <DialogFooter className="gap-2 pt-2">
