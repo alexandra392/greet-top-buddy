@@ -718,7 +718,16 @@ const AnalysisManagement = () => {
               </div>
             </div>
 
-            <Button type="button" variant="outline" size="sm" className="h-7 px-2.5 text-[11px]">Test parameters</Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button type="button" variant="outline" size="sm" className="h-7 px-2.5 text-[11px] self-start">Test parameters</Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs">
+                  Sends your current search parameters to Semantic Scholar and shows how many papers match—without creating a database. Useful to experiment with keywords, filters, and dates before committing, so you can tune your query for the best results.
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
             <div className="rounded-md border border-border bg-muted p-2.5 flex items-center gap-2.5">
               <button
