@@ -693,7 +693,7 @@ const AnalysisManagement = () => {
                       </span>
                     </TooltipTrigger>
                     {!dbForm.name.trim() && (
-                      <TooltipContent side="top" collisionPadding={16} className="max-w-[240px] bg-foreground text-background border-foreground text-[11px] leading-snug px-2.5 py-1.5">Enter a database name above to enable keyword suggestions</TooltipContent>
+                      <TooltipContent side="top" align="end" collisionPadding={16} avoidCollisions className="max-w-[280px] whitespace-normal break-words bg-foreground text-background border-foreground text-[11px] leading-snug px-2.5 py-1.5">Enter a database name above to enable keyword suggestions</TooltipContent>
                     )}
                   </Tooltip>
                 </TooltipProvider>
