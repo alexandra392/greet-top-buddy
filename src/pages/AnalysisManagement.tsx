@@ -18,6 +18,9 @@ const AnalysisManagement = () => {
   const navigate = useNavigate();
   const [addOpen, setAddOpen] = useState(false);
   const [dbDialogOpen, setDbDialogOpen] = useState(false);
+  const [docsDb, setDocsDb] = useState<any>(null);
+  const [docsSearch, setDocsSearch] = useState("");
+  const [docsPage, setDocsPage] = useState(1);
   const [dbForm, setDbForm] = useState({
     name: "",
     keywordInput: "",
