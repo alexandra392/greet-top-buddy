@@ -205,25 +205,54 @@ const AnalysisManagement = () => {
                         <DialogTitle className="text-sm tracking-tight">Invite via email</DialogTitle>
                         <DialogDescription className="text-[11px] leading-relaxed">Send an invitation to join as an organisation.</DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-2">
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="space-y-1">
-                            <Label htmlFor="invite-name" className="text-[11px] text-muted-foreground">Recipient name</Label>
-                            <Input id="invite-name" placeholder="Jane Doe" className="h-8 text-xs md:text-xs" value={inviteName} onChange={(e) => setInviteName(e.target.value)} />
+                      <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1 -mr-1">
+                        <section className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Recipient</span>
+                            <div className="h-px flex-1 bg-border/60" />
                           </div>
-                          <div className="space-y-1">
-                            <Label htmlFor="invite-org" className="text-[11px] text-muted-foreground">Organisation</Label>
-                            <Input id="invite-org" placeholder="Acme Research Institute" className="h-8 text-xs md:text-xs" value={inviteOrg} onChange={(e) => setInviteOrg(e.target.value)} />
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1">
+                              <Label htmlFor="invite-first" className="text-[11px] text-muted-foreground">First name <span className="text-destructive">*</span></Label>
+                              <Input id="invite-first" placeholder="Jane" className="h-8 text-xs md:text-xs" value={inviteFirstName} onChange={(e) => { setInviteFirstName(e.target.value); if (!messageEdited) setInviteMessage(defaultMessage(e.target.value, inviteOrg)); }} />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="invite-last" className="text-[11px] text-muted-foreground">Surname <span className="text-destructive">*</span></Label>
+                              <Input id="invite-last" placeholder="Doe" className="h-8 text-xs md:text-xs" value={inviteLastName} onChange={(e) => setInviteLastName(e.target.value)} />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="invite-org" className="text-[11px] text-muted-foreground">Organisation name <span className="text-destructive">*</span></Label>
+                              <Input id="invite-org" placeholder="Acme Research Institute" className="h-8 text-xs md:text-xs" value={inviteOrg} onChange={(e) => { setInviteOrg(e.target.value); if (!messageEdited) setInviteMessage(defaultMessage(inviteFirstName, e.target.value)); }} />
+                            </div>
+                            <div className="space-y-1">
+                              <Label htmlFor="invite-tax" className="text-[11px] text-muted-foreground">Tax / VAT ID</Label>
+                              <Input id="invite-tax" placeholder="DE123456789" className="h-8 text-xs md:text-xs" value={inviteTax} onChange={(e) => setInviteTax(e.target.value)} />
+                            </div>
+                            <div className="space-y-1 col-span-2">
+                              <Label htmlFor="invite-email" className="text-[11px] text-muted-foreground">Email address <span className="text-destructive">*</span></Label>
+                              <Input id="invite-email" type="email" placeholder="name@organisation.com" className="h-8 text-xs md:text-xs" value={emailValue} onChange={(e) => setEmailValue(e.target.value)} />
+                            </div>
                           </div>
-                        </div>
-                        <div className="space-y-1">
-                          <Label htmlFor="invite-email" className="text-[11px] text-muted-foreground">Email address</Label>
-                          <Input id="invite-email" type="email" placeholder="name@organisation.com" className="h-8 text-xs md:text-xs" value={emailValue} onChange={(e) => setEmailValue(e.target.value)} />
-                        </div>
+                        </section>
+                        <section className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Message</span>
+                            <div className="h-px flex-1 bg-border/60" />
+                            <button type="button" className="text-[10px] text-muted-foreground hover:text-foreground underline-offset-2 hover:underline" onClick={() => { setInviteMessage(defaultMessage(inviteFirstName, inviteOrg)); setMessageEdited(false); }}>Reset</button>
+                          </div>
+                          <Textarea
+                            id="invite-message"
+                            className="text-xs min-h-[140px] resize-none leading-relaxed"
+                            value={inviteMessage}
+                            onChange={(e) => { setInviteMessage(e.target.value); setMessageEdited(true); }}
+                            rows={7}
+                          />
+                          <p className="text-[10px] text-muted-foreground">You can edit the invitation text before sending.</p>
+                        </section>
                       </div>
                       <DialogFooter className="border-t border-border/40 pt-3 -mx-6 px-6 -mb-6 pb-4 bg-muted/20 rounded-b-lg">
                         <Button variant="outline" size="sm" className="h-8 text-xs" onClick={closeDialog}>Cancel</Button>
-                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${inviteName || emailValue}${inviteOrg ? ` at ${inviteOrg}` : ""}` }); closeDialog(); }} disabled={!emailValue}>Send invite</Button>
+                        <Button size="sm" className="h-8 text-xs bg-success hover:bg-success/90 text-success-foreground" onClick={() => { toast({ title: "Invitation sent", description: `Invite sent to ${inviteFirstName} ${inviteLastName} at ${inviteOrg}` }); closeDialog(); }} disabled={!emailValue || !inviteFirstName || !inviteLastName || !inviteOrg}>Send invite</Button>
                       </DialogFooter>
                     </>
                   )}
