@@ -647,9 +647,9 @@ const AnalysisManagement = () => {
               <button
                 type="button"
                 onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}
-                className={`relative inline-flex h-4 w-7 items-center rounded-full border transition-colors ${dbForm.biolink ? "bg-success border-success" : "bg-background border-border"}`}
+                className={`relative inline-flex h-5 w-9 items-center rounded-full border-2 transition-colors ${dbForm.biolink ? "bg-success border-success" : "bg-background border-foreground/40"}`}
               >
-                <span className={`inline-block h-3 w-3 transform rounded-full shadow-sm transition-transform ${dbForm.biolink ? "bg-background translate-x-3.5" : "bg-muted-foreground/60 translate-x-0.5"}`} />
+                <span className={`inline-block h-3.5 w-3.5 transform rounded-full shadow-sm transition-transform ${dbForm.biolink ? "bg-background translate-x-4" : "bg-foreground/70 translate-x-0.5"}`} />
               </button>
               <Label className="cursor-pointer text-xs" onClick={() => setDbForm({ ...dbForm, biolink: !dbForm.biolink })}>
                 Also do biolink analysis
