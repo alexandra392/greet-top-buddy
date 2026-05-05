@@ -484,8 +484,8 @@ const AnalysisManagement = () => {
                         >
                           <td className="py-2.5 px-3">
                             <div className="flex items-center gap-2.5">
-                              <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isFeedstock ? 'bg-success/10 border border-success/20' : 'bg-application-purple/10 border border-application-purple/20'}`}>
-                                <Database className={`w-3 h-3 ${isFeedstock ? 'text-success' : 'text-application-purple'}`} />
+                              <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isFeedstock ? 'bg-success/15' : 'bg-application-purple/15'}`}>
+                                <Database className={`w-4 h-4 ${isFeedstock ? 'text-success' : 'text-application-purple'}`} strokeWidth={1.75} />
                               </div>
                               <div className="flex flex-col">
                                 <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
