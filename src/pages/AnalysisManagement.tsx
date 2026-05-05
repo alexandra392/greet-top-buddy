@@ -227,11 +227,11 @@ const AnalysisManagement = () => {
                               <Select value={orgForm.category} onValueChange={(v) => setOrgForm({ ...orgForm, category: v })}>
                                 <SelectTrigger id="org-category" className="h-8 text-xs md:text-xs"><SelectValue placeholder="Select category" /></SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="Public Sector Initiative">Public Sector Initiative</SelectItem>
-                                  <SelectItem value="Research Institution">Research Institution</SelectItem>
-                                  <SelectItem value="Private Company">Private Company</SelectItem>
-                                  <SelectItem value="Cluster / Association">Cluster / Association</SelectItem>
-                                  <SelectItem value="NGO">NGO</SelectItem>
+                                  <SelectItem value="Public Sector Initiative" className="text-xs">Public Sector Initiative</SelectItem>
+                                  <SelectItem value="Research Institution" className="text-xs">Research Institution</SelectItem>
+                                  <SelectItem value="Private Company" className="text-xs">Private Company</SelectItem>
+                                  <SelectItem value="Cluster / Association" className="text-xs">Cluster / Association</SelectItem>
+                                  <SelectItem value="NGO" className="text-xs">NGO</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
