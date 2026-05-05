@@ -484,6 +484,7 @@ const AnalysisManagement = () => {
                       return (
                         <tr
                           key={db.id}
+                          onClick={() => { setDocsDb(db); setDocsSearch(""); setDocsPage(1); }}
                           className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${index === databaseRepertoire.length - 1 ? 'border-b-0' : ''}`}
                         >
                           <td className="py-3 px-3">
