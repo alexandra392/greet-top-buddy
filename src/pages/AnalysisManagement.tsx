@@ -790,13 +790,13 @@ const AnalysisManagement = () => {
           </div>
           <div className="flex-1 overflow-auto">
             <table className="w-full">
-              <thead className="bg-muted/30 border-b border-border/30 sticky top-0">
+              <thead className="bg-muted/20 border-b border-border/30 sticky top-0 backdrop-blur">
                 <tr>
-                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">ID</th>
-                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Title</th>
-                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Content</th>
-                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">URL</th>
-                  <th className="text-left py-2 px-3 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Metadata</th>
+                  <th className="text-left py-2 px-3 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground/70 uppercase w-[180px]">ID</th>
+                  <th className="text-left py-2 px-3 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground/70 uppercase">Title</th>
+                  <th className="text-left py-2 px-3 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground/70 uppercase">Content</th>
+                  <th className="text-left py-2 px-3 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground/70 uppercase w-[80px]">URL</th>
+                  <th className="text-left py-2 px-3 text-[9px] font-semibold tracking-[0.12em] text-muted-foreground/70 uppercase w-[260px]">Metadata</th>
                 </tr>
               </thead>
               <tbody>
@@ -818,29 +818,29 @@ const AnalysisManagement = () => {
                     <Fragment key={i}>
                       <tr
                         onClick={() => setExpandedDoc(expandedDoc === i ? null : i)}
-                        className={`border-b border-border/20 hover:bg-muted/20 transition-colors cursor-pointer ${expandedDoc === i ? "bg-product-blue/5" : ""}`}
+                        className={`border-b border-border/15 hover:bg-muted/15 transition-colors cursor-pointer ${expandedDoc === i ? "bg-product-blue/5" : ""}`}
                       >
-                        <td className="py-2.5 px-3">
-                          <div className="flex items-center gap-2">
-                            <FileText className="w-3 h-3 text-muted-foreground flex-shrink-0" />
-                            <span className="text-[11px] font-mono text-muted-foreground">{ids[i]}...</span>
+                        <td className="py-1.5 px-3 align-middle">
+                          <div className="flex items-center gap-1.5">
+                            <FileText className="w-3 h-3 text-muted-foreground/60 flex-shrink-0" strokeWidth={1.5} />
+                            <span className="text-[10.5px] font-mono text-muted-foreground truncate">{ids[i]}…</span>
                           </div>
                         </td>
-                        <td className="py-2.5 px-3 max-w-[280px]">
-                          <span className="text-[11px] text-foreground">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Base...</span>
+                        <td className="py-1.5 px-3 max-w-[280px] align-middle">
+                          <span className="text-[10.5px] text-foreground truncate block">Experimental Model for Cu(II) and Fe(III) Sorption from Synthetic Solutions Base…</span>
                         </td>
-                        <td className="py-2.5 px-3 max-w-[320px]">
-                          <span className="text-[11px] text-muted-foreground">{contents[i]}</span>
+                        <td className="py-1.5 px-3 max-w-[320px] align-middle">
+                          <span className="text-[10.5px] text-muted-foreground truncate block">{contents[i]}</span>
                         </td>
-                        <td className="py-2.5 px-3" onClick={(e) => e.stopPropagation()}>
-                          <button className="h-6 px-2 rounded border border-border/50 inline-flex items-center gap-1 text-[10px] text-foreground hover:bg-muted transition-colors">
-                            <ExternalLink className="w-3 h-3" /> Open
+                        <td className="py-1.5 px-3 align-middle" onClick={(e) => e.stopPropagation()}>
+                          <button className="h-5 px-1.5 rounded border border-border/40 inline-flex items-center gap-1 text-[10px] text-foreground hover:bg-muted hover:border-border transition-colors">
+                            <ExternalLink className="w-2.5 h-2.5" /> Open
                           </button>
                         </td>
-                        <td className="py-2.5 px-3">
-                          <div className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
-                            {expandedDoc === i ? <ChevronDown className="w-3 h-3" /> : <ChevronRightSm className="w-3 h-3" />}
-                            <span>Authors: Nicoleta Mirela Marin, Gheorghe... · Year: 2020</span>
+                        <td className="py-1.5 px-3 align-middle">
+                          <div className="inline-flex items-center gap-1 text-[10px] text-muted-foreground/80 max-w-[260px]">
+                            {expandedDoc === i ? <ChevronDown className="w-3 h-3 flex-shrink-0" /> : <ChevronRightSm className="w-3 h-3 flex-shrink-0" />}
+                            <span className="truncate">Nicoleta Mirela Marin · 2020</span>
                           </div>
                         </td>
                       </tr>
