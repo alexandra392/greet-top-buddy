@@ -544,20 +544,20 @@ const AnalysisManagement = () => {
                           </td>
                           <td className="py-2.5 px-3">
                             <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
-                              <button title="Copy link" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <Link2 className="w-3 h-3 text-success" />
+                              <button title="Copy link" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-success hover:border-success/40 hover:bg-success/5 transition-colors">
+                                <Link2 className="w-3 h-3" />
                               </button>
-                              <button title="History" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <History className="w-3 h-3 text-muted-foreground" />
+                              <button title="History" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                <History className="w-3 h-3" />
                               </button>
-                              <button title="Run" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <Play className="w-3 h-3 text-product-blue" />
+                              <button title="Run" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-product-blue hover:border-product-blue/40 hover:bg-product-blue/5 transition-colors">
+                                <Play className="w-3 h-3" />
                               </button>
-                              <button title="Biolink" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <Sparkles className="w-3 h-3 text-application-purple" />
+                              <button title="Biolink" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-application-purple hover:border-application-purple/40 hover:bg-application-purple/5 transition-colors">
+                                <Sparkles className="w-3 h-3" />
                               </button>
-                              <button title="Refresh" className="w-6 h-6 rounded border border-border/50 flex items-center justify-center hover:bg-muted transition-colors">
-                                <RefreshCw className="w-3 h-3 text-foreground" />
+                              <button title="Refresh" className="w-7 h-7 rounded-md border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                                <RefreshCw className="w-3 h-3" />
                               </button>
                             </div>
                           </td>
