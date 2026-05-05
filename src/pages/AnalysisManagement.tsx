@@ -656,7 +656,7 @@ const AnalysisManagement = () => {
               </Label>
             </div>
 
-            <div className="rounded-md bg-muted/40 p-2.5">
+            <div className="rounded-md border border-border/60 bg-muted/70 p-2.5">
               <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-0.5">Estimated cost</div>
               <div className="text-lg font-bold tracking-tight">${estCost}</div>
               <div className="text-[10px] text-muted-foreground mt-0.5">~{estPapers} papers at 67% success rate</div>
