@@ -489,7 +489,7 @@ const AnalysisManagement = () => {
                         >
                           <td className="py-3 px-3">
                             <div className="flex items-center gap-2.5">
-                              <Database className="w-4 h-4 text-muted-foreground/70 flex-shrink-0" strokeWidth={1.75} />
+                              <Database className="w-3.5 h-3.5 text-muted-foreground/70 flex-shrink-0" strokeWidth={1.75} />
                               <div className="flex flex-col leading-tight">
                                 <span className="font-medium text-foreground text-xs tracking-tight">{db.name}</span>
                                 <span className="text-[10px] text-muted-foreground/70">index</span>
