@@ -585,7 +585,7 @@ const AnalysisManagement = () => {
               )}
             </div>
 
-            <div className="rounded-md border border-border/40 bg-muted/30 p-2.5 space-y-2">
+            <div className="rounded-md border border-border/60 bg-muted/70 p-2.5 space-y-2">
               <div>
                 <div className="text-xs font-semibold">Keyword suggestions</div>
                 <div className="text-[10px] text-muted-foreground">Get AI-suggested keywords (abbreviations, synonyms) for your topic.</div>
