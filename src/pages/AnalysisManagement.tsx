@@ -558,6 +558,24 @@ const AnalysisManagement = () => {
                   </tbody>
                 </table>
               </div>
+              <div className="px-4 py-2.5 border-t border-border/30 flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <button className="h-7 px-2 rounded border border-border/50 flex items-center gap-1 text-[11px] text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50" disabled>
+                    <ChevronLeft className="w-3 h-3" /> Previous
+                  </button>
+                  {[1, 2, 3, 4].map((p) => (
+                    <button key={p} className={`h-7 w-7 rounded border text-[11px] transition-colors ${p === 1 ? "bg-foreground text-background border-foreground" : "border-border/50 text-foreground hover:bg-muted"}`}>
+                      {p}
+                    </button>
+                  ))}
+                  <span className="px-1 text-[11px] text-muted-foreground">…</span>
+                  <button className="h-7 w-7 rounded border border-border/50 text-[11px] text-foreground hover:bg-muted transition-colors">8</button>
+                  <button className="h-7 px-2 rounded border border-border/50 flex items-center gap-1 text-[11px] text-foreground hover:bg-muted transition-colors">
+                    Next <ChevronRight className="w-3 h-3" />
+                  </button>
+                </div>
+                <span className="text-[11px] text-muted-foreground">Page 1 of 8</span>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
