@@ -195,10 +195,10 @@ export default function Profile() {
       {/* Identity card */}
       <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">My Profile</h2>
       <Card className="p-5 mb-5">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-center">
           {/* Avatar */}
           <div className="relative shrink-0">
-            <Avatar className="h-20 w-20 border border-border">
+            <Avatar className="h-24 w-24 border border-border">
               <AvatarImage src={profile.avatarUrl} alt={profile.name} />
               <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
             </Avatar>
