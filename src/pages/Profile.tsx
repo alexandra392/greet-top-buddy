@@ -50,6 +50,7 @@ type ExtendedProfile = {
   joinedAt: string;
   timezone: string;
   language: string;
+  orgRole: "Super Admin" | "Organisation Admin" | "User";
   expertise: string[];
   interests: string[];
   notifyEmail: boolean;
@@ -70,6 +71,7 @@ const defaultExt: ExtendedProfile = {
   joinedAt: new Date().toISOString().slice(0, 10),
   timezone: "Europe/Ljubljana",
   language: "English",
+  orgRole: "Super Admin",
   expertise: [],
   interests: [],
   notifyEmail: true,
