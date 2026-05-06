@@ -299,7 +299,7 @@ export default function Profile() {
           </Card>
 
           {/* About */}
-          <Card className="p-5">
+          <Card className="p-5 flex-1">
             <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">About</h2>
             {editing ? (
               <Textarea
