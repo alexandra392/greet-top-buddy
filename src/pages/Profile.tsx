@@ -424,12 +424,28 @@ function ToggleRow({ label, desc, checked, disabled, onChange }: { label: string
   );
 }
 
-function PasswordChange() {
+function PasswordChangeDialog({ open, onOpenChange, email }: { open: boolean; onOpenChange: (v: boolean) => void; email: string }) {
+  const [current, setCurrent] = useState("");
   const [pw, setPw] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const reset = () => {
+    setCurrent("");
+    setPw("");
+    setConfirm("");
+  };
+
+  const handleOpenChange = (v: boolean) => {
+    if (!v) reset();
+    onOpenChange(v);
+  };
+
   const submit = async () => {
+    if (!current) {
+      toast({ title: "Current password required", variant: "destructive" });
+      return;
+    }
     if (pw.length < 8) {
       toast({ title: "Password too short", description: "Use at least 8 characters", variant: "destructive" });
       return;
@@ -439,32 +455,51 @@ function PasswordChange() {
       return;
     }
     setLoading(true);
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password: current });
+    if (signInError) {
+      setLoading(false);
+      toast({ title: "Current password is incorrect", variant: "destructive" });
+      return;
+    }
     const { error } = await supabase.auth.updateUser({ password: pw });
     setLoading(false);
     if (error) {
       toast({ title: "Could not update password", description: error.message, variant: "destructive" });
       return;
     }
-    setPw("");
-    setConfirm("");
+    reset();
+    onOpenChange(false);
     toast({ title: "Password updated" });
   };
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-3">
-        <Label htmlFor="new-pw" className="text-xs text-muted-foreground w-32 shrink-0">New password</Label>
-        <Input id="new-pw" type="password" value={pw} onChange={e => setPw(e.target.value)} className="h-7 text-xs flex-1" placeholder="At least 8 characters" />
-      </div>
-      <div className="flex items-center gap-3">
-        <Label htmlFor="confirm-pw" className="text-xs text-muted-foreground w-32 shrink-0">Confirm password</Label>
-        <Input id="confirm-pw" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} className="h-7 text-xs flex-1" placeholder="Repeat new password" />
-      </div>
-      <div className="flex justify-end">
-        <Button size="sm" className="h-7 text-xs" onClick={submit} disabled={loading || !pw || !confirm}>
-          {loading ? "Updating…" : "Update password"}
-        </Button>
-      </div>
-    </div>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="text-base">Change Password</DialogTitle>
+          <DialogDescription className="text-xs">Enter your current password and choose a new one.</DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 py-2">
+          <div className="space-y-1.5">
+            <Label htmlFor="cur-pw" className="text-xs">Current password</Label>
+            <Input id="cur-pw" type="password" value={current} onChange={e => setCurrent(e.target.value)} className="h-8 text-xs" />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="new-pw" className="text-xs">New password</Label>
+            <Input id="new-pw" type="password" value={pw} onChange={e => setPw(e.target.value)} className="h-8 text-xs" placeholder="At least 8 characters" />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="confirm-pw" className="text-xs">Confirm new password</Label>
+            <Input id="confirm-pw" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} className="h-8 text-xs" />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={() => handleOpenChange(false)}>Cancel</Button>
+          <Button size="sm" className="h-8 text-xs" onClick={submit} disabled={loading || !current || !pw || !confirm}>
+            {loading ? "Updating…" : "Update password"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
