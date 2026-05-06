@@ -29,6 +29,7 @@ import InnovationProjects from "./pages/InnovationProjects";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Projects from "./pages/Projects";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -171,6 +172,7 @@ const App = () => {
               <Routes location={location}>
                 <Route path="/" element={<Index />} />
                 <Route path="/projects" element={<Projects />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/analysis-management" element={<AnalysisManagement />} />
                 <Route path="/organization/:id" element={<OrganizationManagement />} />

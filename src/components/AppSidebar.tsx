@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { 
   Home, 
   Settings, 
@@ -14,9 +13,9 @@ import {
 } from "lucide-react";
 import vcgLogo from "@/assets/vcg-logo.png";
 import vcgIcon from "@/assets/vcg-icon.png";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { UserProfileDialog, useUserProfile } from "@/components/UserProfileDialog";
+import { useUserProfile } from "@/components/UserProfileDialog";
 
 import {
   Sidebar,
@@ -44,8 +43,8 @@ const mainItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
-  const [profileOpen, setProfileOpen] = useState(false);
   const profile = useUserProfile();
   const initials = profile.name.split(" ").map(p => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
@@ -170,7 +169,7 @@ export function AppSidebar() {
         {/* User Profile */}
         {!collapsed ? (
           <button
-            onClick={() => setProfileOpen(true)}
+            onClick={() => navigate("/profile")}
             className="flex items-center gap-3 px-3 py-2 w-full rounded-lg hover:bg-sidebar-accent/60 transition-colors text-left"
           >
             <Avatar className="h-8 w-8 border-2 border-sidebar-primary/40">
@@ -183,14 +182,13 @@ export function AppSidebar() {
             </div>
           </button>
         ) : (
-          <button onClick={() => setProfileOpen(true)} className="flex justify-center py-2 w-full rounded-lg hover:bg-sidebar-accent/60 transition-colors">
+          <button onClick={() => navigate("/profile")} className="flex justify-center py-2 w-full rounded-lg hover:bg-sidebar-accent/60 transition-colors">
             <Avatar className="h-8 w-8 border-2 border-sidebar-primary/40">
               <AvatarImage src={profile.avatarUrl} alt={profile.name} />
               <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground text-xs font-semibold">{initials || "U"}</AvatarFallback>
             </Avatar>
           </button>
         )}
-        <UserProfileDialog open={profileOpen} onOpenChange={setProfileOpen} />
       </SidebarFooter>
     </Sidebar>
   );
