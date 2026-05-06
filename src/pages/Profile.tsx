@@ -38,8 +38,8 @@ import { toast } from "@/hooks/use-toast";
 import { getStoredProfile, type UserProfile } from "@/components/UserProfileDialog";
 import { supabase } from "@/integrations/supabase/client";
 
-const STORAGE_KEY = "vcg.userProfile";
-const EXT_STORAGE_KEY = "vcg.userProfileExtended";
+const STORAGE_KEY = "vcg.userProfile.v2";
+const EXT_STORAGE_KEY = "vcg.userProfileExtended.v2";
 
 type ExtendedProfile = {
   phone: string;
