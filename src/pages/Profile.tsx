@@ -330,18 +330,24 @@ export default function Profile() {
                   <Languages className="w-3.5 h-3.5" /> Language
                 </div>
                 <div className="flex-1 min-w-0">
-                  {editing ? (
-                    <Select value={ext.language} onValueChange={v => setExt({ ...ext, language: v })}>
-                      <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        {["English", "Slovenian", "German", "French", "Spanish", "Portuguese"].map(l => (
-                          <SelectItem key={l} value={l}>{l}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  ) : (
-                    <div className="text-xs text-foreground">{ext.language}</div>
-                  )}
+                  <Select
+                    value={ext.language}
+                    onValueChange={(v) => {
+                      const next = { ...ext, language: v };
+                      setExt(next);
+                      localStorage.setItem(EXT_STORAGE_KEY, JSON.stringify(next));
+                      window.dispatchEvent(new Event("vcg-profile-updated"));
+                    }}
+                  >
+                    <SelectTrigger className="h-7 text-xs border-0 shadow-none p-0 hover:bg-transparent focus:ring-0 [&>svg]:opacity-50 justify-start gap-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {["English", "Slovenian", "German", "French", "Spanish", "Portuguese"].map(l => (
+                        <SelectItem key={l} value={l}>{l}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               <div className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
