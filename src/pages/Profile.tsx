@@ -272,14 +272,6 @@ export default function Profile() {
                       <Building2 className="w-3 h-3" /> {profile.company}
                     </span>
                   )}
-                  {ext.location && (
-                    <>
-                      <span className="opacity-50">·</span>
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="w-3 h-3" /> {ext.location}
-                      </span>
-                    </>
-                  )}
                 </div>
                 {ext.expertise.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
