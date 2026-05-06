@@ -418,3 +418,48 @@ function ToggleRow({ label, desc, checked, disabled, onChange }: { label: string
     </div>
   );
 }
+
+function PasswordChange() {
+  const [pw, setPw] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const submit = async () => {
+    if (pw.length < 8) {
+      toast({ title: "Password too short", description: "Use at least 8 characters", variant: "destructive" });
+      return;
+    }
+    if (pw !== confirm) {
+      toast({ title: "Passwords do not match", variant: "destructive" });
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.auth.updateUser({ password: pw });
+    setLoading(false);
+    if (error) {
+      toast({ title: "Could not update password", description: error.message, variant: "destructive" });
+      return;
+    }
+    setPw("");
+    setConfirm("");
+    toast({ title: "Password updated" });
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-3">
+        <Label htmlFor="new-pw" className="text-xs text-muted-foreground w-32 shrink-0">New password</Label>
+        <Input id="new-pw" type="password" value={pw} onChange={e => setPw(e.target.value)} className="h-7 text-xs flex-1" placeholder="At least 8 characters" />
+      </div>
+      <div className="flex items-center gap-3">
+        <Label htmlFor="confirm-pw" className="text-xs text-muted-foreground w-32 shrink-0">Confirm password</Label>
+        <Input id="confirm-pw" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} className="h-7 text-xs flex-1" placeholder="Repeat new password" />
+      </div>
+      <div className="flex justify-end">
+        <Button size="sm" className="h-7 text-xs" onClick={submit} disabled={loading || !pw || !confirm}>
+          {loading ? "Updating…" : "Update password"}
+        </Button>
+      </div>
+    </div>
+  );
+}
