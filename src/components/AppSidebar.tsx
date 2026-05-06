@@ -16,6 +16,7 @@ import vcgLogo from "@/assets/vcg-logo.png";
 import vcgIcon from "@/assets/vcg-icon.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { UserProfileDialog, useUserProfile } from "@/components/UserProfileDialog";
 
 import {
   Sidebar,
@@ -44,6 +45,9 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profile = useUserProfile();
+  const initials = profile.name.split(" ").map(p => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
   const hasPendingRequests = true;
 
