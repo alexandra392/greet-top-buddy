@@ -198,18 +198,20 @@ export default function Profile() {
         <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-start">
           {/* Avatar */}
           <div className="flex flex-col items-center gap-2 shrink-0">
-            <Badge
-              variant="secondary"
-              className={`text-[10px] uppercase tracking-wider font-medium ${
-                ext.orgRole === "Super Admin"
-                  ? "bg-primary/10 text-primary border border-primary/20"
-                  : ext.orgRole === "Organisation Admin"
-                    ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-                    : "bg-muted text-muted-foreground border border-border"
-              }`}
-            >
-              {ext.orgRole}
-            </Badge>
+            <div className="w-16 flex justify-center">
+              <Badge
+                variant="secondary"
+                className={`text-[9px] uppercase tracking-wider font-medium px-1.5 py-0 whitespace-nowrap ${
+                  ext.orgRole === "Super Admin"
+                    ? "bg-primary/10 text-primary border border-primary/20"
+                    : ext.orgRole === "Organisation Admin"
+                      ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+                      : "bg-muted text-muted-foreground border border-border"
+                }`}
+              >
+                {ext.orgRole}
+              </Badge>
+            </div>
             <div className="relative">
               <Avatar className="h-16 w-16 border border-border">
                 <AvatarImage src={profile.avatarUrl} alt={profile.name} />
