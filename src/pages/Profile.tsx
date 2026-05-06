@@ -430,12 +430,23 @@ function PasswordChangeDialog({ open, onOpenChange, email }: { open: boolean; on
   const [current, setCurrent] = useState("");
   const [pw, setPw] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [pwFocused, setPwFocused] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const checks = [
+    { label: "At least 8 characters", ok: pw.length >= 8 },
+    { label: "One uppercase letter", ok: /[A-Z]/.test(pw) },
+    { label: "One lowercase letter", ok: /[a-z]/.test(pw) },
+    { label: "One number", ok: /\d/.test(pw) },
+    { label: "One special character", ok: /[^A-Za-z0-9]/.test(pw) },
+  ];
+  const allOk = checks.every(c => c.ok);
 
   const reset = () => {
     setCurrent("");
     setPw("");
     setConfirm("");
+    setPwFocused(false);
   };
 
   const handleOpenChange = (v: boolean) => {
@@ -448,8 +459,8 @@ function PasswordChangeDialog({ open, onOpenChange, email }: { open: boolean; on
       toast({ title: "Current password required", variant: "destructive" });
       return;
     }
-    if (pw.length < 8) {
-      toast({ title: "Password too short", description: "Use at least 8 characters", variant: "destructive" });
+    if (!allOk) {
+      toast({ title: "Password does not meet requirements", variant: "destructive" });
       return;
     }
     if (pw !== confirm) {
@@ -478,26 +489,59 @@ function PasswordChangeDialog({ open, onOpenChange, email }: { open: boolean; on
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-base">Change Password</DialogTitle>
-          <DialogDescription className="text-xs">Enter your current password and choose a new one.</DialogDescription>
+          <DialogTitle className="text-sm font-semibold">Change Password</DialogTitle>
+          <DialogDescription className="text-xs text-muted-foreground">
+            Enter your current password and choose a new one.
+          </DialogDescription>
         </DialogHeader>
-        <div className="space-y-3 py-2">
+        <div className="space-y-3 py-1">
           <div className="space-y-1.5">
-            <Label htmlFor="cur-pw" className="text-xs">Current password</Label>
+            <Label htmlFor="cur-pw" className="text-xs text-muted-foreground">Current password</Label>
             <Input id="cur-pw" type="password" value={current} onChange={e => setCurrent(e.target.value)} className="h-8 text-xs" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="new-pw" className="text-xs">New password</Label>
-            <Input id="new-pw" type="password" value={pw} onChange={e => setPw(e.target.value)} className="h-8 text-xs" placeholder="At least 8 characters" />
+            <Label htmlFor="new-pw" className="text-xs text-muted-foreground">New password</Label>
+            <Input
+              id="new-pw"
+              type="password"
+              value={pw}
+              onChange={e => setPw(e.target.value)}
+              onFocus={() => setPwFocused(true)}
+              onBlur={() => setPwFocused(false)}
+              className="h-8 text-xs"
+              placeholder="Choose a strong password"
+            />
+            {(pwFocused || pw.length > 0) && (
+              <ul className="mt-1.5 space-y-1">
+                {checks.map(c => (
+                  <li key={c.label} className="flex items-center gap-1.5 text-[11px]">
+                    {c.ok ? (
+                      <Check className="w-3 h-3 text-emerald-600" />
+                    ) : (
+                      <XIcon className="w-3 h-3 text-muted-foreground" />
+                    )}
+                    <span className={c.ok ? "text-foreground" : "text-muted-foreground"}>{c.label}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="confirm-pw" className="text-xs">Confirm new password</Label>
+            <Label htmlFor="confirm-pw" className="text-xs text-muted-foreground">Confirm new password</Label>
             <Input id="confirm-pw" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} className="h-8 text-xs" />
+            {confirm.length > 0 && confirm !== pw && (
+              <p className="text-[11px] text-destructive">Passwords do not match</p>
+            )}
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={() => handleOpenChange(false)}>Cancel</Button>
-          <Button size="sm" className="h-8 text-xs" onClick={submit} disabled={loading || !current || !pw || !confirm}>
+          <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => handleOpenChange(false)}>Cancel</Button>
+          <Button
+            size="sm"
+            className="h-7 text-xs bg-foreground text-background hover:bg-foreground/90"
+            onClick={submit}
+            disabled={loading || !current || !allOk || pw !== confirm}
+          >
             {loading ? "Updating…" : "Update password"}
           </Button>
         </DialogFooter>
