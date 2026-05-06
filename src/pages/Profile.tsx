@@ -275,23 +275,14 @@ export default function Profile() {
             )}
           </div>
 
-          {/* Bio */}
+          {/* Position */}
           <div className="min-w-0 md:border-l md:border-border md:pl-5">
-            <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">About</div>
-            {editing ? (
-              <Textarea
-                rows={4}
-                maxLength={500}
-                placeholder="Tell us about yourself..."
-                value={profile.bio}
-                onChange={e => setProfile({ ...profile, bio: e.target.value })}
-                className="text-xs"
-              />
-            ) : (
-              <p className="text-xs text-foreground/80 leading-relaxed whitespace-pre-wrap">
-                {profile.bio || <span className="text-muted-foreground italic">No bio added yet.</span>}
-              </p>
-            )}
+            <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">Position</div>
+            <div className="divide-y divide-border">
+              <Row icon={Briefcase} label="Job Title" value={ext.jobTitle} editing={editing} onChange={v => setExt({ ...ext, jobTitle: v })} placeholder="e.g. Product Manager" />
+              <Row icon={Building2} label="Department" value={ext.department} editing={editing} onChange={v => setExt({ ...ext, department: v })} placeholder="e.g. Strategy" />
+              <Row icon={Calendar} label="Joined" value={ext.joinedAt} editing={editing} onChange={v => setExt({ ...ext, joinedAt: v })} type="date" />
+            </div>
           </div>
         </div>
       </Card>
