@@ -354,14 +354,6 @@ export default function Profile() {
               <ToggleRow label="Product updates" desc="New features & releases" checked={ext.notifyProduct} disabled={!editing} onChange={v => setExt({ ...ext, notifyProduct: v })} />
               <ToggleRow label="Weekly digest" desc="Summary every Monday" checked={ext.notifyWeekly} disabled={!editing} onChange={v => setExt({ ...ext, notifyWeekly: v })} />
             </div>
-          </Card>
-
-          <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5" /> Password
-            </h2>
-            <PasswordChange />
-          </Card>
         </div>
       </div>
     </div>
