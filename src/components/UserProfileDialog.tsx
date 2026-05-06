@@ -17,7 +17,7 @@ export type UserProfile = {
   avatarUrl: string;
 };
 
-const STORAGE_KEY = "vcg.userProfile";
+const STORAGE_KEY = "vcg.userProfile.v2";
 
 const defaultProfile: UserProfile = {
   name: "Jon Goriup",
