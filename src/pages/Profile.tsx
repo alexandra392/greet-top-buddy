@@ -154,9 +154,9 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-[1100px] mx-auto px-6 py-6">
-      {/* Top bar */}
-      <div className="flex items-center justify-between mb-5">
+    <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6">
+      {/* Page header */}
+      <div className="flex items-center justify-between pb-3 mb-4 border-b border-border">
         <button
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
@@ -166,75 +166,76 @@ export default function Profile() {
         <div className="flex items-center gap-2">
           {editing ? (
             <>
-              <Button variant="ghost" size="sm" onClick={handleCancel}>
-                <XIcon className="w-3.5 h-3.5 mr-1" /> Cancel
+              <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={handleCancel}>
+                <XIcon className="w-3 h-3 mr-1" /> Cancel
               </Button>
-              <Button size="sm" onClick={handleSave}>
-                <Check className="w-3.5 h-3.5 mr-1" /> Save changes
+              <Button size="sm" className="h-7 text-xs" onClick={handleSave}>
+                <Check className="w-3 h-3 mr-1" /> Save changes
               </Button>
             </>
           ) : (
-            <Button size="sm" variant="outline" onClick={() => setEditing(true)}>
-              <Pencil className="w-3.5 h-3.5 mr-1" /> Edit Profile
+            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setEditing(true)}>
+              <Pencil className="w-3 h-3 mr-1" /> Edit Profile
             </Button>
           )}
         </div>
       </div>
 
-      {/* Header card */}
-      <Card className="p-6 mb-5">
-        <div className="flex items-start gap-5">
-          <div className="relative">
-            <Avatar className="h-24 w-24 border-4 border-primary/20">
-              <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-              <AvatarFallback className="bg-primary text-primary-foreground text-xl font-semibold">{initials || "U"}</AvatarFallback>
-            </Avatar>
-            {editing && (
-              <label className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center cursor-pointer shadow-md hover:bg-primary/90">
-                <Camera className="w-4 h-4" />
-                <input type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
-              </label>
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            {editing ? (
-              <div className="space-y-2">
-                <Input value={profile.name} maxLength={100} onChange={e => setProfile({ ...profile, name: e.target.value })} className="text-lg font-semibold" />
-                <div className="grid grid-cols-2 gap-2">
-                  <Input placeholder="Role" value={profile.role} maxLength={100} onChange={e => setProfile({ ...profile, role: e.target.value })} />
-                  <Input placeholder="Company" value={profile.company} maxLength={100} onChange={e => setProfile({ ...profile, company: e.target.value })} />
-                </div>
+      {/* Identity header (page-level, no card) */}
+      <div className="flex items-start gap-4 mb-6">
+        <div className="relative shrink-0">
+          <Avatar className="h-16 w-16 border border-border">
+            <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+            <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
+          </Avatar>
+          {editing && (
+            <label className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary/90">
+              <Camera className="w-3 h-3" />
+              <input type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
+            </label>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          {editing ? (
+            <div className="space-y-2 max-w-xl">
+              <Input value={profile.name} maxLength={100} onChange={e => setProfile({ ...profile, name: e.target.value })} className="h-8 text-sm font-semibold" />
+              <div className="grid grid-cols-2 gap-2">
+                <Input placeholder="Role" value={profile.role} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, role: e.target.value })} />
+                <Input placeholder="Company" value={profile.company} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, company: e.target.value })} />
               </div>
-            ) : (
-              <>
-                <h1 className="text-2xl font-semibold text-foreground">{profile.name}</h1>
-                <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-muted-foreground">
-                  {profile.role && <span>{profile.role}</span>}
-                  {profile.role && profile.company && <span>·</span>}
-                  {profile.company && (
+            </div>
+          ) : (
+            <>
+              <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">User Profile</div>
+              <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-muted-foreground">
+                {profile.role && <span>{profile.role}</span>}
+                {profile.role && profile.company && <span className="opacity-50">·</span>}
+                {profile.company && (
+                  <span className="inline-flex items-center gap-1">
+                    <Building2 className="w-3 h-3" /> {profile.company}
+                  </span>
+                )}
+                {ext.location && (
+                  <>
+                    <span className="opacity-50">·</span>
                     <span className="inline-flex items-center gap-1">
-                      <Building2 className="w-3.5 h-3.5" /> {profile.company}
+                      <MapPin className="w-3 h-3" /> {ext.location}
                     </span>
-                  )}
-                  {ext.location && (
-                    <>
-                      <span>·</span>
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5" /> {ext.location}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-1.5 mt-3">
+                  </>
+                )}
+              </div>
+              {ext.expertise.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2">
                   {ext.expertise.slice(0, 6).map(t => (
-                    <Badge key={t} variant="secondary" className="text-[10px] uppercase tracking-wider">{t}</Badge>
+                    <Badge key={t} variant="secondary" className="text-[10px] uppercase tracking-wider font-normal">{t}</Badge>
                   ))}
                 </div>
-              </>
-            )}
-          </div>
+              )}
+            </>
+          )}
         </div>
-      </Card>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Left: About + Contact */}
