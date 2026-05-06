@@ -87,7 +87,14 @@ function getStoredExt(): ExtendedProfile {
   try {
     const raw = localStorage.getItem(EXT_STORAGE_KEY);
     if (!raw) return defaultExt;
-    return { ...defaultExt, ...JSON.parse(raw) };
+    const parsed = JSON.parse(raw);
+    // Fill empty/missing fields from defaults so sample data shows up
+    const merged: any = { ...defaultExt };
+    for (const [k, v] of Object.entries(parsed)) {
+      if (v === "" || v == null || (Array.isArray(v) && v.length === 0)) continue;
+      merged[k] = v;
+    }
+    return merged as ExtendedProfile;
   } catch {
     return defaultExt;
   }
