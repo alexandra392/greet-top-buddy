@@ -234,21 +234,8 @@ export default function Profile() {
               </div>
             ) : (
               <>
-                <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">User Profile</div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
-                  <Badge
-                    variant="secondary"
-                    className={`text-[10px] uppercase tracking-wider font-medium ${
-                      ext.orgRole === "Super Admin"
-                        ? "bg-primary/10 text-primary border border-primary/20"
-                        : ext.orgRole === "Organisation Admin"
-                          ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-                          : "bg-muted text-muted-foreground border border-border"
-                    }`}
-                  >
-                    {ext.orgRole}
-                  </Badge>
                 </div>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-muted-foreground">
                   {profile.role && <span>{profile.role}</span>}
