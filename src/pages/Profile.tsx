@@ -283,9 +283,9 @@ export default function Profile() {
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
         {/* Left: About + Contact */}
-        <div className="lg:col-span-2 space-y-5">
+        <div className="lg:col-span-2 flex flex-col gap-5">
           {/* Interests removed */}
 
           {/* Contact */}
@@ -299,7 +299,7 @@ export default function Profile() {
           </Card>
 
           {/* About */}
-          <Card className="p-5">
+          <Card className="p-5 flex-1">
             <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">About</h2>
             {editing ? (
               <Textarea
