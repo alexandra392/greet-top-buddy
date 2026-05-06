@@ -262,17 +262,7 @@ export default function Profile() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Left: About + Contact */}
         <div className="lg:col-span-2 space-y-5">
-          <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Interests</h2>
-            <TagList tags={ext.interests} editing={editing} onRemove={t => removeTag("interests", t)} />
-            {editing && (
-              <div className="flex gap-2 mt-3">
-                <Input placeholder="Add interest..." value={interestInput} onChange={e => setInterestInput(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); addTag("interests", interestInput, () => setInterestInput("")); } }} />
-                <Button type="button" variant="outline" size="sm" onClick={() => addTag("interests", interestInput, () => setInterestInput(""))}>Add</Button>
-              </div>
-            )}
-          </Card>
+          {/* Interests removed */}
 
           <Card className="p-5">
             <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Contact & Work</h2>
