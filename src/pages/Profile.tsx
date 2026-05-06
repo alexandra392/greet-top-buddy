@@ -185,6 +185,7 @@ export default function Profile() {
       </div>
 
       {/* Identity card */}
+      <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">My Profile</h2>
       <Card className="p-5 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-start">
           {/* Avatar */}
