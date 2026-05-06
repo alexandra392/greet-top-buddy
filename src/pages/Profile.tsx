@@ -158,7 +158,7 @@ export default function Profile() {
   return (
     <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6">
       {/* Page header */}
-      <div className="flex items-center justify-between pb-3 mb-4 border-b border-border">
+      <div className="flex items-center justify-between pb-3 mb-4">
         <button
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
