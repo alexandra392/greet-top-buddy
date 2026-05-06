@@ -305,7 +305,7 @@ export default function Profile() {
                     </SelectContent>
                   </Select>
                 ) : (
-                  <div className="text-sm text-foreground">{ext.language}</div>
+                  <div className="text-xs text-foreground">{ext.language}</div>
                 )}
               </div>
               <div>
@@ -313,7 +313,7 @@ export default function Profile() {
                 {editing ? (
                   <Input value={ext.timezone} onChange={e => setExt({ ...ext, timezone: e.target.value })} />
                 ) : (
-                  <div className="text-sm text-foreground">{ext.timezone}</div>
+                  <div className="text-xs text-foreground">{ext.timezone}</div>
                 )}
               </div>
             </div>
@@ -355,9 +355,9 @@ function Field({
         <Icon className="w-3.5 h-3.5" /> {label}
       </Label>
       {editing ? (
-        <Input type={type} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} />
+        <Input type={type} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} className="h-8 text-xs" />
       ) : (
-        <div className="text-sm text-foreground break-words">{value || <span className="text-muted-foreground">—</span>}</div>
+        <div className="text-xs text-foreground break-words">{value || <span className="text-muted-foreground">—</span>}</div>
       )}
     </div>
   );
@@ -385,8 +385,8 @@ function ToggleRow({ label, desc, checked, disabled, onChange }: { label: string
   return (
     <div className="flex items-start justify-between gap-3">
       <div className="min-w-0">
-        <div className="text-sm text-foreground">{label}</div>
-        <div className="text-xs text-muted-foreground">{desc}</div>
+        <div className="text-xs text-foreground">{label}</div>
+        <div className="text-[11px] text-muted-foreground">{desc}</div>
       </div>
       <Switch checked={checked} disabled={disabled} onCheckedChange={onChange} />
     </div>
