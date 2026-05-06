@@ -109,6 +109,7 @@ export default function Profile() {
   const [editing, setEditing] = useState(false);
   const [tagInput, setTagInput] = useState("");
   const [interestInput, setInterestInput] = useState("");
+  const [pwOpen, setPwOpen] = useState(false);
 
   useEffect(() => {
     document.title = `${profile.name} – Profile | VCG.AI`;
