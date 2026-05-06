@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Calendar, ChevronRight, ChevronDown, Lightbulb } from "lucide-react";
+import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CompanyNotifications } from "@/components/CompanyNotifications";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -152,11 +152,18 @@ const App = () => {
         <SidebarInset className="!m-0 !ml-0 !p-0 bg-transparent flex flex-col h-screen">
           <div className="pointer-events-none fixed inset-x-0 top-12 z-50 border-t border-primary/8" />
           <header className="sticky top-0 z-40 bg-card/70 backdrop-blur-lg">
-            <div className="h-12 flex items-center px-4">
+            <div className="h-12 flex items-center justify-between px-4">
               <div className="flex items-center">
                 <SidebarTrigger className="p-2 hover:bg-muted rounded-lg transition-colors" />
                 <HeaderBreadcrumb />
               </div>
+              <a
+                href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <LifeBuoy className="w-3.5 h-3.5" />
+                <span>Contact Support</span>
+              </a>
             </div>
           </header>
           <div className="flex-1 bg-background overflow-y-auto">
