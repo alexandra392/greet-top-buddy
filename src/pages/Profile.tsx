@@ -273,7 +273,7 @@ export default function Profile() {
 
           {/* Position */}
           <div className="min-w-0 md:border-l md:border-border md:pl-5">
-            <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">Position</div>
+            
             <div className="divide-y divide-border">
               <Row icon={Briefcase} label="Job Title" value={ext.jobTitle} editing={editing} onChange={v => setExt({ ...ext, jobTitle: v })} placeholder="e.g. Product Manager" />
               <Row icon={Building2} label="Department" value={ext.department} editing={editing} onChange={v => setExt({ ...ext, department: v })} placeholder="e.g. Strategy" />
