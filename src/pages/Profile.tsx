@@ -181,67 +181,66 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Identity header (page-level, no card) */}
-      <div className="flex items-start gap-4 mb-6">
-        <div className="relative shrink-0">
-          <Avatar className="h-16 w-16 border border-border">
-            <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-            <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
-          </Avatar>
-          {editing && (
-            <label className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary/90">
-              <Camera className="w-3 h-3" />
-              <input type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
-            </label>
-          )}
-        </div>
-        <div className="flex-1 min-w-0">
-          {editing ? (
-            <div className="space-y-2 max-w-xl">
-              <Input value={profile.name} maxLength={100} onChange={e => setProfile({ ...profile, name: e.target.value })} className="h-8 text-sm font-semibold" />
-              <div className="grid grid-cols-2 gap-2">
+      {/* Identity card */}
+      <Card className="p-5 mb-5">
+        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_1.2fr] gap-5 items-start">
+          {/* Avatar */}
+          <div className="relative shrink-0">
+            <Avatar className="h-16 w-16 border border-border">
+              <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+              <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
+            </Avatar>
+            {editing && (
+              <label className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary/90">
+                <Camera className="w-3 h-3" />
+                <input type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
+              </label>
+            )}
+          </div>
+
+          {/* Identity */}
+          <div className="min-w-0">
+            {editing ? (
+              <div className="space-y-2">
+                <Input value={profile.name} maxLength={100} onChange={e => setProfile({ ...profile, name: e.target.value })} className="h-8 text-sm font-semibold" />
                 <Input placeholder="Role" value={profile.role} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, role: e.target.value })} />
                 <Input placeholder="Company" value={profile.company} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, company: e.target.value })} />
               </div>
-            </div>
-          ) : (
-            <>
-              <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">User Profile</div>
-              <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-muted-foreground">
-                {profile.role && <span>{profile.role}</span>}
-                {profile.role && profile.company && <span className="opacity-50">·</span>}
-                {profile.company && (
-                  <span className="inline-flex items-center gap-1">
-                    <Building2 className="w-3 h-3" /> {profile.company}
-                  </span>
-                )}
-                {ext.location && (
-                  <>
-                    <span className="opacity-50">·</span>
+            ) : (
+              <>
+                <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">User Profile</div>
+                <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-muted-foreground">
+                  {profile.role && <span>{profile.role}</span>}
+                  {profile.role && profile.company && <span className="opacity-50">·</span>}
+                  {profile.company && (
                     <span className="inline-flex items-center gap-1">
-                      <MapPin className="w-3 h-3" /> {ext.location}
+                      <Building2 className="w-3 h-3" /> {profile.company}
                     </span>
-                  </>
-                )}
-              </div>
-              {ext.expertise.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {ext.expertise.slice(0, 6).map(t => (
-                    <Badge key={t} variant="secondary" className="text-[10px] uppercase tracking-wider font-normal">{t}</Badge>
-                  ))}
+                  )}
+                  {ext.location && (
+                    <>
+                      <span className="opacity-50">·</span>
+                      <span className="inline-flex items-center gap-1">
+                        <MapPin className="w-3 h-3" /> {ext.location}
+                      </span>
+                    </>
+                  )}
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+                {ext.expertise.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {ext.expertise.slice(0, 6).map(t => (
+                      <Badge key={t} variant="secondary" className="text-[10px] uppercase tracking-wider font-normal">{t}</Badge>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Left: About + Contact */}
-        <div className="lg:col-span-2 space-y-5">
-          <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">About</h2>
+          {/* Bio */}
+          <div className="min-w-0 md:border-l md:border-border md:pl-5">
+            <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-2">About</div>
             {editing ? (
               <Textarea
                 rows={4}
@@ -249,15 +248,21 @@ export default function Profile() {
                 placeholder="Tell us about yourself..."
                 value={profile.bio}
                 onChange={e => setProfile({ ...profile, bio: e.target.value })}
+                className="text-xs"
               />
             ) : (
-              <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap">
+              <p className="text-xs text-foreground/80 leading-relaxed whitespace-pre-wrap">
                 {profile.bio || <span className="text-muted-foreground italic">No bio added yet.</span>}
               </p>
             )}
+          </div>
+        </div>
+      </Card>
 
-            <Separator className="my-5" />
-
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Left: About + Contact */}
+        <div className="lg:col-span-2 space-y-5">
+          <Card className="p-5">
             <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Interests</h2>
             <TagList tags={ext.interests} editing={editing} onRemove={t => removeTag("interests", t)} />
             {editing && (
