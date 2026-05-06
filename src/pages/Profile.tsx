@@ -288,25 +288,34 @@ export default function Profile() {
         <div className="lg:col-span-2 space-y-5">
           {/* Interests removed */}
 
+          {/* Contact */}
           <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Contact & Work</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-              <Field icon={Mail} label="Email" value={profile.email} editing={editing} onChange={v => setProfile({ ...profile, email: v })} type="email" />
-              <Field icon={Phone} label="Phone" value={ext.phone} editing={editing} onChange={v => setExt({ ...ext, phone: v })} />
-              <Field icon={Briefcase} label="Job Title" value={ext.jobTitle} editing={editing} onChange={v => setExt({ ...ext, jobTitle: v })} />
-              <Field icon={Building2} label="Department" value={ext.department} editing={editing} onChange={v => setExt({ ...ext, department: v })} />
-              <Field icon={MapPin} label="Location" value={ext.location} editing={editing} onChange={v => setExt({ ...ext, location: v })} />
-              <Field icon={Calendar} label="Joined" value={ext.joinedAt} editing={editing} onChange={v => setExt({ ...ext, joinedAt: v })} type="date" />
+            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Contact</h2>
+            <div className="divide-y divide-border">
+              <Row icon={Mail} label="Email" value={profile.email} editing={editing} onChange={v => setProfile({ ...profile, email: v })} type="email" />
+              <Row icon={Phone} label="Phone" value={ext.phone} editing={editing} onChange={v => setExt({ ...ext, phone: v })} placeholder="+1 555 000 0000" />
+              <Row icon={MapPin} label="Location" value={ext.location} editing={editing} onChange={v => setExt({ ...ext, location: v })} placeholder="City, Country" />
             </div>
           </Card>
 
+          {/* Position */}
           <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Links</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-              <Field icon={Globe} label="Website" value={ext.website} editing={editing} onChange={v => setExt({ ...ext, website: v })} placeholder="https://" />
-              <Field icon={Linkedin} label="LinkedIn" value={ext.linkedin} editing={editing} onChange={v => setExt({ ...ext, linkedin: v })} placeholder="linkedin.com/in/..." />
-              <Field icon={Twitter} label="Twitter / X" value={ext.twitter} editing={editing} onChange={v => setExt({ ...ext, twitter: v })} placeholder="@handle" />
-              <Field icon={Github} label="GitHub" value={ext.github} editing={editing} onChange={v => setExt({ ...ext, github: v })} placeholder="github.com/..." />
+            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Position</h2>
+            <div className="divide-y divide-border">
+              <Row icon={Briefcase} label="Job Title" value={ext.jobTitle} editing={editing} onChange={v => setExt({ ...ext, jobTitle: v })} placeholder="e.g. Product Manager" />
+              <Row icon={Building2} label="Department" value={ext.department} editing={editing} onChange={v => setExt({ ...ext, department: v })} placeholder="e.g. Strategy" />
+              <Row icon={Calendar} label="Joined" value={ext.joinedAt} editing={editing} onChange={v => setExt({ ...ext, joinedAt: v })} type="date" />
+            </div>
+          </Card>
+
+          {/* Online presence */}
+          <Card className="p-5">
+            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Online Presence</h2>
+            <div className="divide-y divide-border">
+              <Row icon={Globe} label="Website" value={ext.website} editing={editing} onChange={v => setExt({ ...ext, website: v })} placeholder="https://" />
+              <Row icon={Linkedin} label="LinkedIn" value={ext.linkedin} editing={editing} onChange={v => setExt({ ...ext, linkedin: v })} placeholder="linkedin.com/in/..." />
+              <Row icon={Twitter} label="Twitter / X" value={ext.twitter} editing={editing} onChange={v => setExt({ ...ext, twitter: v })} placeholder="@handle" />
+              <Row icon={Github} label="GitHub" value={ext.github} editing={editing} onChange={v => setExt({ ...ext, github: v })} placeholder="github.com/..." />
             </div>
           </Card>
 
@@ -366,7 +375,7 @@ export default function Profile() {
   );
 }
 
-function Field({
+function Row({
   icon: Icon, label, value, editing, onChange, type = "text", placeholder,
 }: {
   icon: React.ComponentType<{ className?: string }>;
@@ -374,15 +383,17 @@ function Field({
   onChange: (v: string) => void; type?: string; placeholder?: string;
 }) {
   return (
-    <div>
-      <Label className="text-xs text-muted-foreground flex items-center gap-1.5 mb-1.5">
+    <div className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
+      <div className="flex items-center gap-1.5 text-xs text-muted-foreground w-32 shrink-0">
         <Icon className="w-3.5 h-3.5" /> {label}
-      </Label>
-      {editing ? (
-        <Input type={type} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} className="h-8 text-xs" />
-      ) : (
-        <div className="text-xs text-foreground break-words">{value || <span className="text-muted-foreground">—</span>}</div>
-      )}
+      </div>
+      <div className="flex-1 min-w-0">
+        {editing ? (
+          <Input type={type} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} className="h-7 text-xs" />
+        ) : (
+          <div className="text-xs text-foreground break-words">{value || <span className="text-muted-foreground">—</span>}</div>
+        )}
+      </div>
     </div>
   );
 }
