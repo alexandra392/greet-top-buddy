@@ -354,6 +354,7 @@ export default function Profile() {
               <ToggleRow label="Product updates" desc="New features & releases" checked={ext.notifyProduct} disabled={!editing} onChange={v => setExt({ ...ext, notifyProduct: v })} />
               <ToggleRow label="Weekly digest" desc="Summary every Monday" checked={ext.notifyWeekly} disabled={!editing} onChange={v => setExt({ ...ext, notifyWeekly: v })} />
             </div>
+          </Card>
         </div>
       </div>
     </div>
