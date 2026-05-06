@@ -50,6 +50,7 @@ type ExtendedProfile = {
   joinedAt: string;
   timezone: string;
   language: string;
+  orgRole: "Super Admin" | "Organisation Admin" | "User";
   expertise: string[];
   interests: string[];
   notifyEmail: boolean;
@@ -70,6 +71,7 @@ const defaultExt: ExtendedProfile = {
   joinedAt: new Date().toISOString().slice(0, 10),
   timezone: "Europe/Ljubljana",
   language: "English",
+  orgRole: "Super Admin",
   expertise: [],
   interests: [],
   notifyEmail: true,
@@ -205,11 +207,33 @@ export default function Profile() {
                 <Input value={profile.name} maxLength={100} onChange={e => setProfile({ ...profile, name: e.target.value })} className="h-8 text-sm font-semibold" />
                 <Input placeholder="Role" value={profile.role} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, role: e.target.value })} />
                 <Input placeholder="Company" value={profile.company} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, company: e.target.value })} />
+                <Select value={ext.orgRole} onValueChange={(v) => setExt({ ...ext, orgRole: v as ExtendedProfile["orgRole"] })}>
+                  <SelectTrigger className="h-8 text-xs"><SelectValue placeholder="Organisation Role" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Super Admin">Super Admin</SelectItem>
+                    <SelectItem value="Organisation Admin">Organisation Admin</SelectItem>
+                    <SelectItem value="User">User</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             ) : (
               <>
                 <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">User Profile</div>
-                <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
+                  <Badge
+                    variant="secondary"
+                    className={`text-[10px] uppercase tracking-wider font-medium ${
+                      ext.orgRole === "Super Admin"
+                        ? "bg-primary/10 text-primary border border-primary/20"
+                        : ext.orgRole === "Organisation Admin"
+                          ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+                          : "bg-muted text-muted-foreground border border-border"
+                    }`}
+                  >
+                    {ext.orgRole}
+                  </Badge>
+                </div>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-muted-foreground">
                   {profile.role && <span>{profile.role}</span>}
                   {profile.role && profile.company && <span className="opacity-50">·</span>}
