@@ -22,9 +22,9 @@ const STORAGE_KEY = "vcg.userProfile";
 const defaultProfile: UserProfile = {
   name: "Jon Goriup",
   role: "CEO",
-  email: "",
+  email: "jon.goriup@vcg.ai",
   company: "VCG.AI",
-  bio: "",
+  bio: "Founder & CEO of VCG.AI. Building intelligent value-chain analytics for emerging biotech and sustainable materials. Passionate about turning early-stage research into commercial impact.",
   avatarUrl: "/user-avatar.png",
 };
 
