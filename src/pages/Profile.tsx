@@ -365,6 +365,8 @@ export default function Profile() {
           </Card>
         </div>
       </div>
+
+      <PasswordChangeDialog open={pwOpen} onOpenChange={setPwOpen} email={profile.email} />
     </div>
   );
 }
