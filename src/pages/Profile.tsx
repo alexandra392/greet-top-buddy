@@ -183,7 +183,7 @@ export default function Profile() {
 
       {/* Identity card */}
       <Card className="p-5 mb-5">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_1.2fr] gap-5 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-start">
           {/* Avatar */}
           <div className="relative shrink-0">
             <Avatar className="h-16 w-16 border border-border">
