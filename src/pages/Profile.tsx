@@ -181,11 +181,11 @@ export default function Profile() {
             </>
           ) : (
             <>
-              <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setPwOpen(true)}>
-                <KeyRound className="w-3 h-3 mr-1" /> Change Password
-              </Button>
               <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => setEditing(true)}>
                 <Pencil className="w-3 h-3 mr-1" /> Edit Profile
+              </Button>
+              <Button size="sm" className="h-7 text-xs bg-foreground text-background hover:bg-foreground/90" onClick={() => setPwOpen(true)}>
+                <KeyRound className="w-3 h-3 mr-1" /> Change Password
               </Button>
             </>
           )}
