@@ -34,6 +34,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { getStoredProfile, type UserProfile } from "@/components/UserProfileDialog";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "vcg.userProfile";
 const EXT_STORAGE_KEY = "vcg.userProfileExtended";
