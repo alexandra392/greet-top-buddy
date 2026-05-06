@@ -254,6 +254,18 @@ export default function Profile() {
                 {profile.bio || <span className="text-muted-foreground italic">No bio added yet.</span>}
               </p>
             )}
+
+            <Separator className="my-5" />
+
+            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Interests</h2>
+            <TagList tags={ext.interests} editing={editing} onRemove={t => removeTag("interests", t)} />
+            {editing && (
+              <div className="flex gap-2 mt-3">
+                <Input placeholder="Add interest..." value={interestInput} onChange={e => setInterestInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); addTag("interests", interestInput, () => setInterestInput("")); } }} />
+                <Button type="button" variant="outline" size="sm" onClick={() => addTag("interests", interestInput, () => setInterestInput(""))}>Add</Button>
+              </div>
+            )}
           </Card>
 
           <Card className="p-5">
@@ -278,29 +290,6 @@ export default function Profile() {
             </div>
           </Card>
 
-          <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Expertise</h2>
-            <TagList tags={ext.expertise} editing={editing} onRemove={t => removeTag("expertise", t)} />
-            {editing && (
-              <div className="flex gap-2 mt-3">
-                <Input placeholder="Add expertise..." value={tagInput} onChange={e => setTagInput(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); addTag("expertise", tagInput, () => setTagInput("")); } }} />
-                <Button type="button" variant="outline" size="sm" onClick={() => addTag("expertise", tagInput, () => setTagInput(""))}>Add</Button>
-              </div>
-            )}
-
-            <Separator className="my-5" />
-
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">Interests</h2>
-            <TagList tags={ext.interests} editing={editing} onRemove={t => removeTag("interests", t)} />
-            {editing && (
-              <div className="flex gap-2 mt-3">
-                <Input placeholder="Add interest..." value={interestInput} onChange={e => setInterestInput(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); addTag("interests", interestInput, () => setInterestInput("")); } }} />
-                <Button type="button" variant="outline" size="sm" onClick={() => addTag("interests", interestInput, () => setInterestInput(""))}>Add</Button>
-              </div>
-            )}
-          </Card>
         </div>
 
         {/* Right: Preferences */}
