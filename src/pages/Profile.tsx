@@ -189,17 +189,31 @@ export default function Profile() {
       <Card className="p-5 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-start">
           {/* Avatar */}
-          <div className="relative shrink-0">
-            <Avatar className="h-16 w-16 border border-border">
-              <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-              <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
-            </Avatar>
-            {editing && (
-              <label className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary/90">
-                <Camera className="w-3 h-3" />
-                <input type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
-              </label>
-            )}
+          <div className="flex flex-col items-center gap-2 shrink-0">
+            <Badge
+              variant="secondary"
+              className={`text-[10px] uppercase tracking-wider font-medium ${
+                ext.orgRole === "Super Admin"
+                  ? "bg-primary/10 text-primary border border-primary/20"
+                  : ext.orgRole === "Organisation Admin"
+                    ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+                    : "bg-muted text-muted-foreground border border-border"
+              }`}
+            >
+              {ext.orgRole}
+            </Badge>
+            <div className="relative">
+              <Avatar className="h-16 w-16 border border-border">
+                <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+                <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
+              </Avatar>
+              {editing && (
+                <label className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center cursor-pointer shadow-sm hover:bg-primary/90">
+                  <Camera className="w-3 h-3" />
+                  <input type="file" accept="image/*" className="hidden" onChange={handleAvatar} />
+                </label>
+              )}
+            </div>
           </div>
 
           {/* Identity */}
@@ -220,21 +234,8 @@ export default function Profile() {
               </div>
             ) : (
               <>
-                <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">User Profile</div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
-                  <Badge
-                    variant="secondary"
-                    className={`text-[10px] uppercase tracking-wider font-medium ${
-                      ext.orgRole === "Super Admin"
-                        ? "bg-primary/10 text-primary border border-primary/20"
-                        : ext.orgRole === "Organisation Admin"
-                          ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-                          : "bg-muted text-muted-foreground border border-border"
-                    }`}
-                  >
-                    {ext.orgRole}
-                  </Badge>
                 </div>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-muted-foreground">
                   {profile.role && <span>{profile.role}</span>}
