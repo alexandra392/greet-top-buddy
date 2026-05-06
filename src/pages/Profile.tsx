@@ -328,29 +328,37 @@ export default function Profile() {
         <div className="space-y-5">
           <Card className="p-5">
             <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Preferences</h2>
-            <div className="space-y-4">
-              <div>
-                <Label className="text-xs flex items-center gap-1.5 mb-1.5"><Languages className="w-3.5 h-3.5" /> Language</Label>
-                {editing ? (
-                  <Select value={ext.language} onValueChange={v => setExt({ ...ext, language: v })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {["English", "Slovenian", "German", "French", "Spanish", "Portuguese"].map(l => (
-                        <SelectItem key={l} value={l}>{l}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                ) : (
-                  <div className="text-xs text-foreground">{ext.language}</div>
-                )}
+            <div className="divide-y divide-border">
+              <div className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground w-32 shrink-0">
+                  <Languages className="w-3.5 h-3.5" /> Language
+                </div>
+                <div className="flex-1 min-w-0">
+                  {editing ? (
+                    <Select value={ext.language} onValueChange={v => setExt({ ...ext, language: v })}>
+                      <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        {["English", "Slovenian", "German", "French", "Spanish", "Portuguese"].map(l => (
+                          <SelectItem key={l} value={l}>{l}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <div className="text-xs text-foreground">{ext.language}</div>
+                  )}
+                </div>
               </div>
-              <div>
-                <Label className="text-xs flex items-center gap-1.5 mb-1.5"><Clock className="w-3.5 h-3.5" /> Timezone</Label>
-                {editing ? (
-                  <Input value={ext.timezone} onChange={e => setExt({ ...ext, timezone: e.target.value })} />
-                ) : (
-                  <div className="text-xs text-foreground">{ext.timezone}</div>
-                )}
+              <div className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground w-32 shrink-0">
+                  <Clock className="w-3.5 h-3.5" /> Timezone
+                </div>
+                <div className="flex-1 min-w-0">
+                  {editing ? (
+                    <Input value={ext.timezone} onChange={e => setExt({ ...ext, timezone: e.target.value })} className="h-7 text-xs" />
+                  ) : (
+                    <div className="text-xs text-foreground">{ext.timezone}</div>
+                  )}
+                </div>
               </div>
             </div>
           </Card>
