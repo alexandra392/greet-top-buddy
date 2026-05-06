@@ -375,7 +375,7 @@ export default function Profile() {
   );
 }
 
-function Field({
+function Row({
   icon: Icon, label, value, editing, onChange, type = "text", placeholder,
 }: {
   icon: React.ComponentType<{ className?: string }>;
@@ -383,15 +383,17 @@ function Field({
   onChange: (v: string) => void; type?: string; placeholder?: string;
 }) {
   return (
-    <div>
-      <Label className="text-xs text-muted-foreground flex items-center gap-1.5 mb-1.5">
+    <div className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
+      <div className="flex items-center gap-1.5 text-xs text-muted-foreground w-32 shrink-0">
         <Icon className="w-3.5 h-3.5" /> {label}
-      </Label>
-      {editing ? (
-        <Input type={type} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} className="h-8 text-xs" />
-      ) : (
-        <div className="text-xs text-foreground break-words">{value || <span className="text-muted-foreground">—</span>}</div>
-      )}
+      </div>
+      <div className="flex-1 min-w-0">
+        {editing ? (
+          <Input type={type} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} className="h-7 text-xs" />
+        ) : (
+          <div className="text-xs text-foreground break-words">{value || <span className="text-muted-foreground">—</span>}</div>
+        )}
+      </div>
     </div>
   );
 }
