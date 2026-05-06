@@ -235,18 +235,32 @@ export default function Profile() {
               </div>
             ) : (
               <>
-                <Badge
-                  variant="secondary"
-                  className={`text-[9px] uppercase tracking-wider font-medium px-1.5 py-0 whitespace-nowrap mb-1.5 ${
-                    ext.orgRole === "Super Admin"
-                      ? "bg-primary/10 text-primary border border-primary/20"
-                      : ext.orgRole === "Organisation Admin"
-                        ? "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-                        : "bg-muted text-muted-foreground border border-border"
-                  }`}
+                <Select
+                  value={ext.orgRole}
+                  onValueChange={(v) => {
+                    const next = { ...ext, orgRole: v as ExtendedProfile["orgRole"] };
+                    setExt(next);
+                    localStorage.setItem(EXT_STORAGE_KEY, JSON.stringify(next));
+                    window.dispatchEvent(new Event("vcg-profile-updated"));
+                  }}
                 >
-                  {ext.orgRole}
-                </Badge>
+                  <SelectTrigger
+                    className={`mb-1.5 h-auto w-auto inline-flex gap-1 px-1.5 py-0 rounded-md text-[9px] uppercase tracking-wider font-medium whitespace-nowrap border [&>svg]:opacity-60 [&>svg]:w-2.5 [&>svg]:h-2.5 focus:ring-0 focus:ring-offset-0 ${
+                      ext.orgRole === "Super Admin"
+                        ? "bg-primary/10 text-primary border-primary/20 hover:bg-primary/15"
+                        : ext.orgRole === "Organisation Admin"
+                          ? "bg-amber-500/10 text-amber-700 border-amber-500/20 hover:bg-amber-500/15"
+                          : "bg-muted text-muted-foreground border-border hover:bg-muted/80"
+                    }`}
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Super Admin" className="text-xs">Super Admin</SelectItem>
+                    <SelectItem value="Organisation Admin" className="text-xs">Organisation Admin</SelectItem>
+                    <SelectItem value="User" className="text-xs">User</SelectItem>
+                  </SelectContent>
+                </Select>
                 <div className="flex items-center gap-2 flex-wrap">
                   <h1 className="text-lg font-semibold text-foreground leading-tight">{profile.name}</h1>
                 </div>
