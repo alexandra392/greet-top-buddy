@@ -198,7 +198,7 @@ export default function Profile() {
         <div className="grid grid-cols-1 md:grid-cols-[auto_1fr_2.5fr] gap-6 items-start">
           {/* Avatar */}
           <div className="relative shrink-0">
-            <Avatar className="h-16 w-16 border border-border">
+            <Avatar className="h-20 w-20 border border-border">
               <AvatarImage src={profile.avatarUrl} alt={profile.name} />
               <AvatarFallback className="bg-muted text-foreground text-sm font-semibold">{initials || "U"}</AvatarFallback>
             </Avatar>
