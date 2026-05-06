@@ -292,6 +292,16 @@ export default function Profile() {
         <div className="lg:col-span-2 space-y-5">
           {/* Interests removed */}
 
+          {/* Contact */}
+          <Card className="p-5">
+            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Contact</h2>
+            <div className="divide-y divide-border">
+              <Row icon={Mail} label="Email" value={profile.email} editing={editing} onChange={v => setProfile({ ...profile, email: v })} type="email" />
+              <Row icon={Phone} label="Phone" value={ext.phone} editing={editing} onChange={v => setExt({ ...ext, phone: v })} placeholder="+1 555 000 0000" />
+              <Row icon={MapPin} label="Location" value={ext.location} editing={editing} onChange={v => setExt({ ...ext, location: v })} placeholder="City, Country" />
+            </div>
+          </Card>
+
           {/* About */}
           <Card className="p-5">
             <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">About</h2>
@@ -309,16 +319,6 @@ export default function Profile() {
                 {profile.bio || <span className="text-muted-foreground italic">No bio added yet.</span>}
               </p>
             )}
-          </Card>
-
-          {/* Position */}
-          <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Position</h2>
-            <div className="divide-y divide-border">
-              <Row icon={Briefcase} label="Job Title" value={ext.jobTitle} editing={editing} onChange={v => setExt({ ...ext, jobTitle: v })} placeholder="e.g. Product Manager" />
-              <Row icon={Building2} label="Department" value={ext.department} editing={editing} onChange={v => setExt({ ...ext, department: v })} placeholder="e.g. Strategy" />
-              <Row icon={Calendar} label="Joined" value={ext.joinedAt} editing={editing} onChange={v => setExt({ ...ext, joinedAt: v })} type="date" />
-            </div>
           </Card>
 
 
