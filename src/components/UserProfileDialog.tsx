@@ -41,7 +41,13 @@ export function getStoredProfile(): UserProfile {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultProfile;
-    return { ...defaultProfile, ...JSON.parse(raw) };
+    const parsed = JSON.parse(raw);
+    const merged: any = { ...defaultProfile };
+    for (const [k, v] of Object.entries(parsed)) {
+      if (v === "" || v == null) continue;
+      merged[k] = v;
+    }
+    return merged as UserProfile;
   } catch {
     return defaultProfile;
   }
