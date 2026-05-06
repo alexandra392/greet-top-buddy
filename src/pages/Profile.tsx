@@ -308,16 +308,6 @@ export default function Profile() {
             </div>
           </Card>
 
-          {/* Online presence */}
-          <Card className="p-5">
-            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4">Online Presence</h2>
-            <div className="divide-y divide-border">
-              <Row icon={Globe} label="Website" value={ext.website} editing={editing} onChange={v => setExt({ ...ext, website: v })} placeholder="https://" />
-              <Row icon={Linkedin} label="LinkedIn" value={ext.linkedin} editing={editing} onChange={v => setExt({ ...ext, linkedin: v })} placeholder="linkedin.com/in/..." />
-              <Row icon={Twitter} label="Twitter / X" value={ext.twitter} editing={editing} onChange={v => setExt({ ...ext, twitter: v })} placeholder="@handle" />
-              <Row icon={Github} label="GitHub" value={ext.github} editing={editing} onChange={v => setExt({ ...ext, github: v })} placeholder="github.com/..." />
-            </div>
-          </Card>
 
         </div>
 
