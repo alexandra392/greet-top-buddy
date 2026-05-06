@@ -34,6 +34,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { getStoredProfile, type UserProfile } from "@/components/UserProfileDialog";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "vcg.userProfile";
 const EXT_STORAGE_KEY = "vcg.userProfileExtended";
@@ -352,6 +353,13 @@ export default function Profile() {
               <ToggleRow label="Weekly digest" desc="Summary every Monday" checked={ext.notifyWeekly} disabled={!editing} onChange={v => setExt({ ...ext, notifyWeekly: v })} />
             </div>
           </Card>
+
+          <Card className="p-5">
+            <h2 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-1.5">
+              <Shield className="w-3.5 h-3.5" /> Password
+            </h2>
+            <PasswordChange />
+          </Card>
         </div>
       </div>
     </div>
@@ -407,6 +415,51 @@ function ToggleRow({ label, desc, checked, disabled, onChange }: { label: string
         <div className="text-[11px] text-muted-foreground">{desc}</div>
       </div>
       <Switch checked={checked} disabled={disabled} onCheckedChange={onChange} />
+    </div>
+  );
+}
+
+function PasswordChange() {
+  const [pw, setPw] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const submit = async () => {
+    if (pw.length < 8) {
+      toast({ title: "Password too short", description: "Use at least 8 characters", variant: "destructive" });
+      return;
+    }
+    if (pw !== confirm) {
+      toast({ title: "Passwords do not match", variant: "destructive" });
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.auth.updateUser({ password: pw });
+    setLoading(false);
+    if (error) {
+      toast({ title: "Could not update password", description: error.message, variant: "destructive" });
+      return;
+    }
+    setPw("");
+    setConfirm("");
+    toast({ title: "Password updated" });
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-3">
+        <Label htmlFor="new-pw" className="text-xs text-muted-foreground w-32 shrink-0">New password</Label>
+        <Input id="new-pw" type="password" value={pw} onChange={e => setPw(e.target.value)} className="h-7 text-xs flex-1" placeholder="At least 8 characters" />
+      </div>
+      <div className="flex items-center gap-3">
+        <Label htmlFor="confirm-pw" className="text-xs text-muted-foreground w-32 shrink-0">Confirm password</Label>
+        <Input id="confirm-pw" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} className="h-7 text-xs flex-1" placeholder="Repeat new password" />
+      </div>
+      <div className="flex justify-end">
+        <Button size="sm" className="h-7 text-xs" onClick={submit} disabled={loading || !pw || !confirm}>
+          {loading ? "Updating…" : "Update password"}
+        </Button>
+      </div>
     </div>
   );
 }
