@@ -207,6 +207,14 @@ export default function Profile() {
                 <Input value={profile.name} maxLength={100} onChange={e => setProfile({ ...profile, name: e.target.value })} className="h-8 text-sm font-semibold" />
                 <Input placeholder="Role" value={profile.role} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, role: e.target.value })} />
                 <Input placeholder="Company" value={profile.company} maxLength={100} className="h-8 text-xs" onChange={e => setProfile({ ...profile, company: e.target.value })} />
+                <Select value={ext.orgRole} onValueChange={(v) => setExt({ ...ext, orgRole: v as ExtendedProfile["orgRole"] })}>
+                  <SelectTrigger className="h-8 text-xs"><SelectValue placeholder="Organisation Role" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Super Admin">Super Admin</SelectItem>
+                    <SelectItem value="Organisation Admin">Organisation Admin</SelectItem>
+                    <SelectItem value="User">User</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             ) : (
               <>
