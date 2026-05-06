@@ -21,6 +21,7 @@ import {
   Check,
   X as XIcon,
   Camera,
+  KeyRound,
 } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
