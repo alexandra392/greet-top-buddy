@@ -339,12 +339,12 @@ export default function Profile() {
                       window.dispatchEvent(new Event("vcg-profile-updated"));
                     }}
                   >
-                    <SelectTrigger className="h-7 text-xs border-0 shadow-none p-0 hover:bg-transparent focus:ring-0 [&>svg]:opacity-50 justify-start gap-1">
+                    <SelectTrigger className="h-7 text-xs border-0 shadow-none p-0 hover:bg-transparent focus:ring-0 [&>svg]:opacity-50 justify-center gap-1 font-sans">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="font-sans">
                       {["English", "Slovenian", "German", "French", "Spanish", "Portuguese"].map(l => (
-                        <SelectItem key={l} value={l}>{l}</SelectItem>
+                        <SelectItem key={l} value={l} className="text-xs">{l}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
