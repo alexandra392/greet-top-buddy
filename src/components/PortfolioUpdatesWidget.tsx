@@ -18,11 +18,11 @@ interface UpdateItem {
 
 const categoryConfig: Record<UpdateCategory, { label: string; icon: typeof FileText; color: string; badgeClass: string }> = {
   all: { label: "All", icon: FileText, color: "text-foreground", badgeClass: "bg-muted text-foreground border-border" },
-  research: { label: "Research Papers", icon: FileText, color: "text-blue-500", badgeClass: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
-  patents: { label: "Patents", icon: Shield, color: "text-amber-500", badgeClass: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
-  rni_projects: { label: "Publicly Funded Projects", icon: FlaskConical, color: "text-violet-500", badgeClass: "bg-violet-500/10 text-violet-500 border-violet-500/20" },
-  commercial: { label: "Commercial Projects", icon: Building2, color: "text-emerald-500", badgeClass: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
-  market: { label: "Market Activity", icon: TrendingUp, color: "text-rose-500", badgeClass: "bg-rose-500/10 text-rose-500 border-rose-500/20" },
+  research: { label: "Research Papers", icon: FileText, color: "text-info", badgeClass: "bg-info/10 text-info border-info/20" },
+  patents: { label: "Patents", icon: Shield, color: "text-warning", badgeClass: "bg-warning/10 text-warning border-warning/20" },
+  rni_projects: { label: "Publicly Funded Projects", icon: FlaskConical, color: "text-application-purple", badgeClass: "bg-application-purple/10 text-application-purple border-application-purple/20" },
+  commercial: { label: "Commercial Projects", icon: Building2, color: "text-success", badgeClass: "bg-success/10 text-success border-success/20" },
+  market: { label: "Market Activity", icon: TrendingUp, color: "text-destructive", badgeClass: "bg-destructive/10 text-destructive border-destructive/20" },
 };
 
 type DataCategory = Exclude<UpdateCategory, "all">;
@@ -163,8 +163,8 @@ const PortfolioUpdatesWidget = () => {
                               variant="outline"
                               className={`text-[10px] px-1.5 py-0 h-5 ${
                                 item.topicType === "feedstock"
-                                  ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
-                                  : "bg-violet-500/10 text-violet-600 border-violet-500/20"
+                                  ? "bg-success/10 text-success border-success/20"
+                                  : "bg-application-purple/10 text-application-purple border-application-purple/20"
                               }`}
                             >
                               {item.topic}
