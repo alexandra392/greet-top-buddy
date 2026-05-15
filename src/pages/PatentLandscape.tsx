@@ -1161,7 +1161,7 @@ const PatentLandscape = () => {
                               className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}
                             >
                               Filing Year
-                              <span className="text-[8px] leading-none">{filingSort === 'asc' ? '▲' : filingSort === 'desc' ? '▼' : '↕'}</span>
+                              <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
                             </button>
                           </th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
@@ -1171,7 +1171,7 @@ const PatentLandscape = () => {
                               className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}
                             >
                               Granted Year
-                              <span className="text-[8px] leading-none">{grantedSort === 'asc' ? '▲' : grantedSort === 'desc' ? '▼' : '↕'}</span>
+                              <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
                             </button>
                           </th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
