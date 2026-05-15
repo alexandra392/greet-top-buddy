@@ -113,7 +113,7 @@ const ContinentPatentsModal = ({
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [patentTab, setPatentTab] = useState<'all' | 'granted' | 'filed'>('all');
-  const [countryFilter, setCountryFilter] = useState<'all' | 'granted' | 'filed'>('all');
+  
 
   const countries = useMemo<CountryRow[]>(() => {
     const names = continentCountries[continent] || ['Country A', 'Country B', 'Country C'];
@@ -157,7 +157,6 @@ const ContinentPatentsModal = ({
     setPage(1);
     setSearchTerm('');
     setPatentTab('all');
-    setCountryFilter('all');
     onOpenChange(false);
   };
 
@@ -166,15 +165,9 @@ const ContinentPatentsModal = ({
     setView('patents');
     setSelectedPatent(null);
     setSearchTerm('');
-    // carry the continent-level filter into the patent tab
-    setPatentTab(countryFilter);
+    setPatentTab('all');
   };
 
-  const visibleCountries = useMemo(() => {
-    if (countryFilter === 'granted') return pageRows.filter(c => c.granted > 0);
-    if (countryFilter === 'filed') return pageRows.filter(c => c.filed > 0);
-    return pageRows;
-  }, [pageRows, countryFilter]);
 
 
 
@@ -365,56 +358,30 @@ const ContinentPatentsModal = ({
               </p>
             </div>
 
-            {/* Granted vs Filed summary — also acts as filter */}
+            {/* Granted vs Filed proportional summary */}
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setCountryFilter(countryFilter === 'granted' ? 'all' : 'granted')}
-                  aria-pressed={countryFilter === 'granted'}
-                  className={`text-left rounded-lg p-2.5 border transition-colors ${
-                    countryFilter === 'granted'
-                      ? 'bg-primary/10 border-primary/40 ring-1 ring-primary/30'
-                      : 'bg-muted/30 border-border/40 hover:bg-muted/50'
-                  }`}
-                >
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Granted {countryFilter === 'granted' && <span className="text-primary normal-case tracking-normal ml-1">· filtering</span>}</p>
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <span className="text-primary text-[11px]">✓</span>
-                    <span className="text-[11px] font-semibold text-foreground tabular-nums">{granted}</span>
-                  </div>
-                  <div className="h-1 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full bg-primary rounded-full" style={{ width: `${(granted / Math.max(1, granted + filed)) * 100}%` }} />
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCountryFilter(countryFilter === 'filed' ? 'all' : 'filed')}
-                  aria-pressed={countryFilter === 'filed'}
-                  className={`text-left rounded-lg p-2.5 border transition-colors ${
-                    countryFilter === 'filed'
-                      ? 'bg-info/10 border-info/40 ring-1 ring-info/30'
-                      : 'bg-muted/30 border-border/40 hover:bg-muted/50'
-                  }`}
-                >
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Filed {countryFilter === 'filed' && <span className="text-info normal-case tracking-normal ml-1">· filtering</span>}</p>
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <FileText className="w-3 h-3 text-muted-foreground" />
-                    <span className="text-[11px] font-semibold text-foreground tabular-nums">{filed}</span>
-                  </div>
-                  <div className="h-1 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full bg-info rounded-full" style={{ width: `${(filed / Math.max(1, granted + filed)) * 100}%` }} />
-                  </div>
-                </button>
+              <div className="flex items-center justify-between text-[10px] mb-1.5">
+                <div className="flex items-center gap-1.5 text-foreground">
+                  <span className="text-primary">✓</span>
+                  <span className="font-semibold tabular-nums">{granted}</span>
+                  <span className="text-muted-foreground uppercase tracking-wider text-[9px]">Granted</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-foreground">
+                  <span className="text-muted-foreground uppercase tracking-wider text-[9px]">Filed</span>
+                  <span className="font-semibold tabular-nums">{filed}</span>
+                  <FileText className="w-2.5 h-2.5 text-info" />
+                </div>
               </div>
-              {countryFilter !== 'all' && (
-                <button
-                  onClick={() => setCountryFilter('all')}
-                  className="mt-2 text-[9px] text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Clear filter ×
-                </button>
-              )}
+              <div className="h-1.5 rounded-full bg-muted overflow-hidden flex">
+                <div
+                  className="h-full bg-primary"
+                  style={{ width: `${(granted / Math.max(1, granted + filed)) * 100}%` }}
+                />
+                <div
+                  className="h-full bg-info"
+                  style={{ width: `${(filed / Math.max(1, granted + filed)) * 100}%` }}
+                />
+              </div>
             </div>
 
             {/* Country table */}
@@ -430,7 +397,7 @@ const ContinentPatentsModal = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {visibleCountries.map((c) => (
+                  {pageRows.map((c) => (
                     <tr
                       key={c.name}
                       className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
