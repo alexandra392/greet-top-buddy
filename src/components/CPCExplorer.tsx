@@ -228,27 +228,29 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         <DialogContent className="w-[680px] max-w-[680px] h-[640px] max-h-[85vh] p-0 gap-0 overflow-hidden flex flex-col">
           {currentSection && (
             <>
-              <div className="px-4 py-3 border-b border-border flex-shrink-0 flex items-start gap-3">
-                {currentClass && (
-                  <button
-                    onClick={goBackBrowse}
-                    className="mt-3 inline-flex items-center justify-center h-6 w-6 rounded-md border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors shrink-0"
-                    aria-label={`Back to ${currentSection.code} classes`}
-                  >
-                    <ArrowLeft className="w-3 h-3" />
-                  </button>
-                )}
-                <div className="min-w-0 flex-1">
-                  <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
-                    CPC {currentClass ? 'Class' : 'Section'}
-                  </DialogTitle>
-                  <h4 className="text-sm font-semibold text-foreground">
-                    <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
-                    {(currentClass || currentSection).name}
-                  </h4>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">
-                    {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
-                  </p>
+              <div className="px-4 py-3 border-b border-border flex-shrink-0">
+                <DialogTitle className={currentClass ? 'ml-9 text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5' : 'text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5'}>
+                  CPC {currentClass ? 'Class' : 'Section'}
+                </DialogTitle>
+                <div className={currentClass ? 'grid grid-cols-[24px_minmax(0,1fr)] gap-x-3 items-start' : 'min-w-0'}>
+                  {currentClass && (
+                    <button
+                      onClick={goBackBrowse}
+                      className="mt-0.5 inline-flex items-center justify-center h-6 w-6 rounded-md border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors shrink-0"
+                      aria-label={`Back to ${currentSection.code} classes`}
+                    >
+                      <ArrowLeft className="w-3 h-3" />
+                    </button>
+                  )}
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-semibold text-foreground leading-6">
+                      <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
+                      {(currentClass || currentSection).name}
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                      {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
+                    </p>
+                  </div>
                 </div>
               </div>
 
