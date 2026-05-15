@@ -386,43 +386,50 @@ const ContinentPatentsModal = ({
 
             {/* Country table */}
             <div className="overflow-y-auto flex-1">
-              <table className="w-full text-xs">
+              <table className="w-full text-xs table-fixed">
+                <colgroup>
+                  <col />
+                  <col style={{ width: 70 }} />
+                  <col style={{ width: 90 }} />
+                  <col style={{ width: 90 }} />
+                  <col style={{ width: 32 }} />
+                </colgroup>
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
-                    <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '34%' }}>Country</th>
-                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
-                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
-                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
-                    <th className="py-1.5 px-2" style={{ width: 32 }} />
+                    <th className="text-left py-2 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Country</th>
+                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
+                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
+                    <th className="py-2 px-2" />
                   </tr>
                 </thead>
                 <tbody>
                   {pageRows.map((c) => (
                     <tr
                       key={c.name}
-                      className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
+                      className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer group"
                       onClick={() => openCountry(c)}
                     >
-                      <td className="py-1.5 px-4">
-                        <div className="font-medium text-[11px] text-foreground hover:text-primary transition-colors">{c.name}</div>
+                      <td className="py-2 px-4">
+                        <div className="font-medium text-[11px] text-foreground group-hover:text-primary transition-colors truncate">{c.name}</div>
                       </td>
-                      <td className="py-1.5">
+                      <td className="py-2 pr-4 text-right">
                         <span className="text-[11px] font-semibold text-foreground tabular-nums">{c.granted + c.filed}</span>
                       </td>
-                      <td className="py-1.5">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-primary text-[10px]">✓</span>
-                          <span className="text-[11px] text-foreground tabular-nums">{c.granted}</span>
+                      <td className="py-2 pr-4">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <span className="text-primary text-[10px] leading-none">✓</span>
+                          <span className="text-[11px] text-foreground tabular-nums w-5 text-right">{c.granted}</span>
                         </div>
                       </td>
-                      <td className="py-1.5">
-                        <div className="flex items-center gap-1.5">
+                      <td className="py-2 pr-4">
+                        <div className="flex items-center justify-end gap-1.5">
                           <FileText className="w-2.5 h-2.5 text-info" />
-                          <span className="text-[11px] text-foreground tabular-nums">{c.filed}</span>
+                          <span className="text-[11px] text-foreground tabular-nums w-5 text-right">{c.filed}</span>
                         </div>
                       </td>
-                      <td className="py-1.5 px-2 text-right">
-                        <ArrowRight className="w-3 h-3 text-muted-foreground inline-block" />
+                      <td className="py-2 px-2 text-right">
+                        <ArrowRight className="w-3 h-3 text-muted-foreground/50 group-hover:text-foreground transition-colors inline-block" />
                       </td>
                     </tr>
                   ))}
