@@ -113,6 +113,7 @@ const ContinentPatentsModal = ({
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [patentTab, setPatentTab] = useState<'all' | 'granted' | 'filed'>('all');
+  const [countryFilter, setCountryFilter] = useState<'all' | 'granted' | 'filed'>('all');
 
   const countries = useMemo<CountryRow[]>(() => {
     const names = continentCountries[continent] || ['Country A', 'Country B', 'Country C'];
