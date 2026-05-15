@@ -168,19 +168,27 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
             {sectionItems.map((it) => (
               <div
                 key={it.code}
-                className="flex items-center gap-3 px-3 py-1 cursor-pointer bg-card hover:bg-muted/40 hover:border-border transition-colors border border-border/60 rounded-md group"
+                className="relative flex items-center gap-3 pl-3 pr-3 py-1 cursor-pointer bg-card hover:bg-muted/40 transition-colors border border-border/60 hover:border-border rounded-md group overflow-hidden"
                 onClick={() => openSection(it.code)}
               >
-                <span className="flex items-center justify-center w-5 h-5 rounded-[3px] border border-border/70 bg-muted/40 text-[10px] font-mono font-bold text-foreground shrink-0">
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-0 bottom-0 w-[3px]"
+                  style={{ backgroundColor: it.color }}
+                />
+                <span
+                  className="flex items-center justify-center w-5 h-5 rounded-[3px] text-[10px] font-mono font-bold shrink-0"
+                  style={{ backgroundColor: `${it.color}22`, color: it.color, boxShadow: `inset 0 0 0 1px ${it.color}55` }}
+                >
                   {it.code}
                 </span>
                 <span className="flex-1 min-w-0 text-[11px] text-foreground group-hover:text-primary transition-colors truncate">
                   {it.name}
                 </span>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-1.5 shrink-0">
                   <Award className="w-3 h-3 text-muted-foreground" />
                   <span className="text-[11px] font-semibold text-foreground tabular-nums">{it.count.toLocaleString()}</span>
-                  <div className="w-2.5 h-2.5 rounded-[2px]" style={{ backgroundColor: it.color }} />
+                  <ChevronRight className="w-3 h-3 text-muted-foreground/60 group-hover:text-foreground transition-colors" />
                 </div>
               </div>
             ))}
