@@ -164,14 +164,14 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         {/* Sections list */}
         <div>
           <div className="text-[10px] font-semibold text-foreground mb-2">All sections</div>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {sectionItems.map((it) => (
               <div
                 key={it.code}
-                className="flex items-center gap-3 px-3 py-2 cursor-pointer bg-card hover:bg-muted/40 hover:border-border transition-colors border border-border/60 rounded-lg group"
+                className="flex items-center gap-3 px-3 py-1 cursor-pointer bg-card hover:bg-muted/40 hover:border-border transition-colors border border-border/60 rounded-md group"
                 onClick={() => openSection(it.code)}
               >
-                <span className="flex items-center justify-center w-6 h-6 rounded-md border border-border/70 bg-muted/40 text-[10px] font-mono font-bold text-foreground shrink-0">
+                <span className="flex items-center justify-center w-5 h-5 rounded-[3px] border border-border/70 bg-muted/40 text-[10px] font-mono font-bold text-foreground shrink-0">
                   {it.code}
                 </span>
                 <span className="flex-1 min-w-0 text-[11px] text-foreground group-hover:text-primary transition-colors truncate">
@@ -180,7 +180,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                 <div className="flex items-center gap-2 shrink-0">
                   <Award className="w-3 h-3 text-muted-foreground" />
                   <span className="text-[11px] font-semibold text-foreground tabular-nums">{it.count.toLocaleString()}</span>
-                  <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: it.color }} />
+                  <div className="w-2.5 h-2.5 rounded-[2px]" style={{ backgroundColor: it.color }} />
                 </div>
               </div>
             ))}
