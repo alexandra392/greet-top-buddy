@@ -183,8 +183,8 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: it.color }} />
                       </div>
                     </div>
-                    <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full rounded-full transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color }} />
+                    <div className="w-full h-2 bg-muted rounded-sm overflow-hidden">
+                      <div className="h-full rounded-sm transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color }} />
                     </div>
                   </div>
                   <ChevronRight className="w-3 h-3 text-muted-foreground shrink-0" />
@@ -295,8 +295,8 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: it.color }} />
                               </div>
                             </div>
-                            <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color }} />
+                            <div className="w-full h-2 bg-muted rounded-sm overflow-hidden">
+                              <div className="h-full rounded-sm transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color }} />
                             </div>
                           </div>
                           {it.canDrill ? (
