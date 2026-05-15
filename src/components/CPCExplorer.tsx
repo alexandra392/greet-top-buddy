@@ -229,28 +229,28 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
           {currentSection && (
             <>
               <div className="px-4 py-3 border-b border-border flex-shrink-0">
-                <div className={currentClass ? 'grid grid-cols-[24px_minmax(0,1fr)] gap-x-3 items-start' : 'min-w-0'}>
-                  {currentClass && (
-                    <button
-                      onClick={goBackBrowse}
-                      className="mt-0 inline-flex items-center justify-center h-6 w-6 rounded-md border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors shrink-0"
-                      aria-label={`Back to ${currentSection.code} classes`}
-                    >
-                      <ArrowLeft className="w-3 h-3" />
-                    </button>
-                  )}
-                  <div className="min-w-0">
-                    <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5 leading-6">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    {currentClass && (
+                      <button
+                        onClick={goBackBrowse}
+                        className="inline-flex items-center justify-center h-5 w-5 rounded-md border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors shrink-0"
+                        aria-label={`Back to ${currentSection.code} classes`}
+                      >
+                        <ArrowLeft className="w-3 h-3" />
+                      </button>
+                    )}
+                    <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary leading-5">
                       CPC {currentClass ? 'Class' : 'Section'}
                     </DialogTitle>
-                    <h4 className="text-sm font-semibold text-foreground leading-6">
-                      <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
-                      {(currentClass || currentSection).name}
-                    </h4>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">
-                      {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
-                    </p>
                   </div>
+                  <h4 className="text-sm font-semibold text-foreground leading-6">
+                    <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
+                    {(currentClass || currentSection).name}
+                  </h4>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
+                  </p>
                 </div>
               </div>
 
