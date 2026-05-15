@@ -149,8 +149,13 @@ const ContinentPatentsModal = ({
       const lo = searchTerm.toLowerCase();
       f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
     }
+    if (filingSort) f = [...f].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    else if (grantedSort) f = [...f].sort((a, b) => {
+      const av = a.grantedYear ?? -Infinity; const bv = b.grantedYear ?? -Infinity;
+      return grantedSort === 'desc' ? bv - av : av - bv;
+    });
     return f;
-  }, [countryPatents, patentTab, searchTerm]);
+  }, [countryPatents, patentTab, searchTerm, filingSort, grantedSort]);
 
   const handleClose = () => {
     setView('countries');
