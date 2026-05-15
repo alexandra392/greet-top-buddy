@@ -132,7 +132,7 @@ const CPCSunburst: React.FC<CPCSunburstProps> = ({ hierarchy, onOpenSlice, size 
             />
           );
         })}
-        <circle cx={cx} cy={cy} r={innerR} fill="hsl(var(--card))" stroke="hsl(var(--border))" strokeWidth={1} />
+        
       </svg>
 
       {hovered && (
