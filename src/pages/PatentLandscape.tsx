@@ -14,6 +14,7 @@ import worldPatentMap from '@/assets/world-patent-map.png';
 import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
 import CategoryPatentsModal from '@/components/CategoryPatentsModal';
 import PatentDetailModal from '@/components/PatentDetailModal';
+import ContinentPatentsModal from '@/components/ContinentPatentsModal';
 
 type PatentView = 'feedstock' | 'technology' | 'production' | 'applications' | 'products';
 
