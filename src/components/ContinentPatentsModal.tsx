@@ -416,17 +416,11 @@ const ContinentPatentsModal = ({
                       <td className="py-2 pr-4 text-right">
                         <span className="text-[11px] font-semibold text-foreground tabular-nums">{c.granted + c.filed}</span>
                       </td>
-                      <td className="py-2 pr-4">
-                        <div className="flex items-center justify-end gap-1.5">
-                          <span className="text-primary text-[10px] leading-none">✓</span>
-                          <span className="text-[11px] text-foreground tabular-nums w-5 text-right">{c.granted}</span>
-                        </div>
+                      <td className="py-2 pr-4 text-right">
+                        <span className="text-[11px] text-muted-foreground tabular-nums">{c.granted}</span>
                       </td>
-                      <td className="py-2 pr-4">
-                        <div className="flex items-center justify-end gap-1.5">
-                          <FileText className="w-2.5 h-2.5 text-info" />
-                          <span className="text-[11px] text-foreground tabular-nums w-5 text-right">{c.filed}</span>
-                        </div>
+                      <td className="py-2 pr-4 text-right">
+                        <span className="text-[11px] text-muted-foreground tabular-nums">{c.filed}</span>
                       </td>
                       <td className="py-2 px-2 text-right">
                         <ArrowRight className="w-3 h-3 text-muted-foreground/50 group-hover:text-foreground transition-colors inline-block" />
