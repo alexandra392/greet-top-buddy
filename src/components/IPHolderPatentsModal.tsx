@@ -104,8 +104,13 @@ const IPHolderPatentsModal = ({
         p.company.toLowerCase().includes(lower)
       );
     }
+    if (filingSort) filtered = [...filtered].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    else if (grantedSort) filtered = [...filtered].sort((a, b) => {
+      const av = a.grantedYear ?? -Infinity; const bv = b.grantedYear ?? -Infinity;
+      return grantedSort === 'desc' ? bv - av : av - bv;
+    });
     return filtered;
-  }, [allPatents, activeTab, searchTerm]);
+  }, [allPatents, activeTab, searchTerm, filingSort, grantedSort]);
 
   const handleClose = () => {
     setSelectedPatent(null);
