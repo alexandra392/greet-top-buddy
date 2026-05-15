@@ -696,6 +696,8 @@ const PatentLandscape = () => {
   const [expandedHeatRows, setExpandedHeatRows] = useState<Set<string>>(new Set());
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
+  const [filingYearFilter, setFilingYearFilter] = useState<string>('all');
+  const [grantedYearFilter, setGrantedYearFilter] = useState<string>('all');
   const [trendChartMode] = useState<'spot'>('spot');
   const [trendTimeRange, setTrendTimeRange] = useState<string>('5');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
@@ -789,9 +791,19 @@ const PatentLandscape = () => {
   const cpcCategories = activeConfig.cpcData;
   const pieData = activeConfig.pieData;
   const allPatents = activeConfig.patents;
-  const latestPatents = patentSearchTerm
-    ? allPatents.filter(p => p.title.toLowerCase().includes(patentSearchTerm.toLowerCase()) || p.company.toLowerCase().includes(patentSearchTerm.toLowerCase()))
-    : allPatents;
+  const filingYears = Array.from(new Set(allPatents.map(p => p.filingYear).filter(Boolean))).sort((a, b) => b - a);
+  const grantedYears = Array.from(new Set(allPatents.map(p => p.grantedYear).filter((y): y is number => !!y))).sort((a, b) => b - a);
+  const latestPatents = allPatents.filter(p => {
+    if (patentSearchTerm) {
+      const lo = patentSearchTerm.toLowerCase();
+      if (!p.title.toLowerCase().includes(lo) && !p.company.toLowerCase().includes(lo)) return false;
+    }
+    if (filingYearFilter !== 'all' && String(p.filingYear) !== filingYearFilter) return false;
+    if (grantedYearFilter !== 'all') {
+      if (grantedYearFilter === 'none' ? !!p.grantedYear : String(p.grantedYear ?? '') !== grantedYearFilter) return false;
+    }
+    return true;
+  });
   const geoData = activeConfig.geoData;
   const developers = activeConfig.developers;
   const hasDetailedSections = !!activeConfig.sectors;
@@ -1115,6 +1127,30 @@ const PatentLandscape = () => {
                       </Button>
                     </div>
                     <div className="flex items-center gap-2">
+                      <Select value={filingYearFilter} onValueChange={setFilingYearFilter}>
+                        <SelectTrigger className="h-6 w-auto gap-1 px-2 text-[10px] border-border bg-background [&>svg]:h-2.5 [&>svg]:w-2.5">
+                          <Calendar className="w-2.5 h-2.5 text-muted-foreground" />
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all" className="text-[10px]">All filing years</SelectItem>
+                          {filingYears.map(y => (
+                            <SelectItem key={y} value={String(y)} className="text-[10px]">Filed {y}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Select value={grantedYearFilter} onValueChange={setGrantedYearFilter}>
+                        <SelectTrigger className="h-6 w-auto gap-1 px-2 text-[10px] border-border bg-background [&>svg]:h-2.5 [&>svg]:w-2.5">
+                          <span className="text-primary text-[10px]">✓</span>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all" className="text-[10px]">All granted years</SelectItem>
+                          {grantedYears.map(y => (
+                            <SelectItem key={y} value={String(y)} className="text-[10px]">Granted {y}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <div className="relative w-52">
                         <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-2.5 w-2.5 text-muted-foreground" />
                         <Input
