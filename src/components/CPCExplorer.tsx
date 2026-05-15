@@ -25,6 +25,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
   // Browse modal navigation state
   const [sectionCode, setSectionCode] = useState<string | undefined>();
   const [classCode, setClassCode] = useState<string | undefined>();
+  const [subclassCode, setSubclassCode] = useState<string | undefined>();
   const [browseTab, setBrowseTab] = useState<'list' | 'patents'>('list');
 
   // Patent modal state
@@ -41,6 +42,10 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
     () => currentSection?.classes.find(c => c.code === classCode),
     [currentSection, classCode],
   );
+  const currentSubclass = useMemo(
+    () => currentClass?.subclasses.find(s => s.code === subclassCode),
+    [currentClass, subclassCode],
+  );
 
   // Top-level (page) items: always sections
   const sectionItems = useMemo(() => {
@@ -56,6 +61,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
 
   // Items inside browse modal (children of current level)
   const browseItems = useMemo(() => {
+    if (currentSubclass) return [];
     if (currentClass) {
       const total = currentClass.count || 1;
       return currentClass.subclasses.map(sub => ({
@@ -65,7 +71,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         share: (sub.count / total) * 100,
         canDrill: false,
         color: shadeHsl(currentSection!.color, 18, -20),
-        onDrill: () => openPatents(sub.patents, sub.code, sub.name),
+        onDrill: () => { setSubclassCode(sub.code); setBrowseTab('patents'); },
       }));
     }
     if (currentSection) {
@@ -81,21 +87,24 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
       }));
     }
     return [];
-  }, [currentSection, currentClass]);
+  }, [currentSection, currentClass, currentSubclass]);
 
   const openSection = (code: string) => {
     setSectionCode(code);
     setClassCode(undefined);
+    setSubclassCode(undefined);
     setBrowseTab('list');
   };
 
   const closeBrowse = () => {
     setSectionCode(undefined);
     setClassCode(undefined);
+    setSubclassCode(undefined);
   };
 
   const goBackBrowse = () => {
-    if (currentClass) { setClassCode(undefined); setBrowseTab('list'); }
+    if (currentSubclass) { setSubclassCode(undefined); setBrowseTab('list'); }
+    else if (currentClass) { setClassCode(undefined); setBrowseTab('list'); }
     else closeBrowse();
   };
 
@@ -113,10 +122,11 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
 
   // Patents at current browse level (for "All patents" tab)
   const currentLevelPatents = useMemo(() => {
+    if (currentSubclass) return currentSubclass.patents;
     if (currentClass) return patentsForClass(currentClass);
     if (currentSection) return patentsForSection(currentSection);
     return [];
-  }, [currentSection, currentClass]);
+  }, [currentSection, currentClass, currentSubclass]);
 
   // Filtered patents in patent modal
   const filteredPatents = useMemo(() => {
@@ -231,54 +241,58 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
               <div className="px-4 py-3 border-b border-border flex-shrink-0">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    {currentClass && (
+                    {(currentClass || currentSubclass) && (
                       <button
                         onClick={goBackBrowse}
                         className="inline-flex items-center justify-center h-5 w-5 rounded-md border border-border/60 text-muted-foreground hover:text-foreground hover:border-border transition-colors shrink-0"
-                        aria-label={`Back to ${currentSection.code} classes`}
+                        aria-label="Back"
                       >
                         <ArrowLeft className="w-3 h-3" />
                       </button>
                     )}
                     <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary leading-5">
-                      CPC {currentClass ? 'Class' : 'Section'}
+                      CPC {currentSubclass ? 'Subclass' : currentClass ? 'Class' : 'Section'}
                     </DialogTitle>
                   </div>
                   <h4 className="text-sm font-semibold text-foreground leading-6">
-                    <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
-                    {(currentClass || currentSection).name}
+                    <span className="font-mono mr-1.5">{(currentSubclass || currentClass || currentSection).code}</span>
+                    {(currentSubclass || currentClass || currentSection).name}
                   </h4>
                   <p className="text-[10px] text-muted-foreground mt-0.5">
-                    {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
+                    {currentSubclass
+                      ? `${browseAllCount} patents · ${browseGrantedCount} granted · ${browseFiledCount} filed`
+                      : `${browseItems.length} ${currentClass ? 'subclasses' : 'classes'} · ${browseAllCount} patents · ${browseGrantedCount} granted · ${browseFiledCount} filed`}
                   </p>
                 </div>
               </div>
 
               {/* Tabs */}
-              <div className="px-4 py-2 border-b border-border flex-shrink-0">
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => setBrowseTab('list')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
-                      browseTab === 'list' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                    }`}
-                  >
-                    <Layers className="w-2.5 h-2.5" />
-                    {currentClass ? 'Subclasses' : 'Classes'}
-                    <span className="opacity-70">{browseItems.length}</span>
-                  </button>
-                  <button
-                    onClick={() => setBrowseTab('patents')}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
-                      browseTab === 'patents' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                    }`}
-                  >
-                    <Award className="w-2.5 h-2.5" />
-                    All patents
-                    <span className="opacity-70">{browseAllCount}</span>
-                  </button>
+              {!currentSubclass && (
+                <div className="px-4 py-2 border-b border-border flex-shrink-0">
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setBrowseTab('list')}
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
+                        browseTab === 'list' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      }`}
+                    >
+                      <Layers className="w-2.5 h-2.5" />
+                      {currentClass ? 'Subclasses' : 'Classes'}
+                      <span className="opacity-70">{browseItems.length}</span>
+                    </button>
+                    <button
+                      onClick={() => setBrowseTab('patents')}
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
+                        browseTab === 'patents' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      }`}
+                    >
+                      <Award className="w-2.5 h-2.5" />
+                      All patents
+                      <span className="opacity-70">{browseAllCount}</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="overflow-y-auto flex-1">
                 {browseTab === 'list' ? (
@@ -371,7 +385,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                           <tr
                             key={p.id + i}
                             className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
-                            onClick={() => { setPatentModal({ patents: currentLevelPatents, label: (currentClass || currentSection).code, sublabel: (currentClass || currentSection).name }); setSelectedPatent(p); setPatentTab('all'); setPatentSearch(''); }}
+                            onClick={() => { const node = (currentSubclass || currentClass || currentSection); setPatentModal({ patents: currentLevelPatents, label: node.code, sublabel: node.name }); setSelectedPatent(p); setPatentTab('all'); setPatentSearch(''); }}
                           >
                             <td className="py-1.5 px-4">
                               <div className="font-medium text-[10px] text-foreground line-clamp-2 hover:text-primary transition-colors">{p.title}</div>
