@@ -96,11 +96,7 @@ const CPCSunburst: React.FC<CPCSunburstProps> = ({ hierarchy, onOpenSlice, size 
 
   const isDimmed = (a: ArcSpec) => {
     if (!hovered) return false;
-    if (hovered.level === 'section') return a.parentSection !== hovered.code;
-    if (hovered.level === 'class') return a.parentClass !== hovered.code && !(a.level === 'section' && a.code === hovered.parentSection);
-    return a.code !== hovered.code
-      && !(a.level === 'class' && a.code === hovered.parentClass)
-      && !(a.level === 'section' && a.code === hovered.parentSection);
+    return !(a.level === hovered.level && a.code === hovered.code);
   };
 
   return (
