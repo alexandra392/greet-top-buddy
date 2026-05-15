@@ -467,7 +467,9 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
           ) : patentModal ? (
             <>
               <div className="px-4 py-3 border-b border-border flex-shrink-0">
-                <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">CPC Classification</DialogTitle>
+                <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
+                  CPC Classification · {patentModal.label.length === 1 ? 'Section' : patentModal.label.length === 3 ? 'Class' : 'Subclass'}
+                </DialogTitle>
                 <h4 className="text-sm font-semibold text-foreground"><span className="font-mono mr-1.5">{patentModal.label}</span>{patentModal.sublabel}</h4>
                 <p className="text-[10px] text-muted-foreground mt-0.5">{patentModal.patents.length} unique patents · {grantedCount} granted · {filedCount} filed</p>
               </div>
