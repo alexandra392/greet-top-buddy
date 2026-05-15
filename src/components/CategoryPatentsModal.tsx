@@ -271,7 +271,12 @@ const CategoryPatentsModal = ({
                   <tr className="border-b border-border">
                     <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '45%' }}>Patent</th>
                     <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Subcategory</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <button type="button" onClick={() => setFilingSort(filingSort === 'desc' ? 'asc' : 'desc')} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                        FILING
+                        <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                      </button>
+                    </th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisd.</th>
                   </tr>
