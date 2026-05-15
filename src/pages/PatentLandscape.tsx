@@ -791,9 +791,19 @@ const PatentLandscape = () => {
   const cpcCategories = activeConfig.cpcData;
   const pieData = activeConfig.pieData;
   const allPatents = activeConfig.patents;
-  const latestPatents = patentSearchTerm
-    ? allPatents.filter(p => p.title.toLowerCase().includes(patentSearchTerm.toLowerCase()) || p.company.toLowerCase().includes(patentSearchTerm.toLowerCase()))
-    : allPatents;
+  const filingYears = Array.from(new Set(allPatents.map(p => p.filingYear).filter(Boolean))).sort((a, b) => b - a);
+  const grantedYears = Array.from(new Set(allPatents.map(p => p.grantedYear).filter((y): y is number => !!y))).sort((a, b) => b - a);
+  const latestPatents = allPatents.filter(p => {
+    if (patentSearchTerm) {
+      const lo = patentSearchTerm.toLowerCase();
+      if (!p.title.toLowerCase().includes(lo) && !p.company.toLowerCase().includes(lo)) return false;
+    }
+    if (filingYearFilter !== 'all' && String(p.filingYear) !== filingYearFilter) return false;
+    if (grantedYearFilter !== 'all') {
+      if (grantedYearFilter === 'none' ? !!p.grantedYear : String(p.grantedYear ?? '') !== grantedYearFilter) return false;
+    }
+    return true;
+  });
   const geoData = activeConfig.geoData;
   const developers = activeConfig.developers;
   const hasDetailedSections = !!activeConfig.sectors;
