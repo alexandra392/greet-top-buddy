@@ -128,6 +128,17 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
     return [];
   }, [currentSection, currentClass, currentSubclass]);
 
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
+  const sortPatents = <T extends { filingYear: number; grantedYear: number | null }>(arr: T[]): T[] => {
+    if (filingSort) return [...arr].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    if (grantedSort) return [...arr].sort((a, b) => {
+      const av = a.grantedYear ?? -Infinity; const bv = b.grantedYear ?? -Infinity;
+      return grantedSort === 'desc' ? bv - av : av - bv;
+    });
+    return arr;
+  };
+
   // Filtered patents in patent modal
   const filteredPatents = useMemo(() => {
     if (!patentModal) return [];
@@ -138,8 +149,8 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
       const lo = patentSearch.toLowerCase();
       f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
     }
-    return f;
-  }, [patentModal, patentTab, patentSearch]);
+    return sortPatents(f);
+  }, [patentModal, patentTab, patentSearch, filingSort, grantedSort]);
 
   const grantedCount = patentModal ? patentModal.patents.filter(p => p.status === 'Granted').length : 0;
   const filedCount = patentModal ? patentModal.patents.filter(p => p.status === 'Filed').length : 0;
