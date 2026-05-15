@@ -176,13 +176,7 @@ const ContinentPatentsModal = ({
     return pageRows;
   }, [pageRows, countryFilter]);
 
-  const openCountry = (c: CountryRow) => {
-    setSelectedCountry(c);
-    setView('patents');
-    setSelectedPatent(null);
-    setSearchTerm('');
-    setPatentTab('all');
-  };
+
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
