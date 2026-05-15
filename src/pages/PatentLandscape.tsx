@@ -696,8 +696,8 @@ const PatentLandscape = () => {
   const [expandedHeatRows, setExpandedHeatRows] = useState<Set<string>>(new Set());
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
-  const [filingYearFilter, setFilingYearFilter] = useState<string>('all');
-  const [grantedYearFilter, setGrantedYearFilter] = useState<string>('all');
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
   const [trendChartMode] = useState<'spot'>('spot');
   const [trendTimeRange, setTrendTimeRange] = useState<string>('5');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
