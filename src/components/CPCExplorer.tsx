@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ArrowLeft, Search, X, FileText, Building2, Calendar, Globe } from 'lucide-react';
+import { ChevronRight, ArrowLeft, Search, X, FileText, Building2, Calendar, Globe, Layers, Award } from 'lucide-react';
 import {
   buildCPCHierarchy,
   patentsForSection,
@@ -22,9 +22,10 @@ interface CPCExplorerProps {
 const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, description }) => {
   const hierarchy = useMemo(() => buildCPCHierarchy(cpcData, topic), [cpcData, topic]);
 
-  // Drill-down navigation state
+  // Browse modal navigation state
   const [sectionCode, setSectionCode] = useState<string | undefined>();
   const [classCode, setClassCode] = useState<string | undefined>();
+  const [browseTab, setBrowseTab] = useState<'list' | 'patents'>('list');
 
   // Patent modal state
   const [patentModal, setPatentModal] = useState<{ patents: CPCPatent[]; label: string; sublabel: string } | null>(null);
@@ -41,8 +42,20 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
     [currentSection, classCode],
   );
 
-  // Items shown in left panel
-  const items = useMemo(() => {
+  // Top-level (page) items: always sections
+  const sectionItems = useMemo(() => {
+    const total = hierarchy.totalAssignments || 1;
+    return hierarchy.sections.map(sec => ({
+      code: sec.code,
+      name: sec.name,
+      count: sec.count,
+      share: (sec.count / total) * 100,
+      color: sec.color,
+    }));
+  }, [hierarchy]);
+
+  // Items inside browse modal (children of current level)
+  const browseItems = useMemo(() => {
     if (currentClass) {
       const total = currentClass.count || 1;
       return currentClass.subclasses.map(sub => ({
@@ -53,7 +66,6 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         canDrill: false,
         color: shadeHsl(currentSection!.color, 18, -20),
         onDrill: () => openPatents(sub.patents, sub.code, sub.name),
-        onView: () => openPatents(sub.patents, sub.code, sub.name),
       }));
     }
     if (currentSection) {
@@ -65,22 +77,27 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         share: (cls.count / total) * 100,
         canDrill: cls.subclasses.length > 0,
         color: shadeHsl(currentSection.color, 8, -10),
-        onDrill: () => setClassCode(cls.code),
-        onView: () => openPatents(patentsForClass(cls), cls.code, cls.name),
+        onDrill: () => { setClassCode(cls.code); setBrowseTab('list'); },
       }));
     }
-    const total = hierarchy.totalAssignments || 1;
-    return hierarchy.sections.map(sec => ({
-      code: sec.code,
-      name: sec.name,
-      count: sec.count,
-      share: (sec.count / total) * 100,
-      canDrill: sec.classes.length > 0,
-      color: sec.color,
-      onDrill: () => setSectionCode(sec.code),
-      onView: () => openPatents(patentsForSection(sec), sec.code, sec.name),
-    }));
-  }, [hierarchy, currentSection, currentClass]);
+    return [];
+  }, [currentSection, currentClass]);
+
+  const openSection = (code: string) => {
+    setSectionCode(code);
+    setClassCode(undefined);
+    setBrowseTab('list');
+  };
+
+  const closeBrowse = () => {
+    setSectionCode(undefined);
+    setClassCode(undefined);
+  };
+
+  const goBackBrowse = () => {
+    if (currentClass) { setClassCode(undefined); setBrowseTab('list'); }
+    else closeBrowse();
+  };
 
   const openPatents = (patents: CPCPatent[], code: string, name: string) => {
     setPatentModal({ patents, label: code, sublabel: name });
@@ -94,29 +111,14 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
     setSelectedPatent(null);
   };
 
-  const goBack = () => {
-    if (currentClass) setClassCode(undefined);
-    else if (currentSection) setSectionCode(undefined);
-  };
+  // Patents at current browse level (for "All patents" tab)
+  const currentLevelPatents = useMemo(() => {
+    if (currentClass) return patentsForClass(currentClass);
+    if (currentSection) return patentsForSection(currentSection);
+    return [];
+  }, [currentSection, currentClass]);
 
-  // Sunburst handlers — clicking sets state but does NOT open patents directly
-  const onSunSection = (code: string) => {
-    setSectionCode(code);
-    setClassCode(undefined);
-  };
-  const onSunClass = (code: string) => {
-    const parent = hierarchy.sections.find(s => s.classes.some(c => c.code === code));
-    if (parent) setSectionCode(parent.code);
-    setClassCode(code);
-  };
-  const onSunSubclass = (code: string) => {
-    const sec = hierarchy.sections.find(s => s.classes.some(c => c.subclasses.some(su => su.code === code)));
-    const cls = sec?.classes.find(c => c.subclasses.some(su => su.code === code));
-    const sub = cls?.subclasses.find(su => su.code === code);
-    if (sec && cls && sub) openPatents(sub.patents, sub.code, sub.name);
-  };
-
-  // Filtered patents in modal
+  // Filtered patents in patent modal
   const filteredPatents = useMemo(() => {
     if (!patentModal) return [];
     let f = patentModal.patents;
@@ -132,6 +134,25 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
   const grantedCount = patentModal ? patentModal.patents.filter(p => p.status === 'Granted').length : 0;
   const filedCount = patentModal ? patentModal.patents.filter(p => p.status === 'Filed').length : 0;
 
+  // Browse-level patents stats for tab labels
+  const browseAllCount = currentLevelPatents.length;
+  const browseGrantedCount = currentLevelPatents.filter(p => p.status === 'Granted').length;
+  const browseFiledCount = currentLevelPatents.filter(p => p.status === 'Filed').length;
+
+  // Inline patent search/filter inside browse modal "All patents" tab
+  const [browsePatentTab, setBrowsePatentTab] = useState<'all' | 'granted' | 'filed'>('all');
+  const [browsePatentSearch, setBrowsePatentSearch] = useState('');
+  const browseFilteredPatents = useMemo(() => {
+    let f = currentLevelPatents;
+    if (browsePatentTab === 'granted') f = f.filter(p => p.status === 'Granted');
+    if (browsePatentTab === 'filed') f = f.filter(p => p.status === 'Filed');
+    if (browsePatentSearch) {
+      const lo = browsePatentSearch.toLowerCase();
+      f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
+    }
+    return f;
+  }, [currentLevelPatents, browsePatentTab, browsePatentSearch]);
+
   return (
     <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
       <div className="mb-4">
@@ -139,71 +160,19 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         <p className="text-[10px] text-muted-foreground">{description}</p>
       </div>
 
-      {/* Breadcrumbs */}
-      <div className="flex items-center gap-1 text-[10px] mb-3 flex-wrap">
-        <button
-          onClick={() => { setSectionCode(undefined); setClassCode(undefined); }}
-          className={`px-1.5 py-0.5 rounded transition-colors ${!currentSection ? 'text-foreground font-semibold' : 'text-muted-foreground hover:text-foreground'}`}
-        >
-          All sections
-        </button>
-        {currentSection && (
-          <>
-            <ChevronRight className="w-2.5 h-2.5 text-muted-foreground" />
-            <button
-              onClick={() => setClassCode(undefined)}
-              className={`px-1.5 py-0.5 rounded transition-colors ${!currentClass ? 'text-foreground font-semibold' : 'text-muted-foreground hover:text-foreground'}`}
-            >
-              <span className="font-mono mr-1">{currentSection.code}</span>{currentSection.name}
-            </button>
-          </>
-        )}
-        {currentClass && (
-          <>
-            <ChevronRight className="w-2.5 h-2.5 text-muted-foreground" />
-            <span className="px-1.5 py-0.5 text-foreground font-semibold">
-              <span className="font-mono mr-1">{currentClass.code}</span>{currentClass.name}
-            </span>
-          </>
-        )}
-      </div>
-
       <div className="grid gap-5" style={{ gridTemplateColumns: '1fr 300px' }}>
-        {/* List */}
+        {/* Sections list */}
         <div>
-          {(currentSection || currentClass) && (
-            <button
-              onClick={goBack}
-              className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
-            >
-              <ArrowLeft className="w-2.5 h-2.5" />
-              Back
-            </button>
-          )}
-
-          {(currentSection || currentClass) && (
-            <div className="mb-3">
-              <button
-                onClick={() => {
-                  if (currentClass) openPatents(patentsForClass(currentClass), currentClass.code, currentClass.name);
-                  else if (currentSection) openPatents(patentsForSection(currentSection), currentSection.code, currentSection.name);
-                }}
-                className="text-[10px] px-2.5 py-1 rounded-md bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
-              >
-                View all patents under {currentClass?.code || currentSection?.code}
-              </button>
-            </div>
-          )}
-
+          <div className="text-[10px] font-semibold text-foreground mb-2">All sections</div>
           <div className="space-y-0">
-            {items.map((it, i) => {
-              const maxCount = Math.max(...items.map(x => x.count), 1);
+            {sectionItems.map((it) => {
+              const maxCount = Math.max(...sectionItems.map(x => x.count), 1);
               const barWidth = Math.max(4, (it.count / maxCount) * 100);
               return (
                 <div
                   key={it.code}
                   className="flex items-center gap-3 px-3 py-2.5 cursor-pointer hover:bg-muted/50 transition-colors border-b border-border/20 last:border-b-0 group"
-                  onClick={() => it.onDrill()}
+                  onClick={() => openSection(it.code)}
                 >
                   <span className="text-[10px] font-mono font-bold text-muted-foreground w-[42px] shrink-0">{it.code}</span>
                   <div className="flex-1 min-w-0">
@@ -218,16 +187,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                       <div className="h-full rounded-full transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color, opacity: 0.75 }} />
                     </div>
                   </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); it.onView(); }}
-                    className="text-[9px] text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border/60 bg-background shrink-0"
-                    title={`View ${it.count} patents`}
-                  >
-                    Patents
-                  </button>
-                  {it.canDrill && (
-                    <ChevronRight className="w-3 h-3 text-muted-foreground shrink-0" />
-                  )}
+                  <ChevronRight className="w-3 h-3 text-muted-foreground shrink-0" />
                 </div>
               );
             })}
@@ -262,7 +222,180 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         </div>
       </div>
 
-      {/* Patents modal */}
+      {/* Browse (section / class) modal */}
+      <Dialog open={!!currentSection} onOpenChange={(o) => { if (!o) closeBrowse(); }}>
+        <DialogContent className="max-w-[680px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
+          {currentSection && (
+            <>
+              <div className="px-4 py-3 border-b border-border flex-shrink-0">
+                {currentClass && (
+                  <button
+                    onClick={goBackBrowse}
+                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
+                  >
+                    <ArrowLeft className="w-3 h-3" /> Back to {currentSection.code} classes
+                  </button>
+                )}
+                <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
+                  CPC {currentClass ? 'Class' : 'Section'}
+                </DialogTitle>
+                <h4 className="text-sm font-semibold text-foreground">
+                  <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
+                  {(currentClass || currentSection).name}
+                </h4>
+                <p className="text-[10px] text-muted-foreground mt-0.5">
+                  {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
+                </p>
+              </div>
+
+              {/* Tabs */}
+              <div className="px-4 py-2 border-b border-border flex-shrink-0">
+                <div className="flex gap-1">
+                  <button
+                    onClick={() => setBrowseTab('list')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
+                      browseTab === 'list' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    <Layers className="w-2.5 h-2.5" />
+                    {currentClass ? 'Subclasses' : 'Classes'}
+                    <span className="opacity-70">{browseItems.length}</span>
+                  </button>
+                  <button
+                    onClick={() => setBrowseTab('patents')}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
+                      browseTab === 'patents' ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    <Award className="w-2.5 h-2.5" />
+                    All patents
+                    <span className="opacity-70">{browseAllCount}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="overflow-y-auto flex-1">
+                {browseTab === 'list' ? (
+                  <div className="p-2">
+                    {browseItems.map((it) => {
+                      const maxCount = Math.max(...browseItems.map(x => x.count), 1);
+                      const barWidth = Math.max(4, (it.count / maxCount) * 100);
+                      return (
+                        <div
+                          key={it.code}
+                          className="flex items-center gap-3 px-3 py-2.5 cursor-pointer hover:bg-muted/50 transition-colors border-b border-border/20 last:border-b-0 group rounded-md"
+                          onClick={it.onDrill}
+                        >
+                          <span className="text-[10px] font-mono font-bold text-muted-foreground w-[52px] shrink-0">{it.code}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-1 gap-2">
+                              <span className="text-[11px] text-foreground group-hover:text-primary transition-colors truncate">{it.name}</span>
+                              <div className="flex items-center gap-1.5 shrink-0">
+                                <span className="text-[11px] font-semibold text-foreground tabular-nums">{it.count}</span>
+                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: it.color }} />
+                              </div>
+                            </div>
+                            <div className="w-full h-1 bg-muted/60 rounded-full overflow-hidden">
+                              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color, opacity: 0.75 }} />
+                            </div>
+                          </div>
+                          {it.canDrill ? (
+                            <ChevronRight className="w-3 h-3 text-muted-foreground shrink-0" />
+                          ) : (
+                            <span className="text-[9px] text-muted-foreground px-1.5 py-0.5 rounded border border-border/60 bg-background shrink-0">Patents</span>
+                          )}
+                        </div>
+                      );
+                    })}
+                    {browseItems.length === 0 && (
+                      <div className="text-center py-6 text-[10px] text-muted-foreground">No items.</div>
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    <div className="px-4 py-2 border-b border-border flex items-center justify-between gap-3 sticky top-0 bg-card z-10">
+                      <div className="flex gap-1">
+                        {([
+                          { key: 'all' as const, label: 'All', count: browseAllCount },
+                          { key: 'granted' as const, label: 'Granted', count: browseGrantedCount },
+                          { key: 'filed' as const, label: 'Filed', count: browseFiledCount },
+                        ]).map(tab => (
+                          <button
+                            key={tab.key}
+                            onClick={() => setBrowsePatentTab(tab.key)}
+                            className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all ${
+                              browsePatentTab === tab.key ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                            }`}
+                          >
+                            {tab.key === 'granted' && <span className="text-primary">✓</span>}
+                            {tab.key === 'filed' && <FileText className="w-2.5 h-2.5" />}
+                            {tab.label}
+                            <span className="opacity-70">{tab.count}</span>
+                          </button>
+                        ))}
+                      </div>
+                      <div className="relative w-44">
+                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-2.5 w-2.5 text-muted-foreground" />
+                        <Input
+                          placeholder="Search patents..."
+                          value={browsePatentSearch}
+                          onChange={e => setBrowsePatentSearch(e.target.value)}
+                          className="pl-6 pr-6 h-6 !text-[9px] border-border w-full"
+                        />
+                        {browsePatentSearch && (
+                          <Button variant="ghost" size="sm" onClick={() => setBrowsePatentSearch('')} className="absolute right-0.5 top-1/2 -translate-y-1/2 h-4 w-4 p-0 hover:bg-muted">
+                            <X className="h-2 w-2" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                    <table className="w-full text-xs">
+                      <thead className="sticky top-[42px] bg-card z-10">
+                        <tr className="border-b border-border">
+                          <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '50%' }}>Patent</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">CPCs</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {browseFilteredPatents.map((p, i) => (
+                          <tr
+                            key={p.id + i}
+                            className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
+                            onClick={() => { setPatentModal({ patents: currentLevelPatents, label: (currentClass || currentSection).code, sublabel: (currentClass || currentSection).name }); setSelectedPatent(p); setPatentTab('all'); setPatentSearch(''); }}
+                          >
+                            <td className="py-1.5 px-4">
+                              <div className="font-medium text-[10px] text-foreground line-clamp-2 hover:text-primary transition-colors">{p.title}</div>
+                              <div className="text-[9px] text-muted-foreground mt-0.5">Applicant: {p.company}</div>
+                            </td>
+                            <td className="text-center py-1.5 text-[11px] text-muted-foreground">{p.filingYear}</td>
+                            <td className="text-center py-1.5 text-[11px] text-muted-foreground">{p.grantedYear || ''}</td>
+                            <td className="text-center py-1.5">
+                              {p.status === 'Granted' ? (
+                                <div className="inline-flex items-center gap-0.5 text-primary text-[10px] font-medium"><span>✓</span><span>Granted</span></div>
+                              ) : (
+                                <div className="text-muted-foreground text-[10px]">Filed</div>
+                              )}
+                            </td>
+                            <td className="text-center py-1.5"><span className="text-[10px] text-muted-foreground tabular-nums">{p.cpcCodes.length}</span></td>
+                          </tr>
+                        ))}
+                        {browseFilteredPatents.length === 0 && (
+                          <tr><td colSpan={5} className="text-center py-6 text-[10px] text-muted-foreground">No patents found.</td></tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </>
+                )}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Patents modal (from sunburst clicks / patent detail) */}
       <Dialog open={!!patentModal} onOpenChange={(o) => { if (!o) closePatents(); }}>
         <DialogContent className="max-w-[640px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
           {selectedPatent ? (
