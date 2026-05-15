@@ -1127,6 +1127,30 @@ const PatentLandscape = () => {
                       </Button>
                     </div>
                     <div className="flex items-center gap-2">
+                      <Select value={filingYearFilter} onValueChange={setFilingYearFilter}>
+                        <SelectTrigger className="h-6 w-auto gap-1 px-2 text-[10px] border-border bg-background [&>svg]:h-2.5 [&>svg]:w-2.5">
+                          <Calendar className="w-2.5 h-2.5 text-muted-foreground" />
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all" className="text-[10px]">All filing years</SelectItem>
+                          {filingYears.map(y => (
+                            <SelectItem key={y} value={String(y)} className="text-[10px]">Filed {y}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Select value={grantedYearFilter} onValueChange={setGrantedYearFilter}>
+                        <SelectTrigger className="h-6 w-auto gap-1 px-2 text-[10px] border-border bg-background [&>svg]:h-2.5 [&>svg]:w-2.5">
+                          <span className="text-primary text-[10px]">✓</span>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all" className="text-[10px]">All granted years</SelectItem>
+                          {grantedYears.map(y => (
+                            <SelectItem key={y} value={String(y)} className="text-[10px]">Granted {y}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <div className="relative w-52">
                         <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-2.5 w-2.5 text-muted-foreground" />
                         <Input
