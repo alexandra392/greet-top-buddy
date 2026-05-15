@@ -412,19 +412,13 @@ const ContinentPatentsModal = ({
                       <td className="py-1.5">
                         <div className="flex items-center gap-1.5">
                           <span className="text-primary text-[10px]">✓</span>
-                          <div className="h-1 w-14 rounded-full bg-muted overflow-hidden">
-                            <div className="h-full bg-primary rounded-full" style={{ width: `${(c.granted / maxGranted) * 100}%` }} />
-                          </div>
-                          <span className="text-[10px] text-foreground tabular-nums">{c.granted}</span>
+                          <span className="text-[11px] text-foreground tabular-nums">{c.granted}</span>
                         </div>
                       </td>
                       <td className="py-1.5">
                         <div className="flex items-center gap-1.5">
-                          <FileText className="w-2.5 h-2.5 text-muted-foreground" />
-                          <div className="h-1 w-14 rounded-full bg-muted overflow-hidden">
-                            <div className="h-full bg-info rounded-full" style={{ width: `${(c.filed / maxFiled) * 100}%` }} />
-                          </div>
-                          <span className="text-[10px] text-foreground tabular-nums">{c.filed}</span>
+                          <FileText className="w-2.5 h-2.5 text-info" />
+                          <span className="text-[11px] text-foreground tabular-nums">{c.filed}</span>
                         </div>
                       </td>
                       <td className="py-1.5 px-2 text-right">
