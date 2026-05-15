@@ -171,8 +171,8 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
       const lo = browsePatentSearch.toLowerCase();
       f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
     }
-    return f;
-  }, [currentLevelPatents, browsePatentTab, browsePatentSearch]);
+    return sortPatents(f);
+  }, [currentLevelPatents, browsePatentTab, browsePatentSearch, filingSort, grantedSort]);
 
   return (
     <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
