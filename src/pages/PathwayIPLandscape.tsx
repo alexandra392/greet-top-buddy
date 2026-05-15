@@ -401,8 +401,18 @@ const PathwayIPLandscape = () => {
                       <thead>
                         <tr className="border-b border-border">
                           <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '45%' }}>Patents and Applications</th>
-                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing Year</th>
-                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted Year</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                            <button type="button" onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                              FILING YEAR
+                              <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                            </button>
+                          </th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                            <button type="button" onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}>
+                              GRANTED YEAR
+                              <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                            </button>
+                          </th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisdiction</th>
                          </tr>
