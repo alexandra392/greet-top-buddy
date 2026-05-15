@@ -25,6 +25,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
   // Browse modal navigation state
   const [sectionCode, setSectionCode] = useState<string | undefined>();
   const [classCode, setClassCode] = useState<string | undefined>();
+  const [subclassCode, setSubclassCode] = useState<string | undefined>();
   const [browseTab, setBrowseTab] = useState<'list' | 'patents'>('list');
 
   // Patent modal state
@@ -41,6 +42,10 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
     () => currentSection?.classes.find(c => c.code === classCode),
     [currentSection, classCode],
   );
+  const currentSubclass = useMemo(
+    () => currentClass?.subclasses.find(s => s.code === subclassCode),
+    [currentClass, subclassCode],
+  );
 
   // Top-level (page) items: always sections
   const sectionItems = useMemo(() => {
@@ -56,6 +61,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
 
   // Items inside browse modal (children of current level)
   const browseItems = useMemo(() => {
+    if (currentSubclass) return [];
     if (currentClass) {
       const total = currentClass.count || 1;
       return currentClass.subclasses.map(sub => ({
@@ -65,7 +71,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         share: (sub.count / total) * 100,
         canDrill: false,
         color: shadeHsl(currentSection!.color, 18, -20),
-        onDrill: () => openPatents(sub.patents, sub.code, sub.name),
+        onDrill: () => { setSubclassCode(sub.code); setBrowseTab('patents'); },
       }));
     }
     if (currentSection) {
@@ -81,21 +87,24 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
       }));
     }
     return [];
-  }, [currentSection, currentClass]);
+  }, [currentSection, currentClass, currentSubclass]);
 
   const openSection = (code: string) => {
     setSectionCode(code);
     setClassCode(undefined);
+    setSubclassCode(undefined);
     setBrowseTab('list');
   };
 
   const closeBrowse = () => {
     setSectionCode(undefined);
     setClassCode(undefined);
+    setSubclassCode(undefined);
   };
 
   const goBackBrowse = () => {
-    if (currentClass) { setClassCode(undefined); setBrowseTab('list'); }
+    if (currentSubclass) { setSubclassCode(undefined); setBrowseTab('list'); }
+    else if (currentClass) { setClassCode(undefined); setBrowseTab('list'); }
     else closeBrowse();
   };
 
@@ -113,10 +122,11 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
 
   // Patents at current browse level (for "All patents" tab)
   const currentLevelPatents = useMemo(() => {
+    if (currentSubclass) return currentSubclass.patents;
     if (currentClass) return patentsForClass(currentClass);
     if (currentSection) return patentsForSection(currentSection);
     return [];
-  }, [currentSection, currentClass]);
+  }, [currentSection, currentClass, currentSubclass]);
 
   // Filtered patents in patent modal
   const filteredPatents = useMemo(() => {
