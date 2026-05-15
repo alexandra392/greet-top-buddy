@@ -422,7 +422,8 @@ const ContinentPatentsModal = ({
               <table className="w-full text-xs">
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
-                    <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '40%' }}>Country</th>
+                    <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '34%' }}>Country</th>
+                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
                     <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
                     <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
                     <th className="py-1.5 px-2" style={{ width: 32 }} />
@@ -439,9 +440,12 @@ const ContinentPatentsModal = ({
                         <div className="font-medium text-[11px] text-foreground hover:text-primary transition-colors">{c.name}</div>
                       </td>
                       <td className="py-1.5">
+                        <span className="text-[11px] font-semibold text-foreground tabular-nums">{c.granted + c.filed}</span>
+                      </td>
+                      <td className="py-1.5">
                         <div className="flex items-center gap-1.5">
                           <span className="text-primary text-[10px]">✓</span>
-                          <div className="h-1 w-16 rounded-full bg-muted overflow-hidden">
+                          <div className="h-1 w-14 rounded-full bg-muted overflow-hidden">
                             <div className="h-full bg-primary rounded-full" style={{ width: `${(c.granted / maxGranted) * 100}%` }} />
                           </div>
                           <span className="text-[10px] text-foreground tabular-nums">{c.granted}</span>
@@ -450,7 +454,7 @@ const ContinentPatentsModal = ({
                       <td className="py-1.5">
                         <div className="flex items-center gap-1.5">
                           <FileText className="w-2.5 h-2.5 text-muted-foreground" />
-                          <div className="h-1 w-16 rounded-full bg-muted overflow-hidden">
+                          <div className="h-1 w-14 rounded-full bg-muted overflow-hidden">
                             <div className="h-full bg-info rounded-full" style={{ width: `${(c.filed / maxFiled) * 100}%` }} />
                           </div>
                           <span className="text-[10px] text-foreground tabular-nums">{c.filed}</span>
