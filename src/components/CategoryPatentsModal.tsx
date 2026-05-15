@@ -97,6 +97,7 @@ const CategoryPatentsModal = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSub, setSelectedSub] = useState<string>('all');
   const [selectedPatent, setSelectedPatent] = useState<Patent | null>(null);
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
 
   const allPatents = useMemo(() => {
     return generateCategoryPatents(categoryName, subcategories, totalPatents, topic);
