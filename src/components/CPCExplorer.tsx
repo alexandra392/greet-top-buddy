@@ -217,7 +217,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
 
       {/* Browse (section / class) modal */}
       <Dialog open={!!currentSection} onOpenChange={(o) => { if (!o) closeBrowse(); }}>
-        <DialogContent className="max-w-[680px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
+        <DialogContent className="w-[680px] max-w-[680px] h-[640px] max-h-[85vh] p-0 gap-0 overflow-hidden flex flex-col">
           {currentSection && (
             <>
               <div className="px-4 py-3 border-b border-border flex-shrink-0">
