@@ -791,19 +791,25 @@ const PatentLandscape = () => {
   const cpcCategories = activeConfig.cpcData;
   const pieData = activeConfig.pieData;
   const allPatents = activeConfig.patents;
-  const filingYears = Array.from(new Set(allPatents.map(p => p.filingYear).filter(Boolean))).sort((a, b) => b - a);
-  const grantedYears = Array.from(new Set(allPatents.map(p => p.grantedYear).filter((y): y is number => !!y))).sort((a, b) => b - a);
-  const latestPatents = allPatents.filter(p => {
-    if (patentSearchTerm) {
-      const lo = patentSearchTerm.toLowerCase();
-      if (!p.title.toLowerCase().includes(lo) && !p.company.toLowerCase().includes(lo)) return false;
+  const filteredPatents = patentSearchTerm
+    ? allPatents.filter(p => {
+        const lo = patentSearchTerm.toLowerCase();
+        return p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo);
+      })
+    : allPatents;
+  const latestPatents = (() => {
+    const arr = [...filteredPatents];
+    if (filingSort) {
+      arr.sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    } else if (grantedSort) {
+      arr.sort((a, b) => {
+        const av = a.grantedYear ?? -Infinity;
+        const bv = b.grantedYear ?? -Infinity;
+        return grantedSort === 'desc' ? bv - av : av - bv;
+      });
     }
-    if (filingYearFilter !== 'all' && String(p.filingYear) !== filingYearFilter) return false;
-    if (grantedYearFilter !== 'all') {
-      if (grantedYearFilter === 'none' ? !!p.grantedYear : String(p.grantedYear ?? '') !== grantedYearFilter) return false;
-    }
-    return true;
-  });
+    return arr;
+  })();
   const geoData = activeConfig.geoData;
   const developers = activeConfig.developers;
   const hasDetailedSections = !!activeConfig.sectors;
