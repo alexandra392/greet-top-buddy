@@ -1129,10 +1129,6 @@ const PatentLandscape = () => {
                           </Button>
                         )}
                       </div>
-                      <Button variant="outline" size="sm" className="text-[10px] h-6 px-2.5 border-border/60">
-                        <Filter className="w-2.5 h-2.5 mr-1" />
-                        Filter
-                      </Button>
                     </div>
                   </div>
                   <div className="overflow-x-auto">
