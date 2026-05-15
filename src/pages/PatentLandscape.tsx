@@ -702,6 +702,7 @@ const PatentLandscape = () => {
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]} | null>(null);
   const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
+  const [selectedContinent, setSelectedContinent] = useState<{location: string; granted: number; filed: number} | null>(null);
 
   // Mock data for subcategory detail popups - patents grouped by technology
   const subcategoryDetails: Record<string, { technologies: { name: string; patents: number; trend: string; trendColor: string; patentList: { title: string; company: string; year: number; status: string }[] }[] }> = {
