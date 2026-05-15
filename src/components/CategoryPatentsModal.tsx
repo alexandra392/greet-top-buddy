@@ -115,8 +115,9 @@ const CategoryPatentsModal = ({
         p.company.toLowerCase().includes(lower)
       );
     }
+    if (filingSort) filtered = [...filtered].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
     return filtered;
-  }, [allPatents, selectedSub, searchTerm]);
+  }, [allPatents, selectedSub, searchTerm, filingSort]);
 
   const handleClose = () => {
     setSelectedPatent(null);
