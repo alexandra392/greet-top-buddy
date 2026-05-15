@@ -157,7 +157,6 @@ const ContinentPatentsModal = ({
     setPage(1);
     setSearchTerm('');
     setPatentTab('all');
-    setCountryFilter('all');
     onOpenChange(false);
   };
 
@@ -166,15 +165,9 @@ const ContinentPatentsModal = ({
     setView('patents');
     setSelectedPatent(null);
     setSearchTerm('');
-    // carry the continent-level filter into the patent tab
-    setPatentTab(countryFilter);
+    setPatentTab('all');
   };
 
-  const visibleCountries = useMemo(() => {
-    if (countryFilter === 'granted') return pageRows.filter(c => c.granted > 0);
-    if (countryFilter === 'filed') return pageRows.filter(c => c.filed > 0);
-    return pageRows;
-  }, [pageRows, countryFilter]);
 
 
 
