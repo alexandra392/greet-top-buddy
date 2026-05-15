@@ -46,7 +46,7 @@ const arcPath = (cx: number, cy: number, rIn: number, rOut: number, a0: number, 
 const CPCSunburst: React.FC<CPCSunburstProps> = ({ hierarchy, onOpenSlice, size = 280 }) => {
   const cx = size / 2;
   const cy = size / 2;
-  const innerR = 22;
+  const innerR = 0;
   const r1 = 64;
   const r2 = 100;
   const r3 = 134;
@@ -132,7 +132,7 @@ const CPCSunburst: React.FC<CPCSunburstProps> = ({ hierarchy, onOpenSlice, size 
             />
           );
         })}
-        <circle cx={cx} cy={cy} r={innerR} fill="hsl(var(--card))" stroke="hsl(var(--border))" strokeWidth={1} />
+        
       </svg>
 
       {hovered && (
