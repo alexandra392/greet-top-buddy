@@ -397,9 +397,9 @@ const ContinentPatentsModal = ({
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
                     <th className="text-left py-2 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Country</th>
-                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
-                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
-                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
+                    <th className="text-center py-2 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
+                    <th className="text-center py-2 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                    <th className="text-center py-2 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
                     <th className="py-2 px-2" />
                   </tr>
                 </thead>
@@ -421,13 +421,13 @@ const ContinentPatentsModal = ({
                             <span className="text-[9px] text-muted-foreground tabular-nums">{sharePct.toFixed(0)}%</span>
                           </div>
                         </td>
-                        <td className="py-2 pr-4 text-right">
+                        <td className="py-2 text-center">
                           <span className="text-[11px] font-semibold text-foreground tabular-nums">{total}</span>
                         </td>
-                        <td className="py-2 pr-4 text-right">
+                        <td className="py-2 text-center">
                           <span className="text-[11px] text-muted-foreground tabular-nums">{c.granted > 0 ? c.granted : '–'}</span>
                         </td>
-                        <td className="py-2 pr-4 text-right">
+                        <td className="py-2 text-center">
                           <span className="text-[11px] text-muted-foreground tabular-nums">{c.filed > 0 ? c.filed : '–'}</span>
                         </td>
                         <td className="py-2 px-2 text-right">
