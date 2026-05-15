@@ -113,6 +113,8 @@ const ContinentPatentsModal = ({
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [patentTab, setPatentTab] = useState<'all' | 'granted' | 'filed'>('all');
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
   
 
   const countries = useMemo<CountryRow[]>(() => {
