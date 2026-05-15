@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ArrowLeft, Search, X, FileText, Building2, Calendar, Globe, Layers, Award } from 'lucide-react';
+import { ChevronRight, ArrowLeft, ArrowUpDown, Search, X, FileText, Building2, Calendar, Globe, Layers, Award } from 'lucide-react';
 import {
   buildCPCHierarchy,
   patentsForSection,
