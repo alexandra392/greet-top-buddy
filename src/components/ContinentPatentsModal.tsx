@@ -365,11 +365,20 @@ const ContinentPatentsModal = ({
               </p>
             </div>
 
-            {/* Granted vs Filed summary */}
+            {/* Granted vs Filed summary — also acts as filter */}
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Granted</p>
+                <button
+                  type="button"
+                  onClick={() => setCountryFilter(countryFilter === 'granted' ? 'all' : 'granted')}
+                  aria-pressed={countryFilter === 'granted'}
+                  className={`text-left rounded-lg p-2.5 border transition-colors ${
+                    countryFilter === 'granted'
+                      ? 'bg-primary/10 border-primary/40 ring-1 ring-primary/30'
+                      : 'bg-muted/30 border-border/40 hover:bg-muted/50'
+                  }`}
+                >
+                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Granted {countryFilter === 'granted' && <span className="text-primary normal-case tracking-normal ml-1">· filtering</span>}</p>
                   <div className="flex items-center gap-1.5 mb-1.5">
                     <span className="text-primary text-[11px]">✓</span>
                     <span className="text-[11px] font-semibold text-foreground tabular-nums">{granted}</span>
@@ -377,9 +386,18 @@ const ContinentPatentsModal = ({
                   <div className="h-1 rounded-full bg-muted overflow-hidden">
                     <div className="h-full bg-primary rounded-full" style={{ width: `${(granted / Math.max(1, granted + filed)) * 100}%` }} />
                   </div>
-                </div>
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Filed</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCountryFilter(countryFilter === 'filed' ? 'all' : 'filed')}
+                  aria-pressed={countryFilter === 'filed'}
+                  className={`text-left rounded-lg p-2.5 border transition-colors ${
+                    countryFilter === 'filed'
+                      ? 'bg-info/10 border-info/40 ring-1 ring-info/30'
+                      : 'bg-muted/30 border-border/40 hover:bg-muted/50'
+                  }`}
+                >
+                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Filed {countryFilter === 'filed' && <span className="text-info normal-case tracking-normal ml-1">· filtering</span>}</p>
                   <div className="flex items-center gap-1.5 mb-1.5">
                     <FileText className="w-3 h-3 text-muted-foreground" />
                     <span className="text-[11px] font-semibold text-foreground tabular-nums">{filed}</span>
@@ -387,8 +405,16 @@ const ContinentPatentsModal = ({
                   <div className="h-1 rounded-full bg-muted overflow-hidden">
                     <div className="h-full bg-info rounded-full" style={{ width: `${(filed / Math.max(1, granted + filed)) * 100}%` }} />
                   </div>
-                </div>
+                </button>
               </div>
+              {countryFilter !== 'all' && (
+                <button
+                  onClick={() => setCountryFilter('all')}
+                  className="mt-2 text-[9px] text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Clear filter ×
+                </button>
+              )}
             </div>
 
             {/* Country table */}
@@ -403,7 +429,7 @@ const ContinentPatentsModal = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {pageRows.map((c) => (
+                  {visibleCountries.map((c) => (
                     <tr
                       key={c.name}
                       className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
