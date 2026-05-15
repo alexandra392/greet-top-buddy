@@ -385,7 +385,7 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                           <tr
                             key={p.id + i}
                             className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
-                            onClick={() => { setPatentModal({ patents: currentLevelPatents, label: (currentClass || currentSection).code, sublabel: (currentClass || currentSection).name }); setSelectedPatent(p); setPatentTab('all'); setPatentSearch(''); }}
+                            onClick={() => { const node = (currentSubclass || currentClass || currentSection); setPatentModal({ patents: currentLevelPatents, label: node.code, sublabel: node.name }); setSelectedPatent(p); setPatentTab('all'); setPatentSearch(''); }}
                           >
                             <td className="py-1.5 px-4">
                               <div className="font-medium text-[10px] text-foreground line-clamp-2 hover:text-primary transition-colors">{p.title}</div>
