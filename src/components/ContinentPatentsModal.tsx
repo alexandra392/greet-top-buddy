@@ -169,7 +169,7 @@ const ContinentPatentsModal = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[760px] p-0 gap-0 max-h-[85vh] overflow-hidden flex flex-col">
+      <DialogContent className="max-w-[600px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
         {/* ===== Patent detail sub-view ===== */}
         {view === 'patents' && selectedPatent ? (
           <>
