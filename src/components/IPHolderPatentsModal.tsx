@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, X, FileText, ArrowLeft, ExternalLink, Calendar, Building2, Globe } from "lucide-react";
+import { Search, X, FileText, ArrowLeft, ArrowUpDown, ExternalLink, Calendar, Building2, Globe } from "lucide-react";
 
 interface Patent {
   title: string;
