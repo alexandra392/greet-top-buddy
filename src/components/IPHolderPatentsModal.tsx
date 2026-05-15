@@ -84,6 +84,8 @@ const IPHolderPatentsModal = ({
   const [activeTab, setActiveTab] = useState<'all' | 'granted' | 'filed'>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedPatent, setSelectedPatent] = useState<Patent | null>(null);
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
 
   // Use provided patents or generate mock ones
   const allPatents = useMemo(() => {
