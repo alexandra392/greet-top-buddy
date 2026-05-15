@@ -169,7 +169,7 @@ const ContinentPatentsModal = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[760px] p-0 gap-0 max-h-[85vh] overflow-hidden flex flex-col">
+      <DialogContent className="max-w-[600px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
         {/* ===== Patent detail sub-view ===== */}
         {view === 'patents' && selectedPatent ? (
           <>
@@ -346,83 +346,81 @@ const ContinentPatentsModal = ({
         ) : (
           <>
             {/* ===== Country list (default) ===== */}
-            <div className="px-5 py-4 border-b border-border flex-shrink-0">
-              <DialogTitle className="text-base font-bold text-foreground">{continent}</DialogTitle>
+            <div className="px-4 py-3 border-b border-border flex-shrink-0">
+              <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">Continent</DialogTitle>
+              <h4 className="text-sm font-semibold text-foreground">{continent}</h4>
+              <p className="text-[10px] text-muted-foreground mt-0.5">
+                {granted + filed} patents · {granted} granted · {filed} filed
+              </p>
             </div>
 
-            <div className="px-5 py-4 border-b border-border flex-shrink-0">
-              <div className="rounded-xl border border-border/60 bg-card p-4 grid grid-cols-2 gap-6">
-                <div>
-                  <p className="text-[11px] text-muted-foreground mb-1.5">Granted</p>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-primary text-sm">✓</span>
-                    <span className="text-sm font-semibold text-foreground">{granted}</span>
+            {/* Granted vs Filed summary */}
+            <div className="px-4 py-3 border-b border-border flex-shrink-0">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Granted</p>
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <span className="text-primary text-[11px]">✓</span>
+                    <span className="text-[11px] font-semibold text-foreground tabular-nums">{granted}</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div className="h-1 rounded-full bg-muted overflow-hidden">
                     <div className="h-full bg-primary rounded-full" style={{ width: `${(granted / Math.max(1, granted + filed)) * 100}%` }} />
                   </div>
                 </div>
-                <div>
-                  <p className="text-[11px] text-muted-foreground mb-1.5">Filed</p>
-                  <div className="flex items-center gap-2 mb-2">
-                    <FileText className="w-3.5 h-3.5 text-muted-foreground" />
-                    <span className="text-sm font-semibold text-foreground">{filed}</span>
+                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Filed</p>
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <FileText className="w-3 h-3 text-muted-foreground" />
+                    <span className="text-[11px] font-semibold text-foreground tabular-nums">{filed}</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div className="h-1 rounded-full bg-muted overflow-hidden">
                     <div className="h-full bg-info rounded-full" style={{ width: `${(filed / Math.max(1, granted + filed)) * 100}%` }} />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="px-5 pt-4 pb-2 flex-shrink-0">
-              <h4 className="text-[11px] font-bold text-foreground">Explore the countries patents</h4>
-            </div>
-
-            <div className="flex-1 overflow-y-auto px-5 pb-3">
-              <table className="w-full text-xs border border-border/40 rounded-lg overflow-hidden">
-                <thead>
-                  <tr className="bg-muted/40 border-b border-border/40">
-                    <th className="text-left py-2 px-3 text-[10px] font-semibold text-foreground" style={{ width: '34%' }}>Countries</th>
-                    <th className="text-left py-2 px-3 text-[10px] font-semibold text-foreground">Granted</th>
-                    <th className="text-left py-2 px-3 text-[10px] font-semibold text-foreground">Filed</th>
-                    <th className="py-2 px-3" style={{ width: 32 }} />
+            {/* Country table */}
+            <div className="overflow-y-auto flex-1">
+              <table className="w-full text-xs">
+                <thead className="sticky top-0 bg-card z-10">
+                  <tr className="border-b border-border">
+                    <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '40%' }}>Country</th>
+                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
+                    <th className="py-1.5 px-2" style={{ width: 32 }} />
                   </tr>
                 </thead>
                 <tbody>
-                  {pageRows.map((c, i) => (
+                  {pageRows.map((c) => (
                     <tr
                       key={c.name}
-                      className={`border-b border-border/30 last:border-b-0 cursor-pointer transition-colors hover:bg-muted/40 ${i % 2 === 0 ? 'bg-background' : 'bg-muted/20'}`}
+                      className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
                       onClick={() => openCountry(c)}
                     >
-                      <td className="py-2 px-3 text-[11px] text-foreground">{c.name}</td>
-                      <td className="py-2 px-3">
-                        <div className="flex items-center gap-2">
+                      <td className="py-1.5 px-4">
+                        <div className="font-medium text-[11px] text-foreground hover:text-primary transition-colors">{c.name}</div>
+                      </td>
+                      <td className="py-1.5">
+                        <div className="flex items-center gap-1.5">
                           <span className="text-primary text-[10px]">✓</span>
-                          <div className="h-1.5 w-20 rounded-full bg-muted overflow-hidden">
+                          <div className="h-1 w-16 rounded-full bg-muted overflow-hidden">
                             <div className="h-full bg-primary rounded-full" style={{ width: `${(c.granted / maxGranted) * 100}%` }} />
                           </div>
-                          <span className="text-[11px] text-foreground tabular-nums">{c.granted}</span>
+                          <span className="text-[10px] text-foreground tabular-nums">{c.granted}</span>
                         </div>
                       </td>
-                      <td className="py-2 px-3">
-                        <div className="flex items-center gap-2">
+                      <td className="py-1.5">
+                        <div className="flex items-center gap-1.5">
                           <FileText className="w-2.5 h-2.5 text-muted-foreground" />
-                          <div className="h-1.5 w-20 rounded-full bg-muted overflow-hidden">
+                          <div className="h-1 w-16 rounded-full bg-muted overflow-hidden">
                             <div className="h-full bg-info rounded-full" style={{ width: `${(c.filed / maxFiled) * 100}%` }} />
                           </div>
-                          <span className="text-[11px] text-foreground tabular-nums">{c.filed}</span>
+                          <span className="text-[10px] text-foreground tabular-nums">{c.filed}</span>
                         </div>
                       </td>
-                      <td className="py-2 px-2 text-right">
-                        <button
-                          onClick={(e) => { e.stopPropagation(); openCountry(c); }}
-                          className="inline-flex items-center justify-center h-6 w-6 rounded-md border border-border/60 bg-background hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                          aria-label={`View ${c.name} patents`}
-                        >
-                          <ArrowRight className="w-3 h-3" />
-                        </button>
+                      <td className="py-1.5 px-2 text-right">
+                        <ArrowRight className="w-3 h-3 text-muted-foreground inline-block" />
                       </td>
                     </tr>
                   ))}
@@ -431,7 +429,7 @@ const ContinentPatentsModal = ({
             </div>
 
             {totalPages > 1 && (
-              <div className="px-5 py-3 border-t border-border flex items-center justify-between flex-shrink-0">
+              <div className="px-4 py-2 border-t border-border flex items-center justify-between flex-shrink-0">
                 <div className="flex items-center gap-1">
                   <Button
                     variant="outline"
