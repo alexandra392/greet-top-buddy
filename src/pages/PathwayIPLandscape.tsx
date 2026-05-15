@@ -148,7 +148,17 @@ const PathwayIPLandscape = () => {
   const data = dataByView[activeView];
   const developers = data.developers;
   const geoData = data.geo;
-  const latestPatents = data.patents;
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
+  const latestPatents = React.useMemo(() => {
+    let arr = [...data.patents];
+    if (filingSort) arr.sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    else if (grantedSort) arr.sort((a, b) => {
+      const av = a.grantedYear ?? -Infinity; const bv = b.grantedYear ?? -Infinity;
+      return grantedSort === 'desc' ? bv - av : av - bv;
+    });
+    return arr;
+  }, [data.patents, filingSort, grantedSort]);
 
   return (
     <div className="h-full bg-background flex flex-col">
