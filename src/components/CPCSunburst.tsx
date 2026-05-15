@@ -1,13 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { Award } from 'lucide-react';
 import { CPCHierarchy, shadeHsl } from '@/lib/cpcMock';
 
 interface CPCSunburstProps {
   hierarchy: CPCHierarchy;
-  selectedSection?: string;
-  selectedClass?: string;
-  onSelectSection?: (code: string) => void;
-  onSelectClass?: (code: string) => void;
-  onSelectSubclass?: (code: string) => void;
+  onOpenSlice?: (level: 'section' | 'class' | 'subclass', code: string) => void;
   size?: number;
 }
 
@@ -32,7 +29,6 @@ const arcPath = (cx: number, cy: number, rIn: number, rOut: number, a0: number, 
   const sweep = a1 - a0;
   if (sweep <= 0.0001) return '';
   const large = sweep > 180 ? 1 : 0;
-  // Full circle workaround
   if (sweep >= 359.999) {
     const [x1, y1] = polar(cx, cy, rOut, 0);
     const [x2, y2] = polar(cx, cy, rOut, 180);
@@ -47,21 +43,16 @@ const arcPath = (cx: number, cy: number, rIn: number, rOut: number, a0: number, 
   return `M ${x1} ${y1} A ${rOut} ${rOut} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${rIn} ${rIn} 0 ${large} 0 ${x4} ${y4} Z`;
 };
 
-const CPCSunburst: React.FC<CPCSunburstProps> = ({
-  hierarchy,
-  selectedSection,
-  selectedClass,
-  onSelectSection,
-  onSelectClass,
-  onSelectSubclass,
-  size = 280,
-}) => {
+const CPCSunburst: React.FC<CPCSunburstProps> = ({ hierarchy, onOpenSlice, size = 280 }) => {
   const cx = size / 2;
   const cy = size / 2;
-  const innerR = 30;
-  const r1 = 64;  // sections
-  const r2 = 100; // classes
-  const r3 = 134; // subclasses
+  const innerR = 22;
+  const r1 = 64;
+  const r2 = 100;
+  const r3 = 134;
+
+  const [hovered, setHovered] = useState<ArcSpec | null>(null);
+  const [mouse, setMouse] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const arcs = useMemo<ArcSpec[]>(() => {
     const total = hierarchy.totalAssignments || 1;
@@ -104,27 +95,23 @@ const CPCSunburst: React.FC<CPCSunburstProps> = ({
   }, [hierarchy]);
 
   const isDimmed = (a: ArcSpec) => {
-    if (!selectedSection && !selectedClass) return false;
-    if (selectedClass) return a.parentClass !== selectedClass && a.code !== selectedClass && !(a.level === 'section' && a.code === selectedSection);
-    if (selectedSection) return a.parentSection !== selectedSection;
-    return false;
+    if (!hovered) return false;
+    if (hovered.level === 'section') return a.parentSection !== hovered.code;
+    if (hovered.level === 'class') return a.parentClass !== hovered.code && !(a.level === 'section' && a.code === hovered.parentSection);
+    return a.code !== hovered.code
+      && !(a.level === 'class' && a.code === hovered.parentClass)
+      && !(a.level === 'section' && a.code === hovered.parentSection);
   };
-
-  const handleClick = (a: ArcSpec) => {
-    if (a.level === 'section') onSelectSection?.(a.code);
-    else if (a.level === 'class') onSelectClass?.(a.code);
-    else onSelectSubclass?.(a.code);
-  };
-
-  const centerLabel = selectedClass
-    ? selectedClass
-    : selectedSection
-    ? selectedSection
-    : hierarchy.totalPatents.toString();
-  const centerSub = selectedClass || selectedSection ? 'CPC' : 'patents';
 
   return (
-    <div className="flex items-center justify-center">
+    <div
+      className="relative flex items-center justify-center"
+      onMouseMove={(e) => {
+        const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+        setMouse({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+      }}
+      onMouseLeave={() => setHovered(null)}
+    >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {arcs.map((a, i) => {
           const radii = a.level === 'section'
@@ -143,22 +130,37 @@ const CPCSunburst: React.FC<CPCSunburstProps> = ({
               stroke="hsl(var(--background))"
               strokeWidth={1}
               opacity={dim ? 0.18 : 0.92}
-              className="cursor-pointer transition-opacity hover:opacity-100"
-              onClick={() => handleClick(a)}
-            >
-              <title>{`${a.code} – ${a.name} (${a.count})`}</title>
-            </path>
+              className="cursor-pointer transition-opacity"
+              onMouseEnter={() => setHovered(a)}
+              onClick={() => onOpenSlice?.(a.level, a.code)}
+            />
           );
         })}
-        {/* Center disc */}
         <circle cx={cx} cy={cy} r={innerR} fill="hsl(var(--card))" stroke="hsl(var(--border))" strokeWidth={1} />
-        <text x={cx} y={cy - 2} textAnchor="middle" className="fill-foreground" style={{ fontSize: 14, fontWeight: 700 }}>
-          {centerLabel}
-        </text>
-        <text x={cx} y={cy + 11} textAnchor="middle" className="fill-muted-foreground" style={{ fontSize: 8, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          {centerSub}
-        </text>
       </svg>
+
+      {hovered && (
+        <div
+          className="pointer-events-none absolute z-20 rounded-lg bg-foreground text-background px-3 py-2 shadow-xl min-w-[180px] max-w-[240px]"
+          style={{
+            left: Math.min(mouse.x + 14, size - 200),
+            top: Math.max(mouse.y - 60, 0),
+          }}
+        >
+          <div className="flex items-center gap-2 mb-1">
+            <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: hovered.color }} />
+            <span className="text-[11px] font-mono font-bold">{hovered.code}</span>
+            <span className="text-[8px] uppercase tracking-wider opacity-60 ml-auto">{hovered.level}</span>
+          </div>
+          <div className="text-[10px] uppercase tracking-wider opacity-90 leading-tight mb-1.5 line-clamp-2">{hovered.name}</div>
+          <div className="flex items-center gap-1.5 mb-1">
+            <Award className="w-3 h-3 opacity-70" />
+            <span className="text-[12px] font-semibold tabular-nums">{hovered.count.toLocaleString()}</span>
+            <span className="text-[9px] opacity-60">patents</span>
+          </div>
+          <div className="text-[9px] opacity-60 mt-1">Click to view patents</div>
+        </div>
+      )}
     </div>
   );
 };
