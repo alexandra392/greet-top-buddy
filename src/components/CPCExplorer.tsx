@@ -232,21 +232,21 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                 <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
                   CPC {currentClass ? 'Class' : 'Section'}
                 </DialogTitle>
-                <div className="flex items-center gap-2">
+                <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                   {currentClass && (
                     <button
                       onClick={goBackBrowse}
-                      className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border/60 hover:border-border shrink-0"
+                      className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border/60 hover:border-border shrink-0"
                       title={`Back to ${currentSection.code} classes`}
                     >
                       <ArrowLeft className="w-3 h-3" />
                     </button>
                   )}
-                  <h4 className="text-sm font-semibold text-foreground">
+                  <span>
                     <span className="font-mono mr-1.5">{(currentClass || currentSection).code}</span>
                     {(currentClass || currentSection).name}
-                  </h4>
-                </div>
+                  </span>
+                </h4>
                 <p className="text-[10px] text-muted-foreground mt-0.5">
                   {browseItems.length} {currentClass ? 'subclasses' : 'classes'} · {browseAllCount} patents · {browseGrantedCount} granted · {browseFiledCount} filed
                 </p>
