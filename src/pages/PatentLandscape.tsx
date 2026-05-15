@@ -1257,6 +1257,15 @@ const PatentLandscape = () => {
           patent={selectedPatentDetail}
           topic={decodedTopic}
         />
+
+        <ContinentPatentsModal
+          open={!!selectedContinent}
+          onOpenChange={(open) => { if (!open) setSelectedContinent(null); }}
+          continent={selectedContinent?.location || ''}
+          granted={selectedContinent?.granted || 0}
+          filed={selectedContinent?.filed || 0}
+          topic={decodedTopic}
+        />
       </div>
     </div>);
 
