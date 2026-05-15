@@ -242,12 +242,22 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         <div className="flex items-center justify-center">
           <CPCSunburst
             hierarchy={hierarchy}
-            selectedSection={sectionCode}
-            selectedClass={classCode}
-            onSelectSection={onSunSection}
-            onSelectClass={onSunClass}
-            onSelectSubclass={onSunSubclass}
             size={280}
+            onOpenSlice={(level, code) => {
+              if (level === 'section') {
+                const sec = hierarchy.sections.find(s => s.code === code);
+                if (sec) openPatents(patentsForSection(sec), sec.code, sec.name);
+              } else if (level === 'class') {
+                const sec = hierarchy.sections.find(s => s.classes.some(c => c.code === code));
+                const cls = sec?.classes.find(c => c.code === code);
+                if (cls) openPatents(patentsForClass(cls), cls.code, cls.name);
+              } else {
+                const sec = hierarchy.sections.find(s => s.classes.some(c => c.subclasses.some(su => su.code === code)));
+                const cls = sec?.classes.find(c => c.subclasses.some(su => su.code === code));
+                const sub = cls?.subclasses.find(su => su.code === code);
+                if (sub) openPatents(sub.patents, sub.code, sub.name);
+              }
+            }}
           />
         </div>
       </div>
