@@ -316,8 +316,18 @@ const ContinentPatentsModal = ({
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
                     <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '55%' }}>Patent</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <button type="button" onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                        FILING
+                        <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                      </button>
+                    </th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <button type="button" onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}>
+                        GRANTED
+                        <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                      </button>
+                    </th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisd.</th>
                   </tr>
