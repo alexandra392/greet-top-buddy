@@ -1046,8 +1046,12 @@ const PatentLandscape = () => {
                       </div>
                       <div className="space-y-2 overflow-y-auto" style={{ maxHeight: '340px' }}>
                         {geoData.map((item, index) =>
-                        <div key={index} className="bg-background rounded-lg px-3 py-3 border border-border/40">
-                            <h5 className="font-bold text-[12px] text-foreground mb-1.5">{item.location}</h5>
+                        <div
+                          key={index}
+                          onClick={() => setSelectedContinent({ location: item.location, granted: item.granted, filed: item.filed })}
+                          className="bg-background rounded-lg px-3 py-3 border border-border/40 cursor-pointer hover:border-primary/50 hover:bg-muted/30 transition-colors"
+                        >
+                            <h5 className="font-bold text-[12px] text-foreground mb-1.5 hover:text-primary transition-colors">{item.location}</h5>
                             <div className="grid grid-cols-3 gap-2 text-[10px]">
                               <div>
                                 <div className="text-muted-foreground font-medium">Total Patents</div>
