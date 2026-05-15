@@ -164,33 +164,26 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
         {/* Sections list */}
         <div>
           <div className="text-[10px] font-semibold text-foreground mb-2">All sections</div>
-          <div className="space-y-0">
-            {sectionItems.map((it) => {
-              const maxCount = Math.max(...sectionItems.map(x => x.count), 1);
-              const barWidth = Math.max(4, (it.count / maxCount) * 100);
-              return (
-                <div
-                  key={it.code}
-                  className="flex items-center gap-3 px-3 py-2.5 cursor-pointer hover:bg-muted/50 transition-colors border-b border-border/20 last:border-b-0 group"
-                  onClick={() => openSection(it.code)}
-                >
-                  <span className="text-[10px] font-mono font-bold text-muted-foreground w-[42px] shrink-0">{it.code}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1 gap-2">
-                      <span className="text-[11px] text-foreground group-hover:text-primary transition-colors truncate">{it.name}</span>
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span className="text-[11px] font-semibold text-foreground tabular-nums">{it.count}</span>
-                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: it.color }} />
-                      </div>
-                    </div>
-                    <div className="w-full h-2 bg-muted rounded-sm overflow-hidden">
-                      <div className="h-full rounded-sm transition-all duration-300" style={{ width: `${barWidth}%`, backgroundColor: it.color }} />
-                    </div>
-                  </div>
-                  <ChevronRight className="w-3 h-3 text-muted-foreground shrink-0" />
+          <div className="space-y-1.5">
+            {sectionItems.map((it) => (
+              <div
+                key={it.code}
+                className="flex items-center gap-3 px-3 py-2 cursor-pointer bg-card hover:bg-muted/40 hover:border-border transition-colors border border-border/60 rounded-lg group"
+                onClick={() => openSection(it.code)}
+              >
+                <span className="flex items-center justify-center w-6 h-6 rounded-md border border-border/70 bg-muted/40 text-[10px] font-mono font-bold text-foreground shrink-0">
+                  {it.code}
+                </span>
+                <span className="flex-1 min-w-0 text-[11px] text-foreground group-hover:text-primary transition-colors truncate">
+                  {it.name}
+                </span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Award className="w-3 h-3 text-muted-foreground" />
+                  <span className="text-[11px] font-semibold text-foreground tabular-nums">{it.count.toLocaleString()}</span>
+                  <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: it.color }} />
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
 
           <p className="text-[9px] text-muted-foreground mt-3 italic">
