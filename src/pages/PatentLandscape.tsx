@@ -14,6 +14,7 @@ import worldPatentMap from '@/assets/world-patent-map.png';
 import IPHolderPatentsModal from '@/components/IPHolderPatentsModal';
 import CategoryPatentsModal from '@/components/CategoryPatentsModal';
 import PatentDetailModal from '@/components/PatentDetailModal';
+import ContinentPatentsModal from '@/components/ContinentPatentsModal';
 
 type PatentView = 'feedstock' | 'technology' | 'production' | 'applications' | 'products';
 
@@ -701,6 +702,7 @@ const PatentLandscape = () => {
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]} | null>(null);
   const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
+  const [selectedContinent, setSelectedContinent] = useState<{location: string; granted: number; filed: number} | null>(null);
 
   // Mock data for subcategory detail popups - patents grouped by technology
   const subcategoryDetails: Record<string, { technologies: { name: string; patents: number; trend: string; trendColor: string; patentList: { title: string; company: string; year: number; status: string }[] }[] }> = {
@@ -1044,8 +1046,12 @@ const PatentLandscape = () => {
                       </div>
                       <div className="space-y-2 overflow-y-auto" style={{ maxHeight: '340px' }}>
                         {geoData.map((item, index) =>
-                        <div key={index} className="bg-background rounded-lg px-3 py-3 border border-border/40">
-                            <h5 className="font-bold text-[12px] text-foreground mb-1.5">{item.location}</h5>
+                        <div
+                          key={index}
+                          onClick={() => setSelectedContinent({ location: item.location, granted: item.granted, filed: item.filed })}
+                          className="bg-background rounded-lg px-3 py-3 border border-border/40 cursor-pointer hover:border-primary/50 hover:bg-muted/30 transition-colors"
+                        >
+                            <h5 className="font-bold text-[12px] text-foreground mb-1.5 hover:text-primary transition-colors">{item.location}</h5>
                             <div className="grid grid-cols-3 gap-2 text-[10px]">
                               <div>
                                 <div className="text-muted-foreground font-medium">Total Patents</div>
@@ -1249,6 +1255,15 @@ const PatentLandscape = () => {
           open={!!selectedPatentDetail}
           onOpenChange={(open) => { if (!open) setSelectedPatentDetail(null); }}
           patent={selectedPatentDetail}
+          topic={decodedTopic}
+        />
+
+        <ContinentPatentsModal
+          open={!!selectedContinent}
+          onOpenChange={(open) => { if (!open) setSelectedContinent(null); }}
+          continent={selectedContinent?.location || ''}
+          granted={selectedContinent?.granted || 0}
+          filed={selectedContinent?.filed || 0}
           topic={decodedTopic}
         />
       </div>
