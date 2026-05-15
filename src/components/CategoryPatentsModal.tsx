@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, X, FileText, ArrowLeft, Calendar, Building2, Globe } from "lucide-react";
+import { Search, X, FileText, ArrowLeft, ArrowUpDown, Calendar, Building2, Globe } from "lucide-react";
 
 interface Patent {
   title: string;
