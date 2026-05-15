@@ -389,17 +389,17 @@ const ContinentPatentsModal = ({
               <table className="w-full text-xs table-fixed">
                 <colgroup>
                   <col />
-                  <col style={{ width: 56 }} />
-                  <col style={{ width: 56 }} />
-                  <col style={{ width: 140 }} />
+                  <col style={{ width: 70 }} />
+                  <col style={{ width: 80 }} />
+                  <col style={{ width: 80 }} />
                   <col style={{ width: 32 }} />
                 </colgroup>
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
                     <th className="text-left py-2 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Country</th>
-                    <th className="text-right py-2 pr-3 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
-                    <th className="text-right py-2 pr-3 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Share</th>
-                    <th className="text-left py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted / Filed</th>
+                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Total</th>
+                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                    <th className="text-right py-2 pr-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filed</th>
                     <th className="py-2 px-2" />
                   </tr>
                 </thead>
@@ -408,8 +408,6 @@ const ContinentPatentsModal = ({
                     const total = c.granted + c.filed;
                     const continentTotal = granted + filed || 1;
                     const sharePct = (total / continentTotal) * 100;
-                    const grantedPct = total > 0 ? (c.granted / total) * 100 : 0;
-                    const filedPct = total > 0 ? (c.filed / total) * 100 : 0;
                     return (
                       <tr
                         key={c.name}
@@ -417,39 +415,20 @@ const ContinentPatentsModal = ({
                         onClick={() => openCountry(c)}
                       >
                         <td className="py-2 px-4 relative">
-                          {/* left accent on hover */}
                           <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                          {/* faint inline share bar behind name */}
-                          <span
-                            className="absolute left-4 right-2 top-1/2 -translate-y-1/2 h-5 rounded bg-primary/5 -z-0"
-                            style={{ width: `calc(${Math.min(100, sharePct * 2.5)}% - 1.5rem)` }}
-                          />
-                          <div className="relative font-medium text-[11px] text-foreground group-hover:text-primary transition-colors truncate">
-                            {c.name}
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium text-[11px] text-foreground group-hover:text-primary transition-colors truncate">{c.name}</span>
+                            <span className="text-[9px] text-muted-foreground tabular-nums">{sharePct.toFixed(0)}%</span>
                           </div>
                         </td>
-                        <td className="py-2 pr-3 text-right">
+                        <td className="py-2 pr-4 text-right">
                           <span className="text-[11px] font-semibold text-foreground tabular-nums">{total}</span>
                         </td>
-                        <td className="py-2 pr-3 text-right">
-                          <span className="text-[10px] text-muted-foreground tabular-nums">{sharePct.toFixed(0)}%</span>
+                        <td className="py-2 pr-4 text-right">
+                          <span className="text-[11px] text-muted-foreground tabular-nums">{c.granted > 0 ? c.granted : '–'}</span>
                         </td>
-                        <td className="py-2 pr-4">
-                          <div
-                            className="h-1.5 rounded-full bg-muted overflow-hidden flex w-full"
-                            title={`${c.granted} granted · ${c.filed} filed`}
-                          >
-                            {grantedPct > 0 && (
-                              <div className="h-full bg-primary" style={{ width: `${grantedPct}%` }} />
-                            )}
-                            {filedPct > 0 && (
-                              <div className="h-full bg-info" style={{ width: `${filedPct}%` }} />
-                            )}
-                          </div>
-                          <div className="flex items-center justify-between mt-1 text-[9px] tabular-nums text-muted-foreground">
-                            <span>{c.granted > 0 ? c.granted : '–'}</span>
-                            <span>{c.filed > 0 ? c.filed : '–'}</span>
-                          </div>
+                        <td className="py-2 pr-4 text-right">
+                          <span className="text-[11px] text-muted-foreground tabular-nums">{c.filed > 0 ? c.filed : '–'}</span>
                         </td>
                         <td className="py-2 px-2 text-right">
                           <ArrowRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity inline-block" />
