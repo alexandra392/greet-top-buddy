@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, ArrowRight, Search, X, FileText, Calendar, Building2, Globe } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpDown, Search, X, FileText, Calendar, Building2, Globe } from "lucide-react";
 
 interface Patent {
   title: string;
@@ -113,6 +113,8 @@ const ContinentPatentsModal = ({
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [patentTab, setPatentTab] = useState<'all' | 'granted' | 'filed'>('all');
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
   
 
   const countries = useMemo<CountryRow[]>(() => {
@@ -147,8 +149,13 @@ const ContinentPatentsModal = ({
       const lo = searchTerm.toLowerCase();
       f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
     }
+    if (filingSort) f = [...f].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    else if (grantedSort) f = [...f].sort((a, b) => {
+      const av = a.grantedYear ?? -Infinity; const bv = b.grantedYear ?? -Infinity;
+      return grantedSort === 'desc' ? bv - av : av - bv;
+    });
     return f;
-  }, [countryPatents, patentTab, searchTerm]);
+  }, [countryPatents, patentTab, searchTerm, filingSort, grantedSort]);
 
   const handleClose = () => {
     setView('countries');
@@ -309,8 +316,18 @@ const ContinentPatentsModal = ({
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
                     <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '55%' }}>Patent</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <button type="button" onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                        FILING
+                        <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                      </button>
+                    </th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <button type="button" onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}>
+                        GRANTED
+                        <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                      </button>
+                    </th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisd.</th>
                   </tr>

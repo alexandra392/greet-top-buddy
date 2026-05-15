@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, X, FileText, ArrowLeft, Calendar, Building2, Globe } from "lucide-react";
+import { Search, X, FileText, ArrowLeft, ArrowUpDown, Calendar, Building2, Globe } from "lucide-react";
 
 interface Patent {
   title: string;
@@ -97,6 +97,7 @@ const CategoryPatentsModal = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSub, setSelectedSub] = useState<string>('all');
   const [selectedPatent, setSelectedPatent] = useState<Patent | null>(null);
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
 
   const allPatents = useMemo(() => {
     return generateCategoryPatents(categoryName, subcategories, totalPatents, topic);
@@ -114,8 +115,9 @@ const CategoryPatentsModal = ({
         p.company.toLowerCase().includes(lower)
       );
     }
+    if (filingSort) filtered = [...filtered].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
     return filtered;
-  }, [allPatents, selectedSub, searchTerm]);
+  }, [allPatents, selectedSub, searchTerm, filingSort]);
 
   const handleClose = () => {
     setSelectedPatent(null);
@@ -269,7 +271,12 @@ const CategoryPatentsModal = ({
                   <tr className="border-b border-border">
                     <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '45%' }}>Patent</th>
                     <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Subcategory</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      <button type="button" onClick={() => setFilingSort(filingSort === 'desc' ? 'asc' : 'desc')} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                        FILING
+                        <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                      </button>
+                    </th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                     <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisd.</th>
                   </tr>

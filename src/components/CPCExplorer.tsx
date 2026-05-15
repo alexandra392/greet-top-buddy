@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ArrowLeft, Search, X, FileText, Building2, Calendar, Globe, Layers, Award } from 'lucide-react';
+import { ChevronRight, ArrowLeft, ArrowUpDown, Search, X, FileText, Building2, Calendar, Globe, Layers, Award } from 'lucide-react';
 import {
   buildCPCHierarchy,
   patentsForSection,
@@ -128,6 +128,17 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
     return [];
   }, [currentSection, currentClass, currentSubclass]);
 
+  const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [grantedSort, setGrantedSort] = useState<'desc' | 'asc' | null>(null);
+  const sortPatents = <T extends { filingYear: number; grantedYear: number | null }>(arr: T[]): T[] => {
+    if (filingSort) return [...arr].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
+    if (grantedSort) return [...arr].sort((a, b) => {
+      const av = a.grantedYear ?? -Infinity; const bv = b.grantedYear ?? -Infinity;
+      return grantedSort === 'desc' ? bv - av : av - bv;
+    });
+    return arr;
+  };
+
   // Filtered patents in patent modal
   const filteredPatents = useMemo(() => {
     if (!patentModal) return [];
@@ -138,8 +149,8 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
       const lo = patentSearch.toLowerCase();
       f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
     }
-    return f;
-  }, [patentModal, patentTab, patentSearch]);
+    return sortPatents(f);
+  }, [patentModal, patentTab, patentSearch, filingSort, grantedSort]);
 
   const grantedCount = patentModal ? patentModal.patents.filter(p => p.status === 'Granted').length : 0;
   const filedCount = patentModal ? patentModal.patents.filter(p => p.status === 'Filed').length : 0;
@@ -160,8 +171,8 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
       const lo = browsePatentSearch.toLowerCase();
       f = f.filter(p => p.title.toLowerCase().includes(lo) || p.company.toLowerCase().includes(lo));
     }
-    return f;
-  }, [currentLevelPatents, browsePatentTab, browsePatentSearch]);
+    return sortPatents(f);
+  }, [currentLevelPatents, browsePatentTab, browsePatentSearch, filingSort, grantedSort]);
 
   return (
     <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
@@ -374,8 +385,18 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                       <thead className="sticky top-[42px] bg-card z-10">
                         <tr className="border-b border-border">
                           <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '50%' }}>Patent</th>
-                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
-                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                            <button type="button" onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                              FILING
+                              <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                            </button>
+                          </th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                            <button type="button" onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}>
+                              GRANTED
+                              <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                            </button>
+                          </th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">CPCs</th>
                         </tr>
@@ -539,8 +560,18 @@ const CPCExplorer: React.FC<CPCExplorerProps> = ({ cpcData, topic, title, descri
                   <thead className="sticky top-0 bg-card z-10">
                     <tr className="border-b border-border">
                       <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '50%' }}>Patent</th>
-                      <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing</th>
-                      <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted</th>
+                      <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                        <button type="button" onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
+                          FILING
+                          <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                        </button>
+                      </th>
+                      <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                        <button type="button" onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}>
+                          GRANTED
+                          <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
+                        </button>
+                      </th>
                       <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                       <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">CPCs</th>
                     </tr>
