@@ -397,7 +397,7 @@ const ContinentPatentsModal = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {visibleCountries.map((c) => (
+                  {pageRows.map((c) => (
                     <tr
                       key={c.name}
                       className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
