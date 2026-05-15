@@ -1160,7 +1160,7 @@ const PatentLandscape = () => {
                               onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }}
                               className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}
                             >
-                              Filing Year
+                              FILING YEAR
                               <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
                             </button>
                           </th>
@@ -1170,7 +1170,7 @@ const PatentLandscape = () => {
                               onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }}
                               className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}
                             >
-                              Granted Year
+                              GRANTED YEAR
                               <ArrowUpDown className={`h-2.5 w-2.5 ${grantedSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
                             </button>
                           </th>
