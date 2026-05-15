@@ -1154,8 +1154,26 @@ const PatentLandscape = () => {
                       <thead>
                         <tr className="border-b border-border">
                           <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '45%' }}>Patents and Applications</th>
-                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Filing Year</th>
-                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Granted Year</th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                            <button
+                              type="button"
+                              onClick={() => { setGrantedSort(null); setFilingSort(filingSort === 'desc' ? 'asc' : 'desc'); }}
+                              className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}
+                            >
+                              Filing Year
+                              <span className="text-[8px] leading-none">{filingSort === 'asc' ? '▲' : filingSort === 'desc' ? '▼' : '↕'}</span>
+                            </button>
+                          </th>
+                          <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                            <button
+                              type="button"
+                              onClick={() => { setFilingSort(null); setGrantedSort(grantedSort === 'desc' ? 'asc' : 'desc'); }}
+                              className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${grantedSort ? 'text-foreground' : ''}`}
+                            >
+                              Granted Year
+                              <span className="text-[8px] leading-none">{grantedSort === 'asc' ? '▲' : grantedSort === 'desc' ? '▼' : '↕'}</span>
+                            </button>
+                          </th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
                           <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisdiction</th>
                           
