@@ -410,18 +410,14 @@ const ScientificPublications = () => {
                       </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Trending Topics */}
-                <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
-                  <div className="mb-2">
-                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Trending Topics</h3>
-                    <p className="text-xs text-muted-foreground">Sub-themes with the strongest year-over-year publication growth.</p>
-                  </div>
-                  <div className="grid grid-cols-5 gap-2">
-                    {topTrending.map((t, i) => {
-                      const sparkMax = Math.max(...t.topic.values);
-                      return (
+                  <div className="mt-4 pt-3 border-t border-border/40">
+                    <div className="mb-2">
+                      <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Trending Topics</h4>
+                      <p className="text-xs text-muted-foreground">Sub-themes with the strongest year-over-year publication growth.</p>
+                    </div>
+                    <div className="grid grid-cols-5 gap-2">
+                      {topTrending.map((t, i) => (
                         <div
                           key={t.topic.name}
                           className="group relative rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all overflow-hidden"
@@ -442,8 +438,8 @@ const ScientificPublications = () => {
                             ))}
                           </div>
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
                 </div>
 
