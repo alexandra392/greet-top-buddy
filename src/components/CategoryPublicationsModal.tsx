@@ -182,7 +182,7 @@ const CategoryPublicationsModal = ({
           <DialogTitle className="text-sm font-semibold text-foreground min-w-0 truncate">{categoryName}</DialogTitle>
           <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-muted/50 border border-border/60 flex-shrink-0">
             <FileText className="w-3.5 h-3.5 text-muted-foreground" />
-            <div className="flex flex-col items-center leading-tight">
+            <div className="flex flex-col leading-tight">
               <span className="text-[8px] text-muted-foreground uppercase tracking-wider">Publications</span>
               <span className="text-xs font-bold text-foreground tabular-nums">{totalPublications.toLocaleString()}</span>
             </div>
