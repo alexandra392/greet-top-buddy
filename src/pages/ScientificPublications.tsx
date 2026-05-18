@@ -244,13 +244,13 @@ const ScientificPublications = () => {
         <div className="mb-3 pb-2 border-b border-border/40">
           <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{section.title}</h3>
           <p className="text-[10px] text-muted-foreground">{section.description}</p>
-          <div className="flex items-baseline gap-1.5 text-[9px] text-muted-foreground mt-1.5">
+          <div className="grid grid-cols-[10px_1fr_auto_44px] items-baseline gap-3 px-1.5 mt-1.5 text-[9px] text-muted-foreground">
+            <span />
+            <span>publications · categories</span>
             <span className="font-semibold text-foreground tabular-nums">{sectionTotal.toLocaleString()}</span>
-            <span>publications</span>
-            <span className="text-border">·</span>
-            <span className="font-semibold text-foreground tabular-nums">{totalCount}</span>
-            <span>categories</span>
+            <span className="font-semibold text-foreground tabular-nums text-right">{totalCount}</span>
           </div>
+
         </div>
 
 
