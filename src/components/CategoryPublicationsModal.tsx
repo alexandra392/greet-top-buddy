@@ -195,7 +195,7 @@ const CategoryPublicationsModal = ({
           </div>
           {subcategories.length > 0 && (
             <Select value={selectedSub} onValueChange={setSelectedSub}>
-              <SelectTrigger className="h-7 w-[160px] text-[10px]">
+              <SelectTrigger className="h-7 w-[160px] text-[10px] ml-auto">
                 <SelectValue placeholder="All subcategories" />
               </SelectTrigger>
               <SelectContent>
