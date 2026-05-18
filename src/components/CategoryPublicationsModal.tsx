@@ -189,7 +189,7 @@ const CategoryPublicationsModal = ({
           </div>
         )}
 
-        <div className="overflow-y-auto flex-1 px-4 py-2">
+        <div className="flex-1 px-4 py-2">
           <div className="space-y-1.5">
             {pagedPublications.map((pub, idx) => (
               <div
