@@ -274,22 +274,22 @@ const ScientificPublications = () => {
                   <span className="text-[9px] text-muted-foreground tabular-nums text-right">{share.toFixed(0)}%</span>
                 </button>
                 {isExpanded && cat.subItems?.length > 0 && (
-                  <div className="ml-4 mt-1 mb-1 pl-2 border-l border-border/50 space-y-1">
+                  <div className="ml-5 my-1 pl-3 border-l border-border/60 space-y-0.5">
                     {cat.subItems.sort((a, b) => b.total - a.total).map((sub, sIdx) => {
                       const subShare = cat.total > 0 ? (sub.total / cat.total) * 100 : 0;
                       return (
                         <button
                           key={sub.name}
                           onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
-                          className="w-full flex items-center gap-2 px-1.5 py-1 rounded-md hover:bg-muted/40 transition-colors text-left"
+                          className="w-full grid grid-cols-[10px_1fr_auto_44px] items-center gap-3 px-1.5 py-1.5 rounded-md hover:bg-muted/40 transition-colors text-left"
                         >
                           <span
-                            className="w-2 h-2 rounded-sm flex-shrink-0 opacity-70"
+                            className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-70"
                             style={{ backgroundColor: colorFor(idx + sIdx + 1) }}
                           />
-                          <span className="text-[10px] font-semibold text-foreground truncate flex-1">{sub.name}</span>
-                          <span className="text-[10px] font-bold text-foreground tabular-nums">{sub.total.toLocaleString()}</span>
-                          <span className="text-[8px] text-muted-foreground tabular-nums w-8 text-right">{subShare.toFixed(0)}%</span>
+                          <span className="text-[10px] font-medium text-muted-foreground truncate">{sub.name}</span>
+                          <span className="text-[10px] font-semibold text-foreground tabular-nums">{sub.total.toLocaleString()}</span>
+                          <span className="text-[9px] text-muted-foreground tabular-nums text-right">{subShare.toFixed(0)}%</span>
                         </button>
                       );
                     })}
