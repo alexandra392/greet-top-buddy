@@ -456,7 +456,7 @@ const ScientificPublications = () => {
                           </thead>
                           <tbody>
                             {col.map((inst) => (
-                              <tr key={inst.rank} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedInstitution(inst)}>
+                              <tr key={inst.rank} className="border-b border-border/30 last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedInstitution(inst)}>
                                 <td className="py-1.5">
                                   <div className="flex items-start gap-1.5">
                                     <span className="text-[9px] text-muted-foreground w-3 font-medium pt-[2px]">{inst.rank}</span>
