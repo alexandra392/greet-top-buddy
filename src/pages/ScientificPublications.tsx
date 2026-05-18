@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Search, ExternalLink, FlaskConical, ShoppingBag, ChevronRight, TrendingUp } from "lucide-react";
+import { ArrowLeft, Calendar, Search, ExternalLink, FlaskConical, ShoppingBag, ChevronRight, TrendingUp, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -470,7 +470,10 @@ const ScientificPublications = () => {
                                   <span className="text-[10px] font-semibold text-foreground tabular-nums">{inst.papers.toLocaleString()}</span>
                                 </td>
                                 <td className="text-right py-[3px]">
-                                  <span className="text-[10px] font-semibold text-primary tabular-nums">{inst.citations.toLocaleString()}</span>
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary tabular-nums">
+                                    {inst.citations.toLocaleString()}
+                                    <Quote className="w-2.5 h-2.5" />
+                                  </span>
                                 </td>
                               </tr>
                             ))}
