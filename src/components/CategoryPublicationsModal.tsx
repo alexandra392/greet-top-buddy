@@ -178,12 +178,22 @@ const CategoryPublicationsModal = ({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-[620px] p-0 gap-0 flex flex-col">
-        <div className="px-4 py-3 border-b border-border flex-shrink-0">
+        <div className="px-4 py-3 border-b border-border flex-shrink-0 flex items-baseline gap-2">
           <DialogTitle className="text-sm font-semibold text-foreground">{categoryName}</DialogTitle>
+          <span className="text-[10px] text-muted-foreground">{totalPublications.toLocaleString()} publications</span>
         </div>
 
-        {subcategories.length > 0 && (
-          <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
+        <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="w-3 h-3 absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search publications…"
+              className="h-7 pl-7 text-[10px]"
+            />
+          </div>
+          {subcategories.length > 0 && (
             <Select value={selectedSub} onValueChange={setSelectedSub}>
               <SelectTrigger className="h-7 w-[160px] text-[10px]">
                 <SelectValue placeholder="All subcategories" />
@@ -195,8 +205,9 @@ const CategoryPublicationsModal = ({
                 ))}
               </SelectContent>
             </Select>
-          </div>
-        )}
+          )}
+        </div>
+
 
         <div className="flex-1 px-4 py-2">
           <div className="space-y-1.5">
