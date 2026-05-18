@@ -192,13 +192,13 @@ const ScientificPublications = () => {
   ];
 
   const allSections = isFeedstockRoute ? [
-    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Highlighting where innovation is most intense across conversion process categories.', view: 'production' as const },
-    { title: 'Material Distribution', subtitle: 'Material × Year · Color = publication count', columnLabel: 'MATERIAL', data: productHeatData, description: 'Research distribution across different materials derived from this feedstock.', view: 'production' as const },
-    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Research focus across market application areas.', view: 'application' as const },
+    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Where research effort concentrates by conversion process.', view: 'production' as const },
+    { title: 'Material Distribution', subtitle: 'Material × Year · Color = publication count', columnLabel: 'MATERIAL', data: productHeatData, description: 'Where research effort concentrates by derived material.', view: 'production' as const },
+    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Where research effort concentrates by end application.', view: 'application' as const },
   ] : [
-    { title: 'Feedstock Distribution', subtitle: 'Feedstock × Year · Color = publication count', columnLabel: 'FEEDSTOCK', data: feedstockHeatData, description: 'Research distribution across different feedstock types.', view: 'production' as const },
-    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Highlighting where innovation is most intense across conversion process categories.', view: 'production' as const },
-    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Research focus across market application areas.', view: 'application' as const },
+    { title: 'Feedstock Distribution', subtitle: 'Feedstock × Year · Color = publication count', columnLabel: 'FEEDSTOCK', data: feedstockHeatData, description: 'Where research effort concentrates by feedstock.', view: 'production' as const },
+    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Where research effort concentrates by conversion process.', view: 'production' as const },
+    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Where research effort concentrates by end application.', view: 'application' as const },
   ];
 
   const sections = allSections.filter(s => s.view === researchView);
