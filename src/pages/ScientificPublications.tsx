@@ -358,15 +358,11 @@ const ScientificPublications = () => {
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
                   <div className="mb-2">
                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Research Publication Trend</h3>
-                    <p className="text-xs text-muted-foreground">Innovation intensity across key regions, highlighting technological hotspots and market leaders.</p>
+                    <p className="text-xs text-muted-foreground">Publication volume over time for research in {decodedTopic}.</p>
                   </div>
-                  <div className="flex gap-4">
-                    <div className="flex-[3]">
-                      <div className="flex items-center justify-between mb-1.5">
-                        <div className="rounded-lg border border-border/40 bg-background px-2.5 py-1">
-                          <span className="text-[8px] text-muted-foreground uppercase tracking-wide">Total: </span>
-                          <span className="text-[11px] font-bold text-foreground">189</span>
-                        </div>
+                  <div className="flex gap-3">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-end mb-1.5">
                         <Select value={timeRange} onValueChange={setTimeRange}>
                           <SelectTrigger className="h-6 w-auto text-[9px] border-border gap-1 px-1.5 py-0.5">
                             <Calendar className="w-2.5 h-2.5" />
@@ -397,37 +393,55 @@ const ScientificPublications = () => {
                                 return null;
                               }}
                             />
-                            <Line type="monotone" dataKey="publications" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 2.5 }} activeDot={{ r: 4, stroke: "hsl(var(--primary))", strokeWidth: 2, fill: "hsl(var(--background))" }} />
+                            <Line type="monotone" dataKey="publications" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 3 }} activeDot={{ r: 4, stroke: "hsl(var(--primary))", strokeWidth: 2, fill: "hsl(var(--background))" }} />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
                     </div>
-                    <div className="flex-[2] space-y-2">
-                      <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Trending Topics</div>
-                      {topTrending.map((t, i) => (
-                        <div
-                          key={t.topic.name}
-                          className="rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:bg-muted/30 transition-colors"
-                          onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
-                        >
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1 min-w-0">
-                              <div className="text-[11px] font-bold text-foreground">{t.topic.name}</div>
-                              <div className="text-[8px] text-muted-foreground mt-0.5">{t.topic.total.toLocaleString()} publications</div>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {t.topic.subItems.slice(0, 2).map(sub => (
-                                  <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0">{sub.name}</Badge>
-                                ))}
-                              </div>
-                            </div>
-                            <div className="text-right flex-shrink-0">
-                              <div className="text-sm font-bold text-primary">+{t.growth.toFixed(1)}%</div>
-                              <div className="text-[7px] text-muted-foreground">YoY growth</div>
+                    <div className="w-[140px] space-y-2 flex-shrink-0">
+                      <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
+                        <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Total Publications</div>
+                        <div className="text-lg font-bold text-foreground mt-0.5">189</div>
+                      </div>
+                      <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
+                        <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Growth Rate (3Y)</div>
+                        <div className="text-lg font-bold text-primary mt-0.5">+36%</div>
+                        <div className="text-[8px] text-muted-foreground mt-0.5">over the last 3 years</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trending Topics */}
+                <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
+                  <div className="mb-2">
+                    <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Trending Topics</h3>
+                    <p className="text-xs text-muted-foreground">Sub-themes with the strongest year-over-year publication growth.</p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {topTrending.map((t) => (
+                      <div
+                        key={t.topic.name}
+                        className="rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:bg-muted/30 transition-colors"
+                        onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[11px] font-bold text-foreground">{t.topic.name}</div>
+                            <div className="text-[8px] text-muted-foreground mt-0.5">{t.topic.total.toLocaleString()} publications</div>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {t.topic.subItems.slice(0, 2).map(sub => (
+                                <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0">{sub.name}</Badge>
+                              ))}
                             </div>
                           </div>
+                          <div className="text-right flex-shrink-0">
+                            <div className="text-sm font-bold text-primary">+{t.growth.toFixed(1)}%</div>
+                            <div className="text-[7px] text-muted-foreground">YoY growth</div>
+                          </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
