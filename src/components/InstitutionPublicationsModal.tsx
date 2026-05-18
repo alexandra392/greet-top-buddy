@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, ArrowLeft, Building2, Calendar, Users, BookOpen, ExternalLink, FileText } from "lucide-react";
+import { Search, ArrowLeft, Building2, Calendar, Users, BookOpen, ExternalLink, FileText, Quote } from "lucide-react";
 
 interface Publication {
   title: string;
@@ -197,19 +197,25 @@ const InstitutionPublicationsModal = ({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[92vh] overflow-hidden flex flex-col">
-        <div className="px-4 py-3 pr-12 border-b border-border flex-shrink-0 flex items-start justify-between gap-4">
+        <div className="px-4 py-3 pr-12 border-b border-border flex-shrink-0 flex items-center justify-between gap-4">
           <div className="min-w-0">
             <DialogTitle className="text-sm font-semibold text-foreground">{institution}</DialogTitle>
             <p className="text-[10px] text-muted-foreground mt-0.5">{country} · {focus}</p>
           </div>
-          <div className="flex items-center gap-4 flex-shrink-0">
-            <div className="text-right">
-              <div className="text-[8px] text-muted-foreground uppercase tracking-wider">Papers</div>
-              <div className="text-sm font-bold text-foreground tabular-nums">{totalPapers.toLocaleString()}</div>
+          <div className="flex items-stretch gap-2 flex-shrink-0">
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-muted/50 border border-border/60">
+              <FileText className="w-3.5 h-3.5 text-muted-foreground" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[8px] text-muted-foreground uppercase tracking-wider">Papers</span>
+                <span className="text-xs font-bold text-foreground tabular-nums">{totalPapers.toLocaleString()}</span>
+              </div>
             </div>
-            <div className="text-right">
-              <div className="text-[8px] text-muted-foreground uppercase tracking-wider">Citations</div>
-              <div className="text-sm font-bold text-primary tabular-nums">{citations.toLocaleString()}</div>
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-primary/10 border border-primary/20">
+              <Quote className="w-3.5 h-3.5 text-primary" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[8px] text-primary/80 uppercase tracking-wider">Citations</span>
+                <span className="text-xs font-bold text-primary tabular-nums">{citations.toLocaleString()}</span>
+              </div>
             </div>
           </div>
         </div>
