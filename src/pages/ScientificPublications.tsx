@@ -268,8 +268,8 @@ const ScientificPublications = () => {
                     style={{ backgroundColor: colorFor(idx) }}
                   />
                   <span className="text-[11px] font-semibold text-foreground truncate transition-transform group-hover:translate-x-0.5">{cat.name}</span>
-                  <span className="text-[11px] font-bold text-foreground tabular-nums text-right">{cat.total.toLocaleString()}</span>
-                  <span className="text-[9px] text-muted-foreground tabular-nums text-right">{share.toFixed(0)}%</span>
+                  <span className="block text-[11px] font-bold text-foreground tabular-nums text-right">{cat.total.toLocaleString()}</span>
+                  <span className="block text-[9px] text-muted-foreground tabular-nums text-right">{share.toFixed(0)}%</span>
                   <ChevronRight className={`w-3 h-3 text-muted-foreground/60 transition-transform ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-0.5'}`} />
                 </button>
                 {isExpanded && cat.subItems?.length > 0 && (
