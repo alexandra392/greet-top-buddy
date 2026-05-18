@@ -486,6 +486,17 @@ const ScientificPublications = () => {
                       </React.Fragment>
                     ))}
                   </div>
+                  {institutionsTotalPages > 1 && (
+                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-border/40">
+                      <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={institutionsPage === 1} onClick={() => setInstitutionsPage(p => Math.max(1, p - 1))}>
+                        Previous
+                      </Button>
+                      <span className="text-[10px] text-muted-foreground">Page {institutionsPage} of {institutionsTotalPages}</span>
+                      <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={institutionsPage === institutionsTotalPages} onClick={() => setInstitutionsPage(p => Math.min(institutionsTotalPages, p + 1))}>
+                        Next
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Latest Publications */}
