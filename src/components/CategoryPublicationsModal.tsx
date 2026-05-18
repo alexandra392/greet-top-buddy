@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Calendar, BookOpen } from "lucide-react";
+import { ArrowLeft, Calendar, BookOpen, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface Publication {
   title: string;
@@ -82,6 +83,7 @@ const CategoryPublicationsModal = ({
   open, onOpenChange, categoryName, totalPublications, subcategories, topic = 'Lactic Acid',
 }: CategoryPublicationsModalProps) => {
   const [selectedSub, setSelectedSub] = useState<string>('all');
+  const [search, setSearch] = useState<string>('');
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
 
   const allPublications = useMemo(() =>
@@ -90,14 +92,21 @@ const CategoryPublicationsModal = ({
   );
 
   const filteredPublications = useMemo(() => {
-    if (selectedSub === 'all') return allPublications;
-    return allPublications.filter(p => p.topics.some(t => t === selectedSub));
-  }, [allPublications, selectedSub]);
+    let list = allPublications;
+    if (selectedSub !== 'all') list = list.filter(p => p.topics.some(t => t === selectedSub));
+    const q = search.trim().toLowerCase();
+    if (q) list = list.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.authors.some(a => a.toLowerCase().includes(q)) ||
+      (p.journal?.toLowerCase().includes(q) ?? false)
+    );
+    return list;
+  }, [allPublications, selectedSub, search]);
 
   const PAGE_SIZE = 5;
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(filteredPublications.length / PAGE_SIZE));
-  React.useEffect(() => { setPage(1); }, [selectedSub]);
+  React.useEffect(() => { setPage(1); }, [selectedSub, search]);
   const pagedPublications = filteredPublications.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const handleClose = () => {
@@ -169,12 +178,22 @@ const CategoryPublicationsModal = ({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-[620px] p-0 gap-0 flex flex-col">
-        <div className="px-4 py-3 border-b border-border flex-shrink-0">
+        <div className="px-4 py-3 border-b border-border flex-shrink-0 flex items-baseline gap-2">
           <DialogTitle className="text-sm font-semibold text-foreground">{categoryName}</DialogTitle>
+          <span className="text-[10px] text-muted-foreground">{totalPublications.toLocaleString()} publications</span>
         </div>
 
-        {subcategories.length > 0 && (
-          <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
+        <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="w-3 h-3 absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search publications…"
+              className="h-7 pl-7 text-[10px]"
+            />
+          </div>
+          {subcategories.length > 0 && (
             <Select value={selectedSub} onValueChange={setSelectedSub}>
               <SelectTrigger className="h-7 w-[160px] text-[10px]">
                 <SelectValue placeholder="All subcategories" />
@@ -186,8 +205,9 @@ const CategoryPublicationsModal = ({
                 ))}
               </SelectContent>
             </Select>
-          </div>
-        )}
+          )}
+        </div>
+
 
         <div className="flex-1 px-4 py-2">
           <div className="space-y-1.5">
