@@ -257,7 +257,7 @@ const ScientificPublications = () => {
         </div>
 
         {/* Compact legend grid — wraps to as many rows as needed */}
-        <div className="grid grid-cols-2 gap-x-3 gap-y-1 flex-1">
+        <div className="space-y-1 flex-1">
           {sortedData.map((cat, idx) => {
             const share = sectionTotal > 0 ? (cat.total / sectionTotal) * 100 : 0;
             const isExpanded = expandedCategory[section.title] === cat.name;
