@@ -203,8 +203,12 @@ const ScientificPublications = () => {
 
   const sections = allSections.filter(s => s.view === researchView);
 
-  const col1 = institutions.slice(0, 4);
-  const col2 = institutions.slice(4, 8);
+  const INSTITUTIONS_PER_PAGE = 8;
+  const [institutionsPage, setInstitutionsPage] = useState(1);
+  const institutionsTotalPages = Math.max(1, Math.ceil(institutions.length / INSTITUTIONS_PER_PAGE));
+  const pagedInstitutions = institutions.slice((institutionsPage - 1) * INSTITUTIONS_PER_PAGE, institutionsPage * INSTITUTIONS_PER_PAGE);
+  const col1 = pagedInstitutions.slice(0, 4);
+  const col2 = pagedInstitutions.slice(4, 8);
 
   // Drill-down state per section
   const [expandedCategory, setExpandedCategory] = useState<Record<string, string | null>>({});
