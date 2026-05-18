@@ -242,8 +242,8 @@ const ScientificPublications = () => {
     return (
       <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
         <div className="mb-3">
-          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{section.title}</h3>
-          <p className="text-[10px] text-muted-foreground">{section.description}</p>
+          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">{section.title}</h3>
+          <p className="text-xs text-muted-foreground">{section.description}</p>
           <div className="grid grid-cols-[10px_1fr_56px_56px_14px] items-baseline gap-3 px-1.5 py-1.5 mt-2 -mx-1.5 border-y border-border/40 bg-muted/30 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">
             <span />
             <span>Categories ({totalCount})</span>
@@ -406,7 +406,7 @@ const ScientificPublications = () => {
                   <div className="mt-3 pt-3 border-t border-primary/15">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Trending Topics</h4>
-                      <span className="text-[9px] text-muted-foreground">Strongest YoY publication growth</span>
+                      <span className="text-[10px] text-muted-foreground">Strongest YoY publication growth</span>
                     </div>
                     <div className="grid grid-cols-5 gap-2">
                       {topTrending.map((t, i) => (
@@ -486,9 +486,10 @@ const ScientificPublications = () => {
 
                 {/* Latest Publications */}
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-start justify-between mb-2 gap-3">
                     <div>
                       <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Latest Publications</h3>
+                      <p className="text-xs text-muted-foreground">Most recent peer-reviewed papers in {decodedTopic} research.</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Select defaultValue="date">
