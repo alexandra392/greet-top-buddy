@@ -458,8 +458,8 @@ const ScientificPublications = () => {
                             {col.map((inst) => (
                               <tr key={inst.rank} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedInstitution(inst)}>
                                 <td className="py-[3px]">
-                                  <div className="flex items-center gap-1.5">
-                                    <span className="text-[9px] text-muted-foreground w-3 font-medium">{inst.rank}</span>
+                                  <div className="flex items-start gap-1.5">
+                                    <span className="text-[9px] text-muted-foreground w-3 font-medium leading-[14px]">{inst.rank}</span>
                                     <div>
                                       <span className="font-medium text-foreground text-[10px]">{inst.name}</span>
                                       <div className="text-[8px] text-muted-foreground">{inst.country} · {inst.focus}</div>
