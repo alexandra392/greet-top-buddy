@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, ArrowLeft, Building2, Calendar, Users, BookOpen, ExternalLink, FileText } from "lucide-react";
+import { Search, ArrowLeft, Building2, Calendar, Users, BookOpen, ExternalLink, FileText, Quote } from "lucide-react";
 
 interface Publication {
   title: string;
