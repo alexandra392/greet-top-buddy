@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Calendar, BookOpen } from "lucide-react";
+import { ArrowLeft, Calendar, BookOpen, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface Publication {
   title: string;
