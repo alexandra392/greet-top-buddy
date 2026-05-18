@@ -242,18 +242,17 @@ const ScientificPublications = () => {
     return (
       <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
         <div className="mb-3 pb-2 border-b border-border/40">
-          <div className="flex items-baseline justify-between gap-2 mb-1">
-            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{section.title}</h3>
-            <div className="flex items-baseline gap-1.5 text-[9px] text-muted-foreground">
-              <span className="font-semibold text-foreground tabular-nums">{sectionTotal.toLocaleString()}</span>
-              <span>publications</span>
-              <span className="text-border">·</span>
-              <span className="font-semibold text-foreground tabular-nums">{totalCount}</span>
-              <span>categories</span>
-            </div>
-          </div>
+          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{section.title}</h3>
           <p className="text-[10px] text-muted-foreground">{section.description}</p>
+          <div className="flex items-baseline gap-1.5 text-[9px] text-muted-foreground mt-1.5">
+            <span className="font-semibold text-foreground tabular-nums">{sectionTotal.toLocaleString()}</span>
+            <span>publications</span>
+            <span className="text-border">·</span>
+            <span className="font-semibold text-foreground tabular-nums">{totalCount}</span>
+            <span>categories</span>
+          </div>
         </div>
+
 
         <div className="flex-1 divide-y divide-border/30">
           {sortedData.map((cat, idx) => {
