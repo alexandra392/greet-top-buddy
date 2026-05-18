@@ -450,7 +450,7 @@ const ScientificPublications = () => {
                           <thead>
                             <tr className="border-b border-border">
                               <th className="text-left py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
-                              <th className="text-right py-[3px] pr-3 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
+                              <th className="text-center py-[3px] pr-3 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
                               <th className="text-right py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
                             </tr>
                           </thead>
@@ -466,7 +466,7 @@ const ScientificPublications = () => {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="text-right py-[3px] pr-3">
+                                <td className="text-center py-[3px] pr-3">
                                   <span className="text-[10px] font-semibold text-foreground tabular-nums">{inst.papers.toLocaleString()}</span>
                                 </td>
                                 <td className="text-right py-[3px]">
