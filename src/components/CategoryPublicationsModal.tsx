@@ -94,9 +94,16 @@ const CategoryPublicationsModal = ({
     return allPublications.filter(p => p.topics.some(t => t === selectedSub));
   }, [allPublications, selectedSub]);
 
+  const PAGE_SIZE = 5;
+  const [page, setPage] = useState(1);
+  const totalPages = Math.max(1, Math.ceil(filteredPublications.length / PAGE_SIZE));
+  React.useEffect(() => { setPage(1); }, [selectedSub]);
+  const pagedPublications = filteredPublications.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   const handleClose = () => {
     setSelectedSub('all');
     setSelectedPublication(null);
+    setPage(1);
     onOpenChange(false);
   };
 
