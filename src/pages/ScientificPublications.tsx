@@ -466,7 +466,7 @@ const ScientificPublications = () => {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="text-right py-[3px] pr-3">
+                                <td className="text-center py-[3px] pr-3">
                                   <span className="text-[10px] font-semibold text-foreground tabular-nums">{inst.papers.toLocaleString()}</span>
                                 </td>
                                 <td className="text-right py-[3px]">
