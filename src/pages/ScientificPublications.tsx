@@ -277,20 +277,21 @@ const ScientificPublications = () => {
                 </button>
                 {isExpanded && cat.subItems?.length > 0 && (
                   <div className="ml-4 mt-1 mb-1 pl-2 border-l border-border/50 space-y-1">
-                    {cat.subItems.sort((a, b) => b.total - a.total).map((sub) => {
-                      const subMax = Math.max(...cat.subItems.map(s => s.total));
-                      const subPct = (sub.total / subMax) * 100;
+                    {cat.subItems.sort((a, b) => b.total - a.total).map((sub, sIdx) => {
+                      const subShare = cat.total > 0 ? (sub.total / cat.total) * 100 : 0;
                       return (
                         <button
                           key={sub.name}
                           onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
-                          className="w-full flex items-center gap-2 px-1 py-0.5 rounded hover:bg-primary/[0.06] transition-colors"
+                          className="w-full flex items-center gap-2 px-1.5 py-1 rounded-md hover:bg-muted/40 transition-colors text-left"
                         >
-                          <span className="text-[9px] text-foreground truncate flex-1 text-left">{sub.name}</span>
-                          <div className="w-12 h-1 bg-muted rounded-full overflow-hidden flex-shrink-0">
-                            <div className="h-full rounded-full" style={{ width: `${subPct}%`, backgroundColor: colorFor(idx) }} />
-                          </div>
-                          <span className="text-[9px] font-medium text-muted-foreground tabular-nums w-6 text-right">{sub.total}</span>
+                          <span
+                            className="w-2 h-2 rounded-sm flex-shrink-0 opacity-70"
+                            style={{ backgroundColor: colorFor(idx + sIdx + 1) }}
+                          />
+                          <span className="text-[10px] font-semibold text-foreground truncate flex-1">{sub.name}</span>
+                          <span className="text-[10px] font-bold text-foreground tabular-nums">{sub.total.toLocaleString()}</span>
+                          <span className="text-[8px] text-muted-foreground tabular-nums w-8 text-right">{subShare.toFixed(0)}%</span>
                         </button>
                       );
                     })}
