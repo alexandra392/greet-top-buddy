@@ -246,12 +246,12 @@ const CategoryPublicationsModal = ({
 
         {totalPages > 1 && (
           <div className="px-4 py-2 border-t border-border flex-shrink-0 flex items-center justify-between">
-            <Button variant="outline" size="sm" className="h-7 text-[10px] gap-1" disabled={page === 1} onClick={() => setPage(p => Math.max(1, p - 1))}>
-              <ArrowLeft className="w-3 h-3" /> Previous
+            <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={page === 1} onClick={() => setPage(p => Math.max(1, p - 1))}>
+              Previous
             </Button>
             <span className="text-[10px] text-muted-foreground">Page {page} of {totalPages}</span>
-            <Button variant="outline" size="sm" className="h-7 text-[10px] gap-1" disabled={page === totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))}>
-              Next <ArrowLeft className="w-3 h-3 rotate-180" />
+            <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={page === totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))}>
+              Next
             </Button>
           </div>
         )}
