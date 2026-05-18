@@ -178,9 +178,15 @@ const CategoryPublicationsModal = ({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-[620px] p-0 gap-0 flex flex-col">
-        <div className="px-4 py-3 border-b border-border flex-shrink-0 flex items-baseline gap-2">
-          <DialogTitle className="text-sm font-semibold text-foreground">{categoryName}</DialogTitle>
-          <span className="text-[10px] text-muted-foreground">{totalPublications.toLocaleString()} publications</span>
+        <div className="px-4 py-3 pr-12 border-b border-border flex-shrink-0 flex items-center justify-between gap-4">
+          <DialogTitle className="text-sm font-semibold text-foreground min-w-0 truncate">{categoryName}</DialogTitle>
+          <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-muted/50 border border-border/60 flex-shrink-0">
+            <FileText className="w-3.5 h-3.5 text-muted-foreground" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-[8px] text-muted-foreground uppercase tracking-wider">Publications</span>
+              <span className="text-xs font-bold text-foreground tabular-nums">{totalPublications.toLocaleString()}</span>
+            </div>
+          </div>
         </div>
 
         <div className="px-4 py-2 border-b border-border flex-shrink-0 flex items-center gap-2">
