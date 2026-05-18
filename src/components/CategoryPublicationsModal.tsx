@@ -191,7 +191,7 @@ const CategoryPublicationsModal = ({
 
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {pagedPublications.length} of {filteredPublications.length} publications
+            Showing {pagedPublications.length} of {totalPublications.toLocaleString()} publications
           </div>
           <div className="space-y-1.5">
             {pagedPublications.map((pub, idx) => (
