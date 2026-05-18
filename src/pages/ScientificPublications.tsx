@@ -449,15 +449,15 @@ const ScientificPublications = () => {
                         <table className="w-full text-xs">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="text-left py-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
-                              <th className="text-center py-2 pr-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
-                              <th className="text-right py-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
+                              <th className="text-left py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
+                              <th className="text-center py-1.5 pr-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
+                              <th className="text-right py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
                             </tr>
                           </thead>
                           <tbody>
                             {col.map((inst) => (
                               <tr key={inst.rank} className="border-b border-border/30 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedInstitution(inst)}>
-                                <td className="py-2">
+                                <td className="py-1.5">
                                   <div className="flex items-start gap-1.5">
                                     <span className="text-[9px] text-muted-foreground w-3 font-medium pt-[2px]">{inst.rank}</span>
                                     <div>
@@ -466,10 +466,10 @@ const ScientificPublications = () => {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="text-center py-2 pr-3">
+                                <td className="text-center py-1.5 pr-3">
                                   <span className="text-[10px] font-semibold text-foreground tabular-nums">{inst.papers.toLocaleString()}</span>
                                 </td>
-                                <td className="text-right py-2">
+                                <td className="text-right py-1.5">
                                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary tabular-nums">
                                     {inst.citations.toLocaleString()}
                                     <Quote className="w-2.5 h-2.5 opacity-70" strokeWidth={2} fill="currentColor" />
