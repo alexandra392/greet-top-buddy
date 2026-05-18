@@ -240,7 +240,7 @@ const ScientificPublications = () => {
     const colorFor = (idx: number) => palette[Math.min(idx, palette.length - 1)];
 
     return (
-      <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col min-h-[360px]">
+      <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
         <div className="mb-3 pb-2 border-b border-border/40">
           <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{section.title}</h3>
           <p className="text-[10px] text-muted-foreground">{section.description}</p>
