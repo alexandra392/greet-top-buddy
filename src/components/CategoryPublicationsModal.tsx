@@ -94,9 +94,16 @@ const CategoryPublicationsModal = ({
     return allPublications.filter(p => p.topics.some(t => t === selectedSub));
   }, [allPublications, selectedSub]);
 
+  const PAGE_SIZE = 5;
+  const [page, setPage] = useState(1);
+  const totalPages = Math.max(1, Math.ceil(filteredPublications.length / PAGE_SIZE));
+  React.useEffect(() => { setPage(1); }, [selectedSub]);
+  const pagedPublications = filteredPublications.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   const handleClose = () => {
     setSelectedSub('all');
     setSelectedPublication(null);
+    setPage(1);
     onOpenChange(false);
   };
 
@@ -185,10 +192,10 @@ const CategoryPublicationsModal = ({
 
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {filteredPublications.length} publications
+            Showing {pagedPublications.length} of {filteredPublications.length} publications
           </div>
           <div className="space-y-1.5">
-            {filteredPublications.map((pub, idx) => (
+            {pagedPublications.map((pub, idx) => (
               <div
                 key={idx}
                 className="border border-border/40 rounded-lg p-2.5 hover:bg-muted/30 cursor-pointer transition-colors"
@@ -214,6 +221,18 @@ const CategoryPublicationsModal = ({
             ))}
           </div>
         </div>
+
+        {totalPages > 1 && (
+          <div className="px-4 py-2 border-t border-border flex-shrink-0 flex items-center justify-between">
+            <Button variant="outline" size="sm" className="h-7 text-[10px] gap-1" disabled={page === 1} onClick={() => setPage(p => Math.max(1, p - 1))}>
+              <ArrowLeft className="w-3 h-3" /> Previous
+            </Button>
+            <span className="text-[10px] text-muted-foreground">Page {page} of {totalPages}</span>
+            <Button variant="outline" size="sm" className="h-7 text-[10px] gap-1" disabled={page === totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))}>
+              Next <ArrowLeft className="w-3 h-3 rotate-180" />
+            </Button>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
