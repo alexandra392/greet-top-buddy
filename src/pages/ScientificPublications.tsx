@@ -226,24 +226,39 @@ const ScientificPublications = () => {
 
   const topTrending = getTopTrendingTopics();
 
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+  const DEFAULT_VISIBLE = 5;
+
   const renderDistributionBars = (section: typeof sections[0], sectionIdx: number) => {
     const maxTotal = Math.max(...section.data.map(d => d.total));
     const sortedData = [...section.data].sort((a, b) => b.total - a.total);
+    const totalCount = sortedData.length;
+    const showAll = expandedSections[section.title];
+    const visibleData = showAll ? sortedData : sortedData.slice(0, DEFAULT_VISIBLE);
+    const hiddenCount = totalCount - visibleData.length;
+    const sectionTotal = sortedData.reduce((sum, d) => sum + d.total, 0);
 
     return (
-      <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4">
-        <div className="mb-3">
-          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">{section.title}</h3>
-          <p className="text-[9px] text-muted-foreground">{section.description}</p>
+      <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
+        <div className="mb-3 flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">{section.title}</h3>
+            <p className="text-[9px] text-muted-foreground">{section.description}</p>
+          </div>
+          <div className="flex-shrink-0 text-right">
+            <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Categories</div>
+            <div className="text-[11px] font-bold text-foreground leading-tight">{totalCount}</div>
+          </div>
         </div>
-        <div className="space-y-2">
-          {sortedData.map((cat, idx) => {
+        <div className="space-y-1.5 flex-1">
+          {visibleData.map((cat, idx) => {
             const pct = (cat.total / maxTotal) * 100;
+            const share = sectionTotal > 0 ? (cat.total / sectionTotal) * 100 : 0;
             const isExpanded = expandedCategory[section.title] === cat.name;
             return (
               <div key={cat.name}>
                 <div
-                  className="cursor-pointer hover:bg-muted/30 rounded-lg p-1.5 transition-colors"
+                  className="cursor-pointer hover:bg-muted/40 rounded-lg p-1.5 transition-colors"
                   onClick={() => {
                     setExpandedCategory(prev => ({
                       ...prev,
@@ -252,7 +267,7 @@ const ScientificPublications = () => {
                   }}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5 w-[180px] flex-shrink-0">
+                    <div className="flex items-center gap-1.5 w-[160px] flex-shrink-0">
                       <ChevronRight className={`w-3 h-3 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
                       <span className="text-[10px] font-semibold text-foreground truncate">{cat.name}</span>
                     </div>
@@ -271,11 +286,14 @@ const ScientificPublications = () => {
                         }}
                       />
                     </div>
-                    <span className="text-[10px] font-bold text-foreground w-[50px] text-right flex-shrink-0">{cat.total.toLocaleString()}</span>
+                    <div className="w-[70px] text-right flex-shrink-0 flex flex-col items-end leading-none">
+                      <span className="text-[10px] font-bold text-foreground">{cat.total.toLocaleString()}</span>
+                      <span className="text-[8px] text-muted-foreground mt-0.5">{share.toFixed(0)}%</span>
+                    </div>
                   </div>
                 </div>
                 {isExpanded && (
-                  <div className="mt-1 space-y-1.5 pb-1" style={{ marginLeft: '180px', paddingLeft: '12px' }}>
+                  <div className="mt-1 space-y-1.5 pb-1" style={{ marginLeft: '160px', paddingLeft: '12px' }}>
                     {cat.subItems.sort((a, b) => b.total - a.total).map((sub) => {
                       const subMax = Math.max(...cat.subItems.map(s => s.total));
                       const subPct = (sub.total / subMax) * 100;
@@ -307,6 +325,15 @@ const ScientificPublications = () => {
             );
           })}
         </div>
+        {totalCount > DEFAULT_VISIBLE && (
+          <button
+            onClick={() => setExpandedSections(prev => ({ ...prev, [section.title]: !showAll }))}
+            className="mt-2 pt-2 border-t border-border/40 text-[9px] font-semibold text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1"
+          >
+            {showAll ? 'Show less' : `Show all ${totalCount}`}
+            <ChevronRight className={`w-2.5 h-2.5 transition-transform ${showAll ? '-rotate-90' : 'rotate-90'}`} />
+          </button>
+        )}
       </div>
     );
   };
