@@ -470,7 +470,10 @@ const ScientificPublications = () => {
                                   <span className="text-[10px] font-semibold text-foreground tabular-nums">{inst.papers.toLocaleString()}</span>
                                 </td>
                                 <td className="text-right py-[3px]">
-                                  <span className="text-[10px] font-semibold text-primary tabular-nums">{inst.citations.toLocaleString()}</span>
+                                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary tabular-nums">
+                                    {inst.citations.toLocaleString()}
+                                    <Quote className="w-2.5 h-2.5" />
+                                  </span>
                                 </td>
                               </tr>
                             ))}
