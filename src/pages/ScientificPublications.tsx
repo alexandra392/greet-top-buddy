@@ -246,10 +246,11 @@ const ScientificPublications = () => {
           <p className="text-[10px] text-muted-foreground">{section.description}</p>
           <div className="grid grid-cols-[10px_1fr_auto_44px] items-baseline gap-3 px-1.5 mt-1.5 text-[9px] text-muted-foreground">
             <span />
-            <span>publications · categories</span>
+            <span className="font-semibold text-foreground tabular-nums">{totalCount}</span>
             <span className="font-semibold text-foreground tabular-nums">{sectionTotal.toLocaleString()}</span>
-            <span className="font-semibold text-foreground tabular-nums text-right">{totalCount}</span>
+            <span className="font-semibold text-foreground tabular-nums text-right">100%</span>
           </div>
+
 
         </div>
 
