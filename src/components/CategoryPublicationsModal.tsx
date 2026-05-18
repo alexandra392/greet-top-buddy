@@ -83,6 +83,7 @@ const CategoryPublicationsModal = ({
   open, onOpenChange, categoryName, totalPublications, subcategories, topic = 'Lactic Acid',
 }: CategoryPublicationsModalProps) => {
   const [selectedSub, setSelectedSub] = useState<string>('all');
+  const [search, setSearch] = useState<string>('');
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
 
   const allPublications = useMemo(() =>
