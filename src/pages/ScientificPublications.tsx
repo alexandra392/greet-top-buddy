@@ -241,23 +241,21 @@ const ScientificPublications = () => {
 
     return (
       <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
-        <div className="mb-3 flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">{section.title}</h3>
-            <p className="text-[9px] text-muted-foreground">{section.description}</p>
+        <div className="mb-3 pb-2 border-b border-border/40">
+          <div className="flex items-baseline justify-between gap-2 mb-1">
+            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{section.title}</h3>
+            <div className="flex items-baseline gap-1.5 text-[9px] text-muted-foreground">
+              <span className="font-semibold text-foreground tabular-nums">{sectionTotal.toLocaleString()}</span>
+              <span>publications</span>
+              <span className="text-border">·</span>
+              <span className="font-semibold text-foreground tabular-nums">{totalCount}</span>
+              <span>categories</span>
+            </div>
           </div>
-          <div className="flex-shrink-0 text-right leading-tight">
-            <div className="text-[8px] text-muted-foreground uppercase tracking-wide">Categories</div>
-            <div className="text-[11px] font-bold text-foreground">{totalCount}</div>
-          </div>
+          <p className="text-[10px] text-muted-foreground">{section.description}</p>
         </div>
 
-        <div className="mb-2 flex justify-end text-[8px] text-muted-foreground">
-          <span className="font-medium">{sectionTotal.toLocaleString()} total publications</span>
-        </div>
-
-        {/* Compact legend grid — wraps to as many rows as needed */}
-        <div className="space-y-1 flex-1">
+        <div className="flex-1 divide-y divide-border/30">
           {sortedData.map((cat, idx) => {
             const share = sectionTotal > 0 ? (cat.total / sectionTotal) * 100 : 0;
             const isExpanded = expandedCategory[section.title] === cat.name;
@@ -265,33 +263,33 @@ const ScientificPublications = () => {
               <div key={cat.name}>
                 <button
                   onClick={() => setExpandedCategory(prev => ({ ...prev, [section.title]: isExpanded ? null : cat.name }))}
-                  className={`w-full flex items-center gap-2 px-1.5 py-1 rounded-md transition-colors text-left ${isExpanded ? 'bg-muted/60' : 'hover:bg-muted/40'}`}
+                  className={`w-full grid grid-cols-[10px_1fr_auto_44px] items-center gap-3 px-1.5 py-2 rounded-md transition-colors text-left ${isExpanded ? 'bg-muted/60' : 'hover:bg-muted/40'}`}
                 >
                   <span
-                    className="w-2 h-2 rounded-sm flex-shrink-0"
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                     style={{ backgroundColor: colorFor(idx) }}
                   />
-                  <span className="text-[10px] font-semibold text-foreground truncate flex-1">{cat.name}</span>
-                  <span className="text-[10px] font-bold text-foreground tabular-nums">{cat.total.toLocaleString()}</span>
-                  <span className="text-[8px] text-muted-foreground tabular-nums w-8 text-right">{share.toFixed(0)}%</span>
+                  <span className="text-[11px] font-semibold text-foreground truncate">{cat.name}</span>
+                  <span className="text-[11px] font-bold text-foreground tabular-nums">{cat.total.toLocaleString()}</span>
+                  <span className="text-[9px] text-muted-foreground tabular-nums text-right">{share.toFixed(0)}%</span>
                 </button>
                 {isExpanded && cat.subItems?.length > 0 && (
-                  <div className="ml-4 mt-1 mb-1 pl-2 border-l border-border/50 space-y-1">
+                  <div className="ml-5 my-1 pl-3 border-l border-border/60 space-y-0.5">
                     {cat.subItems.sort((a, b) => b.total - a.total).map((sub, sIdx) => {
                       const subShare = cat.total > 0 ? (sub.total / cat.total) * 100 : 0;
                       return (
                         <button
                           key={sub.name}
                           onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
-                          className="w-full flex items-center gap-2 px-1.5 py-1 rounded-md hover:bg-muted/40 transition-colors text-left"
+                          className="w-full grid grid-cols-[10px_1fr_auto_44px] items-center gap-3 px-1.5 py-1.5 rounded-md hover:bg-muted/40 transition-colors text-left"
                         >
                           <span
-                            className="w-2 h-2 rounded-sm flex-shrink-0 opacity-70"
+                            className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-70"
                             style={{ backgroundColor: colorFor(idx + sIdx + 1) }}
                           />
-                          <span className="text-[10px] font-semibold text-foreground truncate flex-1">{sub.name}</span>
-                          <span className="text-[10px] font-bold text-foreground tabular-nums">{sub.total.toLocaleString()}</span>
-                          <span className="text-[8px] text-muted-foreground tabular-nums w-8 text-right">{subShare.toFixed(0)}%</span>
+                          <span className="text-[10px] font-medium text-muted-foreground truncate">{sub.name}</span>
+                          <span className="text-[10px] font-semibold text-foreground tabular-nums">{sub.total.toLocaleString()}</span>
+                          <span className="text-[9px] text-muted-foreground tabular-nums text-right">{subShare.toFixed(0)}%</span>
                         </button>
                       );
                     })}
