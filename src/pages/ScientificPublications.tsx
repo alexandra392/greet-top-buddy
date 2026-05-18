@@ -252,27 +252,8 @@ const ScientificPublications = () => {
           </div>
         </div>
 
-        {/* 100% stacked composition bar — scales naturally for 2 or 15 categories */}
-        <div className="mb-3">
-          <div className="flex h-4 w-full rounded-md overflow-hidden border border-border/40">
-            {sortedData.map((cat, idx) => {
-              const share = sectionTotal > 0 ? (cat.total / sectionTotal) * 100 : 0;
-              const isExpanded = expandedCategory[section.title] === cat.name;
-              return (
-                <button
-                  key={cat.name}
-                  title={`${cat.name} — ${cat.total.toLocaleString()} (${share.toFixed(1)}%)`}
-                  onClick={() => setExpandedCategory(prev => ({ ...prev, [section.title]: isExpanded ? null : cat.name }))}
-                  className="h-full transition-all hover:brightness-110 hover:shadow-inner border-r border-background/40 last:border-r-0"
-                  style={{ width: `${share}%`, backgroundColor: colorFor(idx) }}
-                />
-              );
-            })}
-          </div>
-          <div className="flex justify-between mt-1 text-[8px] text-muted-foreground">
-            <span>Share of publications</span>
-            <span className="font-medium">{sectionTotal.toLocaleString()} total</span>
-          </div>
+        <div className="mb-2 flex justify-end text-[8px] text-muted-foreground">
+          <span className="font-medium">{sectionTotal.toLocaleString()} total publications</span>
         </div>
 
         {/* Compact legend grid — wraps to as many rows as needed */}
