@@ -436,15 +436,6 @@ const ScientificPublications = () => {
                           </div>
                           <div className="text-[11px] font-bold text-foreground leading-tight mb-0.5 line-clamp-2">{t.topic.name}</div>
                           <div className="text-[8px] text-muted-foreground mb-1.5">{t.topic.total.toLocaleString()} publications · YoY</div>
-                          <div className="flex items-end gap-0.5 h-5 mb-1.5">
-                            {t.topic.values.map((v, vi) => (
-                              <div
-                                key={vi}
-                                className="flex-1 rounded-sm bg-primary/70 group-hover:bg-primary transition-colors"
-                                style={{ height: `${Math.max(15, (v / sparkMax) * 100)}%` }}
-                              />
-                            ))}
-                          </div>
                           <div className="flex flex-wrap gap-1">
                             {t.topic.subItems.slice(0, 2).map(sub => (
                               <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0 font-normal">{sub.name}</Badge>
