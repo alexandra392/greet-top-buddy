@@ -461,7 +461,7 @@ const ScientificPublications = () => {
                                   <div className="flex items-start gap-1.5">
                                     <span className="text-[9px] text-muted-foreground w-3 font-medium pt-[2px]">{inst.rank}</span>
                                     <div>
-                                      <span className="font-medium text-foreground text-[10px]">{inst.name}</span>
+                                      <span className="font-medium text-foreground text-[11px]">{inst.name}</span>
                                       <div className="text-[8px] text-muted-foreground mt-0.5">{inst.country} · {inst.focus}</div>
                                     </div>
                                   </div>
