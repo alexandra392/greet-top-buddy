@@ -241,7 +241,7 @@ const ScientificPublications = () => {
 
     return (
       <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
-        <div className="mb-3 pb-2 border-b border-border/40">
+        <div className="mb-3">
           <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{section.title}</h3>
           <p className="text-[10px] text-muted-foreground">{section.description}</p>
           <div className="grid grid-cols-[10px_1fr_56px_56px_14px] items-baseline gap-3 px-1.5 py-1.5 mt-2 -mx-1.5 border-y border-border/40 bg-muted/30 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">
