@@ -361,7 +361,7 @@ const ScientificPublications = () => {
                     <p className="text-xs text-muted-foreground">Publication volume over time for research in {decodedTopic}.</p>
                   </div>
                   <div className="flex gap-3">
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-end mb-1.5">
                         <Select value={timeRange} onValueChange={setTimeRange}>
                           <SelectTrigger className="h-6 w-auto text-[9px] border-border gap-1 px-1.5 py-0.5">
@@ -397,6 +397,32 @@ const ScientificPublications = () => {
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
+
+                      <div className="mt-3 pt-3 border-t border-border/40">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Trending Topics</h4>
+                          <span className="text-[9px] text-muted-foreground">Strongest YoY publication growth</span>
+                        </div>
+                        <div className="grid grid-cols-5 gap-2">
+                          {topTrending.map((t, i) => (
+                            <div
+                              key={t.topic.name}
+                              className="group relative rounded-lg border border-border/40 bg-background p-2 cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all"
+                              onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
+                            >
+                              <div className="flex items-center justify-between mb-1">
+                                <div className="flex items-center gap-1">
+                                  <span className="flex items-center justify-center w-3.5 h-3.5 rounded-full bg-muted text-[8px] font-bold text-muted-foreground">{i + 1}</span>
+                                  <TrendingUp className="w-2.5 h-2.5 text-primary" />
+                                </div>
+                                <div className="text-[10px] font-bold text-primary leading-none">+{t.growth.toFixed(1)}%</div>
+                              </div>
+                              <div className="text-[10px] font-bold text-foreground leading-tight line-clamp-2">{t.topic.name}</div>
+                              <div className="text-[8px] text-muted-foreground mt-0.5">{t.topic.total.toLocaleString()} publications</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                     <div className="w-[140px] space-y-2 flex-shrink-0">
                       <div className="rounded-lg border border-border/40 bg-background p-3 text-center">
@@ -408,37 +434,6 @@ const ScientificPublications = () => {
                         <div className="text-lg font-bold text-primary mt-0.5">+36%</div>
                         <div className="text-[8px] text-muted-foreground mt-0.5">over the last 3 years</div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-border/40">
-                    <div className="mb-2">
-                      <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Trending Topics</h4>
-                      <p className="text-xs text-muted-foreground">Sub-themes with the strongest year-over-year publication growth.</p>
-                    </div>
-                    <div className="grid grid-cols-5 gap-2">
-                      {topTrending.map((t, i) => (
-                        <div
-                          key={t.topic.name}
-                          className="group relative rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all overflow-hidden"
-                          onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
-                        >
-                          <div className="flex items-center justify-between mb-1.5">
-                            <div className="flex items-center gap-1">
-                              <span className="flex items-center justify-center w-3.5 h-3.5 rounded-full bg-muted text-[8px] font-bold text-muted-foreground">{i + 1}</span>
-                              <TrendingUp className="w-2.5 h-2.5 text-primary" />
-                            </div>
-                            <div className="text-[11px] font-bold text-primary leading-none">+{t.growth.toFixed(1)}%</div>
-                          </div>
-                          <div className="text-[11px] font-bold text-foreground leading-tight mb-0.5 line-clamp-2">{t.topic.name}</div>
-                          <div className="text-[8px] text-muted-foreground mb-1.5">{t.topic.total.toLocaleString()} publications · YoY</div>
-                          <div className="flex flex-wrap gap-1">
-                            {t.topic.subItems.slice(0, 2).map(sub => (
-                              <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0 font-normal">{sub.name}</Badge>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
                     </div>
                   </div>
                 </div>
