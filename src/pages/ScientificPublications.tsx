@@ -449,9 +449,9 @@ const ScientificPublications = () => {
                         <table className="w-full text-xs">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="text-left py-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
-                              <th className="text-center py-2 pr-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
-                              <th className="text-right py-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
+                              <th className="text-left py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
+                              <th className="text-center py-1.5 pr-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
+                              <th className="text-right py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
                             </tr>
                           </thead>
                           <tbody>
