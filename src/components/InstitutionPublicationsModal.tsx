@@ -196,8 +196,8 @@ const InstitutionPublicationsModal = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
-        <div className="px-4 py-3 border-b border-border flex-shrink-0 flex items-start justify-between gap-4">
+      <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[92vh] overflow-hidden flex flex-col">
+        <div className="px-4 py-3 pr-12 border-b border-border flex-shrink-0 flex items-start justify-between gap-4">
           <div className="min-w-0">
             <DialogTitle className="text-sm font-semibold text-foreground">{institution}</DialogTitle>
             <p className="text-[10px] text-muted-foreground mt-0.5">{country} · {focus}</p>
