@@ -472,7 +472,7 @@ const ScientificPublications = () => {
                                 <td className="text-right py-[3px]">
                                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary tabular-nums">
                                     {inst.citations.toLocaleString()}
-                                    <BookOpen className="w-2.5 h-2.5 opacity-60" strokeWidth={1.75} />
+                                    <Asterisk className="w-2.5 h-2.5 opacity-60" strokeWidth={2} />
                                   </span>
                                 </td>
                               </tr>
