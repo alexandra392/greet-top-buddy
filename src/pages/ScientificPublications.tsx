@@ -406,7 +406,7 @@ const ScientificPublications = () => {
                   <div className="mt-3 pt-3 border-t border-primary/15">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Trending Topics</h4>
-                      <span className="text-[9px] text-muted-foreground">Strongest YoY publication growth</span>
+                      <span className="text-[10px] text-muted-foreground">Strongest YoY publication growth</span>
                     </div>
                     <div className="grid grid-cols-5 gap-2">
                       {topTrending.map((t, i) => (
