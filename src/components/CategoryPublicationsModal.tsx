@@ -171,7 +171,6 @@ const CategoryPublicationsModal = ({
       <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
         <div className="px-4 py-3 border-b border-border flex-shrink-0">
           <DialogTitle className="text-sm font-semibold text-foreground">{categoryName}</DialogTitle>
-          <p className="text-[10px] text-muted-foreground mt-0.5">{totalPublications.toLocaleString()} publications</p>
         </div>
 
         {subcategories.length > 0 && (
@@ -192,7 +191,7 @@ const CategoryPublicationsModal = ({
 
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {pagedPublications.length} of {filteredPublications.length} publications
+            Showing {pagedPublications.length} of {totalPublications.toLocaleString()} publications
           </div>
           <div className="space-y-1.5">
             {pagedPublications.map((pub, idx) => (
