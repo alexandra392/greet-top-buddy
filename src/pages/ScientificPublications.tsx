@@ -192,13 +192,13 @@ const ScientificPublications = () => {
   ];
 
   const allSections = isFeedstockRoute ? [
-    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Highlighting where innovation is most intense across conversion process categories.', view: 'production' as const },
-    { title: 'Material Distribution', subtitle: 'Material × Year · Color = publication count', columnLabel: 'MATERIAL', data: productHeatData, description: 'Research distribution across different materials derived from this feedstock.', view: 'production' as const },
-    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Research focus across market application areas.', view: 'application' as const },
+    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Where research effort concentrates by conversion process.', view: 'production' as const },
+    { title: 'Material Distribution', subtitle: 'Material × Year · Color = publication count', columnLabel: 'MATERIAL', data: productHeatData, description: 'Where research effort concentrates by derived material.', view: 'production' as const },
+    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Where research effort concentrates by end application.', view: 'application' as const },
   ] : [
-    { title: 'Feedstock Distribution', subtitle: 'Feedstock × Year · Color = publication count', columnLabel: 'FEEDSTOCK', data: feedstockHeatData, description: 'Research distribution across different feedstock types.', view: 'production' as const },
-    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Highlighting where innovation is most intense across conversion process categories.', view: 'production' as const },
-    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Research focus across market application areas.', view: 'application' as const },
+    { title: 'Feedstock Distribution', subtitle: 'Feedstock × Year · Color = publication count', columnLabel: 'FEEDSTOCK', data: feedstockHeatData, description: 'Where research effort concentrates by feedstock.', view: 'production' as const },
+    { title: 'Process Distribution', subtitle: 'Process × Year · Color = publication count', columnLabel: 'PROCESS', data: technologyHeatData, description: 'Where research effort concentrates by conversion process.', view: 'production' as const },
+    { title: 'Application Distribution', subtitle: 'Application × Year · Color = publication count', columnLabel: 'APPLICATION', data: applicationHeatData, description: 'Where research effort concentrates by end application.', view: 'application' as const },
   ];
 
   const sections = allSections.filter(s => s.view === researchView);
@@ -240,20 +240,25 @@ const ScientificPublications = () => {
     const colorFor = (idx: number) => palette[Math.min(idx, palette.length - 1)];
 
     return (
-      <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col">
+      <div key={section.title} className="bg-muted/30 border border-border/40 rounded-xl p-4 flex flex-col min-h-[360px]">
         <div className="mb-3 pb-2 border-b border-border/40">
           <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{section.title}</h3>
           <p className="text-[10px] text-muted-foreground">{section.description}</p>
-          <div className="grid grid-cols-[10px_1fr_auto_44px] items-baseline gap-3 px-1.5 mt-1.5 text-[9px] text-muted-foreground">
+          <div className="grid grid-cols-[10px_1fr_56px_56px_14px] items-baseline gap-3 px-1.5 mt-2 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">
             <span />
-            <span className="font-semibold text-foreground tabular-nums">{totalCount}</span>
-            <span className="font-semibold text-foreground tabular-nums">{sectionTotal.toLocaleString()}</span>
-            <span className="font-semibold text-foreground tabular-nums text-right">100%</span>
+            <span>Category</span>
+            <span className="text-right">Publications</span>
+            <span className="text-right">Share</span>
+            <span />
           </div>
-
-
+          <div className="grid grid-cols-[10px_1fr_56px_56px_14px] items-baseline gap-3 px-1.5 mt-0.5 text-[10px] text-muted-foreground">
+            <span />
+            <span className="tabular-nums">{totalCount} total</span>
+            <span className="font-semibold text-foreground tabular-nums text-right">{sectionTotal.toLocaleString()}</span>
+            <span className="font-semibold text-foreground tabular-nums text-right">100%</span>
+            <span />
+          </div>
         </div>
-
 
         <div className="flex-1 divide-y divide-border/30">
           {sortedData.map((cat, idx) => {
@@ -263,15 +268,16 @@ const ScientificPublications = () => {
               <div key={cat.name}>
                 <button
                   onClick={() => setExpandedCategory(prev => ({ ...prev, [section.title]: isExpanded ? null : cat.name }))}
-                  className={`w-full grid grid-cols-[10px_1fr_auto_44px] items-center gap-3 px-1.5 py-2 rounded-md transition-colors text-left ${isExpanded ? 'bg-muted/60' : 'hover:bg-muted/40'}`}
+                  className={`group w-full grid grid-cols-[10px_1fr_56px_56px_14px] items-center gap-3 px-1.5 py-2 rounded-md transition-all text-left ${isExpanded ? 'bg-muted/60' : 'hover:bg-muted/40'}`}
                 >
                   <span
                     className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                     style={{ backgroundColor: colorFor(idx) }}
                   />
-                  <span className="text-[11px] font-semibold text-foreground truncate">{cat.name}</span>
-                  <span className="text-[11px] font-bold text-foreground tabular-nums">{cat.total.toLocaleString()}</span>
+                  <span className="text-[11px] font-semibold text-foreground truncate transition-transform group-hover:translate-x-0.5">{cat.name}</span>
+                  <span className="text-[11px] font-bold text-foreground tabular-nums text-right">{cat.total.toLocaleString()}</span>
                   <span className="text-[9px] text-muted-foreground tabular-nums text-right">{share.toFixed(0)}%</span>
+                  <ChevronRight className={`w-3 h-3 text-muted-foreground/60 transition-transform ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-0.5'}`} />
                 </button>
                 {isExpanded && cat.subItems?.length > 0 && (
                   <div className="ml-5 my-1 pl-3 border-l border-border/60 space-y-0.5">
@@ -281,15 +287,16 @@ const ScientificPublications = () => {
                         <button
                           key={sub.name}
                           onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sub.name, total: sub.total, subs: [{ name: sub.name, total: sub.total }] }); }}
-                          className="w-full grid grid-cols-[10px_1fr_auto_44px] items-center gap-3 px-1.5 py-1.5 rounded-md hover:bg-muted/40 transition-colors text-left"
+                          className="group w-full grid grid-cols-[10px_1fr_56px_56px_14px] items-center gap-3 px-1.5 py-1.5 rounded-md hover:bg-muted/40 transition-all text-left"
                         >
                           <span
                             className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-70"
                             style={{ backgroundColor: colorFor(idx + sIdx + 1) }}
                           />
-                          <span className="text-[10px] font-medium text-muted-foreground truncate">{sub.name}</span>
-                          <span className="text-[10px] font-semibold text-foreground tabular-nums">{sub.total.toLocaleString()}</span>
+                          <span className="text-[10px] font-medium text-muted-foreground truncate transition-transform group-hover:translate-x-0.5">{sub.name}</span>
+                          <span className="text-[10px] font-semibold text-foreground tabular-nums text-right">{sub.total.toLocaleString()}</span>
                           <span className="text-[9px] text-muted-foreground tabular-nums text-right">{subShare.toFixed(0)}%</span>
+                          <ChevronRight className="w-3 h-3 text-muted-foreground/60 transition-transform group-hover:translate-x-0.5" />
                         </button>
                       );
                     })}
