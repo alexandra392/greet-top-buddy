@@ -92,14 +92,21 @@ const CategoryPublicationsModal = ({
   );
 
   const filteredPublications = useMemo(() => {
-    if (selectedSub === 'all') return allPublications;
-    return allPublications.filter(p => p.topics.some(t => t === selectedSub));
-  }, [allPublications, selectedSub]);
+    let list = allPublications;
+    if (selectedSub !== 'all') list = list.filter(p => p.topics.some(t => t === selectedSub));
+    const q = search.trim().toLowerCase();
+    if (q) list = list.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.authors.some(a => a.toLowerCase().includes(q)) ||
+      (p.journal?.toLowerCase().includes(q) ?? false)
+    );
+    return list;
+  }, [allPublications, selectedSub, search]);
 
   const PAGE_SIZE = 5;
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(filteredPublications.length / PAGE_SIZE));
-  React.useEffect(() => { setPage(1); }, [selectedSub]);
+  React.useEffect(() => { setPage(1); }, [selectedSub, search]);
   const pagedPublications = filteredPublications.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const handleClose = () => {
