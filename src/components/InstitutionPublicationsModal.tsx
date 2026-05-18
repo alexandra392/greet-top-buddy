@@ -115,6 +115,8 @@ const InstitutionPublicationsModal = ({
   topic = 'Lactic Acid',
 }: InstitutionPublicationsModalProps) => {
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 5;
 
   const allPublications = useMemo(() =>
     generateInstitutionPublications(institution, totalPapers, topic),
@@ -122,6 +124,9 @@ const InstitutionPublicationsModal = ({
   );
 
   const filteredPublications = allPublications;
+  const totalPages = Math.max(1, Math.ceil(filteredPublications.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedPublications = filteredPublications.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const handleClose = () => {
     setSelectedPublication(null);
