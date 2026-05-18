@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Calendar, Search, ExternalLink, FlaskConical, ShoppingBag, ChevronRight } from "lucide-react";
+import { ArrowLeft, Calendar, Search, ExternalLink, FlaskConical, ShoppingBag, ChevronRight, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -221,7 +221,7 @@ const ScientificPublications = () => {
       const growth = prevYear > 0 ? ((lastYear - prevYear) / prevYear) * 100 : 0;
       return { topic: cat, growth };
     });
-    return withGrowth.sort((a, b) => b.growth - a.growth).slice(0, 3);
+    return withGrowth.sort((a, b) => b.growth - a.growth).slice(0, 5);
   };
 
   const topTrending = getTopTrendingTopics();
@@ -418,30 +418,41 @@ const ScientificPublications = () => {
                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Trending Topics</h3>
                     <p className="text-xs text-muted-foreground">Sub-themes with the strongest year-over-year publication growth.</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {topTrending.map((t) => (
-                      <div
-                        key={t.topic.name}
-                        className="rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:bg-muted/30 transition-colors"
-                        onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex-1 min-w-0">
-                            <div className="text-[11px] font-bold text-foreground">{t.topic.name}</div>
-                            <div className="text-[8px] text-muted-foreground mt-0.5">{t.topic.total.toLocaleString()} publications</div>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {t.topic.subItems.slice(0, 2).map(sub => (
-                                <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0">{sub.name}</Badge>
-                              ))}
+                  <div className="grid grid-cols-5 gap-2">
+                    {topTrending.map((t, i) => {
+                      const sparkMax = Math.max(...t.topic.values);
+                      return (
+                        <div
+                          key={t.topic.name}
+                          className="group relative rounded-lg border border-border/40 bg-background p-2.5 cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all overflow-hidden"
+                          onClick={() => setSelectedCategory({ name: t.topic.name, total: t.topic.total, subs: t.topic.subItems.map(s => ({ name: s.name, total: s.total })) })}
+                        >
+                          <div className="flex items-center justify-between mb-1.5">
+                            <div className="flex items-center gap-1">
+                              <span className="flex items-center justify-center w-3.5 h-3.5 rounded-full bg-muted text-[8px] font-bold text-muted-foreground">{i + 1}</span>
+                              <TrendingUp className="w-2.5 h-2.5 text-primary" />
                             </div>
+                            <div className="text-[11px] font-bold text-primary leading-none">+{t.growth.toFixed(1)}%</div>
                           </div>
-                          <div className="text-right flex-shrink-0">
-                            <div className="text-sm font-bold text-primary">+{t.growth.toFixed(1)}%</div>
-                            <div className="text-[7px] text-muted-foreground">YoY growth</div>
+                          <div className="text-[11px] font-bold text-foreground leading-tight mb-0.5 line-clamp-2">{t.topic.name}</div>
+                          <div className="text-[8px] text-muted-foreground mb-1.5">{t.topic.total.toLocaleString()} publications · YoY</div>
+                          <div className="flex items-end gap-0.5 h-5 mb-1.5">
+                            {t.topic.values.map((v, vi) => (
+                              <div
+                                key={vi}
+                                className="flex-1 rounded-sm bg-primary/70 group-hover:bg-primary transition-colors"
+                                style={{ height: `${Math.max(15, (v / sparkMax) * 100)}%` }}
+                              />
+                            ))}
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {t.topic.subItems.slice(0, 2).map(sub => (
+                              <Badge key={sub.name} variant="secondary" className="text-[7px] px-1 py-0 font-normal">{sub.name}</Badge>
+                            ))}
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
