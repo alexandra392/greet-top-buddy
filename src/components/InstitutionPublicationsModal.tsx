@@ -221,9 +221,6 @@ const InstitutionPublicationsModal = ({
         </div>
 
         <div className="overflow-y-auto flex-1 px-4 py-2">
-          <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, filteredPublications.length)} of {filteredPublications.length} publications
-          </div>
           <div className="space-y-1.5">
             {pagedPublications.map((pub, idx) => (
               <div
