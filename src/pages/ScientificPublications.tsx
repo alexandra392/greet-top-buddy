@@ -221,7 +221,7 @@ const ScientificPublications = () => {
       const growth = prevYear > 0 ? ((lastYear - prevYear) / prevYear) * 100 : 0;
       return { topic: cat, growth };
     });
-    return withGrowth.sort((a, b) => b.growth - a.growth).slice(0, 3);
+    return withGrowth.sort((a, b) => b.growth - a.growth).slice(0, 5);
   };
 
   const topTrending = getTopTrendingTopics();
