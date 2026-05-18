@@ -449,8 +449,8 @@ const ScientificPublications = () => {
                           <thead>
                             <tr className="border-b border-border">
                               <th className="text-left py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Institution</th>
-                              <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
-                              <th className="text-center py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
+                              <th className="text-right py-[3px] pr-3 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Papers</th>
+                              <th className="text-right py-[3px] text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">Citations</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -465,21 +465,11 @@ const ScientificPublications = () => {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="text-center py-[3px]">
-                                  <div className="flex items-center justify-center gap-1">
-                                    <div className="w-10 h-1 bg-muted rounded-full overflow-hidden">
-                                      <div className="h-full bg-foreground/60 rounded-full" style={{ width: `${inst.papers / 18 * 100}%` }}></div>
-                                    </div>
-                                    <span className="text-[10px] font-medium">{inst.papers.toLocaleString()}</span>
-                                  </div>
+                                <td className="text-right py-[3px] pr-3">
+                                  <span className="text-[10px] font-semibold text-foreground tabular-nums">{inst.papers.toLocaleString()}</span>
                                 </td>
-                                <td className="text-center py-[3px]">
-                                  <div className="flex items-center justify-center gap-1">
-                                    <div className="w-10 h-1 bg-muted rounded-full overflow-hidden">
-                                      <div className="h-full bg-primary rounded-full" style={{ width: `${inst.citations / 342 * 100}%` }}></div>
-                                    </div>
-                                    <span className="text-[10px] text-primary font-medium">{inst.citations.toLocaleString()}</span>
-                                  </div>
+                                <td className="text-right py-[3px]">
+                                  <span className="text-[10px] font-semibold text-primary tabular-nums">{inst.citations.toLocaleString()}</span>
                                 </td>
                               </tr>
                             ))}
