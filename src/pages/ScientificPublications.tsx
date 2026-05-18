@@ -235,8 +235,8 @@ const ScientificPublications = () => {
     const sectionTotal = sortedData.reduce((sum, d) => sum + d.total, 0);
 
     const palette = sectionIdx === 0
-      ? ['hsl(222 47% 36%)', 'hsl(222 42% 46%)', 'hsl(222 36% 56%)', 'hsl(222 30% 64%)', 'hsl(222 26% 72%)', 'hsl(222 22% 78%)', 'hsl(222 18% 84%)', 'hsl(222 16% 88%)']
-      : ['hsl(160 45% 32%)', 'hsl(160 40% 42%)', 'hsl(160 34% 52%)', 'hsl(160 28% 60%)', 'hsl(160 24% 68%)', 'hsl(160 20% 74%)', 'hsl(160 18% 80%)', 'hsl(160 16% 86%)'];
+      ? ['hsl(160 45% 32%)', 'hsl(160 40% 42%)', 'hsl(160 34% 52%)', 'hsl(160 28% 60%)', 'hsl(160 24% 68%)', 'hsl(160 20% 74%)', 'hsl(160 18% 80%)', 'hsl(160 16% 86%)']
+      : ['hsl(222 47% 36%)', 'hsl(222 42% 46%)', 'hsl(222 36% 56%)', 'hsl(222 30% 64%)', 'hsl(222 26% 72%)', 'hsl(222 22% 78%)', 'hsl(222 18% 84%)', 'hsl(222 16% 88%)'];
     const colorFor = (idx: number) => palette[Math.min(idx, palette.length - 1)];
 
     return (
