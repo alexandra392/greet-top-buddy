@@ -203,8 +203,12 @@ const ScientificPublications = () => {
 
   const sections = allSections.filter(s => s.view === researchView);
 
-  const col1 = institutions.slice(0, 4);
-  const col2 = institutions.slice(4, 8);
+  const INSTITUTIONS_PER_PAGE = 8;
+  const [institutionsPage, setInstitutionsPage] = useState(1);
+  const institutionsTotalPages = Math.max(1, Math.ceil(institutions.length / INSTITUTIONS_PER_PAGE));
+  const pagedInstitutions = institutions.slice((institutionsPage - 1) * INSTITUTIONS_PER_PAGE, institutionsPage * INSTITUTIONS_PER_PAGE);
+  const col1 = pagedInstitutions.slice(0, 4);
+  const col2 = pagedInstitutions.slice(4, 8);
 
   // Drill-down state per section
   const [expandedCategory, setExpandedCategory] = useState<Record<string, string | null>>({});
@@ -482,6 +486,17 @@ const ScientificPublications = () => {
                       </React.Fragment>
                     ))}
                   </div>
+                  {institutionsTotalPages > 1 && (
+                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-border/40">
+                      <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={institutionsPage === 1} onClick={() => setInstitutionsPage(p => Math.max(1, p - 1))}>
+                        Previous
+                      </Button>
+                      <span className="text-[10px] text-muted-foreground">Page {institutionsPage} of {institutionsTotalPages}</span>
+                      <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={institutionsPage === institutionsTotalPages} onClick={() => setInstitutionsPage(p => Math.min(institutionsTotalPages, p + 1))}>
+                        Next
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Latest Publications */}
