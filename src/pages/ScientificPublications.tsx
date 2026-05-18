@@ -263,15 +263,15 @@ const ScientificPublications = () => {
               <div key={cat.name}>
                 <button
                   onClick={() => setExpandedCategory(prev => ({ ...prev, [section.title]: isExpanded ? null : cat.name }))}
-                  className={`w-full flex items-center gap-2 px-1.5 py-1 rounded-md transition-colors text-left ${isExpanded ? 'bg-muted/60' : 'hover:bg-muted/40'}`}
+                  className={`w-full grid grid-cols-[10px_1fr_auto_44px] items-center gap-3 px-1.5 py-2 rounded-md transition-colors text-left ${isExpanded ? 'bg-muted/60' : 'hover:bg-muted/40'}`}
                 >
                   <span
-                    className="w-2 h-2 rounded-sm flex-shrink-0"
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                     style={{ backgroundColor: colorFor(idx) }}
                   />
-                  <span className="text-[10px] font-semibold text-foreground truncate flex-1">{cat.name}</span>
-                  <span className="text-[10px] font-bold text-foreground tabular-nums">{cat.total.toLocaleString()}</span>
-                  <span className="text-[8px] text-muted-foreground tabular-nums w-8 text-right">{share.toFixed(0)}%</span>
+                  <span className="text-[11px] font-semibold text-foreground truncate">{cat.name}</span>
+                  <span className="text-[11px] font-bold text-foreground tabular-nums">{cat.total.toLocaleString()}</span>
+                  <span className="text-[9px] text-muted-foreground tabular-nums text-right">{share.toFixed(0)}%</span>
                 </button>
                 {isExpanded && cat.subItems?.length > 0 && (
                   <div className="ml-4 mt-1 mb-1 pl-2 border-l border-border/50 space-y-1">
