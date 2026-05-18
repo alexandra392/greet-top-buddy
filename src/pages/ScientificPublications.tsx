@@ -486,9 +486,10 @@ const ScientificPublications = () => {
 
                 {/* Latest Publications */}
                 <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-start justify-between mb-2 gap-3">
                     <div>
                       <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Latest Publications</h3>
+                      <p className="text-xs text-muted-foreground">Most recent peer-reviewed papers in {decodedTopic} research.</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Select defaultValue="date">
