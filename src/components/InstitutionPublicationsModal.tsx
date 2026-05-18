@@ -217,10 +217,10 @@ const InstitutionPublicationsModal = ({
 
         <div className="overflow-y-auto flex-1 px-4 py-2">
           <div className="text-[9px] text-muted-foreground mb-2">
-            Showing {filteredPublications.length} publications
+            Showing {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, filteredPublications.length)} of {filteredPublications.length} publications
           </div>
           <div className="space-y-1.5">
-            {filteredPublications.map((pub, idx) => (
+            {pagedPublications.map((pub, idx) => (
               <div
                 key={idx}
                 className="border border-border/40 rounded-lg p-2.5 hover:bg-muted/30 cursor-pointer transition-colors"
@@ -246,6 +246,18 @@ const InstitutionPublicationsModal = ({
             ))}
           </div>
         </div>
+
+        {totalPages > 1 && (
+          <div className="px-4 py-2 border-t border-border flex items-center justify-between flex-shrink-0">
+            <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={currentPage === 1} onClick={() => setPage(p => Math.max(1, p - 1))}>
+              Previous
+            </Button>
+            <span className="text-[10px] text-muted-foreground">Page {currentPage} of {totalPages}</span>
+            <Button variant="ghost" size="sm" className="h-7 text-[10px]" disabled={currentPage === totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))}>
+              Next
+            </Button>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
