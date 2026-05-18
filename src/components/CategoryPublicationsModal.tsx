@@ -168,7 +168,7 @@ const CategoryPublicationsModal = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
+      <DialogContent className="max-w-[620px] p-0 gap-0 flex flex-col">
         <div className="px-4 py-3 border-b border-border flex-shrink-0">
           <DialogTitle className="text-sm font-semibold text-foreground">{categoryName}</DialogTitle>
         </div>
