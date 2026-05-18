@@ -356,7 +356,7 @@ const ScientificPublications = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-end mb-1.5">
                         <Select value={timeRange} onValueChange={setTimeRange}>
-                          <SelectTrigger className="h-6 w-auto text-[9px] border-border gap-1 px-1.5 py-0.5">
+                          <SelectTrigger className="h-7 w-auto text-[10px] border-border gap-1 px-2">
                             <Calendar className="w-2.5 h-2.5" />
                             <SelectValue />
                           </SelectTrigger>
