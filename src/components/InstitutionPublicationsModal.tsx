@@ -197,20 +197,19 @@ const InstitutionPublicationsModal = ({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
-        <div className="px-4 py-3 border-b border-border flex-shrink-0">
-          <DialogTitle className="text-sm font-semibold text-foreground">{institution}</DialogTitle>
-          <p className="text-[10px] text-muted-foreground mt-0.5">{country} · {focus}</p>
-        </div>
-
-        <div className="px-4 py-2 border-b border-border flex-shrink-0">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="text-center">
+        <div className="px-4 py-3 border-b border-border flex-shrink-0 flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <DialogTitle className="text-sm font-semibold text-foreground">{institution}</DialogTitle>
+            <p className="text-[10px] text-muted-foreground mt-0.5">{country} · {focus}</p>
+          </div>
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <div className="text-right">
               <div className="text-[8px] text-muted-foreground uppercase tracking-wider">Papers</div>
-              <div className="text-sm font-bold text-foreground">{totalPapers.toLocaleString()}</div>
+              <div className="text-sm font-bold text-foreground tabular-nums">{totalPapers.toLocaleString()}</div>
             </div>
-            <div className="text-center">
+            <div className="text-right">
               <div className="text-[8px] text-muted-foreground uppercase tracking-wider">Citations</div>
-              <div className="text-sm font-bold text-primary">{citations.toLocaleString()}</div>
+              <div className="text-sm font-bold text-primary tabular-nums">{citations.toLocaleString()}</div>
             </div>
           </div>
         </div>
