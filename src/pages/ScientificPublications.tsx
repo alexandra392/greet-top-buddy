@@ -437,7 +437,7 @@ const ScientificPublications = () => {
                 </div>
 
                 {/* Leading Research Institutions */}
-                <div className="bg-muted/30 border border-border/40 rounded-xl p-4">
+                <div className="bg-muted/30 border border-border/40 rounded-xl px-4 pt-4 pb-2">
                   <div className="mb-2">
                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Leading Research Institutions</h3>
                     <p className="text-xs text-muted-foreground">Top academic and research organizations driving scientific output in {decodedTopic} research.</p>
