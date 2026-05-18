@@ -247,8 +247,8 @@ const ScientificPublications = () => {
           <div className="grid grid-cols-[10px_1fr_56px_56px_14px] items-baseline gap-3 px-1.5 py-1.5 mt-2 -mx-1.5 border-y border-border/40 bg-muted/30 text-[8px] font-semibold uppercase tracking-widest text-muted-foreground">
             <span />
             <span>Categories ({totalCount})</span>
-            <span className="text-right tabular-nums text-[10px] normal-case tracking-normal text-foreground">{sectionTotal.toLocaleString()}</span>
-            <span className="text-right text-[10px] normal-case tracking-normal text-muted-foreground">100%</span>
+            <span className="block text-right tabular-nums text-[11px] font-bold normal-case tracking-normal text-foreground">{sectionTotal.toLocaleString()}</span>
+            <span className="block text-right text-[9px] normal-case tracking-normal text-muted-foreground">100%</span>
             <span />
           </div>
         </div>
