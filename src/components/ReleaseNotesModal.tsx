@@ -126,38 +126,48 @@ function ChangeGroup({
 }
 
 function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurrent: boolean; onExpand: (src: string) => void }) {
-  const dateLabel = useMemo(
-    () => new Date(note.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
-    [note.date]
-  );
   const hero = note.media?.[0];
   const restMedia = (note.media ?? []).slice(1);
   return (
-    <article className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">
+    <article className="rounded-xl bg-card overflow-hidden">
       {/* Hero */}
-      <div className="relative bg-gradient-to-br from-primary via-primary to-primary/80 px-6 pt-8 pb-0 text-primary-foreground">
-        <h2 className="text-center text-xl sm:text-2xl font-semibold leading-tight max-w-xl mx-auto">
-          {note.title ?? `Release v${note.version}`}
-        </h2>
-        {hero && hero.type === "image" && (
-          <div className="mt-6 -mb-10">
-            <button
-              type="button"
-              onClick={() => onExpand(hero.src)}
-              className="block w-full rounded-t-lg overflow-hidden border border-border/40 shadow-xl bg-card hover:opacity-95 transition-opacity"
-            >
-              <img src={hero.src} alt={hero.alt ?? ""} className="w-full h-44 sm:h-56 object-cover" />
-            </button>
+      <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-6 pb-5 text-primary-foreground">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.12]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 20%, hsl(0 0% 100%) 0, transparent 40%), radial-gradient(circle at 80% 80%, hsl(0 0% 100%) 0, transparent 45%)",
+          }}
+        />
+        <div className="relative">
+          <div className="flex items-center justify-center gap-1.5 mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/80">
+            <Sparkles className="w-3 h-3" />
+            <span>Release Highlight</span>
           </div>
-        )}
+          <h2 className="text-center text-base sm:text-lg font-semibold leading-snug max-w-md mx-auto">
+            {note.title ?? `Release v${note.version}`}
+          </h2>
+          {hero && hero.type === "image" && (
+            <div className="mt-5">
+              <button
+                type="button"
+                onClick={() => onExpand(hero.src)}
+                className="block w-full rounded-lg overflow-hidden ring-1 ring-primary-foreground/20 shadow-lg bg-card hover:opacity-95 transition-opacity"
+              >
+                <img src={hero.src} alt={hero.alt ?? ""} className="w-full h-44 sm:h-52 object-cover" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Body */}
-      <div className="px-6 pb-6 pt-12 space-y-5">
+      <div className="px-1 pt-5 pb-1 space-y-4">
         {note.title && !hero && (
-          <h3 className="text-lg font-semibold leading-snug">{note.title}</h3>
+          <h3 className="text-sm font-semibold leading-snug">{note.title}</h3>
         )}
-        <div className="space-y-4 divide-y divide-border/60 [&>*+*]:pt-4">
+        <div className="space-y-3 divide-y divide-border/60 [&>*+*]:pt-3">
           <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
           <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
           <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
