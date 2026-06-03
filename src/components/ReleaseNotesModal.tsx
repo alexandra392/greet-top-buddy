@@ -130,6 +130,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
     () => new Date(note.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
     [note.date]
   );
+  const hasMedia = note.media && note.media.length > 0;
   return (
     <article className="rounded-xl border border-border/60 bg-card p-4 shadow-sm">
       <header className="flex items-center justify-between gap-2 mb-3">
@@ -142,18 +143,20 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
         <span className="text-[11px] text-muted-foreground">{dateLabel}</span>
       </header>
       {note.title && <h3 className="text-sm font-medium mb-3">{note.title}</h3>}
-      <div className="space-y-3">
-        <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
-        <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
-        <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
-      </div>
-      {note.media && note.media.length > 0 && (
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {note.media.map((m, i) => (
-            <MediaBlock key={i} item={m} onExpand={onExpand} />
-          ))}
+      <div className={cn("gap-4", hasMedia ? "flex flex-col sm:flex-row" : "space-y-3")}>
+        <div className={cn("space-y-3", hasMedia && "flex-1 min-w-0")}>
+          <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
+          <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
+          <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
         </div>
-      )}
+        {hasMedia && (
+          <div className="shrink-0 w-full sm:w-56 space-y-2">
+            {note.media!.map((m, i) => (
+              <MediaBlock key={i} item={m} onExpand={onExpand} />
+            ))}
+          </div>
+        )}
+      </div>
     </article>
   );
 }
