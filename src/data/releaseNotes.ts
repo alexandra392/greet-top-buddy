@@ -49,7 +49,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
   {
     version: "1.2.0",
     date: "2026-04-28",
-    title: "Research & IP Landscape",
+    title: "Browse publications and patents with topic-level filtering",
     features: [
       "Added Scientific Publications and Patent Landscape views with topic filtering.",
       "Top 3 Trending institutions and IP Holders are now highlighted.",
