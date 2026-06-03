@@ -9,6 +9,7 @@ import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles } fr
 import { ReleaseNotesModal, useHasUnseenRelease } from "@/components/ReleaseNotesModal";
 import { RELEASE_NOTES, CURRENT_VERSION } from "@/data/releaseNotes";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { CompanyNotifications } from "@/components/CompanyNotifications";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
