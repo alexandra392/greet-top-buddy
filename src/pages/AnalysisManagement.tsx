@@ -814,7 +814,7 @@ const AnalysisManagement = () => {
                     <label className="flex items-center justify-center gap-2 h-16 rounded-md border border-dashed border-border bg-background hover:bg-muted/40 cursor-pointer transition-colors">
                       <Upload className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-[11px] text-muted-foreground">
-                        <span className="text-foreground font-medium">Click to upload</span> image or video
+                        <span className="text-foreground font-medium">Click to upload</span> images or videos (multiple)
                       </span>
                       <input
                         type="file"
