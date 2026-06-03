@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight, FileText, ExternalLink, ChevronDown, ChevronRight as ChevronRightSm } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight, FileText, ExternalLink, ChevronDown, ChevronRight as ChevronRightSm, Megaphone, Sparkle, Wrench, Bug, Image as ImageIcon, Video, Trash2, Eye, Send, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -13,9 +13,78 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, Fragment } from "react";
 import { toast } from "@/hooks/use-toast";
+import { RELEASE_NOTES, CURRENT_VERSION, type MediaItem } from "@/data/releaseNotes";
+import { ReleaseNotesModal } from "@/components/ReleaseNotesModal";
 
 const AnalysisManagement = () => {
   const navigate = useNavigate();
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const bumpPatch = (v: string) => {
+    const p = v.split(".").map((n) => parseInt(n, 10) || 0);
+    while (p.length < 3) p.push(0);
+    p[2] = (p[2] || 0) + 1;
+    return p.join(".");
+  };
+  const [releaseForm, setReleaseForm] = useState({
+    version: bumpPatch(CURRENT_VERSION),
+    date: todayIso,
+    title: "",
+    features: [""] as string[],
+    improvements: [""] as string[],
+    fixes: [""] as string[],
+    media: [] as MediaItem[],
+    notify: true,
+  });
+  const [mediaDraft, setMediaDraft] = useState<{ type: "image" | "video"; src: string; caption: string }>({ type: "image", src: "", caption: "" });
+  const [previewVersion, setPreviewVersion] = useState<string | null>(null);
+  const updateListItem = (key: "features" | "improvements" | "fixes", idx: number, val: string) => {
+    setReleaseForm((p) => ({ ...p, [key]: p[key].map((s, i) => (i === idx ? val : s)) }));
+  };
+  const addListItem = (key: "features" | "improvements" | "fixes") => {
+    setReleaseForm((p) => ({ ...p, [key]: [...p[key], ""] }));
+  };
+  const removeListItem = (key: "features" | "improvements" | "fixes", idx: number) => {
+    setReleaseForm((p) => ({ ...p, [key]: p[key].filter((_, i) => i !== idx) }));
+  };
+  const addMedia = () => {
+    if (!mediaDraft.src.trim()) {
+      toast({ title: "Media URL required", description: "Paste an image or video URL.", variant: "destructive" });
+      return;
+    }
+    setReleaseForm((p) => ({
+      ...p,
+      media: [...p.media, mediaDraft.type === "image"
+        ? { type: "image", src: mediaDraft.src.trim(), caption: mediaDraft.caption.trim() || undefined }
+        : { type: "video", src: mediaDraft.src.trim(), caption: mediaDraft.caption.trim() || undefined }],
+    }));
+    setMediaDraft({ type: "image", src: "", caption: "" });
+  };
+  const removeMedia = (idx: number) => {
+    setReleaseForm((p) => ({ ...p, media: p.media.filter((_, i) => i !== idx) }));
+  };
+  const resetReleaseForm = () => {
+    setReleaseForm({ version: bumpPatch(CURRENT_VERSION), date: todayIso, title: "", features: [""], improvements: [""], fixes: [""], media: [], notify: true });
+    setMediaDraft({ type: "image", src: "", caption: "" });
+  };
+  const cleanList = (arr: string[]) => arr.map((s) => s.trim()).filter(Boolean);
+  const publishRelease = () => {
+    if (!releaseForm.version.trim() || !releaseForm.title.trim()) {
+      toast({ title: "Missing fields", description: "Version and title are required.", variant: "destructive" });
+      return;
+    }
+    const counts = cleanList(releaseForm.features).length + cleanList(releaseForm.improvements).length + cleanList(releaseForm.fixes).length;
+    if (counts === 0) {
+      toast({ title: "Add at least one change", description: "Add a feature, improvement, or fix.", variant: "destructive" });
+      return;
+    }
+    toast({
+      title: `Release v${releaseForm.version} published`,
+      description: releaseForm.notify
+        ? "Notification will be shown to all users in the What's New panel."
+        : "Saved as draft — no notification sent.",
+    });
+    resetReleaseForm();
+  };
   const [addOpen, setAddOpen] = useState(false);
   const [dbDialogOpen, setDbDialogOpen] = useState(false);
   const [docsDb, setDocsDb] = useState<any>(null);
@@ -175,6 +244,11 @@ const AnalysisManagement = () => {
               <Database className="w-3 h-3" />
               Database Repertoire
               <span className="ml-1 text-[10px] font-bold opacity-70">{totalDatabases}</span>
+            </TabsTrigger>
+            <TabsTrigger value="whatsnew" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Megaphone className="w-3 h-3" />
+              What's New
+              <span className="ml-1 text-[10px] font-bold opacity-70">{RELEASE_NOTES.length}</span>
             </TabsTrigger>
           </TabsList>
         </div>
@@ -619,6 +693,206 @@ const AnalysisManagement = () => {
               </p>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="whatsnew" className="mt-0">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-4">
+            {/* Composer */}
+            <Card className="border-border/40 shadow-sm">
+              <div className="px-4 py-3 border-b border-border/30 flex items-center gap-2">
+                <div className="w-5 h-5 rounded-md bg-success/15 flex items-center justify-center">
+                  <Megaphone className="w-3 h-3 text-success" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xs font-bold text-foreground tracking-tight">Compose Release Note</h3>
+                  <p className="text-[10px] text-muted-foreground">Draft a What's New entry that will appear in the in-app panel.</p>
+                </div>
+                <Button size="sm" variant="outline" className="h-7 px-2.5 text-[11px]" onClick={resetReleaseForm}>
+                  Reset
+                </Button>
+              </div>
+              <CardContent className="p-4 space-y-4">
+                {/* Meta */}
+                <section className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Release</span>
+                    <div className="h-px flex-1 bg-border/60" />
+                  </div>
+                  <div className="grid grid-cols-[120px_140px_1fr] gap-2">
+                    <div className="space-y-1">
+                      <Label className="text-[11px] text-muted-foreground">Version <span className="text-destructive">*</span></Label>
+                      <Input value={releaseForm.version} onChange={(e) => setReleaseForm({ ...releaseForm, version: e.target.value })} placeholder="1.4.1" className="h-8 text-xs md:text-xs" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-[11px] text-muted-foreground">Date</Label>
+                      <Input type="date" value={releaseForm.date} onChange={(e) => setReleaseForm({ ...releaseForm, date: e.target.value })} className="h-8 text-xs md:text-xs" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-[11px] text-muted-foreground">Title <span className="text-destructive">*</span></Label>
+                      <Input value={releaseForm.title} onChange={(e) => setReleaseForm({ ...releaseForm, title: e.target.value })} placeholder="Short headline shown in the hero" className="h-8 text-xs md:text-xs" />
+                    </div>
+                  </div>
+                </section>
+
+                {/* Change groups */}
+                {([
+                  { key: "features", label: "New Features", Icon: Sparkle, tone: "text-success", placeholder: "Added a What's New panel..." },
+                  { key: "improvements", label: "Improvements", Icon: Wrench, tone: "text-blue-600", placeholder: "Refined the header spacing..." },
+                  { key: "fixes", label: "Bug Fixes", Icon: Bug, tone: "text-amber-600", placeholder: "Fixed sorting on the Pathways table..." },
+                ] as const).map(({ key, label, Icon, tone, placeholder }) => (
+                  <section key={key} className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Icon className={`w-3.5 h-3.5 ${tone}`} />
+                      <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">{label}</span>
+                      <div className="h-px flex-1 bg-border/60" />
+                      <button type="button" onClick={() => addListItem(key)} className="text-[10px] text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
+                        <Plus className="w-3 h-3" /> Add
+                      </button>
+                    </div>
+                    <div className="space-y-1.5">
+                      {releaseForm[key].map((val, i) => (
+                        <div key={i} className="flex gap-1.5">
+                          <Textarea
+                            value={val}
+                            onChange={(e) => updateListItem(key, i, e.target.value)}
+                            placeholder={placeholder}
+                            className="min-h-[36px] text-xs leading-relaxed py-1.5"
+                            rows={1}
+                          />
+                          {releaseForm[key].length > 1 && (
+                            <Button type="button" variant="outline" size="icon" className="h-8 w-8 shrink-0" onClick={() => removeListItem(key, i)}>
+                              <X className="w-3 h-3" />
+                            </Button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+
+                {/* Media */}
+                <section className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <ImageIcon className="w-3.5 h-3.5 text-foreground/70" />
+                    <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Media</span>
+                    <div className="h-px flex-1 bg-border/60" />
+                  </div>
+                  <p className="text-[10.5px] text-muted-foreground leading-relaxed">
+                    First image becomes the hero banner. Videos can be YouTube, Loom, or direct file URLs.
+                  </p>
+                  <div className="rounded-md border border-border/60 bg-muted/30 p-2.5 space-y-2">
+                    <div className="grid grid-cols-[110px_1fr] gap-1.5">
+                      <Select value={mediaDraft.type} onValueChange={(v: "image" | "video") => setMediaDraft({ ...mediaDraft, type: v })}>
+                        <SelectTrigger className="h-7 text-xs md:text-xs bg-background"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="image" className="text-xs">
+                            <span className="inline-flex items-center gap-1.5"><ImageIcon className="w-3 h-3" /> Image</span>
+                          </SelectItem>
+                          <SelectItem value="video" className="text-xs">
+                            <span className="inline-flex items-center gap-1.5"><Video className="w-3 h-3" /> Video</span>
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Input value={mediaDraft.src} onChange={(e) => setMediaDraft({ ...mediaDraft, src: e.target.value })} placeholder="https://..." className="h-7 text-xs md:text-xs bg-background" />
+                    </div>
+                    <div className="flex gap-1.5">
+                      <Input value={mediaDraft.caption} onChange={(e) => setMediaDraft({ ...mediaDraft, caption: e.target.value })} placeholder="Caption (optional)" className="h-7 text-xs md:text-xs bg-background" />
+                      <Button type="button" variant="outline" size="sm" onClick={addMedia} className="h-7 px-2.5 text-[11px] bg-background">Add</Button>
+                    </div>
+                  </div>
+                  {releaseForm.media.length > 0 && (
+                    <ul className="space-y-1.5">
+                      {releaseForm.media.map((m, i) => (
+                        <li key={i} className="flex items-center gap-2 rounded-md border border-border/40 bg-card px-2 py-1.5">
+                          {m.type === "image" ? <ImageIcon className="w-3.5 h-3.5 text-muted-foreground shrink-0" /> : <Video className="w-3.5 h-3.5 text-muted-foreground shrink-0" />}
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[11px] text-foreground truncate">{m.src}</div>
+                            {m.caption && <div className="text-[10px] text-muted-foreground truncate">{m.caption}</div>}
+                          </div>
+                          {i === 0 && (
+                            <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-success/30 bg-success/10 text-success uppercase tracking-wider">Hero</Badge>
+                          )}
+                          <button type="button" onClick={() => removeMedia(i)} className="text-muted-foreground hover:text-destructive">
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </section>
+
+                {/* Notify toggle */}
+                <div className="rounded-md border border-border bg-muted p-2.5 flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setReleaseForm({ ...releaseForm, notify: !releaseForm.notify })}
+                    className={`relative inline-flex h-5 w-9 items-center rounded-full border-2 transition-colors ${releaseForm.notify ? "bg-success border-success" : "bg-background border-foreground/40"}`}
+                  >
+                    <span className={`inline-block h-3.5 w-3.5 transform rounded-full shadow-sm transition-transform ${releaseForm.notify ? "bg-background translate-x-4" : "bg-foreground/70 translate-x-0.5"}`} />
+                  </button>
+                  <Label className="cursor-pointer text-xs flex-1" onClick={() => setReleaseForm({ ...releaseForm, notify: !releaseForm.notify })}>
+                    Notify all users (show dot on the What's New button)
+                  </Label>
+                </div>
+              </CardContent>
+              <div className="px-4 py-3 border-t border-border/30 flex items-center justify-end gap-2">
+                <Button variant="outline" size="sm" className="h-8 px-3 text-[11px]" onClick={() => setPreviewVersion(CURRENT_VERSION)}>
+                  <Eye className="w-3 h-3 mr-1" /> Preview latest
+                </Button>
+                <Button size="sm" onClick={publishRelease} className="h-8 px-3 text-[11px] bg-success hover:bg-success/90 text-background">
+                  <Send className="w-3 h-3 mr-1" /> Publish release
+                </Button>
+              </div>
+            </Card>
+
+            {/* History */}
+            <Card className="border-border/40 shadow-sm">
+              <div className="px-4 py-3 border-b border-border/30 flex items-center gap-2">
+                <div className="w-5 h-5 rounded-md bg-muted flex items-center justify-center">
+                  <History className="w-3 h-3 text-foreground/70" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xs font-bold text-foreground tracking-tight">Published Releases</h3>
+                  <p className="text-[10px] text-muted-foreground">Latest is shown to users as "Latest" in the What's New panel.</p>
+                </div>
+              </div>
+              <CardContent className="p-3 space-y-2">
+                {RELEASE_NOTES.map((n) => {
+                  const isLatest = n.version === CURRENT_VERSION;
+                  const counts = (n.features?.length ?? 0) + (n.improvements?.length ?? 0) + (n.fixes?.length ?? 0);
+                  return (
+                    <div key={n.version} className="rounded-md border border-border/40 bg-card px-3 py-2.5">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[11px] font-bold text-foreground tracking-tight">v{n.version}</span>
+                        {isLatest && (
+                          <Badge variant="outline" className="rounded-full border-success/30 bg-success/10 text-success text-[9px] font-semibold uppercase tracking-wider px-2 py-0">Latest</Badge>
+                        )}
+                        <span className="ml-auto text-[10px] text-muted-foreground">
+                          {new Date(n.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
+                        </span>
+                      </div>
+                      {n.title && <p className="text-[11px] text-foreground/90 leading-snug mb-1.5 line-clamp-2">{n.title}</p>}
+                      <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+                        {n.features?.length ? <span className="inline-flex items-center gap-1"><Sparkle className="w-2.5 h-2.5 text-success" /> {n.features.length}</span> : null}
+                        {n.improvements?.length ? <span className="inline-flex items-center gap-1"><Wrench className="w-2.5 h-2.5 text-blue-600" /> {n.improvements.length}</span> : null}
+                        {n.fixes?.length ? <span className="inline-flex items-center gap-1"><Bug className="w-2.5 h-2.5 text-amber-600" /> {n.fixes.length}</span> : null}
+                        {n.media?.length ? <span className="inline-flex items-center gap-1"><ImageIcon className="w-2.5 h-2.5" /> {n.media.length}</span> : null}
+                        <button onClick={() => setPreviewVersion(n.version)} className="ml-auto inline-flex items-center gap-1 text-foreground/80 hover:text-foreground">
+                          <Eye className="w-3 h-3" /> Preview
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+          </div>
+
+          <ReleaseNotesModal
+            open={previewVersion !== null}
+            onOpenChange={(o) => !o && setPreviewVersion(null)}
+            version={previewVersion}
+          />
         </TabsContent>
       </Tabs>
 
