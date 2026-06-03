@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles } from "lucide-react";
 import { ReleaseNotesModal, useHasUnseenRelease } from "@/components/ReleaseNotesModal";
+import { RELEASE_NOTES, CURRENT_VERSION } from "@/data/releaseNotes";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { CompanyNotifications } from "@/components/CompanyNotifications";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
