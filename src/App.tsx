@@ -159,13 +159,16 @@ const App = () => {
                 <SidebarTrigger className="p-2 hover:bg-muted rounded-lg transition-colors" />
                 <HeaderBreadcrumb />
               </div>
-              <a
-                href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-              >
-                <LifeBuoy className="w-3.5 h-3.5" />
-                <span>Contact Support</span>
-              </a>
+              <div className="flex items-center gap-1">
+                <WhatsNewButton />
+                <a
+                  href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                >
+                  <LifeBuoy className="w-3.5 h-3.5" />
+                  <span>Contact Support</span>
+                </a>
+              </div>
             </div>
           </header>
           <div className="flex-1 bg-background overflow-y-auto">
