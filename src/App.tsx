@@ -176,19 +176,9 @@ const WhatsNewButton = () => {
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-sm font-semibold text-foreground">What's New</span>
-              {hasLatest && (
-                <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-primary">
-                  Latest
-                </span>
-              )}
             </div>
-            {latestNote && (
-              <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <span className="font-bold text-foreground/80 tracking-tight">v{latestNote.version}</span>
-                <span>— Released {new Date(latestNote.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}</span>
-              </div>
-            )}
           </div>
+
 
           <div className="max-h-[28rem] overflow-y-auto bg-background/40 divide-y divide-border/60">
             {RELEASE_NOTES.map((note) => {
