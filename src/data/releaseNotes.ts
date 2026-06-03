@@ -29,6 +29,14 @@ export const RELEASE_NOTES: ReleaseNote[] = [
     fixes: [
       "Resolved an issue where the Institution modal could hide the Papers and Citations metrics.",
     ],
+    media: [
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80",
+        alt: "Sample walkthrough preview",
+        caption: "Sample walkthrough · video coming soon",
+      },
+    ],
   },
   {
     version: "1.3.0",
