@@ -33,7 +33,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
   {
     version: "1.3.0",
     date: "2026-05-20",
-    title: "Pathway Explorer improvements",
+    title: "Shortlist pathways and explore them with the new 9-metric radar",
     features: [
       "Bookmark pathways and switch between All and Shortlisted views.",
       "New radar chart with 9 Key Metrics on each pathway profile.",
