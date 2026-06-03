@@ -59,7 +59,11 @@ const AnalysisManagement = () => {
     }));
     setMediaDraft({ type: "image", src: "", caption: "" });
   };
-  const handleMediaUpload = (file: File | null) => {
+  const handleMediaUpload = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    Array.from(files).forEach((file) => handleSingleMediaUpload(file));
+  };
+  const handleSingleMediaUpload = (file: File | null) => {
     if (!file) return;
     const isImage = file.type.startsWith("image/");
     const isVideo = file.type.startsWith("video/");
