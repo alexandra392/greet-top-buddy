@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles } from "lucide-react";
+import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles, ArrowRight } from "lucide-react";
 import { ReleaseNotesModal, useHasUnseenRelease } from "@/components/ReleaseNotesModal";
 import { RELEASE_NOTES, CURRENT_VERSION } from "@/data/releaseNotes";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
