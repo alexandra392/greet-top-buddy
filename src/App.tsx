@@ -167,7 +167,7 @@ const WhatsNewButton = () => {
         <DropdownMenuContent
           align="end"
           sideOffset={8}
-          className="w-80 p-0 overflow-hidden rounded-xl border-border/60 shadow-xl bg-card"
+          className="w-96 p-0 overflow-hidden rounded-xl border-border/60 shadow-xl bg-card"
         >
           <div className="px-4 py-3 border-b border-border/60 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
             <div className="flex items-center gap-2">
@@ -182,7 +182,7 @@ const WhatsNewButton = () => {
               </div>
             </div>
           </div>
-          <div className="max-h-96 overflow-y-auto p-2 space-y-1 bg-background/40">
+          <div className="max-h-[28rem] overflow-y-auto bg-background/40 divide-y divide-border/60">
             {RELEASE_NOTES.map((note) => {
               const dateLabel = new Date(note.date).toLocaleDateString(undefined, {
                 year: "numeric", month: "short", day: "numeric",
@@ -192,7 +192,7 @@ const WhatsNewButton = () => {
                 <DropdownMenuItem
                   key={note.version}
                   onSelect={() => { setSelectedVersion(note.version); setModalOpen(true); }}
-                  className="group flex flex-col items-start gap-1 px-3 py-2.5 cursor-pointer rounded-lg border border-transparent hover:border-border/60 focus:border-border/60 hover:bg-card focus:bg-card transition-all"
+                  className="group flex flex-col items-start gap-1 px-4 py-3 cursor-pointer rounded-none hover:bg-muted/40 focus:bg-muted/40 transition-colors"
                 >
                   <div className="flex items-center justify-between w-full gap-2">
                     <div className="flex items-center gap-1.5">
@@ -209,26 +209,26 @@ const WhatsNewButton = () => {
                     <span className="text-[10px] text-muted-foreground tabular-nums">{dateLabel}</span>
                   </div>
                   {note.title && (
-                    <span className="text-[11px] text-muted-foreground line-clamp-1 group-hover:text-foreground/80 transition-colors">
+                    <span className="text-[12px] text-foreground/90 line-clamp-1 group-hover:text-foreground transition-colors">
                       {note.title}
                     </span>
                   )}
-                  <div className="flex items-center gap-2 mt-0.5">
+                  <div className="flex items-center gap-3 mt-1">
                     {note.features?.length ? (
-                      <span className="inline-flex items-center gap-1 text-[9px] text-primary">
-                        <span className="w-1 h-1 rounded-full bg-primary" />
+                      <span className="inline-flex items-center gap-1 text-[10px] text-primary">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                         {note.features.length} new
                       </span>
                     ) : null}
                     {note.improvements?.length ? (
-                      <span className="inline-flex items-center gap-1 text-[9px] text-blue-600">
-                        <span className="w-1 h-1 rounded-full bg-blue-600" />
+                      <span className="inline-flex items-center gap-1 text-[10px] text-blue-600">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
                         {note.improvements.length} improved
                       </span>
                     ) : null}
                     {note.fixes?.length ? (
-                      <span className="inline-flex items-center gap-1 text-[9px] text-amber-600">
-                        <span className="w-1 h-1 rounded-full bg-amber-600" />
+                      <span className="inline-flex items-center gap-1 text-[10px] text-amber-600">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
                         {note.fixes.length} fixed
                       </span>
                     ) : null}
@@ -237,6 +237,7 @@ const WhatsNewButton = () => {
               );
             })}
           </div>
+
         </DropdownMenuContent>
 
       </DropdownMenu>
