@@ -167,7 +167,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
       </div>
 
       {/* Body */}
-      <div className="px-1 pt-5 pb-1 space-y-4">
+      <div className="px-5 pt-5 pb-1 space-y-4">
         {note.title && !hero && (
           <h3 className="text-sm font-semibold leading-snug">{note.title}</h3>
         )}
