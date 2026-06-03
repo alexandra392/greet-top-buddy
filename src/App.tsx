@@ -143,27 +143,71 @@ const HeaderBreadcrumb = () => {
 
 
 const WhatsNewButton = () => {
-  const [open, setOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [selectedVersion, setSelectedVersion] = React.useState<string | null>(null);
   const { hasUnseen, markSeen } = useHasUnseenRelease();
   return (
     <>
-      <button
-        onClick={() => { setOpen(true); markSeen(); }}
-        className="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-        aria-label="What's new"
-      >
-        <Sparkles className="w-3.5 h-3.5" />
-        <span>What's New</span>
-        {hasUnseen && (
-          <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-        )}
-      </button>
-      <ReleaseNotesButtonModal open={open} onOpenChange={setOpen} />
+      <DropdownMenu onOpenChange={(o) => { if (o) markSeen(); }}>
+        <DropdownMenuTrigger asChild>
+          <button
+            className="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            aria-label="What's new"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>What's New</span>
+            {hasUnseen && (
+              <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            )}
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-72 p-0">
+          <div className="px-3 py-2 border-b border-border/60 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+              Release Notes
+            </span>
+          </div>
+          <div className="max-h-80 overflow-y-auto py-1">
+            {RELEASE_NOTES.map((note) => {
+              const dateLabel = new Date(note.date).toLocaleDateString(undefined, {
+                year: "numeric", month: "short", day: "numeric",
+              });
+              const isCurrent = note.version === CURRENT_VERSION;
+              return (
+                <DropdownMenuItem
+                  key={note.version}
+                  onSelect={() => { setSelectedVersion(note.version); setModalOpen(true); }}
+                  className="flex flex-col items-start gap-0.5 px-3 py-2 cursor-pointer"
+                >
+                  <div className="flex items-center justify-between w-full gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-semibold tabular-nums">v{note.version}</span>
+                      {isCurrent && (
+                        <span className="text-[9px] px-1.5 py-0 h-4 inline-flex items-center rounded bg-primary text-primary-foreground font-medium">
+                          Latest
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-muted-foreground">{dateLabel}</span>
+                  </div>
+                  {note.title && (
+                    <span className="text-[11px] text-muted-foreground line-clamp-1">{note.title}</span>
+                  )}
+                </DropdownMenuItem>
+              );
+            })}
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <ReleaseNotesModal
+        open={modalOpen}
+        onOpenChange={(v) => { setModalOpen(v); if (!v) setSelectedVersion(null); }}
+        version={selectedVersion}
+      />
     </>
   );
 };
-
-const ReleaseNotesButtonModal = ReleaseNotesModal;
 
 const App = () => {
   const location = useLocation();
