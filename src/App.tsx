@@ -209,7 +209,7 @@ const WhatsNewButton = () => {
                     <span className="text-[10px] text-muted-foreground tabular-nums">{dateLabel}</span>
                   </div>
                   {note.title && (
-                    <span className="text-[12px] text-foreground/90 line-clamp-1 group-hover:text-foreground transition-colors">
+                    <span className="text-[12px] text-foreground/90 line-clamp-2 leading-snug group-hover:text-foreground transition-colors">
                       {note.title}
                     </span>
                   )}
