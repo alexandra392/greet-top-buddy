@@ -132,8 +132,8 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
   );
   const hasMedia = note.media && note.media.length > 0;
   return (
-    <article className="rounded-xl border border-border/60 bg-card p-4 shadow-sm">
-      <header className="flex items-center justify-between gap-2 mb-3">
+    <article className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">
+      <header className="flex items-center justify-between gap-2 px-5 py-3 border-b border-border/60 bg-muted/30">
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold tabular-nums">v{note.version}</span>
           {isCurrent && (
@@ -142,20 +142,22 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
         </div>
         <span className="text-[11px] text-muted-foreground">{dateLabel}</span>
       </header>
-      {note.title && <h3 className="text-sm font-medium mb-3">{note.title}</h3>}
-      <div className={cn("gap-4", hasMedia ? "flex flex-col sm:flex-row" : "space-y-3")}>
-        <div className={cn("space-y-3", hasMedia && "flex-1 min-w-0")}>
-          <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
-          <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
-          <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
-        </div>
-        {hasMedia && (
-          <div className="shrink-0 w-full sm:w-56 space-y-2">
-            {note.media!.map((m, i) => (
-              <MediaBlock key={i} item={m} onExpand={onExpand} />
-            ))}
+      <div className="px-5 py-4">
+        {note.title && <h3 className="text-sm font-semibold leading-snug mb-4">{note.title}</h3>}
+        <div className={cn("gap-5", hasMedia ? "grid grid-cols-1 sm:grid-cols-[1fr_280px]" : "")}>
+          <div className="space-y-4 divide-y divide-border/60 [&>*+*]:pt-4 min-w-0">
+            <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
+            <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
+            <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
           </div>
-        )}
+          {hasMedia && (
+            <div className="space-y-2 sm:sticky sm:top-0 self-start">
+              {note.media!.map((m, i) => (
+                <MediaBlock key={i} item={m} onExpand={onExpand} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );
@@ -177,7 +179,7 @@ export function ReleaseNotesModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-2xl p-0 overflow-hidden">
+        <DialogContent className="max-w-3xl p-0 overflow-hidden">
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
