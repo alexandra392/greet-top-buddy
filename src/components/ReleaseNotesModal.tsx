@@ -107,16 +107,20 @@ function ChangeGroup({
   }[tone];
   return (
     <div>
-      <div className="flex items-center gap-1.5 mb-1.5">
+      <div className="flex items-center gap-1.5 mb-2">
         <Icon className={cn("w-3.5 h-3.5", toneClass)} />
         <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
           {label}
         </span>
       </div>
-      <ul className="space-y-1 pl-1">
+      <ul className="space-y-1.5">
         {items.map((it, i) => (
-          <li key={i} className="text-xs text-foreground/90 flex gap-2 leading-relaxed">
-            <ChevronRight className="w-3 h-3 mt-0.5 shrink-0 text-muted-foreground" />
+          <li key={i} className="text-[13px] text-foreground/90 flex gap-2.5 leading-relaxed">
+            <span className={cn("mt-1.5 h-1 w-1 rounded-full shrink-0", {
+              "bg-primary": tone === "primary",
+              "bg-blue-500": tone === "blue",
+              "bg-amber-500": tone === "amber",
+            })} />
             <span>{it}</span>
           </li>
         ))}
