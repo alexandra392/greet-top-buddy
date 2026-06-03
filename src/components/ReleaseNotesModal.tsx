@@ -153,7 +153,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
             {note.title ?? `Release v${note.version}`}
           </h2>
           {hero && hero.type === "image" && (
-            <div className="mt-5">
+            <div className="mt-[18px]">
               <button
                 type="button"
                 onClick={() => onExpand(hero.src)}
