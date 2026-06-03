@@ -804,9 +804,29 @@ const AnalysisManagement = () => {
                     <div className="h-px flex-1 bg-border/60" />
                   </div>
                   <p className="text-[10.5px] text-muted-foreground leading-relaxed">
-                    First image becomes the hero banner. Videos can be YouTube, Loom, or direct file URLs.
+                    Upload an image or video file, or paste a URL (YouTube, Loom, or direct file). First image becomes the hero banner.
                   </p>
                   <div className="rounded-md border border-border/60 bg-muted/30 p-2.5 space-y-2">
+                    <label className="flex items-center justify-center gap-2 h-16 rounded-md border border-dashed border-border bg-background hover:bg-muted/40 cursor-pointer transition-colors">
+                      <Upload className="w-3.5 h-3.5 text-muted-foreground" />
+                      <span className="text-[11px] text-muted-foreground">
+                        <span className="text-foreground font-medium">Click to upload</span> image or video
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*,video/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          handleMediaUpload(e.target.files?.[0] ?? null);
+                          e.currentTarget.value = "";
+                        }}
+                      />
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <div className="h-px flex-1 bg-border/60" />
+                      <span className="text-[9px] font-bold tracking-widest uppercase text-muted-foreground">or paste URL</span>
+                      <div className="h-px flex-1 bg-border/60" />
+                    </div>
                     <div className="grid grid-cols-[110px_1fr] gap-1.5">
                       <Select value={mediaDraft.type} onValueChange={(v: "image" | "video") => setMediaDraft({ ...mediaDraft, type: v })}>
                         <SelectTrigger className="h-7 text-xs md:text-xs bg-background"><SelectValue /></SelectTrigger>
@@ -823,7 +843,7 @@ const AnalysisManagement = () => {
                     </div>
                     <div className="flex gap-1.5">
                       <Input value={mediaDraft.caption} onChange={(e) => setMediaDraft({ ...mediaDraft, caption: e.target.value })} placeholder="Caption (optional)" className="h-7 text-xs md:text-xs bg-background" />
-                      <Button type="button" variant="outline" size="sm" onClick={addMedia} className="h-7 px-2.5 text-[11px] bg-background">Add</Button>
+                      <Button type="button" variant="outline" size="sm" onClick={addMedia} className="h-7 px-2.5 text-[11px] bg-background">Add URL</Button>
                     </div>
                   </div>
                   {releaseForm.media.length > 0 && (
