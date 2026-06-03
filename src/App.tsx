@@ -163,14 +163,25 @@ const WhatsNewButton = () => {
             )}
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-72 p-0">
-          <div className="px-3 py-2 border-b border-border/60 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Release Notes
-            </span>
+        <DropdownMenuContent
+          align="end"
+          sideOffset={8}
+          className="w-80 p-0 overflow-hidden rounded-xl border-border/60 shadow-xl bg-card"
+        >
+          <div className="px-4 py-3 border-b border-border/60 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center w-7 h-7 rounded-md bg-primary/15 text-primary">
+                <Sparkles className="w-3.5 h-3.5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Release Notes
+                </span>
+                <span className="text-xs text-foreground/80">What's new in the platform</span>
+              </div>
+            </div>
           </div>
-          <div className="max-h-80 overflow-y-auto py-1">
+          <div className="max-h-96 overflow-y-auto p-2 space-y-1 bg-background/40">
             {RELEASE_NOTES.map((note) => {
               const dateLabel = new Date(note.date).toLocaleDateString(undefined, {
                 year: "numeric", month: "short", day: "numeric",
@@ -180,27 +191,53 @@ const WhatsNewButton = () => {
                 <DropdownMenuItem
                   key={note.version}
                   onSelect={() => { setSelectedVersion(note.version); setModalOpen(true); }}
-                  className="flex flex-col items-start gap-0.5 px-3 py-2 cursor-pointer"
+                  className="group flex flex-col items-start gap-1 px-3 py-2.5 cursor-pointer rounded-lg border border-transparent hover:border-border/60 focus:border-border/60 hover:bg-card focus:bg-card transition-all"
                 >
                   <div className="flex items-center justify-between w-full gap-2">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-xs font-semibold tabular-nums">v{note.version}</span>
+                      <span className={cn(
+                        "text-xs font-semibold tabular-nums",
+                        isCurrent ? "text-primary" : "text-foreground"
+                      )}>v{note.version}</span>
                       {isCurrent && (
-                        <span className="text-[9px] px-1.5 py-0 h-4 inline-flex items-center rounded bg-primary text-primary-foreground font-medium">
+                        <span className="text-[9px] px-1.5 py-0 h-4 inline-flex items-center rounded-full bg-primary text-primary-foreground font-medium">
                           Latest
                         </span>
                       )}
                     </div>
-                    <span className="text-[10px] text-muted-foreground">{dateLabel}</span>
+                    <span className="text-[10px] text-muted-foreground tabular-nums">{dateLabel}</span>
                   </div>
                   {note.title && (
-                    <span className="text-[11px] text-muted-foreground line-clamp-1">{note.title}</span>
+                    <span className="text-[11px] text-muted-foreground line-clamp-1 group-hover:text-foreground/80 transition-colors">
+                      {note.title}
+                    </span>
                   )}
+                  <div className="flex items-center gap-2 mt-0.5">
+                    {note.features?.length ? (
+                      <span className="inline-flex items-center gap-1 text-[9px] text-primary">
+                        <span className="w-1 h-1 rounded-full bg-primary" />
+                        {note.features.length} new
+                      </span>
+                    ) : null}
+                    {note.improvements?.length ? (
+                      <span className="inline-flex items-center gap-1 text-[9px] text-blue-600">
+                        <span className="w-1 h-1 rounded-full bg-blue-600" />
+                        {note.improvements.length} improved
+                      </span>
+                    ) : null}
+                    {note.fixes?.length ? (
+                      <span className="inline-flex items-center gap-1 text-[9px] text-amber-600">
+                        <span className="w-1 h-1 rounded-full bg-amber-600" />
+                        {note.fixes.length} fixed
+                      </span>
+                    ) : null}
+                  </div>
                 </DropdownMenuItem>
               );
             })}
           </div>
         </DropdownMenuContent>
+
       </DropdownMenu>
       <ReleaseNotesModal
         open={modalOpen}
