@@ -207,24 +207,22 @@ export function ReleaseNotesModal({
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-xl p-0 overflow-hidden">
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <Sparkles className="w-4 h-4 text-primary" />
               <DialogTitle className="text-base">What's New</DialogTitle>
+              {version && notes[0] && notes[0].version === CURRENT_VERSION && (
+                <Badge
+                  variant="outline"
+                  className="rounded-full border-primary/30 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5"
+                >
+                  Latest
+                </Badge>
+              )}
             </div>
             {version && notes[0] ? (
-              <div className="flex items-center gap-2 mt-1.5">
-                {notes[0].version === CURRENT_VERSION && (
-                  <Badge
-                    variant="outline"
-                    className="rounded-full border-primary/30 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5"
-                  >
-                    Latest
-                  </Badge>
-                )}
-                <DialogDescription className="text-xs m-0">
-                  {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })} · v{notes[0].version}
-                </DialogDescription>
-              </div>
+              <DialogDescription className="text-xs mt-1.5">
+                v{notes[0].version} · {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
+              </DialogDescription>
             ) : (
               <DialogDescription className="text-xs mt-1">
                 Recent updates, improvements, and fixes to the platform.
