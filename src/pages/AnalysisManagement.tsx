@@ -245,6 +245,11 @@ const AnalysisManagement = () => {
               Database Repertoire
               <span className="ml-1 text-[10px] font-bold opacity-70">{totalDatabases}</span>
             </TabsTrigger>
+            <TabsTrigger value="whatsnew" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-[11px] rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
+              <Megaphone className="w-3 h-3" />
+              What's New
+              <span className="ml-1 text-[10px] font-bold opacity-70">{RELEASE_NOTES.length}</span>
+            </TabsTrigger>
           </TabsList>
         </div>
 
