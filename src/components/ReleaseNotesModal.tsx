@@ -135,7 +135,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
   return (
     <article className="rounded-xl bg-card overflow-hidden">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-6 pb-5 text-primary-foreground">
+      <div className="relative overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-6 pb-0 text-primary-foreground">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.12]"
@@ -157,7 +157,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
               <button
                 type="button"
                 onClick={() => onExpand(hero.src)}
-                className="block w-full rounded-lg overflow-hidden ring-1 ring-primary-foreground/20 shadow-lg bg-card hover:opacity-95 transition-opacity"
+                className="block w-full rounded-t-lg overflow-hidden ring-1 ring-primary-foreground/20 shadow-lg bg-card hover:opacity-95 transition-opacity"
               >
                 <img src={hero.src} alt={hero.alt ?? ""} className="w-full h-44 sm:h-52 object-cover" />
               </button>
