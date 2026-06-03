@@ -149,8 +149,7 @@ const WhatsNewButton = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [selectedVersion, setSelectedVersion] = React.useState<string | null>(null);
   const { hasUnseen, markSeen } = useHasUnseenRelease();
-  const latestNote = RELEASE_NOTES.find((n) => n.version === CURRENT_VERSION) ?? RELEASE_NOTES[0];
-  const hasLatest = !!latestNote;
+
   return (
 
     <>
