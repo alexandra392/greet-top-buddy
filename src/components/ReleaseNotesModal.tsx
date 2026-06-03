@@ -131,12 +131,19 @@ function ChangeGroup({
 }
 
 function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurrent: boolean; onExpand: (src: string) => void }) {
-  const hero = note.media?.[0];
-  const restMedia = (note.media ?? []).slice(1);
+  const media = note.media ?? [];
+  const heroImages = media.filter((m) => m.type === "image") as Extract<MediaItem, { type: "image" }>[];
+  const videos = media.filter((m) => m.type !== "image");
+  const hasHero = heroImages.length > 0;
+  const [slide, setSlide] = useState(0);
+  const activeImage = heroImages[Math.min(slide, heroImages.length - 1)];
+  const prev = () => setSlide((s) => (s - 1 + heroImages.length) % heroImages.length);
+  const next = () => setSlide((s) => (s + 1) % heroImages.length);
+
   return (
     <article className="rounded-xl bg-card overflow-hidden">
       {/* Hero */}
-      <div className={cn("relative overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-5 text-primary-foreground", hero && hero.type === "image" ? "pb-0" : "pb-5")}>
+      <div className={cn("relative overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-5 text-primary-foreground", hasHero ? "pb-0" : "pb-5")}>
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.12]"
@@ -153,15 +160,59 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
           <h2 className="text-center text-base sm:text-lg font-semibold leading-snug max-w-md mx-auto">
             {note.title ?? `Release v${note.version}`}
           </h2>
-          {hero && hero.type === "image" && (
+          {hasHero && activeImage && (
             <div className="mt-[18px]">
-              <button
-                type="button"
-                onClick={() => onExpand(hero.src)}
-                className="block w-full rounded-t-lg overflow-hidden ring-1 ring-primary-foreground/20 shadow-lg bg-card hover:opacity-95 transition-opacity"
-              >
-                <img src={hero.src} alt={hero.alt ?? ""} className="w-full h-44 sm:h-52 object-cover" />
-              </button>
+              <div className="relative group rounded-t-lg overflow-hidden ring-1 ring-primary-foreground/20 shadow-lg bg-card">
+                <button
+                  type="button"
+                  onClick={() => onExpand(activeImage.src)}
+                  className="block w-full hover:opacity-95 transition-opacity"
+                >
+                  <img src={activeImage.src} alt={activeImage.alt ?? ""} className="w-full h-44 sm:h-52 object-cover" />
+                </button>
+                {heroImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={prev}
+                      aria-label="Previous image"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-background/85 text-foreground shadow-sm flex items-center justify-center hover:bg-background transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={next}
+                      aria-label="Next image"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full bg-background/85 text-foreground shadow-sm flex items-center justify-center hover:bg-background transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-background/70 backdrop-blur-sm">
+                      {heroImages.map((_, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setSlide(i)}
+                          aria-label={`Go to image ${i + 1}`}
+                          className={cn(
+                            "h-1.5 rounded-full transition-all",
+                            i === slide ? "w-4 bg-primary" : "w-1.5 bg-foreground/40 hover:bg-foreground/60"
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-full bg-background/85 text-foreground text-[10px] font-semibold">
+                      {slide + 1} / {heroImages.length}
+                    </div>
+                  </>
+                )}
+              </div>
+              {activeImage.caption && (
+                <div className="px-3 py-1.5 text-[11px] text-primary-foreground/80 bg-card/0 text-center">
+                  {activeImage.caption}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -169,7 +220,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
 
       {/* Body */}
       <div className="px-5 pt-5 pb-5 space-y-4">
-        {note.title && !hero && (
+        {note.title && !hasHero && (
           <h3 className="text-sm font-semibold leading-snug">{note.title}</h3>
         )}
         <div className="space-y-3 divide-y divide-border/60 [&>*+*]:pt-3">
@@ -177,10 +228,9 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
           <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
           <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
         </div>
-        {(restMedia.length > 0 || (hero && hero.type !== "image")) && (
+        {videos.length > 0 && (
           <div className="space-y-2 pt-2">
-            {hero && hero.type !== "image" && <MediaBlock item={hero} onExpand={onExpand} />}
-            {restMedia.map((m, i) => (
+            {videos.map((m, i) => (
               <MediaBlock key={i} item={m} onExpand={onExpand} />
             ))}
           </div>
