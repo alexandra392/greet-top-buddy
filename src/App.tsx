@@ -169,19 +169,24 @@ const WhatsNewButton = () => {
           sideOffset={8}
           className="w-96 p-0 overflow-hidden rounded-xl border-border/60 shadow-xl bg-card"
         >
-          <div className="px-4 py-3 border-b border-border/60 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
+          <div className="px-4 py-3 border-b border-border/60 bg-card">
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-7 h-7 rounded-md bg-primary/15 text-primary">
-                <Sparkles className="w-3.5 h-3.5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                  Release Notes
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-sm font-semibold text-foreground">What's New</span>
+              {hasLatest && (
+                <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-primary">
+                  Latest
                 </span>
-                <span className="text-xs text-foreground/80">What's new in the platform</span>
-              </div>
+              )}
             </div>
+            {latestNote && (
+              <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <span className="font-bold text-foreground/80 tracking-tight">v{latestNote.version}</span>
+                <span>— Released {new Date(latestNote.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}</span>
+              </div>
+            )}
           </div>
+
           <div className="max-h-[28rem] overflow-y-auto bg-background/40 divide-y divide-border/60">
             {RELEASE_NOTES.map((note) => {
               const dateLabel = new Date(note.date).toLocaleDateString(undefined, {
