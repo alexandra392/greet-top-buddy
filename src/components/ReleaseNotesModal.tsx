@@ -53,7 +53,7 @@ function MediaBlock({ item, onExpand }: { item: MediaItem; onExpand: (src: strin
           onClick={() => onExpand(item.src)}
           className="block w-full hover:opacity-90 transition-opacity"
         >
-          <img src={item.src} alt={item.alt ?? ""} className="w-full h-48 sm:h-56 object-cover" />
+          <img src={item.src} alt={item.alt ?? ""} className="w-full h-auto object-cover" />
         </button>
         {item.caption && (
           <figcaption className="px-3 py-1.5 text-[11px] text-muted-foreground">{item.caption}</figcaption>
