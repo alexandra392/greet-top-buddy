@@ -142,6 +142,29 @@ const HeaderBreadcrumb = () => {
 };
 
 
+const WhatsNewButton = () => {
+  const [open, setOpen] = React.useState(false);
+  const { hasUnseen, markSeen } = useHasUnseenRelease();
+  return (
+    <>
+      <button
+        onClick={() => { setOpen(true); markSeen(); }}
+        className="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        aria-label="What's new"
+      >
+        <Sparkles className="w-3.5 h-3.5" />
+        <span>What's New</span>
+        {hasUnseen && (
+          <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        )}
+      </button>
+      <ReleaseNotesButtonModal open={open} onOpenChange={setOpen} />
+    </>
+  );
+};
+
+const ReleaseNotesButtonModal = ReleaseNotesModal;
+
 const App = () => {
   const location = useLocation();
 
