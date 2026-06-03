@@ -130,34 +130,59 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
     () => new Date(note.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
     [note.date]
   );
-  const hasMedia = note.media && note.media.length > 0;
+  const hero = note.media?.[0];
+  const restMedia = (note.media ?? []).slice(1);
   return (
     <article className="rounded-xl border border-border/60 bg-card shadow-sm overflow-hidden">
-      <header className="flex items-center justify-between gap-2 px-5 py-3 border-b border-border/60 bg-muted/30">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold tabular-nums">v{note.version}</span>
-          {isCurrent && (
-            <Badge variant="default" className="text-[9px] px-1.5 py-0 h-4">Latest</Badge>
-          )}
-        </div>
-        <span className="text-[11px] text-muted-foreground">{dateLabel}</span>
-      </header>
-      <div className="px-5 py-4">
-        {note.title && <h3 className="text-sm font-semibold leading-snug mb-4">{note.title}</h3>}
-        <div className={cn("gap-5", hasMedia ? "grid grid-cols-1 sm:grid-cols-[1fr_320px]" : "")}>
-          <div className="space-y-4 divide-y divide-border/60 [&>*+*]:pt-4 min-w-0">
-            <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
-            <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
-            <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
+      {/* Hero */}
+      <div className="relative bg-gradient-to-br from-primary via-primary to-primary/80 px-6 pt-8 pb-0 text-primary-foreground">
+        <h2 className="text-center text-xl sm:text-2xl font-semibold leading-tight max-w-xl mx-auto">
+          {note.title ?? `Release v${note.version}`}
+        </h2>
+        {hero && hero.type === "image" && (
+          <div className="mt-6 -mb-10">
+            <button
+              type="button"
+              onClick={() => onExpand(hero.src)}
+              className="block w-full rounded-t-lg overflow-hidden border border-border/40 shadow-xl bg-card hover:opacity-95 transition-opacity"
+            >
+              <img src={hero.src} alt={hero.alt ?? ""} className="w-full h-44 sm:h-56 object-cover" />
+            </button>
           </div>
-          {hasMedia && (
-            <div className="space-y-2 self-start">
-              {note.media!.map((m, i) => (
-                <MediaBlock key={i} item={m} onExpand={onExpand} />
-              ))}
-            </div>
-          )}
+        )}
+      </div>
+
+      {/* Meta */}
+      <div className={cn("px-6 flex items-center gap-2", hero?.type === "image" ? "pt-12 pb-2" : "pt-5 pb-2")}>
+        <Badge
+          variant="outline"
+          className="rounded-full border-primary/30 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5"
+        >
+          {isCurrent ? "Latest" : "Update"}
+        </Badge>
+        <span className="text-xs text-muted-foreground">
+          {dateLabel} · v{note.version}
+        </span>
+      </div>
+
+      {/* Body */}
+      <div className="px-6 pb-6 pt-2 space-y-5">
+        {note.title && (
+          <h3 className="text-lg font-semibold leading-snug">{note.title}</h3>
+        )}
+        <div className="space-y-4 divide-y divide-border/60 [&>*+*]:pt-4">
+          <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
+          <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
+          <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
         </div>
+        {(restMedia.length > 0 || (hero && hero.type !== "image")) && (
+          <div className="space-y-2 pt-2">
+            {hero && hero.type !== "image" && <MediaBlock item={hero} onExpand={onExpand} />}
+            {restMedia.map((m, i) => (
+              <MediaBlock key={i} item={m} onExpand={onExpand} />
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );
@@ -179,7 +204,7 @@ export function ReleaseNotesModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden">
+        <DialogContent className="max-w-xl p-0 overflow-hidden">
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
