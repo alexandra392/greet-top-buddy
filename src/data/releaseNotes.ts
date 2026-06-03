@@ -17,7 +17,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
   {
     version: "1.4.0",
     date: "2026-06-03",
-    title: "What's New panel & polish",
+    title: "Track product updates from the new What's New panel",
     features: [
       "Added a What's New release notes panel in the header so you can track recent updates.",
       "Each release entry now supports inline images and embedded videos (YouTube, Loom, uploads).",
@@ -33,7 +33,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
   {
     version: "1.3.0",
     date: "2026-05-20",
-    title: "Pathway Explorer improvements",
+    title: "Shortlist pathways and explore them with the new 9-metric radar",
     features: [
       "Bookmark pathways and switch between All and Shortlisted views.",
       "New radar chart with 9 Key Metrics on each pathway profile.",
@@ -49,7 +49,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
   {
     version: "1.2.0",
     date: "2026-04-28",
-    title: "Research & IP Landscape",
+    title: "Browse publications and patents with topic-level filtering",
     features: [
       "Added Scientific Publications and Patent Landscape views with topic filtering.",
       "Top 3 Trending institutions and IP Holders are now highlighted.",
