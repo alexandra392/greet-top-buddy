@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight, FileText, ExternalLink, ChevronDown, ChevronRight as ChevronRightSm } from "lucide-react";
+import { ClipboardList, Plus, Bell, Search, RefreshCw, FolderOpen, Database, Sparkles, Building2, Mail, Link2, UserPlus, Check, Copy, History, Play, ChevronLeft, ChevronRight, FileText, ExternalLink, ChevronDown, ChevronRight as ChevronRightSm, Megaphone, Sparkle, Wrench, Bug, Image as ImageIcon, Video, Trash2, Eye, Send, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState, Fragment } from "react";
 import { toast } from "@/hooks/use-toast";
+import { RELEASE_NOTES, CURRENT_VERSION, type MediaItem } from "@/data/releaseNotes";
+import { ReleaseNotesModal } from "@/components/ReleaseNotesModal";
 
 const AnalysisManagement = () => {
   const navigate = useNavigate();
