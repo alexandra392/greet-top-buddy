@@ -48,7 +48,7 @@ const AnalysisManagement = () => {
   };
   const addMedia = () => {
     if (!mediaDraft.src.trim()) {
-      toast({ title: "Media URL required", description: "Paste an image or video URL.", variant: "destructive" });
+      toast({ title: "Media URL required", description: "Paste a URL or upload a file.", variant: "destructive" });
       return;
     }
     setReleaseForm((p) => ({
@@ -58,6 +58,32 @@ const AnalysisManagement = () => {
         : { type: "video", src: mediaDraft.src.trim(), caption: mediaDraft.caption.trim() || undefined }],
     }));
     setMediaDraft({ type: "image", src: "", caption: "" });
+  };
+  const handleMediaUpload = (file: File | null) => {
+    if (!file) return;
+    const isImage = file.type.startsWith("image/");
+    const isVideo = file.type.startsWith("video/");
+    if (!isImage && !isVideo) {
+      toast({ title: "Unsupported file", description: "Upload an image or video file.", variant: "destructive" });
+      return;
+    }
+    const maxMb = isVideo ? 50 : 10;
+    if (file.size > maxMb * 1024 * 1024) {
+      toast({ title: "File too large", description: `Max ${maxMb}MB for ${isVideo ? "videos" : "images"}.`, variant: "destructive" });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      setReleaseForm((p) => ({
+        ...p,
+        media: [...p.media, isImage
+          ? { type: "image", src: dataUrl, caption: file.name }
+          : { type: "video", src: dataUrl, caption: file.name }],
+      }));
+      toast({ title: "Media uploaded", description: file.name });
+    };
+    reader.readAsDataURL(file);
   };
   const removeMedia = (idx: number) => {
     setReleaseForm((p) => ({ ...p, media: p.media.filter((_, i) => i !== idx) }));
