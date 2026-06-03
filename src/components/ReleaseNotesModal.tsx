@@ -177,7 +177,7 @@ export function ReleaseNotesModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-3xl p-0 overflow-hidden">
+        <DialogContent className="max-w-4xl p-0 overflow-hidden">
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
