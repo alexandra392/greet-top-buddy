@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Sparkles, Sparkle, Bug, Wrench, X, ChevronRight } from "lucide-react";
+import { Sparkles, Sparkle, Bug, Wrench, X, ChevronRight, ChevronLeft } from "lucide-react";
+import { useState as useReactState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
