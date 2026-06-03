@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles } from "lucide-react";
+import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles, ArrowRight } from "lucide-react";
 import { ReleaseNotesModal, useHasUnseenRelease } from "@/components/ReleaseNotesModal";
 import { RELEASE_NOTES, CURRENT_VERSION } from "@/data/releaseNotes";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
@@ -211,25 +211,31 @@ const WhatsNewButton = () => {
                       {note.title}
                     </span>
                   )}
-                  <div className="flex items-center gap-3 mt-1">
-                    {note.features?.length ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] text-primary">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        {note.features.length} new
-                      </span>
-                    ) : null}
-                    {note.improvements?.length ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] text-blue-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                        {note.improvements.length} improved
-                      </span>
-                    ) : null}
-                    {note.fixes?.length ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] text-amber-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
-                        {note.fixes.length} fixed
-                      </span>
-                    ) : null}
+                  <div className="flex items-center justify-between gap-2 mt-1 w-full">
+                    <div className="flex items-center gap-3">
+                      {note.features?.length ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-primary">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          {note.features.length} new
+                        </span>
+                      ) : null}
+                      {note.improvements?.length ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-blue-600">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                          {note.improvements.length} improved
+                        </span>
+                      ) : null}
+                      {note.fixes?.length ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] text-amber-600">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
+                          {note.fixes.length} fixed
+                        </span>
+                      ) : null}
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary opacity-80 group-hover:opacity-100 group-hover:gap-1.5 transition-all">
+                      Read release notes
+                      <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                    </span>
                   </div>
                 </DropdownMenuItem>
               );
