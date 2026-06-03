@@ -5,7 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy } from "lucide-react";
+import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles } from "lucide-react";
+import { ReleaseNotesModal, useHasUnseenRelease } from "@/components/ReleaseNotesModal";
 import { Button } from "@/components/ui/button";
 import { CompanyNotifications } from "@/components/CompanyNotifications";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -141,6 +142,29 @@ const HeaderBreadcrumb = () => {
 };
 
 
+const WhatsNewButton = () => {
+  const [open, setOpen] = React.useState(false);
+  const { hasUnseen, markSeen } = useHasUnseenRelease();
+  return (
+    <>
+      <button
+        onClick={() => { setOpen(true); markSeen(); }}
+        className="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        aria-label="What's new"
+      >
+        <Sparkles className="w-3.5 h-3.5" />
+        <span>What's New</span>
+        {hasUnseen && (
+          <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        )}
+      </button>
+      <ReleaseNotesButtonModal open={open} onOpenChange={setOpen} />
+    </>
+  );
+};
+
+const ReleaseNotesButtonModal = ReleaseNotesModal;
+
 const App = () => {
   const location = useLocation();
 
@@ -158,13 +182,16 @@ const App = () => {
                 <SidebarTrigger className="p-2 hover:bg-muted rounded-lg transition-colors" />
                 <HeaderBreadcrumb />
               </div>
-              <a
-                href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-              >
-                <LifeBuoy className="w-3.5 h-3.5" />
-                <span>Contact Support</span>
-              </a>
+              <div className="flex items-center gap-1">
+                <WhatsNewButton />
+                <a
+                  href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                >
+                  <LifeBuoy className="w-3.5 h-3.5" />
+                  <span>Contact Support</span>
+                </a>
+              </div>
             </div>
           </header>
           <div className="flex-1 bg-background overflow-y-auto">
