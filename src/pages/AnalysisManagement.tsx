@@ -18,6 +18,73 @@ import { ReleaseNotesModal } from "@/components/ReleaseNotesModal";
 
 const AnalysisManagement = () => {
   const navigate = useNavigate();
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const bumpPatch = (v: string) => {
+    const p = v.split(".").map((n) => parseInt(n, 10) || 0);
+    while (p.length < 3) p.push(0);
+    p[2] = (p[2] || 0) + 1;
+    return p.join(".");
+  };
+  const [releaseForm, setReleaseForm] = useState({
+    version: bumpPatch(CURRENT_VERSION),
+    date: todayIso,
+    title: "",
+    features: [""] as string[],
+    improvements: [""] as string[],
+    fixes: [""] as string[],
+    media: [] as MediaItem[],
+    notify: true,
+  });
+  const [mediaDraft, setMediaDraft] = useState<{ type: "image" | "video"; src: string; caption: string }>({ type: "image", src: "", caption: "" });
+  const [previewVersion, setPreviewVersion] = useState<string | null>(null);
+  const updateListItem = (key: "features" | "improvements" | "fixes", idx: number, val: string) => {
+    setReleaseForm((p) => ({ ...p, [key]: p[key].map((s, i) => (i === idx ? val : s)) }));
+  };
+  const addListItem = (key: "features" | "improvements" | "fixes") => {
+    setReleaseForm((p) => ({ ...p, [key]: [...p[key], ""] }));
+  };
+  const removeListItem = (key: "features" | "improvements" | "fixes", idx: number) => {
+    setReleaseForm((p) => ({ ...p, [key]: p[key].filter((_, i) => i !== idx) }));
+  };
+  const addMedia = () => {
+    if (!mediaDraft.src.trim()) {
+      toast({ title: "Media URL required", description: "Paste an image or video URL.", variant: "destructive" });
+      return;
+    }
+    setReleaseForm((p) => ({
+      ...p,
+      media: [...p.media, mediaDraft.type === "image"
+        ? { type: "image", src: mediaDraft.src.trim(), caption: mediaDraft.caption.trim() || undefined }
+        : { type: "video", src: mediaDraft.src.trim(), caption: mediaDraft.caption.trim() || undefined }],
+    }));
+    setMediaDraft({ type: "image", src: "", caption: "" });
+  };
+  const removeMedia = (idx: number) => {
+    setReleaseForm((p) => ({ ...p, media: p.media.filter((_, i) => i !== idx) }));
+  };
+  const resetReleaseForm = () => {
+    setReleaseForm({ version: bumpPatch(CURRENT_VERSION), date: todayIso, title: "", features: [""], improvements: [""], fixes: [""], media: [], notify: true });
+    setMediaDraft({ type: "image", src: "", caption: "" });
+  };
+  const cleanList = (arr: string[]) => arr.map((s) => s.trim()).filter(Boolean);
+  const publishRelease = () => {
+    if (!releaseForm.version.trim() || !releaseForm.title.trim()) {
+      toast({ title: "Missing fields", description: "Version and title are required.", variant: "destructive" });
+      return;
+    }
+    const counts = cleanList(releaseForm.features).length + cleanList(releaseForm.improvements).length + cleanList(releaseForm.fixes).length;
+    if (counts === 0) {
+      toast({ title: "Add at least one change", description: "Add a feature, improvement, or fix.", variant: "destructive" });
+      return;
+    }
+    toast({
+      title: `Release v${releaseForm.version} published`,
+      description: releaseForm.notify
+        ? "Notification will be shown to all users in the What's New panel."
+        : "Saved as draft — no notification sent.",
+    });
+    resetReleaseForm();
+  };
   const [addOpen, setAddOpen] = useState(false);
   const [dbDialogOpen, setDbDialogOpen] = useState(false);
   const [docsDb, setDocsDb] = useState<any>(null);
