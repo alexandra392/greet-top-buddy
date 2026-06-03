@@ -209,10 +209,11 @@ const WhatsNewButton = () => {
                         isCurrent ? "text-primary" : "text-foreground"
                       )}>v{note.version}</span>
                       {isCurrent && (
-                        <span className="text-[9px] px-1.5 py-0 h-4 inline-flex items-center rounded-full bg-primary text-primary-foreground font-medium">
+                        <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-1.5 py-0 h-4 text-[9px] font-semibold uppercase tracking-widest text-primary">
                           Latest
                         </span>
                       )}
+
                     </div>
                     <span className="text-[10px] text-muted-foreground tabular-nums">{dateLabel}</span>
                   </div>
