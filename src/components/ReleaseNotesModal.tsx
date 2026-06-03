@@ -161,11 +161,16 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
 export function ReleaseNotesModal({
   open,
   onOpenChange,
+  version,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
+  version?: string | null;
 }) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const notes = version
+    ? RELEASE_NOTES.filter((n) => n.version === version)
+    : RELEASE_NOTES;
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -173,14 +178,18 @@ export function ReleaseNotesModal({
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
-              <DialogTitle className="text-base">What's New</DialogTitle>
+              <DialogTitle className="text-base">
+                {version ? `What's New · v${version}` : "What's New"}
+              </DialogTitle>
             </div>
             <DialogDescription className="text-xs mt-1">
-              Recent updates, improvements, and fixes to the platform.
+              {version
+                ? "Details for this release."
+                : "Recent updates, improvements, and fixes to the platform."}
             </DialogDescription>
           </div>
           <div className="max-h-[70vh] overflow-y-auto px-5 py-4 space-y-3 bg-background">
-            {RELEASE_NOTES.map((note) => (
+            {notes.map((note) => (
               <ReleaseEntry
                 key={note.version}
                 note={note}
