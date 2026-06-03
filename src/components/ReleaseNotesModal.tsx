@@ -222,11 +222,11 @@ export function ReleaseNotesModal({
             {version && notes[0] ? (
               <DialogDescription asChild>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="inline-flex items-center rounded-md border border-border/70 bg-muted/40 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-foreground/80 tracking-tight">
+                  <span className="text-[11px] font-bold text-foreground/80 tracking-tight">
                     v{notes[0].version}
                   </span>
                   <span className="text-[11px] text-muted-foreground">
-                    Released {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
+                    — Released {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
                   </span>
                 </div>
               </DialogDescription>
