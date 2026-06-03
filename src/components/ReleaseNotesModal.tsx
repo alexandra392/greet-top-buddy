@@ -135,7 +135,7 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
   return (
     <article className="rounded-xl bg-card overflow-hidden">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-6 pb-0 text-primary-foreground">
+      <div className={cn("relative overflow-hidden rounded-t-xl bg-gradient-to-br from-primary to-primary/85 px-5 pt-6 text-primary-foreground", hero && hero.type === "image" ? "pb-0" : "pb-5")}>
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.12]"
