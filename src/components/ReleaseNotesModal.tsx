@@ -220,8 +220,15 @@ export function ReleaseNotesModal({
               )}
             </div>
             {version && notes[0] ? (
-              <DialogDescription className="text-xs mt-1.5">
-                v{notes[0].version} · {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
+              <DialogDescription asChild>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="inline-flex items-center rounded-md border border-border/70 bg-muted/40 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-foreground/80 tracking-tight">
+                    v{notes[0].version}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    Released {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
+                  </span>
+                </div>
               </DialogDescription>
             ) : (
               <DialogDescription className="text-xs mt-1">
