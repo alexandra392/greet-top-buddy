@@ -59,7 +59,11 @@ const AnalysisManagement = () => {
     }));
     setMediaDraft({ type: "image", src: "", caption: "" });
   };
-  const handleMediaUpload = (file: File | null) => {
+  const handleMediaUpload = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    Array.from(files).forEach((file) => handleSingleMediaUpload(file));
+  };
+  const handleSingleMediaUpload = (file: File | null) => {
     if (!file) return;
     const isImage = file.type.startsWith("image/");
     const isVideo = file.type.startsWith("video/");
@@ -810,14 +814,15 @@ const AnalysisManagement = () => {
                     <label className="flex items-center justify-center gap-2 h-16 rounded-md border border-dashed border-border bg-background hover:bg-muted/40 cursor-pointer transition-colors">
                       <Upload className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-[11px] text-muted-foreground">
-                        <span className="text-foreground font-medium">Click to upload</span> image or video
+                        <span className="text-foreground font-medium">Click to upload</span> images or videos (multiple)
                       </span>
                       <input
                         type="file"
                         accept="image/*,video/*"
+                        multiple
                         className="hidden"
                         onChange={(e) => {
-                          handleMediaUpload(e.target.files?.[0] ?? null);
+                          handleMediaUpload(e.target.files);
                           e.currentTarget.value = "";
                         }}
                       />
