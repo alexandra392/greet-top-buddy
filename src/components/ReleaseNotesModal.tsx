@@ -53,10 +53,10 @@ function MediaBlock({ item, onExpand }: { item: MediaItem; onExpand: (src: strin
           onClick={() => onExpand(item.src)}
           className="block w-full hover:opacity-90 transition-opacity"
         >
-          <img src={item.src} alt={item.alt ?? ""} className="w-full h-auto object-cover" />
+          <img src={item.src} alt={item.alt ?? ""} className="w-full h-48 sm:h-56 object-cover" />
         </button>
         {item.caption && (
-          <figcaption className="px-2 py-1.5 text-[11px] text-muted-foreground">{item.caption}</figcaption>
+          <figcaption className="px-3 py-1.5 text-[11px] text-muted-foreground">{item.caption}</figcaption>
         )}
       </figure>
     );
@@ -144,19 +144,17 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
       </header>
       <div className="px-5 py-4">
         {note.title && <h3 className="text-sm font-semibold leading-snug mb-4">{note.title}</h3>}
-        <div className={cn("gap-5", hasMedia ? "grid grid-cols-1 sm:grid-cols-[1fr_280px]" : "")}>
-          <div className="space-y-4 divide-y divide-border/60 [&>*+*]:pt-4 min-w-0">
-            <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
-            <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
-            <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
+        {hasMedia && (
+          <div className="mb-5 grid gap-2 grid-cols-1">
+            {note.media!.map((m, i) => (
+              <MediaBlock key={i} item={m} onExpand={onExpand} />
+            ))}
           </div>
-          {hasMedia && (
-            <div className="space-y-2 sm:sticky sm:top-0 self-start">
-              {note.media!.map((m, i) => (
-                <MediaBlock key={i} item={m} onExpand={onExpand} />
-              ))}
-            </div>
-          )}
+        )}
+        <div className="grid gap-x-6 gap-y-4 sm:grid-cols-3">
+          <ChangeGroup icon={Sparkle} label="New Features" items={note.features ?? []} tone="primary" />
+          <ChangeGroup icon={Wrench} label="Improvements" items={note.improvements ?? []} tone="blue" />
+          <ChangeGroup icon={Bug} label="Bug Fixes" items={note.fixes ?? []} tone="amber" />
         </div>
       </div>
     </article>
@@ -179,7 +177,7 @@ export function ReleaseNotesModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-3xl p-0 overflow-hidden">
+        <DialogContent className="max-w-4xl p-0 overflow-hidden">
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
