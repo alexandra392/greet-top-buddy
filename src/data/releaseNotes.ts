@@ -17,7 +17,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
   {
     version: "1.4.0",
     date: "2026-06-03",
-    title: "What's New panel & polish",
+    title: "Track product updates from the new What's New panel",
     features: [
       "Added a What's New release notes panel in the header so you can track recent updates.",
       "Each release entry now supports inline images and embedded videos (YouTube, Loom, uploads).",
