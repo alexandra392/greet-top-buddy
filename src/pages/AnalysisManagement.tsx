@@ -819,9 +819,10 @@ const AnalysisManagement = () => {
                       <input
                         type="file"
                         accept="image/*,video/*"
+                        multiple
                         className="hidden"
                         onChange={(e) => {
-                          handleMediaUpload(e.target.files?.[0] ?? null);
+                          handleMediaUpload(e.target.files);
                           e.currentTarget.value = "";
                         }}
                       />
