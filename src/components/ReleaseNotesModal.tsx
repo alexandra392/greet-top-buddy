@@ -231,7 +231,7 @@ export function ReleaseNotesModal({
               </DialogDescription>
             )}
           </div>
-          <div className="max-h-[70vh] overflow-y-auto px-5 py-4 space-y-3 bg-background">
+          <div className="max-h-[70vh] overflow-y-auto px-5 py-5 space-y-5 bg-background">
             {notes.map((note) => (
               <ReleaseEntry
                 key={note.version}
