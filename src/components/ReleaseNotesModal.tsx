@@ -152,21 +152,8 @@ function ReleaseEntry({ note, isCurrent, onExpand }: { note: ReleaseNote; isCurr
         )}
       </div>
 
-      {/* Meta */}
-      <div className={cn("px-6 flex items-center gap-2", hero?.type === "image" ? "pt-12 pb-2" : "pt-5 pb-2")}>
-        <Badge
-          variant="outline"
-          className="rounded-full border-primary/30 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5"
-        >
-          {isCurrent ? "Latest" : "Update"}
-        </Badge>
-        <span className="text-xs text-muted-foreground">
-          {dateLabel} · v{note.version}
-        </span>
-      </div>
-
       {/* Body */}
-      <div className="px-6 pb-6 pt-2 space-y-5">
+      <div className="px-6 pb-6 pt-12 space-y-5">
         {note.title && (
           <h3 className="text-lg font-semibold leading-snug">{note.title}</h3>
         )}
@@ -208,15 +195,27 @@ export function ReleaseNotesModal({
           <div className="px-5 py-4 border-b border-border/60 bg-card/60">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-primary" />
-              <DialogTitle className="text-base">
-                {version ? `What's New · v${version}` : "What's New"}
-              </DialogTitle>
+              <DialogTitle className="text-base">What's New</DialogTitle>
             </div>
-            <DialogDescription className="text-xs mt-1">
-              {version
-                ? "Details for this release."
-                : "Recent updates, improvements, and fixes to the platform."}
-            </DialogDescription>
+            {version && notes[0] ? (
+              <div className="flex items-center gap-2 mt-1.5">
+                {notes[0].version === CURRENT_VERSION && (
+                  <Badge
+                    variant="outline"
+                    className="rounded-full border-primary/30 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5"
+                  >
+                    Latest
+                  </Badge>
+                )}
+                <DialogDescription className="text-xs m-0">
+                  {new Date(notes[0].date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })} · v{notes[0].version}
+                </DialogDescription>
+              </div>
+            ) : (
+              <DialogDescription className="text-xs mt-1">
+                Recent updates, improvements, and fixes to the platform.
+              </DialogDescription>
+            )}
           </div>
           <div className="max-h-[70vh] overflow-y-auto px-5 py-4 space-y-3 bg-background">
             {notes.map((note) => (
