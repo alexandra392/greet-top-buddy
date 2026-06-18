@@ -162,9 +162,12 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
                 <ArrowLeft className="w-4 h-4" />
               </button>
             )}
-            <DialogTitle className="text-sm font-semibold text-foreground leading-snug flex-1 pr-6">
-              {patent.title}
-            </DialogTitle>
+            <div className="flex-1 min-w-0 pr-6">
+              <div className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">Patent Profile</div>
+              <DialogTitle className="text-sm font-semibold text-foreground leading-snug">
+                {patent.title}
+              </DialogTitle>
+            </div>
           </div>
         </div>
 
