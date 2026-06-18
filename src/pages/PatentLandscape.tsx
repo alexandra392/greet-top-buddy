@@ -996,7 +996,7 @@ const PatentLandscape = () => {
                                 )}
                               </div>
                               <div className="grid grid-cols-2 gap-2">
-                                {group.sectors.slice(0, 6).map((sector) =>
+                                {group.sectors.slice(0, 4).map((sector) =>
                                   <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
