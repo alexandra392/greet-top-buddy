@@ -698,7 +698,7 @@ const PatentLandscape = () => {
   const [view, setView] = useState<PatentView>('production');
   const [generalSubView, setGeneralSubView] = useState<'production' | 'applications'>('production');
   const [expandedHeatRows, setExpandedHeatRows] = useState<Set<string>>(new Set());
-  const [expandedSectorGroups, setExpandedSectorGroups] = useState<Set<string>>(new Set());
+  const [sectorModalGroup, setSectorModalGroup] = useState<string | null>(null);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
@@ -986,24 +986,15 @@ const PatentLandscape = () => {
                                 {group.sectors.length > 6 && (
                                   <button
                                     type="button"
-                                    onClick={() => setExpandedSectorGroups(prev => {
-                                      const next = new Set(prev);
-                                      if (next.has(group.label)) next.delete(group.label);
-                                      else next.add(group.label);
-                                      return next;
-                                    })}
+                                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); setSectorModalGroup(group.label); }}
                                     className="flex items-center gap-1 text-[9px] font-semibold text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md border border-border/60 hover:border-border hover:bg-muted/30 bg-background/50"
                                   >
-                                    {expandedSectorGroups.has(group.label) ? (
-                                      <>Less <ChevronUp className="w-2.5 h-2.5" /></>
-                                    ) : (
-                                      <>All <ChevronDown className="w-2.5 h-2.5" /></>
-                                    )}
+                                    View All ({group.sectors.length}) <ChevronDown className="w-2.5 h-2.5" />
                                   </button>
                                 )}
                               </div>
                               <div className="grid grid-cols-2 gap-2">
-                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 6)).map((sector) =>
+                                {group.sectors.slice(0, 6).map((sector) =>
                                   <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
@@ -1250,6 +1241,47 @@ const PatentLandscape = () => {
           topic={decodedTopic}
           initialSub={selectedCategory?.initialSub}
         />
+
+        {/* View All sectors modal (Feedstock / Process) */}
+        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) setSectorModalGroup(null); }}>
+          <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto">
+            {(() => {
+              const group = activeConfig.productionSectorGroups?.find(g => g.label === sectorModalGroup);
+              if (!group) return null;
+              const dotColor = group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]';
+              return (
+                <>
+                  <DialogTitle className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                    <span className={`w-2.5 h-2.5 rounded-full ${dotColor}`}></span>
+                    All {group.label} ({group.sectors.length})
+                  </DialogTitle>
+                  <div className="grid grid-cols-3 gap-2 mt-3">
+                    {group.sectors.map((sector) => (
+                      <div key={sector.name} onClick={() => { setSectorModalGroup(null); setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs }); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
+                        <div className="flex items-start justify-between mb-0.5">
+                          <div>
+                            <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
+                            <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
+                          </div>
+                          <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
+                        </div>
+                        <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
+                        <div className="space-y-1">
+                          {sector.subs.map((s) => (
+                            <div key={s.n} className="flex justify-between text-[9px]">
+                              <span className="text-muted-foreground">{s.n}</span>
+                              <span className="font-medium text-foreground">{s.v}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              );
+            })()}
+          </DialogContent>
+        </Dialog>
 
         <PatentDetailModal
           open={!!selectedPatentDetail}
