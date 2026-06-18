@@ -703,7 +703,7 @@ const PatentLandscape = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [selectedTechInPopup, setSelectedTechInPopup] = useState<string | null>(null);
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]} | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]; initialSub?: string} | null>(null);
   const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
   const [selectedContinent, setSelectedContinent] = useState<{location: string; granted: number; filed: number} | null>(null);
 
