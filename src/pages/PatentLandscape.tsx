@@ -1304,30 +1304,34 @@ const PatentLandscape = () => {
                       {group.sectors.length} categories · {totalPatents.toLocaleString()} patents · Click any category to see its sub-items
                     </p>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 p-4">
-                    {pagedSectors.map((sector) => (
-                      <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
-                        <div className="flex items-start justify-between mb-0.5">
-                          <div>
-                            <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
-                            <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
-                          </div>
-                          <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
-                        </div>
-                        <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
-                        <div className="space-y-1">
-                          {sector.subs.slice(0, 2).map((s) => (
-                            <div key={s.n} className="flex justify-between text-[9px]">
-                              <span className="text-muted-foreground">{s.n}</span>
-                              <span className="font-medium text-foreground">{s.v}</span>
+                  <div className="p-4">
+                    <div className={`rounded-xl border ${group.label === 'Feedstock' ? 'border-[hsl(142,60%,40%)]/40 bg-[hsl(142,60%,40%)]/5' : 'border-[hsl(217,91%,60%)]/40 bg-[hsl(217,91%,60%)]/5'} p-3`}>
+                      <div className="grid grid-cols-3 gap-2">
+                        {pagedSectors.map((sector) => (
+                          <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
+                            <div className="flex items-start justify-between mb-0.5">
+                              <div>
+                                <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
+                                <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
+                              </div>
+                              <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
                             </div>
-                          ))}
-                          {sector.subs.length > 2 && (
-                            <div className="text-[9px] font-medium text-primary pt-0.5">+{sector.subs.length - 2} more</div>
-                          )}
-                        </div>
+                            <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
+                            <div className="space-y-1">
+                              {sector.subs.slice(0, 2).map((s) => (
+                                <div key={s.n} className="flex justify-between text-[9px]">
+                                  <span className="text-muted-foreground">{s.n}</span>
+                                  <span className="font-medium text-foreground">{s.v}</span>
+                                </div>
+                              ))}
+                              {sector.subs.length > 2 && (
+                                <div className="text-[9px] font-medium text-primary pt-0.5">+{sector.subs.length - 2} more</div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                   {totalSectorPages > 1 && (
                     <div className="px-4 py-2 border-t border-border flex-shrink-0">
