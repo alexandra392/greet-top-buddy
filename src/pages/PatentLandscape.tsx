@@ -985,7 +985,7 @@ const PatentLandscape = () => {
                                   <span className={`w-2 h-2 rounded-full ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]'}`}></span>
                                   {group.label}
                                 </h4>
-                                {group.sectors.length > 6 && (
+                                {group.sectors.length > 4 && (
                                   <button
                                     type="button"
                                     onClick={(e) => { e.stopPropagation(); e.preventDefault(); setSectorModalGroup(group.label); }}
