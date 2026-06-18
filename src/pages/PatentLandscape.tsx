@@ -1286,17 +1286,18 @@ const PatentLandscape = () => {
               const totalPatents = group.sectors.reduce((sum, s) => sum + s.patents, 0);
               return (
                 <>
-                  <div className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
-                    {decodedTopic} › Patent Landscape › {activeConfig.sectorTitle}
+                  <div className="px-1 pb-3 mb-3 border-b border-border">
+                    <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-1">
+                      {activeConfig.sectorTitle}
+                    </DialogTitle>
+                    <h4 className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <span className={`w-2 h-2 rounded-full ${dotColor}`}></span>
+                      All {group.label} Categories
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                      {group.sectors.length} categories · {totalPatents.toLocaleString()} patents · Click any category to see its sub-items
+                    </p>
                   </div>
-                  <DialogTitle className="flex items-center gap-2 text-base font-bold text-foreground">
-                    <span className={`w-2.5 h-2.5 rounded-full ${dotColor}`}></span>
-                    All {group.label} Categories
-                    <span className="text-[10px] font-semibold text-muted-foreground ml-1">({group.sectors.length} categories · {totalPatents.toLocaleString()} patents)</span>
-                  </DialogTitle>
-                  <p className="text-[11px] text-muted-foreground mt-1">
-                    Full breakdown of {group.label.toLowerCase()} categories ranked by patent share. Click any category to see its sub-items.
-                  </p>
                   <div className="grid grid-cols-3 gap-2 mt-4">
                     {group.sectors.map((sector) => (
                       <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
