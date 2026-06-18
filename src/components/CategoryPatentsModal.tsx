@@ -232,10 +232,11 @@ const CategoryPatentsModal = ({
               </table>
             </div>
           </>
-        )}
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+    </>
   );
+
 };
 
 export default CategoryPatentsModal;
