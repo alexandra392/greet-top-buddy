@@ -1327,16 +1327,24 @@ const PatentLandscape = () => {
                 </p>
                 <div className="mt-4 space-y-2">
                   {subItemsModal.subs.map((s) => (
-                    <div key={s.n} className="flex items-center justify-between text-[10px] group">
-                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">{s.n}</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-24 h-1.5 bg-muted rounded-full overflow-hidden">
-                          <div className="h-full rounded-full bg-primary/60" style={{ width: `${(s.v / subItemsModal.patents) * 100}%` }}></div>
-                        </div>
-                        <span className="font-semibold text-foreground w-6 text-right">{s.v}</span>
-                        <span className="text-muted-foreground w-10 text-right">{((s.v / subItemsModal.patents) * 100).toFixed(1)}%</span>
+                    <button
+                      key={s.n}
+                      type="button"
+                      onClick={() => {
+                        const target = subItemsModal;
+                        setSubItemsModal(null);
+                        setSubItemsParent(null);
+                        setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
+                      }}
+                      className="w-full flex items-center justify-between text-[11px] px-2 py-1.5 rounded-md hover:bg-muted/50 transition-colors group"
+                    >
+                      <span className="text-foreground group-hover:text-primary transition-colors">{s.n}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="font-semibold text-foreground">{s.v}</span>
+                        <span className="text-[10px] text-muted-foreground w-12 text-right">{((s.v / subItemsModal.patents) * 100).toFixed(1)}%</span>
+                        <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
                 <div className="mt-4 pt-3 border-t border-border/40 flex justify-end">
