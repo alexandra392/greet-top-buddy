@@ -1334,8 +1334,34 @@ const PatentLandscape = () => {
           <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
             {subItemsModal && (
               <>
-                <div className="px-4 pt-9 pb-3 border-b border-border flex-shrink-0">
-                  <div className="flex justify-end mb-2">
+                <div className="px-4 pt-4 pb-3 border-b border-border flex-shrink-0">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        {!!sectorModalGroup && (
+                          <button
+                            type="button"
+                            onClick={() => { setSubItemsModal(null); setSubItemsParent(null); }}
+                            aria-label={`Back to all ${sectorModalGroup.toLowerCase()} categories`}
+                            className="text-primary hover:text-primary/80 transition-colors flex-shrink-0"
+                          >
+                            <ArrowLeft className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                        <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary">
+                          {subItemsParent || activeConfig.sectorTitle}
+                        </DialogTitle>
+                      </div>
+
+                      <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
+                        {subItemsModal.name}
+                        <span className={`text-[11px] font-semibold ${subItemsModal.shareColor}`}>{subItemsModal.share}</span>
+                      </h4>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        {subItemsModal.patents.toLocaleString()} patents · {subItemsModal.subs.length} sub-categories · <span className={`font-medium ${subItemsModal.cagrColor}`}>{subItemsModal.cagr} YoY</span>
+                      </p>
+                    </div>
                     <button
                       type="button"
                       onClick={() => {
@@ -1344,35 +1370,11 @@ const PatentLandscape = () => {
                         setSubItemsParent(null);
                         setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
                       }}
-                      className="text-[10px] font-semibold text-primary hover:underline"
+                      className="text-[10px] font-semibold text-primary hover:underline whitespace-nowrap mt-0.5"
                     >
                       View full patent profile →
                     </button>
                   </div>
-                  <div className="flex items-center gap-2 mb-0.5">
-                    {!!sectorModalGroup && (
-                      <button
-                        type="button"
-                        onClick={() => { setSubItemsModal(null); setSubItemsParent(null); }}
-                        aria-label={`Back to all ${sectorModalGroup.toLowerCase()} categories`}
-                        className="text-primary hover:text-primary/80 transition-colors flex-shrink-0"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                    <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary">
-                      {subItemsParent || activeConfig.sectorTitle}
-                    </DialogTitle>
-                  </div>
-
-                  <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
-                    {subItemsModal.name}
-                    <span className={`text-[11px] font-semibold ${subItemsModal.shareColor}`}>{subItemsModal.share}</span>
-                  </h4>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">
-                    {subItemsModal.patents.toLocaleString()} patents · {subItemsModal.subs.length} sub-categories · <span className={`font-medium ${subItemsModal.cagrColor}`}>{subItemsModal.cagr} YoY</span>
-                  </p>
                 </div>
 
                 <div className="overflow-y-auto flex-1">
