@@ -1026,33 +1026,46 @@ const PatentLandscape = () => {
                         </div>
                       ) : (
                         /* Default: flat rows for other tabs */
-                        activeConfig.sectors.map((row, rowIdx) =>
-                          <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
-                            {row.map((sector) =>
-                              <div key={sector.name} onClick={() => { setSubItemsParent(activeConfig.sectorTitle); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
-                                <div className="flex items-start justify-between mb-0.5">
-                                  <div>
-                                    <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
-                                    <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
+                        <>
+                          {activeConfig.sectors.slice(0, expandFlatRows ? activeConfig.sectors.length : 2).map((row, rowIdx) =>
+                            <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
+                              {row.map((sector) =>
+                                <div key={sector.name} onClick={() => { setSubItemsParent(activeConfig.sectorTitle); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
+                                  <div className="flex items-start justify-between mb-0.5">
+                                    <div>
+                                      <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
+                                      <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
+                                    </div>
+                                    <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
                                   </div>
-                                  <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
+                                  <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
+                                   <div className="space-y-1">
+                                     {sector.subs.slice(0, 2).map((s) =>
+                                       <div key={s.n} className="flex justify-between text-[9px]">
+                                         <span className="text-muted-foreground">{s.n}</span>
+                                         <span className="font-medium text-foreground">{s.v}</span>
+                                       </div>
+                                     )}
+                                     {sector.subs.length > 2 && (
+                                       <div className="text-[9px] font-semibold text-primary pt-0.5">+{sector.subs.length - 2} more</div>
+                                     )}
+                                   </div>
                                 </div>
-                                <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
-                                 <div className="space-y-1">
-                                   {sector.subs.slice(0, 2).map((s) =>
-                                     <div key={s.n} className="flex justify-between text-[9px]">
-                                       <span className="text-muted-foreground">{s.n}</span>
-                                       <span className="font-medium text-foreground">{s.v}</span>
-                                     </div>
-                                   )}
-                                   {sector.subs.length > 2 && (
-                                     <div className="text-[9px] font-semibold text-primary pt-0.5">+{sector.subs.length - 2} more</div>
-                                   )}
-                                 </div>
-                              </div>
-                            )}
-                          </div>
-                        )
+                              )}
+                            </div>
+                          )}
+                          {activeConfig.sectors.length > 2 && (
+                            <div className="flex justify-end mt-2">
+                              <button
+                                type="button"
+                                onClick={() => setExpandFlatRows(!expandFlatRows)}
+                                className="flex items-center gap-1 text-[9px] font-semibold text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md border border-border/60 hover:border-border hover:bg-muted/30 bg-background/50"
+                              >
+                                {expandFlatRows ? 'Show Less' : `View All (${activeConfig.sectors.length * 3} categories)`} <ChevronDown className={`w-2.5 h-2.5 transition-transform ${expandFlatRows ? 'rotate-180' : ''}`} />
+                              </button>
+                            </div>
+                          )}
+                        </>
                       )}
                       </div>
                     </div>
