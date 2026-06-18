@@ -1251,19 +1251,27 @@ const PatentLandscape = () => {
         />
 
         {/* View All sectors modal (Feedstock / Process) */}
-        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) { setSectorModalGroup(null); setSubItemsModal(null); } }}>
+        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) { setSectorModalGroup(null); setSubItemsModal(null); setSubItemsParent(null); } }}>
           <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto">
             {(() => {
               const group = activeConfig.productionSectorGroups?.find(g => g.label === sectorModalGroup);
               if (!group) return null;
               const dotColor = group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]';
+              const totalPatents = group.sectors.reduce((sum, s) => sum + s.patents, 0);
               return (
                 <>
-                  <DialogTitle className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                    <span className={`w-2 h-2 rounded-full ${dotColor}`}></span>
-                    All {group.label} ({group.sectors.length})
+                  <div className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
+                    {decodedTopic} › Patent Landscape › {activeConfig.sectorTitle}
+                  </div>
+                  <DialogTitle className="flex items-center gap-2 text-base font-bold text-foreground">
+                    <span className={`w-2.5 h-2.5 rounded-full ${dotColor}`}></span>
+                    All {group.label} Categories
+                    <span className="text-[10px] font-semibold text-muted-foreground ml-1">({group.sectors.length} categories · {totalPatents.toLocaleString()} patents)</span>
                   </DialogTitle>
-                  <div className="grid grid-cols-3 gap-2 mt-3">
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    Full breakdown of {group.label.toLowerCase()} categories ranked by patent share. Click any category to see its sub-items.
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     {group.sectors.map((sector) => (
                       <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                         <div className="flex items-start justify-between mb-0.5">
