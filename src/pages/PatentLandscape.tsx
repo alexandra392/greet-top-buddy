@@ -1244,7 +1244,7 @@ const PatentLandscape = () => {
         />
 
         {/* View All sectors modal (Feedstock / Process) */}
-        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) setSectorModalGroup(null); }}>
+        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) { setSectorModalGroup(null); setExpandedModalSector(null); } }}>
           <DialogContent className={`max-w-5xl max-h-[85vh] overflow-y-auto ${sectorModalGroup === 'Feedstock' ? 'bg-[hsl(142,60%,40%,0.04)]' : sectorModalGroup === 'Process' || sectorModalGroup === 'Technology' ? 'bg-[hsl(217,91%,60%,0.04)]' : ''}`}>
             {(() => {
               const group = activeConfig.productionSectorGroups?.find(g => g.label === sectorModalGroup);
