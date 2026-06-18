@@ -26,6 +26,7 @@ interface Subcategory {
 interface CategoryPatentsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onBack?: () => void;
   categoryName: string;
   totalPatents: number;
   share: string;
