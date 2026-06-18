@@ -136,17 +136,20 @@ const CategoryPatentsModal = ({
         {selectedPatent ? (
           <>
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
-              <button
-                onClick={() => setSelectedPatent(null)}
-                className="flex items-center gap-1 text-[10px] text-primary hover:text-primary/80 transition-colors mb-2"
-              >
-                <ArrowLeft className="w-3 h-3" />
-                Back to {categoryName} patent profile
-              </button>
-              <DialogTitle className="text-sm font-semibold text-foreground leading-snug">
-                {selectedPatent.title}
-              </DialogTitle>
+              <div className="flex items-start gap-2">
+                <button
+                  onClick={() => setSelectedPatent(null)}
+                  aria-label={`Back to ${categoryName} patent profile`}
+                  className="mt-0.5 text-primary hover:text-primary/80 transition-colors flex-shrink-0"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+                <DialogTitle className="text-sm font-semibold text-foreground leading-snug">
+                  {selectedPatent.title}
+                </DialogTitle>
+              </div>
             </div>
+
             <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3">
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
