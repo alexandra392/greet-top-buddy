@@ -986,24 +986,15 @@ const PatentLandscape = () => {
                                 {group.sectors.length > 6 && (
                                   <button
                                     type="button"
-                                    onClick={() => setExpandedSectorGroups(prev => {
-                                      const next = new Set(prev);
-                                      if (next.has(group.label)) next.delete(group.label);
-                                      else next.add(group.label);
-                                      return next;
-                                    })}
+                                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); setSectorModalGroup(group.label); }}
                                     className="flex items-center gap-1 text-[9px] font-semibold text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md border border-border/60 hover:border-border hover:bg-muted/30 bg-background/50"
                                   >
-                                    {expandedSectorGroups.has(group.label) ? (
-                                      <>Less <ChevronUp className="w-2.5 h-2.5" /></>
-                                    ) : (
-                                      <>All <ChevronDown className="w-2.5 h-2.5" /></>
-                                    )}
+                                    View All ({group.sectors.length}) <ChevronDown className="w-2.5 h-2.5" />
                                   </button>
                                 )}
                               </div>
                               <div className="grid grid-cols-2 gap-2">
-                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 6)).map((sector) =>
+                                {group.sectors.slice(0, 6).map((sector) =>
                                   <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
