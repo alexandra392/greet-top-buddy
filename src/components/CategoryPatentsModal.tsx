@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, X, ArrowLeft, ArrowUpDown } from "lucide-react";
+import { Search, X, ArrowLeft, ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
 import PatentDetailModal from "@/components/PatentDetailModal";
 
 
@@ -103,6 +103,8 @@ const CategoryPatentsModal = ({
   const [selectedSub, setSelectedSub] = useState<string>(initialSub || 'all');
   const [selectedPatent, setSelectedPatent] = useState<Patent | null>(null);
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [page, setPage] = useState(1);
+  const pageSize = 8;
 
   const allPatents = useMemo(() => {
     return generateCategoryPatents(categoryName, subcategories, totalPatents, topic);
@@ -123,6 +125,15 @@ const CategoryPatentsModal = ({
     if (filingSort) filtered = [...filtered].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
     return filtered;
   }, [allPatents, selectedSub, searchTerm, filingSort]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPatents.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const pagedPatents = useMemo(
+    () => filteredPatents.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+    [filteredPatents, currentPage]
+  );
+
+  React.useEffect(() => { setPage(1); }, [searchTerm, selectedSub, filingSort]);
 
   const handleClose = () => {
     setSelectedPatent(null);
@@ -197,7 +208,7 @@ const CategoryPatentsModal = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredPatents.map((patent, index) => (
+                  {pagedPatents.map((patent, index) => (
                     <tr
                       key={index}
                       className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
@@ -230,6 +241,35 @@ const CategoryPatentsModal = ({
                 </tbody>
               </table>
             </div>
+
+            {filteredPatents.length > 0 && (
+              <div className="px-4 py-2 border-t border-border flex-shrink-0 flex items-center justify-between">
+                <span className="text-[10px] text-muted-foreground">
+                  Showing {(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredPatents.length)} of {filteredPatents.length}
+                </span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="h-3 w-3" />
+                  </button>
+                  <span className="text-[10px] text-muted-foreground px-1">{currentPage} / {totalPages}</span>
+                  <button
+                    type="button"
+                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+                    aria-label="Next page"
+                  >
+                    <ChevronRight className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+            )}
 
         </DialogContent>
       </Dialog>

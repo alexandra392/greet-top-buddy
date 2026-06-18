@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft, ArrowRight, ArrowUpDown, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, ChevronUp, Search, X, Beaker, ExternalLink, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpDown, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Search, X, Beaker, ExternalLink, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
@@ -702,6 +702,9 @@ const PatentLandscape = () => {
   const [expandFlatRows, setExpandFlatRows] = useState(false);
   const [subItemsModal, setSubItemsModal] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]; borderColor: string; shareColor: string; cagrColor: string} | null>(null);
   const [subItemsParent, setSubItemsParent] = useState<string | null>(null);
+  const [subItemsPage, setSubItemsPage] = useState(1);
+  const subItemsPageSize = 8;
+  React.useEffect(() => { setSubItemsPage(1); }, [subItemsModal?.name]);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
@@ -1367,47 +1370,85 @@ const PatentLandscape = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {subItemsModal.subs.map((s) => (
-                        <tr
-                          key={s.n}
-                          onClick={() => {
-                            const target = subItemsModal;
-                            setPreviousSubItems({ modal: target, parent: subItemsParent });
-                            setSubItemsModal(null);
-                            setSubItemsParent(null);
-                            setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
-                          }}
-                          className="border-b border-border/40 hover:bg-muted/40 cursor-pointer transition-colors group"
-                        >
-                          <td className="py-1.5 px-4 text-[11px] font-semibold text-foreground group-hover:text-primary transition-colors">{s.n}</td>
-                          <td className="py-1.5 text-right text-[11px] font-semibold text-foreground">{s.v}</td>
-                          <td className="py-1.5 px-4 text-right text-[11px] text-muted-foreground">
-                            <span className="inline-flex items-center gap-1">
-                              {((s.v / subItemsModal.patents) * 100).toFixed(1)}%
-                              <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
+                      {(() => {
+                        const totalSubPages = Math.max(1, Math.ceil(subItemsModal.subs.length / subItemsPageSize));
+                        const currentSubPage = Math.min(subItemsPage, totalSubPages);
+                        const pagedSubs = subItemsModal.subs.slice((currentSubPage - 1) * subItemsPageSize, currentSubPage * subItemsPageSize);
+                        return pagedSubs.map((s) => (
+                          <tr
+                            key={s.n}
+                            onClick={() => {
+                              const target = subItemsModal;
+                              setPreviousSubItems({ modal: target, parent: subItemsParent });
+                              setSubItemsModal(null);
+                              setSubItemsParent(null);
+                              setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
+                            }}
+                            className="border-b border-border/40 hover:bg-muted/40 cursor-pointer transition-colors group"
+                          >
+                            <td className="py-1.5 px-4 text-[11px] font-semibold text-foreground group-hover:text-primary transition-colors">{s.n}</td>
+                            <td className="py-1.5 text-right text-[11px] font-semibold text-foreground">{s.v}</td>
+                            <td className="py-1.5 px-4 text-right text-[11px] text-muted-foreground">
+                              <span className="inline-flex items-center gap-1">
+                                {((s.v / subItemsModal.patents) * 100).toFixed(1)}%
+                                <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                              </span>
+                            </td>
+                          </tr>
+                        ));
+                      })()}
                     </tbody>
                   </table>
                 </div>
 
-
-                <div className="px-4 py-2.5 border-t border-border flex-shrink-0 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
-                      setSubItemsModal(null);
-                      setSubItemsParent(null);
-                      setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
-                    }}
-                    className="text-[10px] font-semibold text-primary hover:underline"
-                  >
-                    View full patent profile →
-                  </button>
-                </div>
+                {(() => {
+                  const totalSubPages = Math.max(1, Math.ceil(subItemsModal.subs.length / subItemsPageSize));
+                  const currentSubPage = Math.min(subItemsPage, totalSubPages);
+                  return (
+                    <div className="px-4 py-2 border-t border-border flex-shrink-0 flex items-center justify-between gap-2">
+                      {totalSubPages > 1 ? (
+                        <>
+                          <span className="text-[10px] text-muted-foreground">
+                            Showing {(currentSubPage - 1) * subItemsPageSize + 1}–{Math.min(currentSubPage * subItemsPageSize, subItemsModal.subs.length)} of {subItemsModal.subs.length}
+                          </span>
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              onClick={() => setSubItemsPage(p => Math.max(1, p - 1))}
+                              disabled={currentSubPage === 1}
+                              className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+                              aria-label="Previous page"
+                            >
+                              <ChevronLeft className="h-3 w-3" />
+                            </button>
+                            <span className="text-[10px] text-muted-foreground px-1">{currentSubPage} / {totalSubPages}</span>
+                            <button
+                              type="button"
+                              onClick={() => setSubItemsPage(p => Math.min(totalSubPages, p + 1))}
+                              disabled={currentSubPage === totalSubPages}
+                              className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+                              aria-label="Next page"
+                            >
+                              <ChevronRight className="h-3 w-3" />
+                            </button>
+                          </div>
+                        </>
+                      ) : <span />}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
+                          setSubItemsModal(null);
+                          setSubItemsParent(null);
+                          setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
+                        }}
+                        className="text-[10px] font-semibold text-primary hover:underline"
+                      >
+                        View full patent profile →
+                      </button>
+                    </div>
+                  );
+                })()}
               </>
             )}
           </DialogContent>
