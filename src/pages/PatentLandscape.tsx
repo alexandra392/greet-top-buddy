@@ -1304,50 +1304,59 @@ const PatentLandscape = () => {
 
         {/* Sub-items popup */}
         <Dialog open={!!subItemsModal} onOpenChange={(open) => { if (!open) { setSubItemsModal(null); setSubItemsParent(null); } }}>
-          <DialogContent className="max-w-lg">
+          <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
             {subItemsModal && (
               <>
-                <div className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
-                  {decodedTopic} › Patent Landscape › {subItemsParent || activeConfig.sectorTitle} › {subItemsModal.name}
+                <div className="px-4 py-3 border-b border-border flex-shrink-0">
+                  <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
+                    {subItemsParent || activeConfig.sectorTitle}
+                  </DialogTitle>
+                  <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
+                    {subItemsModal.name}
+                    <span className={`text-[11px] font-semibold ${subItemsModal.shareColor}`}>{subItemsModal.share}</span>
+                  </h4>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    {subItemsModal.patents.toLocaleString()} patents · {subItemsModal.subs.length} sub-categories · <span className={`font-medium ${subItemsModal.cagrColor}`}>{subItemsModal.cagr} YoY</span>
+                  </p>
                 </div>
-                <DialogTitle className="flex items-center gap-2 text-base font-bold text-foreground">
-                  <span className={`w-2.5 h-2.5 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
-                  {subItemsModal.name}
-                  <span className={`text-sm font-bold ${subItemsModal.shareColor}`}>{subItemsModal.share}</span>
-                </DialogTitle>
-                <div className="flex items-center gap-3 mt-1 text-[10px] text-muted-foreground">
-                  <span><span className="font-semibold text-foreground">{subItemsModal.patents.toLocaleString()}</span> patents</span>
-                  <span className="text-border">•</span>
-                  <span><span className={`font-semibold ${subItemsModal.cagrColor}`}>{subItemsModal.cagr}</span> YoY growth</span>
-                  <span className="text-border">•</span>
-                  <span>{subItemsModal.subs.length} sub-categories</span>
+
+                <div className="overflow-y-auto flex-1">
+                  <table className="w-full text-xs">
+                    <thead className="sticky top-0 bg-card z-10">
+                      <tr className="border-b border-border">
+                        <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Sub-category</th>
+                        <th className="text-right py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Patents</th>
+                        <th className="text-right py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Share</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {subItemsModal.subs.map((s) => (
+                        <tr
+                          key={s.n}
+                          onClick={() => {
+                            const target = subItemsModal;
+                            setSubItemsModal(null);
+                            setSubItemsParent(null);
+                            setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
+                          }}
+                          className="border-b border-border/40 hover:bg-muted/40 cursor-pointer transition-colors group"
+                        >
+                          <td className="py-2 px-4 text-[11px] text-foreground group-hover:text-primary transition-colors">{s.n}</td>
+                          <td className="py-2 text-right text-[11px] font-semibold text-foreground">{s.v}</td>
+                          <td className="py-2 px-4 text-right text-[10px] text-muted-foreground">
+                            <span className="inline-flex items-center gap-1">
+                              {((s.v / subItemsModal.patents) * 100).toFixed(1)}%
+                              <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-                  Patent share by sub-category within <span className="font-semibold text-foreground">{subItemsModal.name}</span>. Bars are normalised to the category total ({subItemsModal.patents.toLocaleString()} patents).
-                </p>
-                <div className="mt-4 space-y-2">
-                  {subItemsModal.subs.map((s) => (
-                    <button
-                      key={s.n}
-                      type="button"
-                      onClick={() => {
-                        const target = subItemsModal;
-                        setSubItemsModal(null);
-                        setSubItemsParent(null);
-                        setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
-                      }}
-                      className="w-full flex items-center justify-between text-[11px] px-2 py-1.5 rounded-md hover:bg-muted/50 transition-colors group"
-                    >
-                      <span className="text-foreground group-hover:text-primary transition-colors">{s.n}</span>
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-foreground">{s.v}</span>
-                        <span className="text-[10px] text-muted-foreground w-12 text-right">{((s.v / subItemsModal.patents) * 100).toFixed(1)}%</span>
-                        <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-4 pt-3 border-t border-border/40 flex justify-end">
+
+                <div className="px-4 py-2.5 border-t border-border flex-shrink-0 flex justify-end">
                   <button
                     type="button"
                     onClick={() => { setSubItemsModal(null); setSubItemsParent(null); setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs }); }}
