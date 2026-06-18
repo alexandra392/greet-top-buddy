@@ -208,7 +208,7 @@ const CategoryPatentsModal = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredPatents.map((patent, index) => (
+                  {pagedPatents.map((patent, index) => (
                     <tr
                       key={index}
                       className="border-b border-border/30 hover:bg-muted/30 transition-colors cursor-pointer"
@@ -241,6 +241,35 @@ const CategoryPatentsModal = ({
                 </tbody>
               </table>
             </div>
+
+            {filteredPatents.length > 0 && (
+              <div className="px-4 py-2 border-t border-border flex-shrink-0 flex items-center justify-between">
+                <span className="text-[10px] text-muted-foreground">
+                  Showing {(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredPatents.length)} of {filteredPatents.length}
+                </span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="h-3 w-3" />
+                  </button>
+                  <span className="text-[10px] text-muted-foreground px-1">{currentPage} / {totalPages}</span>
+                  <button
+                    type="button"
+                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+                    aria-label="Next page"
+                  >
+                    <ChevronRight className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+            )}
 
         </DialogContent>
       </Dialog>
