@@ -1240,7 +1240,7 @@ const PatentLandscape = () => {
           subcategories={selectedCategory?.subs || []}
           topic={decodedTopic}
           initialSub={selectedCategory?.initialSub}
-        </CategoryPatentsModal>
+        />
 
         {/* View All sectors modal (Feedstock / Process) */}
         <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) setSectorModalGroup(null); }}>
