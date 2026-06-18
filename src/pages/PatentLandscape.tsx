@@ -1359,6 +1359,7 @@ const PatentLandscape = () => {
                           key={s.n}
                           onClick={() => {
                             const target = subItemsModal;
+                            setPreviousSubItems({ modal: target, parent: subItemsParent });
                             setSubItemsModal(null);
                             setSubItemsParent(null);
                             setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
@@ -1382,7 +1383,12 @@ const PatentLandscape = () => {
                 <div className="px-4 py-2.5 border-t border-border flex-shrink-0 flex justify-end">
                   <button
                     type="button"
-                    onClick={() => { setSubItemsModal(null); setSubItemsParent(null); setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs }); }}
+                    onClick={() => {
+                      if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
+                      setSubItemsModal(null);
+                      setSubItemsParent(null);
+                      setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
+                    }}
                     className="text-[10px] font-semibold text-primary hover:underline"
                   >
                     View full patent profile →
