@@ -375,6 +375,8 @@ const viewConfigs: Record<PatentView, {
           { name: 'Purification', patents: 34, share: '13.8%', cagr: '+14.3%', borderColor: 'border-l-[hsl(36,95%,54%)]', cagrColor: 'text-[hsl(36,95%,54%)]', shareColor: 'text-[hsl(36,95%,54%)]', subs: [{ n: 'Crystallisation', v: 13 }, { n: 'Chromatography', v: 11 }, { n: 'Ion Exchange', v: 10 }] },
           { name: 'Enzymatic Hydrolysis', patents: 28, share: '11.4%', cagr: '+22.4%', borderColor: 'border-l-[hsl(262,83%,58%)]', cagrColor: 'text-[hsl(262,83%,58%)]', shareColor: 'text-[hsl(262,83%,58%)]', subs: [{ n: 'Cellulase Systems', v: 11 }, { n: 'Hemicellulase', v: 9 }, { n: 'Enzyme Cocktails', v: 7 }] },
           { name: 'Thermochemical', patents: 22, share: '8.9%', cagr: '+12.8%', borderColor: 'border-l-[hsl(340,50%,55%)]', cagrColor: 'text-[hsl(340,50%,55%)]', shareColor: 'text-[hsl(340,50%,55%)]', subs: [{ n: 'Pyrolysis', v: 9 }, { n: 'Gasification', v: 7 }, { n: 'Hydrothermal', v: 6 }] },
+          { name: 'Electrochemical', patents: 18, share: '7.3%', cagr: '+19.4%', borderColor: 'border-l-[hsl(280,60%,55%)]', cagrColor: 'text-[hsl(280,60%,55%)]', shareColor: 'text-[hsl(280,60%,55%)]', subs: [{ n: 'Electrolysis', v: 8 }, { n: 'Electrodialysis', v: 6 }, { n: 'Redox Systems', v: 4 }] },
+          { name: 'Hybrid Bioprocessing', patents: 14, share: '5.7%', cagr: '+24.8%', borderColor: 'border-l-[hsl(50,90%,45%)]', cagrColor: 'text-[hsl(50,90%,45%)]', shareColor: 'text-[hsl(50,90%,45%)]', subs: [{ n: 'Photo-fermentation', v: 6 }, { n: 'Chemo-enzymatic', v: 5 }, { n: 'Cell-free Systems', v: 3 }] },
         ]
       }
     ],
