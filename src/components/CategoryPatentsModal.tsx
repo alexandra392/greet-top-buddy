@@ -229,7 +229,7 @@ const CategoryPatentsModal = ({
                 </tbody>
               </table>
             </div>
-          </>
+
         </DialogContent>
       </Dialog>
     </>
