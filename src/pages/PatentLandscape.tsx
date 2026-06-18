@@ -529,14 +529,14 @@ const viewConfigs: Record<PatentView, {
     bubbleSubtitle: "Patent volume × HHI · Bubble size = growth rate",
     sectors: [
     [
-    { name: 'Packaging', patents: 73, share: '29.7%', cagr: '+22.1%', borderColor: 'border-l-[hsl(217,91%,60%)]', cagrColor: 'text-[hsl(217,91%,60%)]', shareColor: 'text-[hsl(217,91%,60%)]', subs: [{ n: 'Food Containers', v: 26 }, { n: 'Film & Wrap', v: 19 }, { n: 'Rigid Packaging', v: 15 }] },
-    { name: 'Biomedical', patents: 50, share: '20.3%', cagr: '+15.8%', borderColor: 'border-l-[hsl(262,83%,58%)]', cagrColor: 'text-[hsl(262,83%,58%)]', shareColor: 'text-[hsl(262,83%,58%)]', subs: [{ n: 'Drug Delivery', v: 17 }, { n: 'Tissue Engineering', v: 14 }, { n: 'Surgical Sutures', v: 11 }] },
-    { name: 'Textiles', patents: 35, share: '14.2%', cagr: '+24.6%', borderColor: 'border-l-[hsl(152,60%,40%)]', cagrColor: 'text-[hsl(152,60%,40%)]', shareColor: 'text-[hsl(152,60%,40%)]', subs: [{ n: 'Nonwoven Fabrics', v: 14 }, { n: 'Fiber Blends', v: 11 }, { n: 'Technical Textiles', v: 10 }] }],
+    { name: 'Packaging', patents: 73, share: '29.7%', cagr: '+22.1%', borderColor: 'border-l-[hsl(217,91%,60%)]', cagrColor: 'text-[hsl(217,91%,60%)]', shareColor: 'text-[hsl(217,91%,60%)]', subs: [{ n: 'Food Containers', v: 18 }, { n: 'Film & Wrap', v: 14 }, { n: 'Rigid Packaging', v: 11 }, { n: 'Flexible Pouches', v: 8 }, { n: 'Bottles', v: 8 }, { n: 'Trays', v: 8 }, { n: 'Labels', v: 6 }] },
+    { name: 'Biomedical', patents: 50, share: '20.3%', cagr: '+15.8%', borderColor: 'border-l-[hsl(262,83%,58%)]', cagrColor: 'text-[hsl(262,83%,58%)]', shareColor: 'text-[hsl(262,83%,58%)]', subs: [{ n: 'Drug Delivery', v: 12 }, { n: 'Tissue Engineering', v: 10 }, { n: 'Surgical Sutures', v: 8 }, { n: 'Wound Dressings', v: 6 }, { n: 'Implants', v: 6 }, { n: 'Scaffolds', v: 4 }, { n: 'Stents', v: 4 }] },
+    { name: 'Textiles', patents: 35, share: '14.2%', cagr: '+24.6%', borderColor: 'border-l-[hsl(152,60%,40%)]', cagrColor: 'text-[hsl(152,60%,40%)]', shareColor: 'text-[hsl(152,60%,40%)]', subs: [{ n: 'Nonwoven Fabrics', v: 9 }, { n: 'Fiber Blends', v: 7 }, { n: 'Technical Textiles', v: 6 }, { n: 'Apparel Fibers', v: 5 }, { n: 'Geotextiles', v: 3 }, { n: 'Medical Textiles', v: 3 }, { n: 'Carpet Fibers', v: 2 }] }],
 
     [
-    { name: '3D Printing', patents: 25, share: '10.2%', cagr: '+31.2%', borderColor: 'border-l-[hsl(36,95%,54%)]', cagrColor: 'text-[hsl(36,95%,54%)]', shareColor: 'text-[hsl(36,95%,54%)]', subs: [{ n: 'FDM Filaments', v: 12 }, { n: 'SLA Resins', v: 7 }, { n: 'Composites', v: 5 }] },
-    { name: 'Agriculture', patents: 19, share: '7.7%', cagr: '+12.3%', borderColor: 'border-l-[hsl(340,50%,55%)]', cagrColor: 'text-[hsl(340,50%,55%)]', shareColor: 'text-[hsl(340,50%,55%)]', subs: [{ n: 'Mulch Films', v: 9 }, { n: 'Controlled Release', v: 6 }, { n: 'Seed Coatings', v: 4 }] },
-    { name: 'Electronics', patents: 16, share: '6.5%', cagr: '+19.7%', borderColor: 'border-l-[hsl(160,50%,45%)]', cagrColor: 'text-[hsl(160,50%,45%)]', shareColor: 'text-[hsl(160,50%,45%)]', subs: [{ n: 'Flexible Substrates', v: 6 }, { n: 'Encapsulation', v: 5 }, { n: 'Disposable Sensors', v: 4 }] }]],
+    { name: '3D Printing', patents: 25, share: '10.2%', cagr: '+31.2%', borderColor: 'border-l-[hsl(36,95%,54%)]', cagrColor: 'text-[hsl(36,95%,54%)]', shareColor: 'text-[hsl(36,95%,54%)]', subs: [{ n: 'FDM Filaments', v: 8 }, { n: 'SLA Resins', v: 5 }, { n: 'Composites', v: 4 }, { n: 'Bioprinting', v: 3 }, { n: 'Powder Bed', v: 2 }, { n: 'Pellet Extrusion', v: 2 }, { n: 'Support Materials', v: 1 }] },
+    { name: 'Agriculture', patents: 19, share: '7.7%', cagr: '+12.3%', borderColor: 'border-l-[hsl(340,50%,55%)]', cagrColor: 'text-[hsl(340,50%,55%)]', shareColor: 'text-[hsl(340,50%,55%)]', subs: [{ n: 'Mulch Films', v: 6 }, { n: 'Controlled Release', v: 4 }, { n: 'Seed Coatings', v: 3 }, { n: 'Plant Pots', v: 2 }, { n: 'Crop Protection', v: 2 }, { n: 'Irrigation Tubes', v: 1 }, { n: 'Greenhouse Films', v: 1 }] },
+    { name: 'Electronics', patents: 16, share: '6.5%', cagr: '+19.7%', borderColor: 'border-l-[hsl(160,50%,45%)]', cagrColor: 'text-[hsl(160,50%,45%)]', shareColor: 'text-[hsl(160,50%,45%)]', subs: [{ n: 'Flexible Substrates', v: 4 }, { n: 'Encapsulation', v: 3 }, { n: 'Disposable Sensors', v: 3 }, { n: 'OLED Components', v: 2 }, { n: 'PCB Materials', v: 2 }, { n: 'Conductive Films', v: 1 }, { n: 'Battery Separators', v: 1 }] }]],
 
 
     heatMatrixRows: [
@@ -1024,7 +1024,7 @@ const PatentLandscape = () => {
                         activeConfig.sectors.map((row, rowIdx) =>
                           <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
                             {row.map((sector) =>
-                              <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
+                              <div key={sector.name} onClick={() => setSubItemsModal(sector)} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
                                 <div className="flex items-start justify-between mb-0.5">
                                   <div>
                                     <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -1034,11 +1034,14 @@ const PatentLandscape = () => {
                                 </div>
                                 <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
                                 <div className="space-y-1">
-                                  {sector.subs.map((s) =>
-                                    <div key={s.n} className="flex justify-between text-[9px] cursor-pointer group" onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs, initialSub: s.n }); }}>
-                                      <span className="text-muted-foreground group-hover:text-primary transition-colors">{s.n}</span>
-                                      <span className="font-medium text-foreground group-hover:text-primary transition-colors">{s.v}</span>
+                                  {sector.subs.slice(0, 3).map((s) =>
+                                    <div key={s.n} className="flex justify-between text-[9px]">
+                                      <span className="text-muted-foreground">{s.n}</span>
+                                      <span className="font-medium text-foreground">{s.v}</span>
                                     </div>
+                                  )}
+                                  {sector.subs.length > 3 && (
+                                    <div className="text-[9px] font-semibold text-primary pt-0.5">+{sector.subs.length - 3} more</div>
                                   )}
                                 </div>
                               </div>
