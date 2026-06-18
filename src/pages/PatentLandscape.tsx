@@ -1018,9 +1018,9 @@ const PatentLandscape = () => {
                                 <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
                                 <div className="space-y-1">
                                   {sector.subs.map((s) =>
-                                    <div key={s.n} className="flex justify-between text-[9px]">
-                                      <span className="text-muted-foreground">{s.n}</span>
-                                      <span className="font-medium text-foreground">{s.v}</span>
+                                    <div key={s.n} className="flex justify-between text-[9px] cursor-pointer group" onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs, initialSub: s.n }); }}>
+                                      <span className="text-muted-foreground group-hover:text-primary transition-colors">{s.n}</span>
+                                      <span className="font-medium text-foreground group-hover:text-primary transition-colors">{s.v}</span>
                                     </div>
                                   )}
                                 </div>
