@@ -32,6 +32,7 @@ interface CategoryPatentsModalProps {
   cagr: string;
   subcategories: Subcategory[];
   topic?: string;
+  initialSub?: string;
 }
 
 const generateCategoryPatents = (category: string, subs: Subcategory[], total: number, topic: string): Patent[] => {
@@ -93,9 +94,10 @@ const CategoryPatentsModal = ({
   cagr,
   subcategories,
   topic = 'Lactic Acid',
+  initialSub,
 }: CategoryPatentsModalProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSub, setSelectedSub] = useState<string>('all');
+  const [selectedSub, setSelectedSub] = useState<string>(initialSub || 'all');
   const [selectedPatent, setSelectedPatent] = useState<Patent | null>(null);
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
 
