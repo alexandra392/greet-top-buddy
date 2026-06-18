@@ -982,7 +982,7 @@ const PatentLandscape = () => {
                            <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{activeConfig.sectorTitle}</h3>
                            <p className="text-[9px] text-muted-foreground">Share of total patents</p>
                          </div>
-                         <p className="text-[9px] text-muted-foreground mt-0.5">Click any category to explore sub-items</p>
+                         <p className="text-xs text-muted-foreground">Click any category to explore sub-items</p>
                        </div>
 
                       <div>
