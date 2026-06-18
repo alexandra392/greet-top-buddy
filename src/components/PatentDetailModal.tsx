@@ -169,53 +169,62 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
         </div>
 
         {/* Body */}
-        <div className="overflow-y-auto flex-1 px-4 py-3 space-y-1.5">
-          {/* Single column key-value rows, uniform compact card style */}
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border flex items-center gap-3">
-            <p className="text-[9px] text-muted-foreground uppercase tracking-wider w-24 flex-shrink-0">Patent ID</p>
-            <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5 font-mono">
-              <Hash className="w-3 h-3 text-muted-foreground" />
-              {patentId}
-            </p>
+        <div className="overflow-y-auto flex-1 px-4 py-3 space-y-2.5">
+          {/* Row 1: Patent ID + Applicant */}
+          <div className="grid grid-cols-2 gap-2.5">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Patent ID</p>
+              <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5 font-mono">
+                <Hash className="w-3 h-3 text-muted-foreground" />
+                {patentId}
+              </p>
+            </div>
+            <div className="bg-background rounded-lg p-2.5 border border-border">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Applicant</p>
+              <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
+                <Building2 className="w-3 h-3 text-muted-foreground" />
+                {patent.company}
+              </p>
+            </div>
           </div>
 
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border flex items-center gap-3">
-            <p className="text-[9px] text-muted-foreground uppercase tracking-wider w-24 flex-shrink-0">Applicant</p>
-            <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-              <Building2 className="w-3 h-3 text-muted-foreground" />
-              {patent.company}
-            </p>
-          </div>
-
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border flex items-center gap-3">
-            <p className="text-[9px] text-muted-foreground uppercase tracking-wider w-24 flex-shrink-0">Status</p>
-            <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-              <span className={`w-1.5 h-1.5 rounded-full ${patent.status === 'Granted' ? 'bg-primary' : 'bg-muted-foreground'}`} />
-              {patent.status === 'Granted' ? 'Granted' : 'Filed'}
-            </p>
-          </div>
-
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border flex items-center gap-3">
-            <p className="text-[9px] text-muted-foreground uppercase tracking-wider w-24 flex-shrink-0">Filing Year</p>
-            <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-              <Calendar className="w-3 h-3 text-muted-foreground" />
-              {patent.filingYear}
-            </p>
-          </div>
-
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border flex items-center gap-3">
-            <p className="text-[9px] text-muted-foreground uppercase tracking-wider w-24 flex-shrink-0">Granted Year</p>
-            <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
-              <Calendar className="w-3 h-3 text-muted-foreground" />
-              {patent.grantedYear || '—'}
-            </p>
+          {/* Row 2: Status + Filing + Granted */}
+          <div className="grid grid-cols-3 gap-2.5">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Status</p>
+              {patent.status === 'Granted' ? (
+                <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Granted
+                </p>
+              ) : (
+                <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                  Filed
+                </p>
+              )}
+            </div>
+            <div className="bg-background rounded-lg p-2.5 border border-border">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Filing Year</p>
+              <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
+                <Calendar className="w-3 h-3 text-muted-foreground" />
+                {patent.filingYear}
+              </p>
+            </div>
+            <div className="bg-background rounded-lg p-2.5 border border-border">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Granted Year</p>
+              <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
+                <Calendar className="w-3 h-3 text-muted-foreground" />
+                {patent.grantedYear || '—'}
+              </p>
+            </div>
           </div>
 
           {/* CPC Classification */}
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-[9px] text-muted-foreground uppercase tracking-wider">CPC Classification</p>
-              <p className="text-[9px] text-muted-foreground">Section › Class › Subclass</p>
+          <div className="bg-background rounded-lg p-2.5 border border-border">
+            <div className="flex items-center justify-between mb-1.5">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider">CPC Classification</p>
+              <p className="text-[8px] text-muted-foreground">Section › Class › Subclass</p>
             </div>
             <div className="space-y-0.5">
               {codes.map((code, i) => <CpcRow key={i} code={code} index={i} />)}
@@ -223,12 +232,12 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
           </div>
 
           {/* Jurisdictions */}
-          <div className="bg-background rounded-md px-2.5 py-2 border border-border">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-[9px] text-muted-foreground uppercase tracking-wider">Jurisdictions ({patent.jurisdiction})</p>
+          <div className="bg-background rounded-lg p-2.5 border border-border">
+            <div className="flex items-center justify-between mb-1.5">
+              <p className="text-[8px] text-muted-foreground uppercase tracking-wider">Jurisdictions ({patent.jurisdiction})</p>
               <Globe className="w-3 h-3 text-muted-foreground" />
             </div>
-            <p className="text-[11px] font-mono text-foreground leading-relaxed">{countries.join(', ')}</p>
+            <p className="text-[12px] font-mono text-foreground leading-relaxed">{countries.join(', ')}</p>
           </div>
         </div>
 
