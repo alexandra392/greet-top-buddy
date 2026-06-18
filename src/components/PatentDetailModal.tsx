@@ -149,7 +149,7 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[640px] p-0 gap-0 h-[600px] max-h-[90vh] overflow-hidden flex flex-col bg-background">
+      <DialogContent className="max-w-[640px] p-0 gap-0 max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="px-4 py-3 border-b border-border flex-shrink-0">
           <div className="flex items-start gap-2">

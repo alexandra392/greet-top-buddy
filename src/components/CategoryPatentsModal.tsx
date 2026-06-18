@@ -141,7 +141,7 @@ const CategoryPatentsModal = ({
         onBack={() => setSelectedPatent(null)}
       />
       <Dialog open={open && !selectedPatent} onOpenChange={handleClose}>
-        <DialogContent className="max-w-[640px] p-0 gap-0 h-[600px] max-h-[90vh] overflow-hidden flex flex-col bg-background">
+        <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
 
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
               <div className="flex items-center gap-2 mb-0.5">
@@ -182,7 +182,7 @@ const CategoryPatentsModal = ({
 
             <div className="overflow-y-auto flex-1">
               <table className="w-full text-xs">
-                <thead className="sticky top-0 bg-background z-10">
+                <thead className="sticky top-0 bg-card z-10">
                   <tr className="border-b border-border">
                     <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '45%' }}>Patent</th>
                     <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Subcategory</th>
