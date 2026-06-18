@@ -152,23 +152,19 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
       <DialogContent className="max-w-[640px] p-0 gap-0 max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="px-4 py-3 border-b border-border flex-shrink-0">
-          <div className="flex items-start gap-2">
+          <div className="flex items-center gap-2 mb-0.5">
             {onBack && (
               <button
                 onClick={onBack}
                 aria-label="Back"
-                className="mt-0.5 text-primary hover:text-primary/80 transition-colors flex-shrink-0"
+                className="text-primary hover:text-primary/80 transition-colors flex-shrink-0"
               >
-                <ArrowLeft className="w-4 h-4" />
+                <ArrowLeft className="w-3.5 h-3.5" />
               </button>
             )}
-            <div className="flex-1 min-w-0 pr-6">
-              <div className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">Patent Profile</div>
-              <DialogTitle className="text-sm font-semibold text-foreground leading-snug">
-                {patent.title}
-              </DialogTitle>
-            </div>
+            <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary">Patent Profile</DialogTitle>
           </div>
+          <h4 className="text-sm font-semibold text-foreground leading-snug pr-6">{patent.title}</h4>
         </div>
 
         {/* Body */}
