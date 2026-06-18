@@ -1223,6 +1223,7 @@ const PatentLandscape = () => {
           cagr={selectedCategory?.cagr || ''}
           subcategories={selectedCategory?.subs || []}
           topic={decodedTopic}
+          initialSub={selectedCategory?.initialSub}
         />
 
         <PatentDetailModal
