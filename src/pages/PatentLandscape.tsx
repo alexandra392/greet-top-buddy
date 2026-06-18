@@ -705,6 +705,9 @@ const PatentLandscape = () => {
   const [subItemsPage, setSubItemsPage] = useState(1);
   const subItemsPageSize = 8;
   React.useEffect(() => { setSubItemsPage(1); }, [subItemsModal?.name]);
+  const [sectorModalPage, setSectorModalPage] = useState(1);
+  const sectorModalPageSize = 6;
+  React.useEffect(() => { setSectorModalPage(1); }, [sectorModalGroup]);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
