@@ -1257,26 +1257,60 @@ const PatentLandscape = () => {
                     All {group.label} ({group.sectors.length})
                   </DialogTitle>
                   <div className="grid grid-cols-3 gap-2 mt-3">
-                    {group.sectors.map((sector) => (
-                      <div key={sector.name} onClick={() => { setSectorModalGroup(null); setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs }); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
-                        <div className="flex items-start justify-between mb-0.5">
-                          <div>
-                            <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
-                            <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
-                          </div>
-                          <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
-                        </div>
-                        <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
-                        <div className="space-y-1">
-                          {sector.subs.map((s) => (
-                            <div key={s.n} className="flex justify-between text-[9px]">
-                              <span className="text-muted-foreground">{s.n}</span>
-                              <span className="font-medium text-foreground">{s.v}</span>
+                    {group.sectors.map((sector) => {
+                      const isExpanded = expandedModalSector === sector.name;
+                      return (
+                        <div key={sector.name} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-all shadow-sm ${isExpanded ? 'col-span-3 grid grid-cols-[280px_1fr] gap-4' : ''}`}>
+                          <div onClick={() => setExpandedModalSector(isExpanded ? null : sector.name)}>
+                            <div className="flex items-start justify-between mb-0.5">
+                              <div>
+                                <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
+                                <div className="text-[9px] text-muted-foreground">{sector.patents.toLocaleString()} patents</div>
+                              </div>
+                              <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
                             </div>
-                          ))}
+                            <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
+                            {!isExpanded && (
+                              <div className="space-y-1">
+                                {sector.subs.slice(0, 3).map((s) => (
+                                  <div key={s.n} className="flex justify-between text-[9px]">
+                                    <span className="text-muted-foreground">{s.n}</span>
+                                    <span className="font-medium text-foreground">{s.v}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          {isExpanded && (
+                            <div className="border-l border-border/40 pl-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <h5 className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Sub-feedstocks</h5>
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); setSectorModalGroup(null); setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs }); }}
+                                  className="text-[9px] font-semibold text-primary hover:underline"
+                                >
+                                  View full details →
+                                </button>
+                              </div>
+                              <div className="space-y-2">
+                                {sector.subs.map((s) => (
+                                  <div key={s.n} className="flex items-center justify-between text-[10px] group">
+                                    <span className="text-muted-foreground group-hover:text-foreground transition-colors">{s.n}</span>
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-16 h-1 bg-muted rounded-full overflow-hidden">
+                                        <div className="h-full rounded-full bg-primary/60" style={{ width: `${(s.v / sector.patents) * 100}%` }}></div>
+                                      </div>
+                                      <span className="font-medium text-foreground w-5 text-right">{s.v}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </>
               );
