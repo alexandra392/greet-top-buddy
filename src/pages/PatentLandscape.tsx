@@ -979,7 +979,7 @@ const PatentLandscape = () => {
                                 {group.label}
                               </h4>
                               <div className="grid grid-cols-2 gap-2">
-                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 6)).map((sector) =>
+                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 4)).map((sector) =>
                                   <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
@@ -1000,7 +1000,7 @@ const PatentLandscape = () => {
                                   </div>
                                 )}
                               </div>
-                              {group.sectors.length > 6 && (
+                              {group.sectors.length > 4 && (
                                 <button
                                   type="button"
                                   onClick={() => setExpandedSectorGroups(prev => {
@@ -1014,7 +1014,7 @@ const PatentLandscape = () => {
                                   {expandedSectorGroups.has(group.label) ? (
                                     <>Show Less <ChevronUp className="w-3 h-3" /></>
                                   ) : (
-                                    <>Show All ({group.sectors.length - 6} more) <ChevronDown className="w-3 h-3" /></>
+                                    <>Show All ({group.sectors.length - 4} more) <ChevronDown className="w-3 h-3" /></>
                                   )}
                                 </button>
                               )}
