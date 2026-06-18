@@ -1359,11 +1359,11 @@ const PatentLandscape = () => {
 
                 <div className="overflow-y-auto flex-1">
                   <table className="w-full text-xs">
-                    <thead className="sticky top-0 bg-card z-10">
+                    <thead className="sticky top-0 bg-background z-10">
                       <tr className="border-b border-border">
-                        <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Sub-category</th>
-                        <th className="text-right py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Patents</th>
-                        <th className="text-right py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Share</th>
+                        <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Sub-category</th>
+                        <th className="text-right py-1.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Patents</th>
+                        <th className="text-right py-1.5 px-4 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Share</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1379,9 +1379,9 @@ const PatentLandscape = () => {
                           }}
                           className="border-b border-border/40 hover:bg-muted/40 cursor-pointer transition-colors group"
                         >
-                          <td className="py-2 px-4 text-[11px] text-foreground group-hover:text-primary transition-colors">{s.n}</td>
-                          <td className="py-2 text-right text-[11px] font-semibold text-foreground">{s.v}</td>
-                          <td className="py-2 px-4 text-right text-[10px] text-muted-foreground">
+                          <td className="py-1.5 px-4 text-[11px] font-semibold text-foreground group-hover:text-primary transition-colors">{s.n}</td>
+                          <td className="py-1.5 text-right text-[11px] font-semibold text-foreground">{s.v}</td>
+                          <td className="py-1.5 px-4 text-right text-[11px] text-muted-foreground">
                             <span className="inline-flex items-center gap-1">
                               {((s.v / subItemsModal.patents) * 100).toFixed(1)}%
                               <ChevronRight className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -1392,6 +1392,7 @@ const PatentLandscape = () => {
                     </tbody>
                   </table>
                 </div>
+
 
                 <div className="px-4 py-2.5 border-t border-border flex-shrink-0 flex justify-end">
                   <button

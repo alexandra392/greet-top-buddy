@@ -182,18 +182,18 @@ const CategoryPatentsModal = ({
 
             <div className="overflow-y-auto flex-1">
               <table className="w-full text-xs">
-                <thead className="sticky top-0 bg-card z-10">
+                <thead className="sticky top-0 bg-background z-10">
                   <tr className="border-b border-border">
-                    <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground" style={{ width: '45%' }}>Patent</th>
-                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Subcategory</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    <th className="text-left py-1.5 px-4 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground" style={{ width: '45%' }}>Patent</th>
+                    <th className="text-left py-1.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Subcategory</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                       <button type="button" onClick={() => setFilingSort(filingSort === 'desc' ? 'asc' : 'desc')} className={`inline-flex items-center gap-1 hover:text-foreground transition-colors ${filingSort ? 'text-foreground' : ''}`}>
                         FILING
                         <ArrowUpDown className={`h-2.5 w-2.5 ${filingSort === 'asc' ? 'rotate-180' : ''} transition-transform`} />
                       </button>
                     </th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
-                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">Jurisd.</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Status</th>
+                    <th className="text-center py-1.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Jurisd.</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -204,23 +204,24 @@ const CategoryPatentsModal = ({
                       onClick={() => setSelectedPatent(patent)}
                     >
                       <td className="py-1.5 px-4" style={{ maxWidth: '260px' }}>
-                        <div className="font-medium text-[10px] text-foreground line-clamp-2 hover:text-primary transition-colors">{patent.title}</div>
-                        <div className="text-[9px] text-muted-foreground mt-0.5">{patent.company}</div>
+                        <div className="font-semibold text-[11px] text-foreground line-clamp-2 hover:text-primary transition-colors">{patent.title}</div>
+                        <div className="text-[10px] text-muted-foreground mt-0.5">{patent.company}</div>
                       </td>
                       <td className="py-1.5">
-                        <span className="text-[9px] text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded">{patent.subcategory}</span>
+                        <span className="text-[10px] text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded">{patent.subcategory}</span>
                       </td>
                       <td className="text-center py-1.5 text-[11px] text-muted-foreground">{patent.filingYear}</td>
                       <td className="text-center py-1.5">
                         {patent.status === 'Granted' ? (
-                          <div className="inline-flex items-center gap-0.5 text-primary text-[10px] font-medium"><span>✓</span><span>Granted</span></div>
+                          <div className="inline-flex items-center gap-0.5 text-primary text-[11px] font-medium"><span>✓</span><span>Granted</span></div>
                         ) : (
-                          <div className="text-muted-foreground text-[10px]">Filed</div>
+                          <div className="text-muted-foreground text-[11px]">Filed</div>
                         )}
                       </td>
-                      <td className="text-center py-1.5"><span className="text-[10px] text-muted-foreground">{patent.jurisdiction}</span></td>
+                      <td className="text-center py-1.5"><span className="text-[11px] text-muted-foreground">{patent.jurisdiction}</span></td>
                     </tr>
                   ))}
+
                   {filteredPatents.length === 0 && (
                     <tr>
                       <td colSpan={5} className="text-center py-6 text-[10px] text-muted-foreground">No patents found matching your criteria.</td>
