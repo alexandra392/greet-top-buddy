@@ -974,12 +974,32 @@ const PatentLandscape = () => {
                         <div className="grid grid-cols-2 gap-4">
                           {activeConfig.productionSectorGroups.map((group) => (
                             <div key={group.label} className={`rounded-xl p-3 ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%,0.06)] border border-[hsl(142,60%,40%,0.15)]' : 'bg-[hsl(217,91%,60%,0.06)] border border-[hsl(217,91%,60%,0.15)]'}`}>
-                              <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                                <span className={`w-2 h-2 rounded-full ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]'}`}></span>
-                                {group.label}
-                              </h4>
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5">
+                                  <span className={`w-2 h-2 rounded-full ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]'}`}></span>
+                                  {group.label}
+                                </h4>
+                                {group.sectors.length > 6 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setExpandedSectorGroups(prev => {
+                                      const next = new Set(prev);
+                                      if (next.has(group.label)) next.delete(group.label);
+                                      else next.add(group.label);
+                                      return next;
+                                    })}
+                                    className="flex items-center gap-1 text-[9px] font-semibold text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md border border-border/60 hover:border-border hover:bg-muted/30 bg-background/50"
+                                  >
+                                    {expandedSectorGroups.has(group.label) ? (
+                                      <>Less <ChevronUp className="w-2.5 h-2.5" /></>
+                                    ) : (
+                                      <>All <ChevronDown className="w-2.5 h-2.5" /></>
+                                    )}
+                                  </button>
+                                )}
+                              </div>
                               <div className="grid grid-cols-2 gap-2">
-                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 4)).map((sector) =>
+                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 6)).map((sector) =>
                                   <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
@@ -1000,24 +1020,6 @@ const PatentLandscape = () => {
                                   </div>
                                 )}
                               </div>
-                              {group.sectors.length > 4 && (
-                                <button
-                                  type="button"
-                                  onClick={() => setExpandedSectorGroups(prev => {
-                                    const next = new Set(prev);
-                                    if (next.has(group.label)) next.delete(group.label);
-                                    else next.add(group.label);
-                                    return next;
-                                  })}
-                                  className="mt-2 w-full flex items-center justify-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors py-1.5 rounded-lg border border-dashed border-border/60 hover:border-border hover:bg-muted/20"
-                                >
-                                  {expandedSectorGroups.has(group.label) ? (
-                                    <>Show Less <ChevronUp className="w-3 h-3" /></>
-                                  ) : (
-                                    <>Show All ({group.sectors.length - 4} more) <ChevronDown className="w-3 h-3" /></>
-                                  )}
-                                </button>
-                              )}
                             </div>
                           ))}
                         </div>
