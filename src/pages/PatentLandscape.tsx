@@ -1305,7 +1305,7 @@ const PatentLandscape = () => {
                     </p>
                   </div>
                   <div className="p-4">
-                    <div className={`rounded-xl border ${group.label === 'Feedstock' ? 'border-[hsl(142,60%,40%)]/40 bg-[hsl(142,60%,40%)]/5' : 'border-[hsl(217,91%,60%)]/40 bg-[hsl(217,91%,60%)]/5'} p-3`}>
+                    <div className={`rounded-xl border ${group.label === 'Feedstock' ? 'border-[hsl(142,60%,40%)]/40 bg-[hsl(142,60%,40%)]/5' : 'border-[hsl(217,91%,60%)]/40 bg-[hsl(217,91%,60%)]/5'} py-5 px-3`}>
                       <div className="grid grid-cols-3 gap-2">
                         {pagedSectors.map((sector) => (
                           <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
