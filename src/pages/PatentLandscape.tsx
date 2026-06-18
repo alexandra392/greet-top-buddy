@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft, ArrowRight, ArrowUpDown, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, Search, X, Beaker, ExternalLink, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpDown, Calendar, FileText, Filter, Download, Globe, FlaskConical, ShoppingBag, Leaf, Cpu, ChevronRight, ChevronDown, ChevronUp, Search, X, Beaker, ExternalLink, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
@@ -694,6 +694,7 @@ const PatentLandscape = () => {
   const [view, setView] = useState<PatentView>('production');
   const [generalSubView, setGeneralSubView] = useState<'production' | 'applications'>('production');
   const [expandedHeatRows, setExpandedHeatRows] = useState<Set<string>>(new Set());
+  const [expandedSectorGroups, setExpandedSectorGroups] = useState<Set<string>>(new Set());
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
@@ -978,7 +979,7 @@ const PatentLandscape = () => {
                                 {group.label}
                               </h4>
                               <div className="grid grid-cols-2 gap-2">
-                                {group.sectors.map((sector) =>
+                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 6)).map((sector) =>
                                   <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
@@ -999,6 +1000,24 @@ const PatentLandscape = () => {
                                   </div>
                                 )}
                               </div>
+                              {group.sectors.length > 6 && (
+                                <button
+                                  type="button"
+                                  onClick={() => setExpandedSectorGroups(prev => {
+                                    const next = new Set(prev);
+                                    if (next.has(group.label)) next.delete(group.label);
+                                    else next.add(group.label);
+                                    return next;
+                                  })}
+                                  className="mt-2 w-full flex items-center justify-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors py-1.5 rounded-lg border border-dashed border-border/60 hover:border-border hover:bg-muted/20"
+                                >
+                                  {expandedSectorGroups.has(group.label) ? (
+                                    <>Show Less <ChevronUp className="w-3 h-3" /></>
+                                  ) : (
+                                    <>Show All ({group.sectors.length - 6} more) <ChevronDown className="w-3 h-3" /></>
+                                  )}
+                                </button>
+                              )}
                             </div>
                           ))}
                         </div>
