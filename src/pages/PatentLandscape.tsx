@@ -1334,7 +1334,21 @@ const PatentLandscape = () => {
           <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
             {subItemsModal && (
               <>
-                <div className="px-4 py-3 border-b border-border flex-shrink-0">
+                <div className="px-4 pt-9 pb-3 border-b border-border flex-shrink-0">
+                  <div className="flex justify-end mb-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
+                        setSubItemsModal(null);
+                        setSubItemsParent(null);
+                        setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
+                      }}
+                      className="text-[10px] font-semibold text-primary hover:underline"
+                    >
+                      View full patent profile →
+                    </button>
+                  </div>
                   <div className="flex items-center gap-2 mb-0.5">
                     {!!sectorModalGroup && (
                       <button
