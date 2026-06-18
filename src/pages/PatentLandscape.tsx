@@ -1287,6 +1287,42 @@ const PatentLandscape = () => {
           </DialogContent>
         </Dialog>
 
+        {/* Sub-items popup */}
+        <Dialog open={!!subItemsModal} onOpenChange={(open) => { if (!open) setSubItemsModal(null); }}>
+          <DialogContent className="max-w-lg">
+            {subItemsModal && (
+              <>
+                <DialogTitle className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  <span className={`w-2 h-2 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
+                  {subItemsModal.name}
+                </DialogTitle>
+                <div className="mt-3 space-y-2">
+                  {subItemsModal.subs.map((s) => (
+                    <div key={s.n} className="flex items-center justify-between text-[10px] group">
+                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">{s.n}</span>
+                      <div className="flex items-center gap-2">
+                        <div className="w-20 h-1 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full rounded-full bg-primary/60" style={{ width: `${(s.v / subItemsModal.patents) * 100}%` }}></div>
+                        </div>
+                        <span className="font-medium text-foreground w-5 text-right">{s.v}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 pt-3 border-t border-border/40 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => { setSubItemsModal(null); setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs }); }}
+                    className="text-[9px] font-semibold text-primary hover:underline"
+                  >
+                    View full patent profile →
+                  </button>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
+
         <PatentDetailModal
           open={!!selectedPatentDetail}
           onOpenChange={(open) => { if (!open) setSelectedPatentDetail(null); }}
