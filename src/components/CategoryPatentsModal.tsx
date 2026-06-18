@@ -89,6 +89,7 @@ const generateCategoryPatents = (category: string, subs: Subcategory[], total: n
 const CategoryPatentsModal = ({
   open,
   onOpenChange,
+  onBack,
   categoryName,
   totalPatents,
   share,
