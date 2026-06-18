@@ -1331,19 +1331,22 @@ const PatentLandscape = () => {
             {subItemsModal && (
               <>
                 <div className="px-4 py-3 border-b border-border flex-shrink-0">
-                  {!!sectorModalGroup && (
-                    <button
-                      type="button"
-                      onClick={() => { setSubItemsModal(null); setSubItemsParent(null); }}
-                      className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
-                    >
-                      <ArrowLeft className="w-3 h-3" />
-                      Back to all {sectorModalGroup.toLowerCase()} categories
-                    </button>
-                  )}
-                  <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
-                    {subItemsParent || activeConfig.sectorTitle}
-                  </DialogTitle>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    {!!sectorModalGroup && (
+                      <button
+                        type="button"
+                        onClick={() => { setSubItemsModal(null); setSubItemsParent(null); }}
+                        aria-label={`Back to all ${sectorModalGroup.toLowerCase()} categories`}
+                        className="text-primary hover:text-primary/80 transition-colors flex-shrink-0"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                    <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary">
+                      {subItemsParent || activeConfig.sectorTitle}
+                    </DialogTitle>
+                  </div>
+
                   <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
                     {subItemsModal.name}
