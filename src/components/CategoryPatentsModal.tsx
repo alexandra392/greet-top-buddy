@@ -236,34 +236,19 @@ const CategoryPatentsModal = ({
             </div>
 
             <div className="px-4 py-2 border-b border-border flex-shrink-0">
-              <div className="flex items-center gap-2">
-                <Select value={selectedSub} onValueChange={setSelectedSub}>
-                  <SelectTrigger className="h-6 w-[160px] text-[9px] border-border bg-background [&>svg]:h-2.5 [&>svg]:w-2.5">
-                    <SelectValue placeholder="All subcategories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all" className="text-[10px]">All subcategories</SelectItem>
-                    {subcategories.map(sub => (
-                      <SelectItem key={sub.n} value={sub.n} className="text-[10px]">
-                        {sub.n} ({sub.v})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <div className="relative flex-1">
-                  <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-2.5 w-2.5 text-muted-foreground" />
-                  <Input
-                    placeholder="Search patents..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="pl-6 pr-6 h-6 !text-[9px] border-border w-full"
-                  />
-                  {searchTerm && (
-                    <Button variant="ghost" size="sm" onClick={() => setSearchTerm('')} className="absolute right-0.5 top-1/2 -translate-y-1/2 h-4 w-4 p-0 hover:bg-muted">
-                      <X className="h-2 w-2" />
-                    </Button>
-                  )}
-                </div>
+              <div className="relative">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-2.5 w-2.5 text-muted-foreground" />
+                <Input
+                  placeholder="Search patents..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="pl-6 pr-6 h-6 !text-[9px] border-border w-full"
+                />
+                {searchTerm && (
+                  <Button variant="ghost" size="sm" onClick={() => setSearchTerm('')} className="absolute right-0.5 top-1/2 -translate-y-1/2 h-4 w-4 p-0 hover:bg-muted">
+                    <X className="h-2 w-2" />
+                  </Button>
+                )}
               </div>
             </div>
 
