@@ -712,6 +712,7 @@ const PatentLandscape = () => {
   const [selectedTechInPopup, setSelectedTechInPopup] = useState<string | null>(null);
   const [selectedIPHolder, setSelectedIPHolder] = useState<{org: string; total: number; granted: number; filed: number} | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]; initialSub?: string} | null>(null);
+  const [previousSubItems, setPreviousSubItems] = useState<{modal: NonNullable<typeof subItemsModal>; parent: string | null} | null>(null);
   const [selectedPatentDetail, setSelectedPatentDetail] = useState<{title: string; company: string; filingYear: number; grantedYear: number | null; status: string; jurisdiction: number} | null>(null);
   const [selectedContinent, setSelectedContinent] = useState<{location: string; granted: number; filed: number} | null>(null);
 
@@ -1255,6 +1256,14 @@ const PatentLandscape = () => {
         <CategoryPatentsModal
           open={!!selectedCategory}
           onOpenChange={(open) => { if (!open) setSelectedCategory(null); }}
+          onBack={() => {
+            setSelectedCategory(null);
+            if (previousSubItems) {
+              setSubItemsModal(previousSubItems.modal);
+              setSubItemsParent(previousSubItems.parent);
+              setPreviousSubItems(null);
+            }
+          }}
           categoryName={selectedCategory?.name || ''}
           totalPatents={selectedCategory?.patents || 0}
           share={selectedCategory?.share || ''}
@@ -1322,6 +1331,16 @@ const PatentLandscape = () => {
             {subItemsModal && (
               <>
                 <div className="px-4 py-3 border-b border-border flex-shrink-0">
+                  {!!sectorModalGroup && (
+                    <button
+                      type="button"
+                      onClick={() => { setSubItemsModal(null); setSubItemsParent(null); }}
+                      className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
+                    >
+                      <ArrowLeft className="w-3 h-3" />
+                      Back to all {sectorModalGroup.toLowerCase()} categories
+                    </button>
+                  )}
                   <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">
                     {subItemsParent || activeConfig.sectorTitle}
                   </DialogTitle>
@@ -1350,6 +1369,7 @@ const PatentLandscape = () => {
                           key={s.n}
                           onClick={() => {
                             const target = subItemsModal;
+                            setPreviousSubItems({ modal: target, parent: subItemsParent });
                             setSubItemsModal(null);
                             setSubItemsParent(null);
                             setSelectedCategory({ name: target.name, patents: target.patents, share: target.share, cagr: target.cagr, subs: target.subs, initialSub: s.n });
@@ -1373,7 +1393,12 @@ const PatentLandscape = () => {
                 <div className="px-4 py-2.5 border-t border-border flex-shrink-0 flex justify-end">
                   <button
                     type="button"
-                    onClick={() => { setSubItemsModal(null); setSubItemsParent(null); setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs }); }}
+                    onClick={() => {
+                      if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
+                      setSubItemsModal(null);
+                      setSubItemsParent(null);
+                      setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
+                    }}
                     className="text-[10px] font-semibold text-primary hover:underline"
                   >
                     View full patent profile →

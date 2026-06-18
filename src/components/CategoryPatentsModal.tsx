@@ -26,6 +26,7 @@ interface Subcategory {
 interface CategoryPatentsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onBack?: () => void;
   categoryName: string;
   totalPatents: number;
   share: string;
@@ -88,6 +89,7 @@ const generateCategoryPatents = (category: string, subs: Subcategory[], total: n
 const CategoryPatentsModal = ({
   open,
   onOpenChange,
+  onBack,
   categoryName,
   totalPatents,
   share,
@@ -228,6 +230,15 @@ const CategoryPatentsModal = ({
         ) : (
           <>
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
+              {onBack && (
+                <button
+                  onClick={onBack}
+                  className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  Back to sub-categories
+                </button>
+              )}
               <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-0.5">Patent Category</DialogTitle>
               <h4 className="text-sm font-semibold text-foreground">{categoryName}</h4>
               <p className="text-[10px] text-muted-foreground mt-0.5">
