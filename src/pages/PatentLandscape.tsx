@@ -700,6 +700,7 @@ const PatentLandscape = () => {
   const [expandedHeatRows, setExpandedHeatRows] = useState<Set<string>>(new Set());
   const [sectorModalGroup, setSectorModalGroup] = useState<string | null>(null);
   const [subItemsModal, setSubItemsModal] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]; borderColor: string; shareColor: string; cagrColor: string} | null>(null);
+  const [subItemsParent, setSubItemsParent] = useState<string | null>(null);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
@@ -996,7 +997,7 @@ const PatentLandscape = () => {
                               </div>
                               <div className="grid grid-cols-2 gap-2">
                                 {group.sectors.slice(0, 6).map((sector) =>
-                                  <div key={sector.name} onClick={() => setSubItemsModal(sector)} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
+                                  <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
                                         <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -1027,7 +1028,7 @@ const PatentLandscape = () => {
                         activeConfig.sectors.map((row, rowIdx) =>
                           <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
                             {row.map((sector) =>
-                              <div key={sector.name} onClick={() => setSubItemsModal(sector)} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
+                              <div key={sector.name} onClick={() => { setSubItemsParent(activeConfig.sectorTitle); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
                                 <div className="flex items-start justify-between mb-0.5">
                                   <div>
                                     <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -1250,21 +1251,29 @@ const PatentLandscape = () => {
         />
 
         {/* View All sectors modal (Feedstock / Process) */}
-        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) { setSectorModalGroup(null); setSubItemsModal(null); } }}>
+        <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) { setSectorModalGroup(null); setSubItemsModal(null); setSubItemsParent(null); } }}>
           <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto">
             {(() => {
               const group = activeConfig.productionSectorGroups?.find(g => g.label === sectorModalGroup);
               if (!group) return null;
               const dotColor = group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]';
+              const totalPatents = group.sectors.reduce((sum, s) => sum + s.patents, 0);
               return (
                 <>
-                  <DialogTitle className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                    <span className={`w-2 h-2 rounded-full ${dotColor}`}></span>
-                    All {group.label} ({group.sectors.length})
+                  <div className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
+                    {decodedTopic} › Patent Landscape › {activeConfig.sectorTitle}
+                  </div>
+                  <DialogTitle className="flex items-center gap-2 text-base font-bold text-foreground">
+                    <span className={`w-2.5 h-2.5 rounded-full ${dotColor}`}></span>
+                    All {group.label} Categories
+                    <span className="text-[10px] font-semibold text-muted-foreground ml-1">({group.sectors.length} categories · {totalPatents.toLocaleString()} patents)</span>
                   </DialogTitle>
-                  <div className="grid grid-cols-3 gap-2 mt-3">
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    Full breakdown of {group.label.toLowerCase()} categories ranked by patent share. Click any category to see its sub-items.
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     {group.sectors.map((sector) => (
-                      <div key={sector.name} onClick={() => setSubItemsModal(sector)} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
+                      <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                         <div className="flex items-start justify-between mb-0.5">
                           <div>
                             <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -1294,23 +1303,38 @@ const PatentLandscape = () => {
         </Dialog>
 
         {/* Sub-items popup */}
-        <Dialog open={!!subItemsModal} onOpenChange={(open) => { if (!open) setSubItemsModal(null); }}>
+        <Dialog open={!!subItemsModal} onOpenChange={(open) => { if (!open) { setSubItemsModal(null); setSubItemsParent(null); } }}>
           <DialogContent className="max-w-lg">
             {subItemsModal && (
               <>
-                <DialogTitle className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                  <span className={`w-2 h-2 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
+                <div className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
+                  {decodedTopic} › Patent Landscape › {subItemsParent || activeConfig.sectorTitle} › {subItemsModal.name}
+                </div>
+                <DialogTitle className="flex items-center gap-2 text-base font-bold text-foreground">
+                  <span className={`w-2.5 h-2.5 rounded-full ${subItemsModal.borderColor.replace('border-l-', 'bg-')}`}></span>
                   {subItemsModal.name}
+                  <span className={`text-sm font-bold ${subItemsModal.shareColor}`}>{subItemsModal.share}</span>
                 </DialogTitle>
-                <div className="mt-3 space-y-2">
+                <div className="flex items-center gap-3 mt-1 text-[10px] text-muted-foreground">
+                  <span><span className="font-semibold text-foreground">{subItemsModal.patents.toLocaleString()}</span> patents</span>
+                  <span className="text-border">•</span>
+                  <span><span className={`font-semibold ${subItemsModal.cagrColor}`}>{subItemsModal.cagr}</span> YoY growth</span>
+                  <span className="text-border">•</span>
+                  <span>{subItemsModal.subs.length} sub-categories</span>
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+                  Patent share by sub-category within <span className="font-semibold text-foreground">{subItemsModal.name}</span>. Bars are normalised to the category total ({subItemsModal.patents.toLocaleString()} patents).
+                </p>
+                <div className="mt-4 space-y-2">
                   {subItemsModal.subs.map((s) => (
                     <div key={s.n} className="flex items-center justify-between text-[10px] group">
                       <span className="text-muted-foreground group-hover:text-foreground transition-colors">{s.n}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-20 h-1 bg-muted rounded-full overflow-hidden">
+                        <div className="w-24 h-1.5 bg-muted rounded-full overflow-hidden">
                           <div className="h-full rounded-full bg-primary/60" style={{ width: `${(s.v / subItemsModal.patents) * 100}%` }}></div>
                         </div>
-                        <span className="font-medium text-foreground w-5 text-right">{s.v}</span>
+                        <span className="font-semibold text-foreground w-6 text-right">{s.v}</span>
+                        <span className="text-muted-foreground w-10 text-right">{((s.v / subItemsModal.patents) * 100).toFixed(1)}%</span>
                       </div>
                     </div>
                   ))}
@@ -1318,8 +1342,8 @@ const PatentLandscape = () => {
                 <div className="mt-4 pt-3 border-t border-border/40 flex justify-end">
                   <button
                     type="button"
-                    onClick={() => { setSubItemsModal(null); setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs }); }}
-                    className="text-[9px] font-semibold text-primary hover:underline"
+                    onClick={() => { setSubItemsModal(null); setSubItemsParent(null); setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs }); }}
+                    className="text-[10px] font-semibold text-primary hover:underline"
                   >
                     View full patent profile →
                   </button>
