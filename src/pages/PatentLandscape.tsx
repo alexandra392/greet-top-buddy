@@ -1024,7 +1024,7 @@ const PatentLandscape = () => {
                         activeConfig.sectors.map((row, rowIdx) =>
                           <div key={rowIdx} className={`grid grid-cols-3 gap-2 ${rowIdx < activeConfig.sectors!.length - 1 ? 'mb-2' : ''}`}>
                             {row.map((sector) =>
-                              <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
+                              <div key={sector.name} onClick={() => setSubItemsModal(sector)} className={`border-l-4 ${sector.borderColor} bg-muted/20 rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors`}>
                                 <div className="flex items-start justify-between mb-0.5">
                                   <div>
                                     <div className="font-bold text-[11px] text-foreground">{sector.name}</div>
@@ -1034,11 +1034,14 @@ const PatentLandscape = () => {
                                 </div>
                                 <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
                                 <div className="space-y-1">
-                                  {sector.subs.map((s) =>
-                                    <div key={s.n} className="flex justify-between text-[9px] cursor-pointer group" onClick={(e) => { e.stopPropagation(); setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs, initialSub: s.n }); }}>
-                                      <span className="text-muted-foreground group-hover:text-primary transition-colors">{s.n}</span>
-                                      <span className="font-medium text-foreground group-hover:text-primary transition-colors">{s.v}</span>
+                                  {sector.subs.slice(0, 3).map((s) =>
+                                    <div key={s.n} className="flex justify-between text-[9px]">
+                                      <span className="text-muted-foreground">{s.n}</span>
+                                      <span className="font-medium text-foreground">{s.v}</span>
                                     </div>
+                                  )}
+                                  {sector.subs.length > 3 && (
+                                    <div className="text-[9px] font-semibold text-primary pt-0.5">+{sector.subs.length - 3} more</div>
                                   )}
                                 </div>
                               </div>
