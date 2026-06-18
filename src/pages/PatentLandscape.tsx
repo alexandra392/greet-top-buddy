@@ -1278,6 +1278,9 @@ const PatentLandscape = () => {
                                     <span className="font-medium text-foreground">{s.v}</span>
                                   </div>
                                 ))}
+                                {sector.subs.length > 3 && (
+                                  <div className="text-[9px] font-medium text-primary pt-0.5">+{sector.subs.length - 3} more</div>
+                                )}
                               </div>
                             )}
                           </div>
