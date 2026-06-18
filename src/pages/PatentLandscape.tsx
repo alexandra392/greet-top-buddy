@@ -1000,7 +1000,7 @@ const PatentLandscape = () => {
                                   </div>
                                 )}
                               </div>
-                              {group.sectors.length > 6 && (
+                              {group.sectors.length > 4 && (
                                 <button
                                   type="button"
                                   onClick={() => setExpandedSectorGroups(prev => {
@@ -1014,7 +1014,7 @@ const PatentLandscape = () => {
                                   {expandedSectorGroups.has(group.label) ? (
                                     <>Show Less <ChevronUp className="w-3 h-3" /></>
                                   ) : (
-                                    <>Show All ({group.sectors.length - 6} more) <ChevronDown className="w-3 h-3" /></>
+                                    <>Show All ({group.sectors.length - 4} more) <ChevronDown className="w-3 h-3" /></>
                                   )}
                                 </button>
                               )}
