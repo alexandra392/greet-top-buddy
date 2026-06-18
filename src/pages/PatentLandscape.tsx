@@ -1256,6 +1256,14 @@ const PatentLandscape = () => {
         <CategoryPatentsModal
           open={!!selectedCategory}
           onOpenChange={(open) => { if (!open) setSelectedCategory(null); }}
+          onBack={() => {
+            setSelectedCategory(null);
+            if (previousSubItems) {
+              setSubItemsModal(previousSubItems.modal);
+              setSubItemsParent(previousSubItems.parent);
+              setPreviousSubItems(null);
+            }
+          }}
           categoryName={selectedCategory?.name || ''}
           totalPatents={selectedCategory?.patents || 0}
           share={selectedCategory?.share || ''}
