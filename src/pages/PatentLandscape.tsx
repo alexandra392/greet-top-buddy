@@ -362,6 +362,8 @@ const viewConfigs: Record<PatentView, {
           { name: 'Food Waste', patents: 26, share: '10.6%', cagr: '+24.3%', borderColor: 'border-l-[hsl(195,70%,50%)]', cagrColor: 'text-[hsl(195,70%,50%)]', shareColor: 'text-[hsl(195,70%,50%)]', subs: [{ n: 'Bread Waste', v: 11 }, { n: 'Fruit Pomace', v: 8 }, { n: 'Coffee Grounds', v: 7 }] },
           { name: 'Algal Biomass', patents: 21, share: '8.5%', cagr: '+28.1%', borderColor: 'border-l-[hsl(170,60%,45%)]', cagrColor: 'text-[hsl(170,60%,45%)]', shareColor: 'text-[hsl(170,60%,45%)]', subs: [{ n: 'Microalgae', v: 10 }, { n: 'Macroalgae', v: 6 }, { n: 'Cyanobacteria', v: 5 }] },
           { name: 'Oilseed Crops', patents: 16, share: '6.5%', cagr: '+9.8%', borderColor: 'border-l-[hsl(45,90%,50%)]', cagrColor: 'text-[hsl(45,90%,50%)]', shareColor: 'text-[hsl(45,90%,50%)]', subs: [{ n: 'Rapeseed', v: 7 }, { n: 'Soybean', v: 5 }, { n: 'Palm Kernel', v: 4 }] },
+          { name: 'Agricultural Residues', patents: 12, share: '4.9%', cagr: '+15.2%', borderColor: 'border-l-[hsl(30,80%,55%)]', cagrColor: 'text-[hsl(30,80%,55%)]', shareColor: 'text-[hsl(30,80%,55%)]', subs: [{ n: 'Rice Husk', v: 5 }, { n: 'Barley Straw', v: 4 }, { n: 'Oat Hulls', v: 3 }] },
+          { name: 'Forestry Waste', patents: 9, share: '3.7%', cagr: '+11.5%', borderColor: 'border-l-[hsl(160,50%,40%)]', cagrColor: 'text-[hsl(160,50%,40%)]', shareColor: 'text-[hsl(160,50%,40%)]', subs: [{ n: 'Sawdust', v: 4 }, { n: 'Bark Residue', v: 3 }, { n: 'Logging Slash', v: 2 }] },
         ]
       },
       {
