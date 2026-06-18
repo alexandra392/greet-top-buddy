@@ -2,8 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, X, FileText, ArrowLeft, ArrowUpDown, Calendar, Building2, Globe } from "lucide-react";
+import { Search, X, ArrowLeft, ArrowUpDown } from "lucide-react";
+import PatentDetailModal from "@/components/PatentDetailModal";
+
 
 interface Patent {
   title: string;
@@ -131,107 +132,17 @@ const CategoryPatentsModal = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
-        {selectedPatent ? (
-          <>
-            <div className="px-4 py-3 border-b border-border flex-shrink-0">
-              <div className="flex items-start gap-2">
-                <button
-                  onClick={() => setSelectedPatent(null)}
-                  aria-label={`Back to ${categoryName} patent profile`}
-                  className="mt-0.5 text-primary hover:text-primary/80 transition-colors flex-shrink-0"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-                <DialogTitle className="text-sm font-semibold text-foreground leading-snug">
-                  {selectedPatent.title}
-                </DialogTitle>
-              </div>
-            </div>
+    <>
+      <PatentDetailModal
+        open={!!selectedPatent}
+        onOpenChange={(o) => { if (!o) setSelectedPatent(null); }}
+        patent={selectedPatent}
+        topic={topic}
+        onBack={() => setSelectedPatent(null)}
+      />
+      <Dialog open={open && !selectedPatent} onOpenChange={handleClose}>
+        <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
 
-            <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Status</p>
-                  <div className="flex items-center gap-1">
-                    {selectedPatent.status === 'Granted' ? (
-                      <span className="text-primary text-[11px] font-semibold flex items-center gap-1">✓ Granted</span>
-                    ) : (
-                      <span className="text-muted-foreground text-[11px] font-semibold flex items-center gap-1"><FileText className="w-3 h-3" /> Filed</span>
-                    )}
-                  </div>
-                </div>
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Jurisdictions</p>
-                  <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
-                    <Globe className="w-3 h-3 text-muted-foreground" />
-                    {selectedPatent.jurisdiction} countries
-                  </p>
-                </div>
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Filing Year</p>
-                  <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-muted-foreground" />
-                    {selectedPatent.filingYear}
-                  </p>
-                </div>
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Granted Year</p>
-                  <p className="text-[11px] font-semibold text-foreground flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-muted-foreground" />
-                    {selectedPatent.grantedYear || '—'}
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Applicant</p>
-                <p className="text-[11px] font-medium text-foreground flex items-center gap-1">
-                  <Building2 className="w-3 h-3 text-muted-foreground" />
-                  {selectedPatent.company}
-                </p>
-              </div>
-
-              {selectedPatent.subcategory && (
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-0.5">Subcategory</p>
-                  <p className="text-[11px] font-medium text-foreground">{selectedPatent.subcategory}</p>
-                </div>
-              )}
-
-              {selectedPatent.inventors && selectedPatent.inventors.length > 0 && (
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Inventors</p>
-                  <div className="flex flex-wrap gap-1">
-                    {selectedPatent.inventors.map((inv, i) => (
-                      <span key={i} className="text-[10px] bg-background px-2 py-0.5 rounded border border-border/40 text-foreground">{inv}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {selectedPatent.cpcCodes && selectedPatent.cpcCodes.length > 0 && (
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">CPC Classification</p>
-                  <div className="flex flex-wrap gap-1">
-                    {selectedPatent.cpcCodes.map((code, i) => (
-                      <span key={i} className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded border border-primary/20 font-mono">{code}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {selectedPatent.abstract && (
-                <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Abstract</p>
-                  <p className="text-[10px] text-foreground leading-relaxed">{selectedPatent.abstract}</p>
-                </div>
-              )}
-            </div>
-          </>
-        ) : (
-          <>
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
               <div className="flex items-center gap-2 mb-0.5">
                 {onBack && (
@@ -318,11 +229,12 @@ const CategoryPatentsModal = ({
                 </tbody>
               </table>
             </div>
-          </>
-        )}
-      </DialogContent>
-    </Dialog>
+
+        </DialogContent>
+      </Dialog>
+    </>
   );
+
 };
 
 export default CategoryPatentsModal;
