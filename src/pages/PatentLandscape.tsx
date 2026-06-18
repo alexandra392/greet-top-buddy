@@ -1037,17 +1037,17 @@ const PatentLandscape = () => {
                                   <span className={`text-sm font-bold ${sector.shareColor}`}>{sector.share}</span>
                                 </div>
                                 <div className={`text-[9px] font-semibold ${sector.cagrColor} mb-2`}>{sector.cagr} YoY</div>
-                                <div className="space-y-1">
-                                  {sector.subs.slice(0, 3).map((s) =>
-                                    <div key={s.n} className="flex justify-between text-[9px]">
-                                      <span className="text-muted-foreground">{s.n}</span>
-                                      <span className="font-medium text-foreground">{s.v}</span>
-                                    </div>
-                                  )}
-                                  {sector.subs.length > 3 && (
-                                    <div className="text-[9px] font-semibold text-primary pt-0.5">+{sector.subs.length - 3} more</div>
-                                  )}
-                                </div>
+                                 <div className="space-y-1">
+                                   {sector.subs.slice(0, 2).map((s) =>
+                                     <div key={s.n} className="flex justify-between text-[9px]">
+                                       <span className="text-muted-foreground">{s.n}</span>
+                                       <span className="font-medium text-foreground">{s.v}</span>
+                                     </div>
+                                   )}
+                                   {sector.subs.length > 2 && (
+                                     <div className="text-[9px] font-semibold text-primary pt-0.5">+{sector.subs.length - 2} more</div>
+                                   )}
+                                 </div>
                               </div>
                             )}
                           </div>
