@@ -1244,15 +1244,15 @@ const PatentLandscape = () => {
 
         {/* View All sectors modal (Feedstock / Process) */}
         <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) setSectorModalGroup(null); }}>
-          <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto">
+          <DialogContent className={`max-w-5xl max-h-[85vh] overflow-y-auto ${sectorModalGroup === 'Feedstock' ? 'bg-[hsl(142,60%,40%,0.04)]' : sectorModalGroup === 'Process' || sectorModalGroup === 'Technology' ? 'bg-[hsl(217,91%,60%,0.04)]' : ''}`}>
             {(() => {
               const group = activeConfig.productionSectorGroups?.find(g => g.label === sectorModalGroup);
               if (!group) return null;
               const dotColor = group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]';
               return (
                 <>
-                  <DialogTitle className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                    <span className={`w-2.5 h-2.5 rounded-full ${dotColor}`}></span>
+                  <DialogTitle className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    <span className={`w-2 h-2 rounded-full ${dotColor}`}></span>
                     All {group.label} ({group.sectors.length})
                   </DialogTitle>
                   <div className="grid grid-cols-3 gap-2 mt-3">
