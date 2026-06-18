@@ -967,7 +967,7 @@ const PatentLandscape = () => {
                          <p className="text-[9px] text-muted-foreground">Share of total patents</p>
                        </div>
 
-                      <div className="opacity-40 grayscale pointer-events-none select-none">
+                      <div>
                       {/* Production tab: split into Feedstock (left) / Technology (right) */}
                       {activeConfig.productionSectorGroups ? (
                         <div className="grid grid-cols-2 gap-4">
@@ -1029,12 +1029,6 @@ const PatentLandscape = () => {
                           </div>
                         )
                       )}
-                      </div>
-                      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-warning/15 border border-warning/40 backdrop-blur-sm shadow-sm">
-                          <Clock className="w-3 h-3 text-warning" />
-                          <span className="text-[10px] font-bold tracking-widest text-warning uppercase">Coming Soon</span>
-                        </div>
                       </div>
                     </div>
                   </div>
