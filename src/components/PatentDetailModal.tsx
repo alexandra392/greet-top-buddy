@@ -172,14 +172,14 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
         <div className="overflow-y-auto flex-1 px-4 py-3 space-y-2.5">
           {/* Row 1: Patent ID + Applicant */}
           <div className="grid grid-cols-2 gap-2.5">
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Patent ID</p>
               <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5 font-mono">
                 <Hash className="w-3 h-3 text-muted-foreground" />
                 {patentId}
               </p>
             </div>
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Applicant</p>
               <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
                 <Building2 className="w-3 h-3 text-muted-foreground" />
@@ -190,7 +190,7 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
 
           {/* Row 2: Status + Filing + Granted */}
           <div className="grid grid-cols-3 gap-2.5">
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Status</p>
               {patent.status === 'Granted' ? (
                 <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
@@ -204,14 +204,14 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
                 </p>
               )}
             </div>
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Filing Year</p>
               <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
                 <Calendar className="w-3 h-3 text-muted-foreground" />
                 {patent.filingYear}
               </p>
             </div>
-            <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+            <div className="bg-background rounded-lg p-2.5 border border-border">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider mb-1">Granted Year</p>
               <p className="text-[12px] font-semibold text-foreground flex items-center gap-1.5">
                 <Calendar className="w-3 h-3 text-muted-foreground" />
@@ -221,7 +221,7 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
           </div>
 
           {/* CPC Classification */}
-          <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+          <div className="bg-background rounded-lg p-2.5 border border-border">
             <div className="flex items-center justify-between mb-1.5">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider">CPC Classification</p>
               <p className="text-[8px] text-muted-foreground">Section › Class › Subclass</p>
@@ -232,7 +232,7 @@ const PatentDetailModal = ({ open, onOpenChange, patent, topic = 'Lactic Acid', 
           </div>
 
           {/* Jurisdictions */}
-          <div className="bg-muted/30 rounded-lg p-2.5 border border-border/40">
+          <div className="bg-background rounded-lg p-2.5 border border-border">
             <div className="flex items-center justify-between mb-1.5">
               <p className="text-[8px] text-muted-foreground uppercase tracking-wider">Jurisdictions ({patent.jurisdiction})</p>
               <Globe className="w-3 h-3 text-muted-foreground" />
