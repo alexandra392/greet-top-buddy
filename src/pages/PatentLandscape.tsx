@@ -1405,9 +1405,9 @@ const PatentLandscape = () => {
                   const totalSubPages = Math.max(1, Math.ceil(subItemsModal.subs.length / subItemsPageSize));
                   const currentSubPage = Math.min(subItemsPage, totalSubPages);
                   return (
-                    <div className="px-4 py-2 border-t border-border flex-shrink-0 flex items-center justify-between gap-2">
-                      {totalSubPages > 1 ? (
-                        <>
+                    <div className="px-4 py-2 border-t border-border flex-shrink-0 flex flex-col gap-2">
+                      {totalSubPages > 1 && (
+                        <div className="flex items-center justify-between">
                           <span className="text-[10px] text-muted-foreground">
                             Showing {(currentSubPage - 1) * subItemsPageSize + 1}–{Math.min(currentSubPage * subItemsPageSize, subItemsModal.subs.length)} of {subItemsModal.subs.length}
                           </span>
@@ -1432,20 +1432,22 @@ const PatentLandscape = () => {
                               <ChevronRight className="h-3 w-3" />
                             </button>
                           </div>
-                        </>
-                      ) : <span />}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
-                          setSubItemsModal(null);
-                          setSubItemsParent(null);
-                          setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
-                        }}
-                        className="text-[10px] font-semibold text-primary hover:underline"
-                      >
-                        View full patent profile →
-                      </button>
+                        </div>
+                      )}
+                      <div className="flex justify-center">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (subItemsModal) setPreviousSubItems({ modal: subItemsModal, parent: subItemsParent });
+                            setSubItemsModal(null);
+                            setSubItemsParent(null);
+                            setSelectedCategory({ name: subItemsModal.name, patents: subItemsModal.patents, share: subItemsModal.share, cagr: subItemsModal.cagr, subs: subItemsModal.subs });
+                          }}
+                          className="text-[10px] font-semibold text-primary hover:underline"
+                        >
+                          View full patent profile →
+                        </button>
+                      </div>
                     </div>
                   );
                 })()}
