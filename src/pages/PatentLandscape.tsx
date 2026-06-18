@@ -702,6 +702,9 @@ const PatentLandscape = () => {
   const [expandFlatRows, setExpandFlatRows] = useState(false);
   const [subItemsModal, setSubItemsModal] = useState<{name: string; patents: number; share: string; cagr: string; subs: {n: string; v: number}[]; borderColor: string; shareColor: string; cagrColor: string} | null>(null);
   const [subItemsParent, setSubItemsParent] = useState<string | null>(null);
+  const [subItemsPage, setSubItemsPage] = useState(1);
+  const subItemsPageSize = 8;
+  React.useEffect(() => { setSubItemsPage(1); }, [subItemsModal?.name]);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
