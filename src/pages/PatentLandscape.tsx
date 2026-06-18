@@ -362,6 +362,8 @@ const viewConfigs: Record<PatentView, {
           { name: 'Food Waste', patents: 26, share: '10.6%', cagr: '+24.3%', borderColor: 'border-l-[hsl(195,70%,50%)]', cagrColor: 'text-[hsl(195,70%,50%)]', shareColor: 'text-[hsl(195,70%,50%)]', subs: [{ n: 'Bread Waste', v: 11 }, { n: 'Fruit Pomace', v: 8 }, { n: 'Coffee Grounds', v: 7 }] },
           { name: 'Algal Biomass', patents: 21, share: '8.5%', cagr: '+28.1%', borderColor: 'border-l-[hsl(170,60%,45%)]', cagrColor: 'text-[hsl(170,60%,45%)]', shareColor: 'text-[hsl(170,60%,45%)]', subs: [{ n: 'Microalgae', v: 10 }, { n: 'Macroalgae', v: 6 }, { n: 'Cyanobacteria', v: 5 }] },
           { name: 'Oilseed Crops', patents: 16, share: '6.5%', cagr: '+9.8%', borderColor: 'border-l-[hsl(45,90%,50%)]', cagrColor: 'text-[hsl(45,90%,50%)]', shareColor: 'text-[hsl(45,90%,50%)]', subs: [{ n: 'Rapeseed', v: 7 }, { n: 'Soybean', v: 5 }, { n: 'Palm Kernel', v: 4 }] },
+          { name: 'Agricultural Residues', patents: 12, share: '4.9%', cagr: '+15.2%', borderColor: 'border-l-[hsl(30,80%,55%)]', cagrColor: 'text-[hsl(30,80%,55%)]', shareColor: 'text-[hsl(30,80%,55%)]', subs: [{ n: 'Rice Husk', v: 5 }, { n: 'Barley Straw', v: 4 }, { n: 'Oat Hulls', v: 3 }] },
+          { name: 'Forestry Waste', patents: 9, share: '3.7%', cagr: '+11.5%', borderColor: 'border-l-[hsl(160,50%,40%)]', cagrColor: 'text-[hsl(160,50%,40%)]', shareColor: 'text-[hsl(160,50%,40%)]', subs: [{ n: 'Sawdust', v: 4 }, { n: 'Bark Residue', v: 3 }, { n: 'Logging Slash', v: 2 }] },
         ]
       },
       {
@@ -373,6 +375,8 @@ const viewConfigs: Record<PatentView, {
           { name: 'Purification', patents: 34, share: '13.8%', cagr: '+14.3%', borderColor: 'border-l-[hsl(36,95%,54%)]', cagrColor: 'text-[hsl(36,95%,54%)]', shareColor: 'text-[hsl(36,95%,54%)]', subs: [{ n: 'Crystallisation', v: 13 }, { n: 'Chromatography', v: 11 }, { n: 'Ion Exchange', v: 10 }] },
           { name: 'Enzymatic Hydrolysis', patents: 28, share: '11.4%', cagr: '+22.4%', borderColor: 'border-l-[hsl(262,83%,58%)]', cagrColor: 'text-[hsl(262,83%,58%)]', shareColor: 'text-[hsl(262,83%,58%)]', subs: [{ n: 'Cellulase Systems', v: 11 }, { n: 'Hemicellulase', v: 9 }, { n: 'Enzyme Cocktails', v: 7 }] },
           { name: 'Thermochemical', patents: 22, share: '8.9%', cagr: '+12.8%', borderColor: 'border-l-[hsl(340,50%,55%)]', cagrColor: 'text-[hsl(340,50%,55%)]', shareColor: 'text-[hsl(340,50%,55%)]', subs: [{ n: 'Pyrolysis', v: 9 }, { n: 'Gasification', v: 7 }, { n: 'Hydrothermal', v: 6 }] },
+          { name: 'Electrochemical', patents: 18, share: '7.3%', cagr: '+19.4%', borderColor: 'border-l-[hsl(280,60%,55%)]', cagrColor: 'text-[hsl(280,60%,55%)]', shareColor: 'text-[hsl(280,60%,55%)]', subs: [{ n: 'Electrolysis', v: 8 }, { n: 'Electrodialysis', v: 6 }, { n: 'Redox Systems', v: 4 }] },
+          { name: 'Hybrid Bioprocessing', patents: 14, share: '5.7%', cagr: '+24.8%', borderColor: 'border-l-[hsl(50,90%,45%)]', cagrColor: 'text-[hsl(50,90%,45%)]', shareColor: 'text-[hsl(50,90%,45%)]', subs: [{ n: 'Photo-fermentation', v: 6 }, { n: 'Chemo-enzymatic', v: 5 }, { n: 'Cell-free Systems', v: 3 }] },
         ]
       }
     ],
@@ -974,12 +978,32 @@ const PatentLandscape = () => {
                         <div className="grid grid-cols-2 gap-4">
                           {activeConfig.productionSectorGroups.map((group) => (
                             <div key={group.label} className={`rounded-xl p-3 ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%,0.06)] border border-[hsl(142,60%,40%,0.15)]' : 'bg-[hsl(217,91%,60%,0.06)] border border-[hsl(217,91%,60%,0.15)]'}`}>
-                              <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                                <span className={`w-2 h-2 rounded-full ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]'}`}></span>
-                                {group.label}
-                              </h4>
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5">
+                                  <span className={`w-2 h-2 rounded-full ${group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]'}`}></span>
+                                  {group.label}
+                                </h4>
+                                {group.sectors.length > 6 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setExpandedSectorGroups(prev => {
+                                      const next = new Set(prev);
+                                      if (next.has(group.label)) next.delete(group.label);
+                                      else next.add(group.label);
+                                      return next;
+                                    })}
+                                    className="flex items-center gap-1 text-[9px] font-semibold text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md border border-border/60 hover:border-border hover:bg-muted/30 bg-background/50"
+                                  >
+                                    {expandedSectorGroups.has(group.label) ? (
+                                      <>Less <ChevronUp className="w-2.5 h-2.5" /></>
+                                    ) : (
+                                      <>All <ChevronDown className="w-2.5 h-2.5" /></>
+                                    )}
+                                  </button>
+                                )}
+                              </div>
                               <div className="grid grid-cols-2 gap-2">
-                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 4)).map((sector) =>
+                                {(expandedSectorGroups.has(group.label) ? group.sectors : group.sectors.slice(0, 6)).map((sector) =>
                                   <div key={sector.name} onClick={() => setSelectedCategory({ name: sector.name, patents: sector.patents, share: sector.share, cagr: sector.cagr, subs: sector.subs })} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                                     <div className="flex items-start justify-between mb-0.5">
                                       <div>
@@ -1000,24 +1024,6 @@ const PatentLandscape = () => {
                                   </div>
                                 )}
                               </div>
-                              {group.sectors.length > 4 && (
-                                <button
-                                  type="button"
-                                  onClick={() => setExpandedSectorGroups(prev => {
-                                    const next = new Set(prev);
-                                    if (next.has(group.label)) next.delete(group.label);
-                                    else next.add(group.label);
-                                    return next;
-                                  })}
-                                  className="mt-2 w-full flex items-center justify-center gap-1 text-[10px] font-medium text-muted-foreground hover:text-foreground transition-colors py-1.5 rounded-lg border border-dashed border-border/60 hover:border-border hover:bg-muted/20"
-                                >
-                                  {expandedSectorGroups.has(group.label) ? (
-                                    <>Show Less <ChevronUp className="w-3 h-3" /></>
-                                  ) : (
-                                    <>Show All ({group.sectors.length - 4} more) <ChevronDown className="w-3 h-3" /></>
-                                  )}
-                                </button>
-                              )}
                             </div>
                           ))}
                         </div>
