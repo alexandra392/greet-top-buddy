@@ -90,7 +90,7 @@ const CpcRow = ({ code, index }: { code: string; index: number }) => {
   return (
     <HoverCard openDelay={80} closeDelay={80}>
       <HoverCardTrigger asChild>
-        <div className="flex items-center gap-1.5 flex-wrap text-left hover:bg-background/60 rounded px-1 py-1 -mx-1 transition-colors cursor-default">
+        <div className="flex items-center gap-1.5 flex-wrap text-left hover:bg-muted/50 rounded px-1 py-1 -mx-1 transition-colors cursor-default">
           <span className="text-[10px] font-mono font-semibold text-primary">{parsed.section}</span>
           <ChevronRight className="w-2.5 h-2.5 text-muted-foreground/60" />
           <span className="text-[10px] font-mono font-semibold text-primary">{parsed.klass}</span>
