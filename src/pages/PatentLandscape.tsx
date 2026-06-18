@@ -705,6 +705,9 @@ const PatentLandscape = () => {
   const [subItemsPage, setSubItemsPage] = useState(1);
   const subItemsPageSize = 8;
   React.useEffect(() => { setSubItemsPage(1); }, [subItemsModal?.name]);
+  const [sectorModalPage, setSectorModalPage] = useState(1);
+  const sectorModalPageSize = 6;
+  React.useEffect(() => { setSectorModalPage(1); }, [sectorModalGroup]);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
@@ -1284,6 +1287,9 @@ const PatentLandscape = () => {
               if (!group) return null;
               const dotColor = group.label === 'Feedstock' ? 'bg-[hsl(142,60%,40%)]' : 'bg-[hsl(217,91%,60%)]';
               const totalPatents = group.sectors.reduce((sum, s) => sum + s.patents, 0);
+              const totalSectorPages = Math.max(1, Math.ceil(group.sectors.length / sectorModalPageSize));
+              const currentSectorPage = Math.min(sectorModalPage, totalSectorPages);
+              const pagedSectors = group.sectors.slice((currentSectorPage - 1) * sectorModalPageSize, currentSectorPage * sectorModalPageSize);
               return (
                 <>
                   <div className="px-4 pt-4 pb-3 border-b border-border">
@@ -1299,7 +1305,7 @@ const PatentLandscape = () => {
                     </p>
                   </div>
                   <div className="grid grid-cols-3 gap-2 p-4">
-                    {group.sectors.map((sector) => (
+                    {pagedSectors.map((sector) => (
                       <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                         <div className="flex items-start justify-between mb-0.5">
                           <div>
@@ -1323,6 +1329,36 @@ const PatentLandscape = () => {
                       </div>
                     ))}
                   </div>
+                  {totalSectorPages > 1 && (
+                    <div className="px-4 py-2 border-t border-border flex-shrink-0">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-muted-foreground">
+                          Showing {(currentSectorPage - 1) * sectorModalPageSize + 1}–{Math.min(currentSectorPage * sectorModalPageSize, group.sectors.length)} of {group.sectors.length}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => setSectorModalPage(p => Math.max(1, p - 1))}
+                            disabled={currentSectorPage === 1}
+                            className="p-1 rounded border border-border text-muted-foreground hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
+                          >
+                            <ChevronLeft className="w-3 h-3" />
+                          </button>
+                          <span className="text-[10px] text-muted-foreground min-w-[2rem] text-center">
+                            {currentSectorPage} / {totalSectorPages}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setSectorModalPage(p => Math.min(totalSectorPages, p + 1))}
+                            disabled={currentSectorPage === totalSectorPages}
+                            className="p-1 rounded border border-border text-muted-foreground hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
+                          >
+                            <ChevronRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </>
               );
             })()}
