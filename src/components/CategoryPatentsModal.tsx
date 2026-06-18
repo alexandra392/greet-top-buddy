@@ -103,6 +103,8 @@ const CategoryPatentsModal = ({
   const [selectedSub, setSelectedSub] = useState<string>(initialSub || 'all');
   const [selectedPatent, setSelectedPatent] = useState<Patent | null>(null);
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
+  const [page, setPage] = useState(1);
+  const pageSize = 8;
 
   const allPatents = useMemo(() => {
     return generateCategoryPatents(categoryName, subcategories, totalPatents, topic);
@@ -123,6 +125,15 @@ const CategoryPatentsModal = ({
     if (filingSort) filtered = [...filtered].sort((a, b) => filingSort === 'desc' ? b.filingYear - a.filingYear : a.filingYear - b.filingYear);
     return filtered;
   }, [allPatents, selectedSub, searchTerm, filingSort]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPatents.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const pagedPatents = useMemo(
+    () => filteredPatents.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+    [filteredPatents, currentPage]
+  );
+
+  React.useEffect(() => { setPage(1); }, [searchTerm, selectedSub, filingSort]);
 
   const handleClose = () => {
     setSelectedPatent(null);
