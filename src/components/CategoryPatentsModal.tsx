@@ -138,10 +138,10 @@ const CategoryPatentsModal = ({
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
               <button
                 onClick={() => setSelectedPatent(null)}
-                className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
+                className="flex items-center gap-1 text-[10px] text-primary hover:text-primary/80 transition-colors mb-2"
               >
                 <ArrowLeft className="w-3 h-3" />
-                Back to {categoryName} patents
+                Back to {categoryName} patent profile
               </button>
               <DialogTitle className="text-sm font-semibold text-foreground leading-snug">
                 {selectedPatent.title}
@@ -233,7 +233,7 @@ const CategoryPatentsModal = ({
               {onBack && (
                 <button
                   onClick={onBack}
-                  className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors mb-2"
+                  className="flex items-center gap-1 text-[10px] text-primary hover:text-primary/80 transition-colors mb-2"
                 >
                   <ArrowLeft className="w-3 h-3" />
                   Back to sub-categories
