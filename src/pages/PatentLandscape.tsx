@@ -699,6 +699,7 @@ const PatentLandscape = () => {
   const [generalSubView, setGeneralSubView] = useState<'production' | 'applications'>('production');
   const [expandedHeatRows, setExpandedHeatRows] = useState<Set<string>>(new Set());
   const [sectorModalGroup, setSectorModalGroup] = useState<string | null>(null);
+  const [expandedModalSector, setExpandedModalSector] = useState<string | null>(null);
   const [heatMatrixSubView, setHeatMatrixSubView] = useState<'technology' | 'feedstock'>('feedstock');
   const [patentSearchTerm, setPatentSearchTerm] = useState('');
   const [filingSort, setFilingSort] = useState<'desc' | 'asc' | null>(null);
