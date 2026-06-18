@@ -977,9 +977,12 @@ const PatentLandscape = () => {
                 {hasDetailedSections && activeConfig.sectors && activeConfig.concentration &&
                 <div className="grid grid-cols-12 gap-3 relative">
                     <div className="col-span-12 bg-muted/30 border border-border/40 rounded-xl p-4 relative overflow-hidden">
-                      <div className="flex items-center justify-between mb-3">
-                         <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{activeConfig.sectorTitle}</h3>
-                         <p className="text-[9px] text-muted-foreground">Share of total patents</p>
+                       <div className="mb-3">
+                         <div className="flex items-center justify-between">
+                           <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{activeConfig.sectorTitle}</h3>
+                           <p className="text-[9px] text-muted-foreground">Share of total patents</p>
+                         </div>
+                         <p className="text-[9px] text-muted-foreground mt-0.5">Click any category to explore sub-items</p>
                        </div>
 
                       <div>
