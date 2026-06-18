@@ -1278,7 +1278,7 @@ const PatentLandscape = () => {
 
         {/* View All sectors modal (Feedstock / Process) */}
         <Dialog open={!!sectorModalGroup} onOpenChange={(open) => { if (!open) { setSectorModalGroup(null); setSubItemsModal(null); setSubItemsParent(null); } }}>
-          <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto">
+          <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto p-0 gap-0">
             {(() => {
               const group = activeConfig.productionSectorGroups?.find(g => g.label === sectorModalGroup);
               if (!group) return null;
@@ -1286,7 +1286,7 @@ const PatentLandscape = () => {
               const totalPatents = group.sectors.reduce((sum, s) => sum + s.patents, 0);
               return (
                 <>
-                  <div className="px-1 pb-3 mb-3 border-b border-border">
+                  <div className="px-4 pt-4 pb-3 border-b border-border">
                     <DialogTitle className="text-[9px] font-bold uppercase tracking-wider text-primary mb-1">
                       {activeConfig.sectorTitle}
                     </DialogTitle>
@@ -1298,7 +1298,7 @@ const PatentLandscape = () => {
                       {group.sectors.length} categories · {totalPatents.toLocaleString()} patents · Click any category to see its sub-items
                     </p>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 mt-4">
+                  <div className="grid grid-cols-3 gap-2 p-4">
                     {group.sectors.map((sector) => (
                       <div key={sector.name} onClick={() => { setSubItemsParent(group.label); setSubItemsModal(sector); }} className={`border-l-4 ${sector.borderColor} bg-background rounded-lg p-3 cursor-pointer hover:bg-muted/40 transition-colors shadow-sm`}>
                         <div className="flex items-start justify-between mb-0.5">
