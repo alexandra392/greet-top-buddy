@@ -142,9 +142,7 @@ const CategoryPatentsModal = ({
       />
       <Dialog open={open && !selectedPatent} onOpenChange={handleClose}>
         <DialogContent className="max-w-[620px] p-0 gap-0 max-h-[80vh] overflow-hidden flex flex-col">
-          <>
 
-          <>
             <div className="px-4 py-3 border-b border-border flex-shrink-0">
               <div className="flex items-center gap-2 mb-0.5">
                 {onBack && (
