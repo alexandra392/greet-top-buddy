@@ -38,6 +38,7 @@ import LcaCatalog from "./pages/lca/LcaCatalog";
 import LcaQuestionnaire from "./pages/lca/LcaQuestionnaire";
 import LcaPerformance from "./pages/lca/LcaPerformance";
 import LcaHotspots from "./pages/lca/LcaHotspots";
+import LcaMatches from "./pages/lca/LcaMatches";
 
 const queryClient = new QueryClient({
   defaultOptions: {
