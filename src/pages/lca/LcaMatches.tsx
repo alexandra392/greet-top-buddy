@@ -115,33 +115,8 @@ export default function LcaMatches() {
             <ArrowLeft className="w-3.5 h-3.5" />
             Back
           </Button>
-
-
-          {selectedIds.size > 0 && (
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-foreground font-medium">
-                {selectedIds.size === 1 ? "1 dataset selected" : `${selectedIds.size} datasets selected`}
-              </span>
-              <button
-                onClick={() => setSelectedIds(new Set())}
-                className="text-[11px] text-muted-foreground hover:text-foreground underline"
-              >
-                Clear all
-              </button>
-              <button
-                onClick={() => {
-                  const selectedLcas = ranked
-                    .filter((r) => selectedIds.has(r.id))
-                    .map(({ id, title, provider, year, method }) => ({ id, title, provider, year, method }));
-                  navigate(`/lca/products/${product.id}/retrieval`, { state: { selectedLcas } });
-                }}
-                className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors"
-              >
-                Proceed with selected
-              </button>
-            </div>
-          )}
         </div>
+
 
         {/* Heading */}
         <div className="mb-3">
