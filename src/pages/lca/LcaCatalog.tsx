@@ -243,54 +243,48 @@ export default function LcaCatalog() {
             const pagedLcas = ranked.slice(lcaStart, lcaEnd);
             return (
               <>
-                <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60 shrink-0">
-                  <div className="flex items-start gap-4">
-                    <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-3xl shrink-0">
-                      {selected.image}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
-                        LCA Matches
-                      </div>
-                      <DialogTitle className="text-lg font-bold text-foreground mt-1">
-                        {selected.name}
-                      </DialogTitle>
-                      <p className="text-xs text-muted-foreground mt-1.5">
-                        Ranked list of available Life Cycle Assessments matching this product, by similarity score.
-                      </p>
-                    </div>
+                <DialogHeader className="px-6 pt-6 pb-4 shrink-0">
+                  <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
+                    LCA Matches
                   </div>
+                  <DialogTitle className="text-base font-bold text-foreground mt-1 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    {selected.name}
+                    <span className="text-primary text-sm font-bold ml-1">{ranked[0]?.score}%</span>
+                  </DialogTitle>
+                  <p className="text-[11px] text-muted-foreground mt-1">
+                    {ranked.length} matches · ranked by similarity score
+                  </p>
                 </DialogHeader>
 
-                <div className="px-8 py-3 overflow-y-auto">
-                  <div className="flex flex-col gap-1.5">
-                    {pagedLcas.map((lca, i) => (
-                      <button
-                        key={lca.id}
-                        onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
-                        className="w-full text-left flex items-center gap-3 py-2.5 px-3 bg-card border border-border/60 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all group"
-                      >
-                        <div className="w-7 text-[11px] font-bold text-muted-foreground tabular-nums text-center">
-                          #{lcaStart + i + 1}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-xs font-semibold text-foreground truncate">
-                            {lca.title}
-                          </div>
-                          <div className="text-[11px] text-muted-foreground truncate">
-                            {lca.provider} · {lca.year} · {lca.method}
-                          </div>
-                        </div>
-                        <div className="text-xs font-bold text-primary tabular-nums shrink-0">
-                          {lca.score}%
-                        </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-                      </button>
-                    ))}
+                <div className="overflow-y-auto">
+                  <div className="grid grid-cols-[1fr_140px_100px_32px] gap-4 px-6 py-2.5 border-y border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                    <div>Dataset</div>
+                    <div>Provider</div>
+                    <div className="text-right">Score</div>
+                    <div />
                   </div>
+                  {pagedLcas.map((lca) => (
+                    <button
+                      key={lca.id}
+                      onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
+                      className="w-full text-left grid grid-cols-[1fr_140px_100px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 hover:bg-muted/40 transition-colors group"
+                    >
+                      <div className="text-xs font-semibold text-foreground truncate">
+                        {lca.title}
+                      </div>
+                      <div className="text-[11px] text-muted-foreground truncate">
+                        {lca.provider} · {lca.year}
+                      </div>
+                      <div className="text-xs font-bold text-primary tabular-nums text-right">
+                        {lca.score}%
+                      </div>
+                      <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors justify-self-end" />
+                    </button>
+                  ))}
                 </div>
 
-                <div className="px-8 py-4 border-t border-border/60 shrink-0">
+                <div className="px-6 py-3 border-t border-border/60 shrink-0 mt-auto">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-muted-foreground">
                       Showing <span className="text-foreground font-medium">{lcaStart + 1}–{lcaEnd}</span> of <span className="text-foreground font-medium">{ranked.length}</span> matches
@@ -318,6 +312,7 @@ export default function LcaCatalog() {
                     </div>
                   </div>
                 </div>
+
               </>
             );
           })()}
