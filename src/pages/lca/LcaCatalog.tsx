@@ -102,7 +102,7 @@ export default function LcaCatalog() {
             placeholder="Search products by name, category or description..."
             value={searchQuery}
             onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
-            className="pl-9 h-8 text-xs"
+            className="pl-9 h-8 text-[11px] placeholder:text-[11px]"
           />
         </div>
 
