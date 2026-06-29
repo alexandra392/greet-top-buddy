@@ -192,6 +192,11 @@ export default function LcaCatalog() {
         onSubmit={handleAddProduct}
       />
 
+      <ProductOptionsModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
+
     </div>
   );
 }
