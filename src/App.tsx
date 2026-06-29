@@ -38,6 +38,7 @@ import LcaCatalog from "./pages/lca/LcaCatalog";
 import LcaQuestionnaire from "./pages/lca/LcaQuestionnaire";
 import LcaPerformance from "./pages/lca/LcaPerformance";
 import LcaHotspots from "./pages/lca/LcaHotspots";
+import LcaMatches from "./pages/lca/LcaMatches";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,13 +53,14 @@ const HeaderBreadcrumb = () => {
   const navigate = useNavigate();
   
   const match = location.pathname.match(/\/landscape\/([^/]+)\/([^/]+)/);
-  const lcaMatch = location.pathname.match(/^\/lca(?:\/products\/([^/]+)\/(questionnaire|performance|hotspots))?/);
+  const lcaMatch = location.pathname.match(/^\/lca(?:\/products\/([^/]+)\/(matches|questionnaire|performance|hotspots))?/);
 
   if (!match) {
     if (lcaMatch) {
       const productId = lcaMatch[1];
       const sub = lcaMatch[2];
       const subLabel =
+        sub === "matches" ? "LCA Matches" :
         sub === "questionnaire" ? "Questionnaire" :
         sub === "performance" ? "Performance" :
         sub === "hotspots" ? "Hotspots" : null;
@@ -300,7 +302,7 @@ const TopBarNav = () => {
   const navigate = useNavigate();
   const path = location.pathname;
 
-  const lcaMatch = path.match(/^\/lca(?:\/products\/([^/]+)\/(questionnaire|performance|hotspots))?/);
+  const lcaMatch = path.match(/^\/lca(?:\/products\/([^/]+)\/(matches|questionnaire|performance|hotspots))?/);
   const productId = lcaMatch?.[1];
 
   const isActive = (target: string) =>
@@ -427,6 +429,7 @@ const App = () => {
                 <Route path="/lca" element={<LcaCatalog />} />
                 <Route path="/lca/products/:id/questionnaire" element={<LcaQuestionnaire />} />
                 <Route path="/lca/products/:id/performance" element={<LcaPerformance />} />
+                <Route path="/lca/products/:id/matches" element={<LcaMatches />} />
                 <Route path="/lca/products/:id/hotspots" element={<LcaHotspots />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<NotFound />} />
