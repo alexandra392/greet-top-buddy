@@ -140,12 +140,12 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
         <div className="flex flex-col h-full">
           {/* Compact top header */}
           <div className="px-6 pt-4 pb-2 border-b border-border bg-card">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-2">
               <div className="flex items-center gap-3">
                 <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
                   LCA Tool
                 </div>
-                <span className="text-muted-foreground/40">·</span>
+                <span className="text-muted-foreground/40 hidden sm:inline">·</span>
                 <div className="text-sm font-semibold text-foreground leading-tight">
                   Add Product
                 </div>
