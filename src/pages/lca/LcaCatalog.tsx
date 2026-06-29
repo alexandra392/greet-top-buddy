@@ -86,6 +86,7 @@ function getRankedLcas(p: LcaProduct): RankedLca[] {
 export default function LcaCatalog() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<LcaProduct | null>(null);
+  const [lcaMatchesPage, setLcaMatchesPage] = useState(1);
   const [extraProducts, setExtraProducts] = useState<LcaProduct[]>([]);
   const [page, setPage] = useState(1);
   const [wizardOpen, setWizardOpen] = useState(false);
