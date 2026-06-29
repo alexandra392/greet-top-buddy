@@ -52,7 +52,44 @@ const HeaderBreadcrumb = () => {
   const navigate = useNavigate();
   
   const match = location.pathname.match(/\/landscape\/([^/]+)\/([^/]+)/);
+  const lcaMatch = location.pathname.match(/^\/lca(?:\/products\/([^/]+)\/(questionnaire|performance|hotspots))?/);
+
   if (!match) {
+    if (lcaMatch) {
+      const productId = lcaMatch[1];
+      const sub = lcaMatch[2];
+      const subLabel =
+        sub === "questionnaire" ? "Questionnaire" :
+        sub === "performance" ? "Performance" :
+        sub === "hotspots" ? "Hotspots" : null;
+      const segs: { label: string; onClick?: () => void }[] = [
+        { label: "Dashboard", onClick: () => navigate("/") },
+        { label: "LCA Tool", onClick: productId ? () => navigate("/lca") : undefined },
+      ];
+      if (!productId) {
+        segs.push({ label: "Catalog" });
+      } else {
+        segs.push({ label: "Product", onClick: () => navigate("/lca") });
+        if (subLabel) segs.push({ label: subLabel });
+      }
+      return (
+        <div className="flex items-center gap-2 text-xs text-muted-foreground ml-3">
+          {segs.map((seg, i) => {
+            const isLast = i === segs.length - 1;
+            return (
+              <React.Fragment key={i}>
+                {i > 0 && <ChevronRight className="w-3 h-3" />}
+                {isLast || !seg.onClick ? (
+                  <span className={isLast ? "text-foreground font-medium" : ""}>{seg.label}</span>
+                ) : (
+                  <button onClick={seg.onClick} className="hover:text-foreground transition-colors">{seg.label}</button>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
+      );
+    }
     // Show "Dashboard" on the home page
     if (location.pathname === '/') {
       return (
