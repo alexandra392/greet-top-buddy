@@ -54,6 +54,7 @@ export default function LcaMatches() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [yearFilter, setYearFilter] = useState<string>("all");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   if (!product) {
     return (
