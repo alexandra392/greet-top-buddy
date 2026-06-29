@@ -524,21 +524,27 @@ function StepFields({
       );
     case "product-5":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Biogenic Carbon Content (product & packaging)">{input("biogenicCarbon", "Biogenic CO₂ released during combustion — carbon neutral cycle")}</Field>
-          <Field label="Carbon Sequestration During Raw Material Growth">{input("carbonSeq", "N/A — waste-derived feedstock")}</Field>
-          <Field label="Fertilizers, Pesticides, Biocides in Bio-based Inputs">{input("fertilizers", "N/A")}</Field>
-          <Field label="VOCs or Other Emissions from Production or Use">{input("vocs", "Minor VOC emissions from digestate storage (mitigated by biofilter)")}</Field>
-          <Field label="Reference Service Life (RSL)">{input("rsl", "N/A — consumable energy carrier")}</Field>
-          <Field label="Typical Application and Installation Method" full>{area("application", "Injected into national gas grid for downstream use")}</Field>
-          <Field label="Maintenance Requirements">{input("maintenance", "N/A")}</Field>
-          <Field label="End-of-life Scenarios">{input("eolScenarios", "Combustion — 100%")}</Field>
-          <Field label="Take-back or Product Recovery Schemes">{select("takeBack", ["No", "Yes", "Partial"])}</Field>
-          <Field label="Compliance with Standards">{input("complianceStandards", "ISO 14040:2006, ISO 14044:2006, EN 16723-1, RED II")}</Field>
-          <Field label="Green Building Certifications">{input("greenCerts", "N/A")}</Field>
-          <Field label="Hazardous Substance Declarations">{input("hazardous", "H₂S controlled below 5 ppm at injection point")}</Field>
-          <Field label="System Boundary">{select("systemBoundary", ["Cradle-to-Gate", "Cradle-to-Grave", "Gate-to-Gate"])}</Field>
-          <Field label="Reference Year & Data Collection Period">{input("referenceYear", "2025")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Carbon &amp; Emissions">
+            <Field label="Biogenic Carbon Content (product &amp; packaging)" hint="e.g. Biogenic CO₂ released during combustion">{input("biogenicCarbon", "Biogenic CO₂ released during combustion — carbon neutral cycle")}</Field>
+            <Field label="Carbon Sequestration During Raw Material Growth" hint="e.g. N/A — waste-derived feedstock">{input("carbonSeq", "N/A — waste-derived feedstock")}</Field>
+            <Field label="Fertilizers, Pesticides, Biocides in Bio-based Inputs" hint="e.g. N/A">{input("fertilizers", "N/A")}</Field>
+            <Field label="VOCs or Other Emissions from Production or Use" hint="e.g. Minor VOC emissions from digestate storage">{input("vocs", "Minor VOC emissions from digestate storage (mitigated by biofilter)")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Lifecycle &amp; Use">
+            <Field label="Reference Service Life (RSL)" hint="e.g. N/A — consumable energy carrier">{input("rsl", "N/A — consumable energy carrier")}</Field>
+            <Field label="Typical Application and Installation Method" full hint="e.g. Injected into national gas grid for downstream use">{area("application", "Injected into national gas grid for downstream use")}</Field>
+            <Field label="Maintenance Requirements" hint="e.g. N/A">{input("maintenance", "N/A")}</Field>
+            <Field label="End-of-life Scenarios" hint="e.g. Combustion — 100%">{input("eolScenarios", "Combustion — 100%")}</Field>
+            <Field label="Take-back or Product Recovery Schemes">{select("takeBack", ["No", "Yes", "Partial"])}</Field>
+          </SectionGroup>
+          <SectionGroup title="Compliance">
+            <Field label="Compliance with Standards" hint="e.g. ISO 14040:2006, ISO 14044:2006, EN 16723-1, RED II">{input("complianceStandards", "ISO 14040:2006, ISO 14044:2006, EN 16723-1, RED II")}</Field>
+            <Field label="Green Building Certifications" hint="e.g. N/A">{input("greenCerts", "N/A")}</Field>
+            <Field label="Hazardous Substance Declarations" hint="e.g. H₂S controlled below 5 ppm at injection point">{input("hazardous", "H₂S controlled below 5 ppm at injection point")}</Field>
+            <Field label="System Boundary">{select("systemBoundary", ["Cradle-to-Gate", "Cradle-to-Grave", "Gate-to-Gate"])}</Field>
+            <Field label="Reference Year &amp; Data Collection Period" hint="e.g. 2025">{input("referenceYear", "2025")}</Field>
+          </SectionGroup>
         </div>
       );
     case "review-0":
