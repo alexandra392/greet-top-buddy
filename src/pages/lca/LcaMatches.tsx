@@ -187,10 +187,23 @@ export default function LcaMatches() {
             return (
               <div
                 key={lca.id}
-                className={`grid grid-cols-[44px_1fr_130px_72px_90px_40px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group ${
+                className={`grid grid-cols-[36px_44px_1fr_140px_80px_90px_40px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group ${
                   isSelected ? "bg-primary/[0.04]" : ""
                 }`}
               >
+                <button
+                  onClick={() => toggleId(lca.id)}
+                  title={isSelected ? "Remove from shortlist" : "Add to shortlist"}
+                  className={`h-7 w-7 inline-flex items-center justify-center rounded transition-colors ${
+                    isSelected
+                      ? "text-primary hover:bg-primary/10"
+                      : "text-muted-foreground hover:text-primary hover:bg-muted"
+                  }`}
+                  aria-label={isSelected ? "Remove from shortlist" : "Add to shortlist"}
+                  aria-pressed={isSelected}
+                >
+                  <Bookmark className={`w-3.5 h-3.5 ${isSelected ? "fill-current" : ""}`} />
+                </button>
                 <div className="text-xs font-bold text-muted-foreground tabular-nums">
                   #{ranked.findIndex((r) => r.id === lca.id) + 1}
                 </div>
@@ -220,19 +233,6 @@ export default function LcaMatches() {
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
-                <button
-                  onClick={() => toggleId(lca.id)}
-                  title={isSelected ? "Remove from shortlist" : "Add to shortlist"}
-                  className={`h-7 w-7 inline-flex items-center justify-center rounded transition-colors justify-self-end ${
-                    isSelected
-                      ? "text-primary hover:bg-primary/10"
-                      : "text-muted-foreground hover:text-primary hover:bg-muted"
-                  }`}
-                  aria-label={isSelected ? "Remove from shortlist" : "Add to shortlist"}
-                  aria-pressed={isSelected}
-                >
-                  <Bookmark className={`w-3.5 h-3.5 ${isSelected ? "fill-current" : ""}`} />
-                </button>
               </div>
             );
           })}
