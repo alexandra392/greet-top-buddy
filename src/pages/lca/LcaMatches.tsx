@@ -296,37 +296,6 @@ export default function LcaMatches() {
           </div>
         </div>
       </div>
-
-      {/* Sticky shortlist bar */}
-      {selectedIds.size > 0 && (
-        <div className="sticky bottom-0 left-0 right-0 border-t border-border/60 bg-card/95 backdrop-blur-sm z-50">
-          <div className="max-w-[1400px] w-full mx-auto px-6 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
-                {selectedIds.size}
-              </span>
-              <span className="text-xs text-foreground font-medium">
-                {selectedIds.size === 1 ? "1 dataset selected" : `${selectedIds.size} datasets selected`}
-              </span>
-              <button
-                onClick={() => setSelectedIds(new Set())}
-                className="text-[11px] text-muted-foreground hover:text-foreground underline"
-              >
-                Clear all
-              </button>
-            </div>
-            <button
-              onClick={() => {
-                const ids = Array.from(selectedIds);
-                navigate(`/lca/products/${product.id}/performance`, { state: { selectedLcaIds: ids } });
-              }}
-              className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Proceed with selected
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
