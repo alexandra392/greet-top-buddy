@@ -510,7 +510,7 @@ function Field({
   return (
     <div className={cn("space-y-1.5", full && "md:col-span-2")}>
       <div>
-        <Label className="text-[11px] font-semibold text-foreground uppercase tracking-wide">
+        <Label className="text-[11px] font-semibold text-foreground uppercase tracking-wide leading-tight block">
           {label} {required && <span className="text-destructive">*</span>}
         </Label>
         {hint && (
