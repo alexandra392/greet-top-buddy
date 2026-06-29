@@ -243,33 +243,37 @@ export default function LcaCatalog() {
             const pagedLcas = ranked.slice(lcaStart, lcaEnd);
             return (
               <>
-                <DialogHeader className="px-6 pt-6 pb-4 shrink-0">
+                <DialogHeader className="px-6 pt-4 pb-2 shrink-0 space-y-0.5">
                   <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
                     LCA Matches
                   </div>
-                  <DialogTitle className="text-base font-bold text-foreground mt-1 flex items-center gap-2">
+                  <DialogTitle className="text-base font-bold text-foreground flex items-center gap-2 leading-tight">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     {selected.name}
                     <span className="text-primary text-sm font-bold ml-1">{ranked[0]?.score}%</span>
                   </DialogTitle>
-                  <p className="text-[11px] text-muted-foreground mt-1">
+                  <p className="text-[11px] text-muted-foreground">
                     {ranked.length} matches · ranked by similarity score
                   </p>
                 </DialogHeader>
 
                 <div className="overflow-y-auto">
-                  <div className="grid grid-cols-[1fr_140px_100px_32px] gap-4 px-6 py-2.5 border-y border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  <div className="grid grid-cols-[44px_1fr_140px_100px_32px] gap-4 px-6 py-2.5 border-y border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                    <div>Rank</div>
                     <div>Dataset</div>
                     <div>Provider</div>
                     <div className="text-right">Score</div>
                     <div />
                   </div>
-                  {pagedLcas.map((lca) => (
+                  {pagedLcas.map((lca, idx) => (
                     <button
                       key={lca.id}
                       onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
-                      className="w-full text-left grid grid-cols-[1fr_140px_100px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 hover:bg-muted/40 transition-colors group"
+                      className="w-full text-left grid grid-cols-[44px_1fr_140px_100px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 hover:bg-muted/40 transition-colors group"
                     >
+                      <div className="text-xs font-bold text-muted-foreground tabular-nums">
+                        #{lcaStart + idx + 1}
+                      </div>
                       <div className="text-xs font-semibold text-foreground truncate">
                         {lca.title}
                       </div>
