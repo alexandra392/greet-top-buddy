@@ -139,41 +139,41 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden p-0 gap-0">
         <div className="grid grid-cols-[220px_1fr] h-full max-h-[90vh]">
           {/* Sidebar */}
-          <aside className="bg-muted/40 border-r border-border p-4 overflow-y-auto">
+          <aside className="bg-muted/30 border-r border-border px-5 py-5 overflow-y-auto">
             <div className="text-[9px] uppercase tracking-widest text-primary font-semibold mb-1">
-              LCA Tool · Add Product
+              LCA Tool
             </div>
-            <div className="text-xs font-bold text-foreground mb-4 leading-snug">
-              Register a new product
+            <div className="text-[11px] font-semibold text-foreground mb-5 leading-snug">
+              Add Product
             </div>
 
-            <nav className="space-y-4">
+            <nav className="space-y-5">
               {SECTIONS.map((s, i) => {
                 const done = i < sectionIdx;
                 const active = i === sectionIdx;
                 return (
                   <div key={s.key}>
-                    <div className="flex items-center gap-2 mb-1.5">
+                    <div className="flex items-center gap-2 mb-2">
                       <div
                         className={cn(
-                          "h-4 w-4 rounded-full flex items-center justify-center text-[9px] font-semibold border shrink-0",
+                          "h-5 w-5 rounded-full flex items-center justify-center text-[10px] font-semibold border shrink-0",
                           done && "bg-primary text-primary-foreground border-primary",
                           active && "bg-primary text-primary-foreground border-primary",
                           !done && !active && "border-border text-muted-foreground bg-background",
                         )}
                       >
-                        {done ? <Check className="w-2.5 h-2.5" /> : i + 1}
+                        {done ? <Check className="w-3 h-3" /> : i + 1}
                       </div>
                       <div
                         className={cn(
-                          "text-[11px] font-semibold",
-                          active ? "text-foreground" : "text-muted-foreground",
+                          "text-[10px] uppercase tracking-widest font-semibold",
+                          active || done ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
                         {s.label}
                       </div>
                     </div>
-                    <ul className="ml-5 border-l border-border space-y-0.5">
+                    <ul className="ml-[9px] border-l border-border/70">
                       {s.steps.map((st, j) => {
                         const stActive = active && j === stepIdx;
                         const stDone = i < sectionIdx || (active && j < stepIdx);
@@ -185,12 +185,12 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                               disabled={!clickable}
                               onClick={() => goToStep(i, j)}
                               className={cn(
-                                "w-full text-left text-[10px] pl-2 py-1 border-l-2 -ml-px transition-colors",
+                                "w-full text-left text-[11px] pl-3 py-1.5 border-l-2 -ml-px transition-colors",
                                 stActive
                                   ? "border-primary text-foreground font-medium"
                                   : stDone
                                   ? "border-transparent text-muted-foreground hover:text-foreground"
-                                  : "border-transparent text-muted-foreground/60 cursor-not-allowed",
+                                  : "border-transparent text-muted-foreground/50 cursor-not-allowed",
                               )}
                             >
                               {st.title}
