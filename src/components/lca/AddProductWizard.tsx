@@ -408,20 +408,20 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Product / Commercial Name" required hint="e.g. Biomethane">{input("productName", "Biomethane")}</Field>
-            <Field label="Model / Variant / Grade" hint="e.g. BM-CAM-A, Grid-Quality">{input("modelVariant", "BM-CAM-A, Grid-Quality")}</Field>
-            <Field label="Product Form (how it is sold)" full hint="e.g. Compressed biomethane injected into the natural gas grid">{input("productForm", "Compressed biomethane injected into the natural gas grid")}</Field>
+            <Field label="Product / Commercial Name" required>{input("productName", "Biomethane")}</Field>
+            <Field label="Model / Variant / Grade">{input("modelVariant", "BM-CAM-A, Grid-Quality")}</Field>
+            <Field label="Product Form (how it is sold)" full>{input("productForm", "Compressed biomethane injected into the natural gas grid")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Main Use of the Product" full hint="e.g. Renewable energy carrier for heating and transport fuel">{area("mainUse", "Renewable energy carrier for heating and transport fuel")}</Field>
-            <Field label="Product Measurement Unit" hint="e.g. Nm³ biomethane">{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
+            <Field label="Main Use of the Product" full>{area("mainUse", "Renewable energy carrier for heating and transport fuel")}</Field>
+            <Field label="Product Measurement Unit">{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Unique Product Identifier (UID)" required hint="e.g. GTIN-IT-8033421-BM001">{input("uid", "GTIN-IT-8033421-BM001")}</Field>
+            <Field label="Unique Product Identifier (UID)" required>{input("uid", "GTIN-IT-8033421-BM001")}</Field>
             <Field label="Identifier Scheme">{select("identifierScheme", ["GTIN", "GS1", "ISBN", "Internal"])}</Field>
             <Field label="Granularity">{select("granularity", ["item", "batch", "model"])}</Field>
             <Field label="Data Carrier Type">{select("dataCarrier", ["QR", "Barcode", "NFC", "RFID"])}</Field>
-            <Field label="Product Category / UN CPC" full hint="e.g. Energy / Gaseous Fuels — Biomethane (UN CPC 1200)">{input("productCategory", "Energy / Gaseous Fuels — Biomethane (UN CPC 1200)")}</Field>
+            <Field label="Product Category / UN CPC" full>{input("productCategory", "Energy / Gaseous Fuels — Biomethane (UN CPC 1200)")}</Field>
           </SectionGroup>
         </div>
       );
@@ -429,14 +429,14 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Manufacturer / Producer Legal Name" required hint="e.g. BioEnergia Campania S.r.l.">{input("manufacturerName", "BioEnergia Campania S.r.l.")}</Field>
-            <Field label="Business Identifier / Registration Number" hint="e.g. IT-NA-REA-512874">{input("businessId", "IT-NA-REA-512874")}</Field>
+            <Field label="Manufacturer / Producer Legal Name" required>{input("manufacturerName", "BioEnergia Campania S.r.l.")}</Field>
+            <Field label="Business Identifier / Registration Number">{input("businessId", "IT-NA-REA-512874")}</Field>
             <Field label="Economic Operator Role">{select("operatorRole", ["manufacturer", "importer", "distributor", "authorised representative"])}</Field>
-            <Field label="Facility Identifier" hint="e.g. FAC-IT-CE-00312">{input("facilityId", "FAC-IT-CE-00312")}</Field>
+            <Field label="Facility Identifier">{input("facilityId", "FAC-IT-CE-00312")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Production Site Name" hint="e.g. Impianto Biometano Campania Nord">{input("siteName", "Impianto Biometano Campania Nord")}</Field>
-            <Field label="Production Site Address" hint="e.g. Campania, South Italy / IT">{input("siteAddress", "Campania, South Italy / IT")}</Field>
+            <Field label="Production Site Name">{input("siteName", "Impianto Biometano Campania Nord")}</Field>
+            <Field label="Production Site Address">{input("siteAddress", "Campania, South Italy / IT")}</Field>
             <Field label="Country" required>{input("country", "Italy")}</Field>
             <Field label="Region">{input("region", "Campania")}</Field>
             <Field label="Production Date">
@@ -449,7 +449,7 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Applicable Regulation(s) and Standard(s)" full hint="e.g. EU ESPR 2024/1781; EN 16723-1">{area("regulations", "EU ESPR 2024/1781; EN 16723-1")}</Field>
+            <Field label="Applicable Regulation(s) and Standard(s)" full>{area("regulations", "EU ESPR 2024/1781; EN 16723-1")}</Field>
           </SectionGroup>
           <SectionGroup>
             <Field label="Declaration of Performance &amp; Conformity (DoPC)">{input("dopc", "DoPC-BM-CAM-2021")}</Field>
@@ -463,21 +463,21 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Product Description (composition, form, physical state)" required full hint="e.g. Biomethane gas, upgraded from agricultural and food-industry waste biogas…">{area("productDescription", "Biomethane gas, upgraded from agricultural and food-industry waste biogas…")}</Field>
-            <Field label="Key Functional Materials / Components" full hint="e.g. Raw biogas: CH₄ 57.2 vol%…">{area("functionalMaterials", "Raw biogas: CH₄ 57.2 vol%…")}</Field>
+            <Field label="Product Description (composition, form, physical state)" required full>{area("productDescription", "Biomethane gas, upgraded from agricultural and food-industry waste biogas…")}</Field>
+            <Field label="Key Functional Materials / Components" full>{area("functionalMaterials", "Raw biogas: CH₄ 57.2 vol%…")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Feedstocks / Input Materials (type, mass, source)" full hint="e.g. Mixed biomass (organic waste) — 30.0 kg/Nm³ — Municipal waste collection">{area("feedstocksInputs", "Mixed biomass (organic waste) — 30.0 kg/Nm³ — Municipal waste collection")}</Field>
-            <Field label="Feedstock Shares (%)" full hint="e.g. Mixed municipal bio-waste (OFMSW) 100%">{area("feedstockShares", "Mixed municipal bio-waste (OFMSW) 100%")}</Field>
-            <Field label="Feedstock Origin &amp; Provenance" full hint="e.g. Municipal organic waste from Campania region municipalities">{area("feedstockOrigin", "Municipal organic waste from Campania region municipalities")}</Field>
-            <Field label="Do Any Inputs Have a DPP or EPD?" full hint="e.g. Polymer antifoam additive — EPD available (PTC100)">{area("inputsDppEpd", "Polymer antifoam additive — EPD available (PTC100)")}</Field>
-            <Field label="Biogenic vs. Synthetic Material Fraction" hint="e.g. ~100% biogenic">{input("biogenicFraction", "~100% biogenic")}</Field>
-            <Field label="Chemical Composition (N, moisture, protein, lignin)" hint="e.g. CH₄ 57.2 vol% raw biogas; upgraded to &gt;97% CH₄">{input("chemicalComposition", "CH₄ 57.2 vol% raw biogas; upgraded to >97% CH₄")}</Field>
-            <Field label="Source of Bio-based Materials" hint="e.g. Municipal organic waste (OFMSW)">{input("bioSource", "Municipal organic waste (OFMSW)")}</Field>
-            <Field label="Pre- and Post-consumer Recycled Content" hint="e.g. 100% waste-derived feedstock">{input("recycledContent", "100% waste-derived feedstock")}</Field>
+            <Field label="Feedstocks / Input Materials (type, mass, source)" full>{area("feedstocksInputs", "Mixed biomass (organic waste) — 30.0 kg/Nm³ — Municipal waste collection")}</Field>
+            <Field label="Feedstock Shares (%)" full>{area("feedstockShares", "Mixed municipal bio-waste (OFMSW) 100%")}</Field>
+            <Field label="Feedstock Origin &amp; Provenance" full>{area("feedstockOrigin", "Municipal organic waste from Campania region municipalities")}</Field>
+            <Field label="Do Any Inputs Have a DPP or EPD?" full>{area("inputsDppEpd", "Polymer antifoam additive — EPD available (PTC100)")}</Field>
+            <Field label="Biogenic vs. Synthetic Material Fraction">{input("biogenicFraction", "~100% biogenic")}</Field>
+            <Field label="Chemical Composition (N, moisture, protein, lignin)">{input("chemicalComposition", "CH₄ 57.2 vol% raw biogas; upgraded to >97% CH₄")}</Field>
+            <Field label="Source of Bio-based Materials">{input("bioSource", "Municipal organic waste (OFMSW)")}</Field>
+            <Field label="Pre- and Post-consumer Recycled Content">{input("recycledContent", "100% waste-derived feedstock")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Packaging Type and Mass" full hint="e.g. No packaging — gaseous product injected directly into pipeline network">{input("packaging", "No packaging — gaseous product injected directly into pipeline network")}</Field>
+            <Field label="Packaging Type and Mass" full>{input("packaging", "No packaging — gaseous product injected directly into pipeline network")}</Field>
           </SectionGroup>
         </div>
       );
@@ -485,19 +485,19 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Production Technology" full hint="e.g. Mesophilic anaerobic digestion with membrane biogas upgrading">{area("productionTech", "Mesophilic anaerobic digestion with membrane biogas upgrading")}</Field>
-            <Field label="Reactor / Equipment Type" hint="e.g. Continuous Stirred Tank Reactor (CSTR)">{input("reactorType", "Continuous Stirred Tank Reactor (CSTR)")}</Field>
-            <Field label="Operating Temperature" hint="e.g. ~37°C (mesophilic digestion)">{input("operatingTemp", "~37°C (mesophilic digestion)")}</Field>
-            <Field label="Emission Treatment Systems" full hint="e.g. Biological scrubber for H₂S removal…">{area("emissionTreatment", "Biological scrubber for H₂S removal…")}</Field>
+            <Field label="Production Technology" full>{area("productionTech", "Mesophilic anaerobic digestion with membrane biogas upgrading")}</Field>
+            <Field label="Reactor / Equipment Type">{input("reactorType", "Continuous Stirred Tank Reactor (CSTR)")}</Field>
+            <Field label="Operating Temperature">{input("operatingTemp", "~37°C (mesophilic digestion)")}</Field>
+            <Field label="Emission Treatment Systems" full>{area("emissionTreatment", "Biological scrubber for H₂S removal…")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Plant Production Capacity" hint="e.g. 300 Nm³ biomethane/hour">{input("plantCapacity", "300 Nm³ biomethane/hour")}</Field>
-            <Field label="Number of Production Facilities" hint="e.g. 2">{input("numFacilities", "2")}</Field>
-            <Field label="Annual Production Output" full hint="e.g. 6,804,000 Nm³/year biomethane (total both plants)">{input("annualOutput", "6,804,000 Nm³/year biomethane (total both plants)")}</Field>
+            <Field label="Plant Production Capacity">{input("plantCapacity", "300 Nm³ biomethane/hour")}</Field>
+            <Field label="Number of Production Facilities">{input("numFacilities", "2")}</Field>
+            <Field label="Annual Production Output" full>{input("annualOutput", "6,804,000 Nm³/year biomethane (total both plants)")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Manufacturing Process Overview" full hint="e.g. Anaerobic digestion → biogas purification → upgrading → compression → grid injection">{area("processOverview", "Anaerobic digestion → biogas purification → upgrading → compression → grid injection", 3)}</Field>
-            <Field label="Packaging Produced During Manufacturing" full hint="e.g. N/A">{input("manufacturingPackaging", "N/A")}</Field>
+            <Field label="Manufacturing Process Overview" full>{area("processOverview", "Anaerobic digestion → biogas purification → upgrading → compression → grid injection", 3)}</Field>
+            <Field label="Packaging Produced During Manufacturing" full>{input("manufacturingPackaging", "N/A")}</Field>
           </SectionGroup>
         </div>
       );
@@ -505,17 +505,17 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Electricity Consumption" hint="e.g. 1.01 kWh/Nm³ biomethane">{input("electricityConsumption", "1.01 kWh/Nm³ biomethane")}</Field>
-            <Field label="Electricity Source" hint="e.g. CHP engine + 960 kWp PV">{input("electricitySource", "CHP engine + 960 kWp PV")}</Field>
-            <Field label="Fuel Use (on-site)" hint="e.g. Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler">{input("fuelUse", "Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler")}</Field>
+            <Field label="Electricity Consumption">{input("electricityConsumption", "1.01 kWh/Nm³ biomethane")}</Field>
+            <Field label="Electricity Source">{input("electricitySource", "CHP engine + 960 kWp PV")}</Field>
+            <Field label="Fuel Use (on-site)">{input("fuelUse", "Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Water Use" hint="e.g. 0.21 L/Nm³ make-up water; wastewater 0.21 L">{input("waterUse", "0.21 L/Nm³ make-up water; wastewater 0.21 L")}</Field>
-            <Field label="Additional / Auxiliary Materials" full hint="e.g. NaOH (scrubbing) — 0.03 kg/Nm³">{area("auxMaterials", "NaOH (scrubbing) — 0.03 kg/Nm³\nPolymer antifoam additive")}</Field>
+            <Field label="Water Use">{input("waterUse", "0.21 L/Nm³ make-up water; wastewater 0.21 L")}</Field>
+            <Field label="Additional / Auxiliary Materials" full>{area("auxMaterials", "NaOH (scrubbing) — 0.03 kg/Nm³\nPolymer antifoam additive")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Direct Emissions (air, water, soil)" hint="e.g. CH₄ slip ~1% of biogas flow; CO₂ from…">{input("directEmissions", "CH₄ slip ~1% of biogas flow; CO₂ from…")}</Field>
-            <Field label="Waste Streams (type, quantity, treatment)" hint="e.g. Screening rejects from waste pre-treatment">{input("wasteStreams", "Screening rejects from waste pre-treatment")}</Field>
+            <Field label="Direct Emissions (air, water, soil)">{input("directEmissions", "CH₄ slip ~1% of biogas flow; CO₂ from…")}</Field>
+            <Field label="Waste Streams (type, quantity, treatment)">{input("wasteStreams", "Screening rejects from waste pre-treatment")}</Field>
           </SectionGroup>
         </div>
       );
@@ -523,12 +523,12 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Feedstock / Raw Material Transport Distances" full hint="e.g. &lt;50 km">{area("feedstockTransportDist", "<50 km")}</Field>
-            <Field label="Feedstock Transport Modes" full hint="e.g. Truck">{area("feedstockTransportModes", "Truck")}</Field>
+            <Field label="Feedstock / Raw Material Transport Distances" full>{area("feedstockTransportDist", "<50 km")}</Field>
+            <Field label="Feedstock Transport Modes" full>{area("feedstockTransportModes", "Truck")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Finished Product Distribution Distances" hint="e.g. 0 km (300 m on-site pipeline)">{input("productDistDist", "0 km (300 m on-site pipeline)")}</Field>
-            <Field label="Transport Vehicle Type, Payload, Load Utilization" hint="e.g. Pipeline (DN 100, 70 bar injection pressure)">{input("vehicleType", "Pipeline (DN 100, 70 bar injection pressure)")}</Field>
+            <Field label="Finished Product Distribution Distances">{input("productDistDist", "0 km (300 m on-site pipeline)")}</Field>
+            <Field label="Transport Vehicle Type, Payload, Load Utilization">{input("vehicleType", "Pipeline (DN 100, 70 bar injection pressure)")}</Field>
           </SectionGroup>
         </div>
       );
@@ -536,9 +536,9 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Co-products Generated" full hint="e.g. Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³">{area("coProductsGenerated", "Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³\nBeverage-grade liquid CO₂ — 1.4 kg/Nm³\nSurplus electricity exported — 0.04 kWh/Nm³", 4)}</Field>
-            <Field label="Quantity of Co-products" hint="e.g. Digestate fertilizer ~2.3 kg/Nm³">{input("coProductsQuantity", "Digestate fertilizer ~2.3 kg/Nm³; Beverage-grade CO₂ ~1.4 kg/Nm³")}</Field>
-            <Field label="Co-product End Use" full hint="e.g. Digestate applied to local agricultural land">{area("coProductEndUse", "Digestate applied to local agricultural land as organic fertilizer\nCO₂ sold for beverage carbonation\nSurplus electricity exported to grid", 3)}</Field>
+            <Field label="Co-products Generated" full>{area("coProductsGenerated", "Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³\nBeverage-grade liquid CO₂ — 1.4 kg/Nm³\nSurplus electricity exported — 0.04 kWh/Nm³", 4)}</Field>
+            <Field label="Quantity of Co-products">{input("coProductsQuantity", "Digestate fertilizer ~2.3 kg/Nm³; Beverage-grade CO₂ ~1.4 kg/Nm³")}</Field>
+            <Field label="Co-product End Use" full>{area("coProductEndUse", "Digestate applied to local agricultural land as organic fertilizer\nCO₂ sold for beverage carbonation\nSurplus electricity exported to grid", 3)}</Field>
           </SectionGroup>
         </div>
       );
@@ -546,24 +546,24 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Biogenic Carbon Content (product &amp; packaging)" hint="e.g. Biogenic CO₂ released during combustion">{input("biogenicCarbon", "Biogenic CO₂ released during combustion — carbon neutral cycle")}</Field>
-            <Field label="Carbon Sequestration During Raw Material Growth" hint="e.g. N/A — waste-derived feedstock">{input("carbonSeq", "N/A — waste-derived feedstock")}</Field>
-            <Field label="Fertilizers, Pesticides, Biocides in Bio-based Inputs" hint="e.g. N/A">{input("fertilizers", "N/A")}</Field>
-            <Field label="VOCs or Other Emissions from Production or Use" hint="e.g. Minor VOC emissions from digestate storage">{input("vocs", "Minor VOC emissions from digestate storage (mitigated by biofilter)")}</Field>
+            <Field label="Biogenic Carbon Content (product &amp; packaging)">{input("biogenicCarbon", "Biogenic CO₂ released during combustion — carbon neutral cycle")}</Field>
+            <Field label="Carbon Sequestration During Raw Material Growth">{input("carbonSeq", "N/A — waste-derived feedstock")}</Field>
+            <Field label="Fertilizers, Pesticides, Biocides in Bio-based Inputs">{input("fertilizers", "N/A")}</Field>
+            <Field label="VOCs or Other Emissions from Production or Use">{input("vocs", "Minor VOC emissions from digestate storage (mitigated by biofilter)")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Reference Service Life (RSL)" hint="e.g. N/A — consumable energy carrier">{input("rsl", "N/A — consumable energy carrier")}</Field>
-            <Field label="Typical Application and Installation Method" full hint="e.g. Injected into national gas grid for downstream use">{area("application", "Injected into national gas grid for downstream use")}</Field>
-            <Field label="Maintenance Requirements" hint="e.g. N/A">{input("maintenance", "N/A")}</Field>
-            <Field label="End-of-life Scenarios" hint="e.g. Combustion — 100%">{input("eolScenarios", "Combustion — 100%")}</Field>
+            <Field label="Reference Service Life (RSL)">{input("rsl", "N/A — consumable energy carrier")}</Field>
+            <Field label="Typical Application and Installation Method" full>{area("application", "Injected into national gas grid for downstream use")}</Field>
+            <Field label="Maintenance Requirements">{input("maintenance", "N/A")}</Field>
+            <Field label="End-of-life Scenarios">{input("eolScenarios", "Combustion — 100%")}</Field>
             <Field label="Take-back or Product Recovery Schemes">{select("takeBack", ["No", "Yes", "Partial"])}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Compliance with Standards" hint="e.g. ISO 14040:2006, ISO 14044:2006, EN 16723-1, RED II">{input("complianceStandards", "ISO 14040:2006, ISO 14044:2006, EN 16723-1, RED II")}</Field>
-            <Field label="Green Building Certifications" hint="e.g. N/A">{input("greenCerts", "N/A")}</Field>
-            <Field label="Hazardous Substance Declarations" hint="e.g. H₂S controlled below 5 ppm at injection point">{input("hazardous", "H₂S controlled below 5 ppm at injection point")}</Field>
+            <Field label="Compliance with Standards">{input("complianceStandards", "ISO 14040:2006, ISO 14044:2006, EN 16723-1, RED II")}</Field>
+            <Field label="Green Building Certifications">{input("greenCerts", "N/A")}</Field>
+            <Field label="Hazardous Substance Declarations">{input("hazardous", "H₂S controlled below 5 ppm at injection point")}</Field>
             <Field label="System Boundary">{select("systemBoundary", ["Cradle-to-Gate", "Cradle-to-Grave", "Gate-to-Gate"])}</Field>
-            <Field label="Reference Year &amp; Data Collection Period" hint="e.g. 2025">{input("referenceYear", "2025")}</Field>
+            <Field label="Reference Year &amp; Data Collection Period">{input("referenceYear", "2025")}</Field>
           </SectionGroup>
         </div>
       );
@@ -571,8 +571,8 @@ function StepFields({
       return (
         <div className="space-y-5">
           <SectionGroup>
-            <Field label="Data Accuracy (measured vs. estimated)" full hint="e.g. Measured: electricity consumption, production volume, gas composition">{area("dataAccuracy", "Measured: electricity consumption, production volume, gas composition\nEstimated: transport distances\nLCI source: Amato et al. (2023) Table 2", 4)}</Field>
-            <Field label="Data Recording Frequency" full hint="e.g. Production: daily / Energy: monthly / Feedstock: weekly">{area("dataFrequency", "Production: daily\nEnergy: monthly\nFeedstock: weekly", 3)}</Field>
+            <Field label="Data Accuracy (measured vs. estimated)" full>{area("dataAccuracy", "Measured: electricity consumption, production volume, gas composition\nEstimated: transport distances\nLCI source: Amato et al. (2023) Table 2", 4)}</Field>
+            <Field label="Data Recording Frequency" full>{area("dataFrequency", "Production: daily\nEnergy: monthly\nFeedstock: weekly", 3)}</Field>
           </SectionGroup>
         </div>
       );
