@@ -110,6 +110,8 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
         (v("systemBoundary") as LcaProduct["systemBoundary"]) || "Cradle-to-Gate",
       status: "not_started",
       mass_kg: Number(v("annualOutput")) || 1,
+      mainUse: v("mainUse"),
+      formData: { ...data },
     };
     onSubmit(np);
     close(false);
