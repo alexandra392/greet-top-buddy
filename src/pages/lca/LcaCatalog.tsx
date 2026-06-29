@@ -43,45 +43,13 @@ const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
 };
 
 const PAGE_SIZE = 8;
-const PRODUCT_EMOJIS = ["📦", "🧪", "🧴", "🥫", "🍴", "🔋", "🌬️", "💨", "🧱", "👕", "🪵", "⚙️"];
-
-const STEPS = [
-  "Identification",
-  "Functional unit",
-  "System boundary",
-  "Review",
-] as const;
-
-type NewProductDraft = {
-  name: string;
-  category: string;
-  description: string;
-  image: string;
-  functionalUnit: string;
-  systemBoundary: LcaProduct["systemBoundary"];
-  mass_kg: number;
-};
-
-const emptyDraft: NewProductDraft = {
-  name: "",
-  category: "",
-  description: "",
-  image: PRODUCT_EMOJIS[0],
-  functionalUnit: "",
-  systemBoundary: "Cradle-to-Gate",
-  mass_kg: 1,
-};
 
 export default function LcaCatalog() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<LcaProduct | null>(null);
   const [extraProducts, setExtraProducts] = useState<LcaProduct[]>([]);
   const [page, setPage] = useState(1);
-
-  // add-product workflow
   const [wizardOpen, setWizardOpen] = useState(false);
-  const [wizardStep, setWizardStep] = useState(0);
-  const [draft, setDraft] = useState<NewProductDraft>(emptyDraft);
 
   const products = useMemo(
     () => [...extraProducts, ...LCA_PRODUCTS],
@@ -92,35 +60,11 @@ export default function LcaCatalog() {
   const pageEnd = Math.min(pageStart + PAGE_SIZE, products.length);
   const pageItems = products.slice(pageStart, pageEnd);
 
-  const resetWizard = () => {
-    setWizardStep(0);
-    setDraft(emptyDraft);
-  };
-
-  const submitDraft = () => {
-    const id = `custom-${Date.now()}`;
-    const np: LcaProduct = {
-      id,
-      name: draft.name || "Untitled product",
-      category: draft.category || "Uncategorised",
-      description: draft.description || "User-added product (baseline pending).",
-      image: draft.image,
-      functionalUnit: draft.functionalUnit || "1 unit",
-      systemBoundary: draft.systemBoundary,
-      status: "not_started",
-      mass_kg: Number(draft.mass_kg) || 1,
-    };
+  const handleAddProduct = (np: LcaProduct) => {
     setExtraProducts((p) => [np, ...p]);
-    setWizardOpen(false);
-    resetWizard();
     setPage(1);
   };
 
-  const canNext =
-    (wizardStep === 0 && draft.name.trim() && draft.category.trim()) ||
-    (wizardStep === 1 && draft.functionalUnit.trim() && Number(draft.mass_kg) > 0) ||
-    (wizardStep === 2 && !!draft.systemBoundary) ||
-    wizardStep === 3;
 
   return (
     <div className="h-full bg-background flex flex-col">
