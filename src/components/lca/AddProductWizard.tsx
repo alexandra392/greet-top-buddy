@@ -184,7 +184,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                         {done ? <Check className="w-2.5 h-2.5" /> : i + 1}
                       </span>
                       <span className={cn(
-                        "text-[10px] uppercase tracking-wider font-medium truncate",
+                        "text-[10px] uppercase tracking-wider font-medium truncate hidden sm:inline",
                         active ? "text-foreground" : "text-muted-foreground",
                       )}>
                         {s.label}
