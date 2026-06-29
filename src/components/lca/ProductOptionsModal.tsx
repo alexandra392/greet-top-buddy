@@ -115,7 +115,7 @@ export default function ProductOptionsModal({ product, onClose }: Props) {
                       className="group flex flex-1 items-center gap-3 rounded-xl border border-border/60 bg-muted/40 hover:border-primary/40 hover:shadow-sm transition-all px-3.5 py-3 text-left"
                     >
                       <div
-                        className={`h-9 w-9 rounded-lg flex items-center justify-center ${o.iconBg} flex-shrink-0`}
+                        className="h-9 w-9 rounded-lg flex items-center justify-center bg-muted/70 text-foreground flex-shrink-0"
                       >
                         <Icon className="w-4 h-4" />
                       </div>
@@ -161,7 +161,7 @@ export default function ProductOptionsModal({ product, onClose }: Props) {
                     {g.fields.map((f) => (
                       <div
                         key={f.key}
-                        className="rounded-lg border border-border bg-muted/30 px-3 py-2"
+                        className="rounded-lg border border-border bg-muted/60 px-3 py-2"
                       >
                         <div className="text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
                           {f.label}
