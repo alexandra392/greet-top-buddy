@@ -167,10 +167,11 @@ export default function LcaMatches() {
 
         {/* Heading */}
         <div className="mb-3">
-          <h1 className="text-xl font-bold text-foreground">
+          <h1 className="text-[10px] font-semibold tracking-widest uppercase text-muted-foreground">
             LCA Tool
           </h1>
         </div>
+
 
 
         {/* Filters */}
