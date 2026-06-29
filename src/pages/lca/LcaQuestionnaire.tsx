@@ -254,7 +254,7 @@ export default function LcaQuestionnaire() {
               <Select>
                 <SelectTrigger><SelectValue placeholder="Select mode" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="truck">Truck >32t, EURO 6</SelectItem>
+                  <SelectItem value="truck">Truck &gt;32t, EURO 6</SelectItem>
                   <SelectItem value="rail">Rail freight</SelectItem>
                   <SelectItem value="sea">Sea container</SelectItem>
                   <SelectItem value="air">Air freight</SelectItem>
@@ -268,7 +268,7 @@ export default function LcaQuestionnaire() {
               <Select>
                 <SelectTrigger><SelectValue placeholder="Select mode" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="truck">Truck >32t, EURO 6</SelectItem>
+                  <SelectItem value="truck">Truck &gt;32t, EURO 6</SelectItem>
                   <SelectItem value="rail">Rail freight</SelectItem>
                   <SelectItem value="sea">Sea container</SelectItem>
                   <SelectItem value="air">Air freight</SelectItem>
@@ -345,10 +345,10 @@ export default function LcaQuestionnaire() {
               <Select>
                 <SelectTrigger><SelectValue placeholder="Select rating" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">Very good — < 3 yrs</SelectItem>
+                  <SelectItem value="1">Very good — &lt; 3 yrs</SelectItem>
                   <SelectItem value="2">Good — 3–6 yrs</SelectItem>
                   <SelectItem value="3">Fair — 6–10 yrs</SelectItem>
-                  <SelectItem value="4">Poor — > 10 yrs</SelectItem>
+                  <SelectItem value="4">Poor — &gt; 10 yrs</SelectItem>
                 </SelectContent>
               </Select>
             </Field>
