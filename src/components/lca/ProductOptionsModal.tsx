@@ -112,7 +112,7 @@ export default function ProductOptionsModal({ product, onClose }: Props) {
                     <button
                       key={o.key}
                       onClick={() => handleSelect(o.key)}
-                      className="group flex flex-1 items-center gap-3 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-sm transition-all px-3.5 py-3 text-left"
+                      className="group flex flex-1 items-center gap-3 rounded-xl border border-border/60 bg-muted/40 hover:border-primary/40 hover:shadow-sm transition-all px-3.5 py-3 text-left"
                     >
                       <div
                         className={`h-9 w-9 rounded-lg flex items-center justify-center ${o.iconBg} flex-shrink-0`}
