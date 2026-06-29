@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LCA_PRODUCTS, type LcaProduct } from "@/lib/lcaData";
-import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink, Bookmark } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 
 
 const LCA_MATCHES_PAGE_SIZE = 8;
