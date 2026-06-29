@@ -116,6 +116,13 @@ export default function LcaRetrieval() {
     return () => clearInterval(interval);
   }, [progress, selected.length]);
 
+  // Auto-open the most recently completed item so the user sees details immediately.
+  useEffect(() => {
+    if (progress > 0 && reviewingIdx === null) {
+      setReviewingIdx(progress - 1);
+    }
+  }, [progress, reviewingIdx]);
+
   if (!product) {
     return (
       <div className="max-w-[1400px] mx-auto px-6 pt-6">
