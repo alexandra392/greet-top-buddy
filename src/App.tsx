@@ -40,6 +40,7 @@ import LcaPerformance from "./pages/lca/LcaPerformance";
 import LcaHotspots from "./pages/lca/LcaHotspots";
 import LcaMatches from "./pages/lca/LcaMatches";
 import LcaRetrieval from "./pages/lca/LcaRetrieval";
+import LcaCharacterization from "./pages/lca/LcaCharacterization";
 
 const queryClient = new QueryClient({
   defaultOptions: {
