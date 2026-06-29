@@ -388,7 +388,7 @@ const App = () => {
                 <SidebarTrigger className="p-2 hover:bg-muted rounded-lg transition-colors" />
                 <HeaderBreadcrumb />
               </div>
-              <TopBarNav />
+              
               <div className="flex items-center gap-1">
                 <a
                   href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
