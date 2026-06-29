@@ -157,7 +157,7 @@ export default function LcaMatches() {
                   const ids = Array.from(selectedIds);
                   navigate(`/lca/products/${product.id}/performance`, { state: { selectedLcaIds: ids } });
                 }}
-                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors"
               >
                 Proceed with selected
               </button>
