@@ -549,11 +549,13 @@ function StepFields({
   stepIdx,
   v,
   set,
+  draft,
 }: {
   sectionKey: string;
   stepIdx: number;
   v: (k: string) => string;
   set: (k: string, v: string) => void;
+  draft: Draft;
 }) {
   const key = `${sectionKey}-${stepIdx}`;
   const input = (k: string, placeholder?: string) => (
