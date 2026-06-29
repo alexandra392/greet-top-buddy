@@ -86,8 +86,8 @@ export default function ProductOptionsModal({ product, onClose }: Props) {
             </div>
             <div className="grid grid-cols-[220px_1fr] gap-4 items-stretch">
               {/* Left preview */}
-              <div className="rounded-xl border border-border/60 bg-muted/30 p-3 flex flex-col">
-                <div className="rounded-lg bg-muted flex items-center justify-center text-5xl flex-1 min-h-[120px]">
+              <div className="rounded-xl border border-border/60 bg-muted p-3 flex flex-col">
+                <div className="rounded-lg bg-muted/70 flex items-center justify-center text-5xl flex-1 min-h-[120px]">
                   {product.image}
                 </div>
                 <div className="mt-3">
