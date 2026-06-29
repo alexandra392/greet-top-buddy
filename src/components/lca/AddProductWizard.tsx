@@ -756,6 +756,8 @@ function StepFields({
           </SectionGroup>
         </div>
       );
+    case "review-1":
+      return <ReviewSummary draft={{ ...draft }} />;
     default:
       return null;
   }
