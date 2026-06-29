@@ -291,18 +291,51 @@ function Field({
   children,
   required,
   full,
+  hint,
 }: {
   label: string;
   children: React.ReactNode;
   required?: boolean;
   full?: boolean;
+  hint?: string;
 }) {
   return (
-    <div className={cn("space-y-1", full && "md:col-span-2")}>
-      <Label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
-        {label} {required && <span className="text-destructive">*</span>}
-      </Label>
+    <div className={cn("space-y-1.5", full && "md:col-span-2")}>
+      <div>
+        <Label className="text-[11px] font-semibold text-foreground uppercase tracking-wide">
+          {label} {required && <span className="text-destructive">*</span>}
+        </Label>
+        {hint && (
+          <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">{hint}</p>
+        )}
+      </div>
       {children}
+    </div>
+  );
+}
+
+function SectionGroup({
+  title,
+  children,
+  className,
+}: {
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("space-y-3", className)}>
+      {title && (
+        <div className="flex items-center gap-3">
+          <h3 className="text-[10px] uppercase tracking-widest font-bold text-primary whitespace-nowrap">
+            {title}
+          </h3>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4">
+        {children}
+      </div>
     </div>
   );
 }
