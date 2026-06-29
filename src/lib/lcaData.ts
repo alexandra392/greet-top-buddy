@@ -131,6 +131,28 @@ export const LCA_PRODUCTS: LcaProduct[] = [
     status: "not_started",
     mass_kg: 0.18,
   },
+  {
+    id: "biomethane-1kg",
+    name: "Biomethane (Upgraded Biogas)",
+    category: "Energy",
+    description: "Bio-methane produced via anaerobic digestion of agricultural residues and upgraded to grid quality.",
+    image: "🔥",
+    functionalUnit: "1 kg of biomethane injected into the natural gas grid",
+    systemBoundary: "Cradle-to-Gate",
+    status: "completed",
+    mass_kg: 1,
+  },
+  {
+    id: "bio-ethanol-1l",
+    name: "Bio-based Ethanol (1L)",
+    category: "Chemicals",
+    description: "Second-generation bio-ethanol from lignocellulosic feedstock, distilled and dehydrated for industrial use.",
+    image: "⚗️",
+    functionalUnit: "1 L of anhydrous bio-ethanol at 20 °C",
+    systemBoundary: "Cradle-to-Gate",
+    status: "in_progress",
+    mass_kg: 0.79,
+  },
 ];
 
 const baseImpactDefs: Omit<EfImpact, "value" | "byStage">[] = [
