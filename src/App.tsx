@@ -67,7 +67,7 @@ const HeaderBreadcrumb = () => {
         { label: "LCA Tool", onClick: productId ? () => navigate("/lca") : undefined },
       ];
       if (!productId) {
-        segs.push({ label: "Catalog" });
+        // no extra segment — page is just "LCA Tool"
       } else {
         segs.push({ label: "Product", onClick: () => navigate("/lca") });
         if (subLabel) segs.push({ label: subLabel });
