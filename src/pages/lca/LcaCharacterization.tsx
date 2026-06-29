@@ -194,7 +194,7 @@ export default function LcaCharacterization() {
                     </div>
                     <div className="text-xs font-semibold text-foreground truncate">{s.title}</div>
                   </div>
-                </div>
+                </button>
                 {i < STAGES.length - 1 && (
                   <ArrowRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                 )}
