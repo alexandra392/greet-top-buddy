@@ -24,7 +24,9 @@ import {
   Plus,
   ChevronLeft,
   ChevronRight,
+  Search,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 
 const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
