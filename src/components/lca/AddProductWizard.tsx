@@ -17,7 +17,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LcaProduct } from "@/lib/lcaData";
 
@@ -52,7 +52,10 @@ const SECTIONS: Section[] = [
   {
     key: "review",
     label: "Review",
-    steps: [{ title: "Data Confidence", subtitle: "Data accuracy and recording practices" }],
+    steps: [
+      { title: "Data Confidence", subtitle: "Data accuracy and recording practices" },
+      { title: "Review Summary", subtitle: "Review all information before submitting" },
+    ],
   },
 ];
 
@@ -285,7 +288,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
               </DialogHeader>
 
               <div className="flex-1 overflow-y-auto px-6 py-4">
-                <StepFields sectionKey={section.key} stepIdx={stepIdx} v={v} set={set} />
+                <StepFields sectionKey={section.key} stepIdx={stepIdx} v={v} set={set} draft={draft} />
               </div>
 
               <div className="flex items-center justify-between px-6 py-3 border-t border-border bg-muted/30">
@@ -309,6 +312,183 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+/* ---------------- review summary ---------------- */
+
+const REVIEW_GROUPS: { title: string; fields: { key: string; label: string }[] }[] = [
+  {
+    title: "General Information — Identity",
+    fields: [
+      { key: "productName", label: "Product / Commercial Name" },
+      { key: "modelVariant", label: "Model / Variant / Grade" },
+      { key: "productForm", label: "Product Form" },
+      { key: "mainUse", label: "Main Use of the Product" },
+      { key: "productMeasurementUnit", label: "Product Measurement Unit" },
+      { key: "uid", label: "Unique Product Identifier (UID)" },
+      { key: "identifierScheme", label: "Identifier Scheme" },
+      { key: "granularity", label: "Granularity" },
+      { key: "dataCarrier", label: "Data Carrier Type" },
+      { key: "productCategory", label: "Product Category / UN CPC" },
+    ],
+  },
+  {
+    title: "General Information — Manufacturer",
+    fields: [
+      { key: "manufacturerName", label: "Manufacturer / Producer Legal Name" },
+      { key: "businessId", label: "Business Identifier / Registration Number" },
+      { key: "operatorRole", label: "Economic Operator Role" },
+      { key: "facilityId", label: "Facility Identifier" },
+      { key: "siteName", label: "Production Site Name" },
+      { key: "siteAddress", label: "Production Site Address" },
+      { key: "country", label: "Country" },
+      { key: "region", label: "Region" },
+      { key: "productionDate", label: "Production Date" },
+    ],
+  },
+  {
+    title: "General Information — Compliance & Docs",
+    fields: [
+      { key: "regulations", label: "Applicable Regulation(s) and Standard(s)" },
+      { key: "dopc", label: "Declaration of Performance & Conformity (DoPC)" },
+      { key: "technicalDocs", label: "Linked Technical Documentation" },
+      { key: "safetyInfo", label: "Safety Information / Instructions for Use" },
+      { key: "contact", label: "Contact Email / Support URL" },
+    ],
+  },
+  {
+    title: "Product Information — Feedstocks & Composition",
+    fields: [
+      { key: "productDescription", label: "Product Description" },
+      { key: "functionalMaterials", label: "Key Functional Materials / Components" },
+      { key: "feedstocksInputs", label: "Feedstocks / Input Materials" },
+      { key: "feedstockShares", label: "Feedstock Shares (%)" },
+      { key: "feedstockOrigin", label: "Feedstock Origin & Provenance" },
+      { key: "inputsDppEpd", label: "Do Any Inputs Have a DPP or EPD?" },
+      { key: "biogenicFraction", label: "Biogenic vs. Synthetic Material Fraction" },
+      { key: "chemicalComposition", label: "Chemical Composition" },
+      { key: "bioSource", label: "Source of Bio-based Materials" },
+      { key: "recycledContent", label: "Pre- and Post-consumer Recycled Content" },
+      { key: "packaging", label: "Packaging Type and Mass" },
+    ],
+  },
+  {
+    title: "Product Information — Manufacturing & Technology",
+    fields: [
+      { key: "productionTech", label: "Production Technology" },
+      { key: "reactorType", label: "Reactor / Equipment Type" },
+      { key: "operatingTemp", label: "Operating Temperature" },
+      { key: "emissionTreatment", label: "Emission Treatment Systems" },
+      { key: "plantCapacity", label: "Plant Production Capacity" },
+      { key: "numFacilities", label: "Number of Production Facilities" },
+      { key: "annualOutput", label: "Annual Production Output" },
+      { key: "processOverview", label: "Manufacturing Process Overview" },
+      { key: "manufacturingPackaging", label: "Packaging Produced During Manufacturing" },
+    ],
+  },
+  {
+    title: "Product Information — Energy & Resources",
+    fields: [
+      { key: "electricityConsumption", label: "Electricity Consumption" },
+      { key: "electricitySource", label: "Electricity Source" },
+      { key: "fuelUse", label: "Fuel Use (on-site)" },
+      { key: "waterUse", label: "Water Use" },
+      { key: "auxMaterials", label: "Additional / Auxiliary Materials" },
+      { key: "directEmissions", label: "Direct Emissions (air, water, soil)" },
+      { key: "wasteStreams", label: "Waste Streams (type, quantity, treatment)" },
+    ],
+  },
+  {
+    title: "Product Information — Transport",
+    fields: [
+      { key: "feedstockTransportDist", label: "Feedstock / Raw Material Transport Distances" },
+      { key: "feedstockTransportModes", label: "Feedstock Transport Modes" },
+      { key: "productDistDist", label: "Finished Product Distribution Distances" },
+      { key: "vehicleType", label: "Transport Vehicle Type, Payload, Load Utilization" },
+    ],
+  },
+  {
+    title: "Product Information — Outputs & Co-products",
+    fields: [
+      { key: "coProductsGenerated", label: "Co-products Generated" },
+      { key: "coProductsQuantity", label: "Quantity of Co-products" },
+      { key: "coProductEndUse", label: "Co-product End Use" },
+    ],
+  },
+  {
+    title: "Product Information — Sustainability",
+    fields: [
+      { key: "biogenicCarbon", label: "Biogenic Carbon Content" },
+      { key: "carbonSeq", label: "Carbon Sequestration During Raw Material Growth" },
+      { key: "fertilizers", label: "Fertilizers, Pesticides, Biocides in Bio-based Inputs" },
+      { key: "vocs", label: "VOCs or Other Emissions from Production or Use" },
+      { key: "rsl", label: "Reference Service Life (RSL)" },
+      { key: "application", label: "Typical Application and Installation Method" },
+      { key: "maintenance", label: "Maintenance Requirements" },
+      { key: "eolScenarios", label: "End-of-life Scenarios" },
+      { key: "takeBack", label: "Take-back or Product Recovery Schemes" },
+      { key: "complianceStandards", label: "Compliance with Standards" },
+      { key: "greenCerts", label: "Green Building Certifications" },
+      { key: "hazardous", label: "Hazardous Substance Declarations" },
+      { key: "systemBoundary", label: "System Boundary" },
+      { key: "referenceYear", label: "Reference Year & Data Collection Period" },
+    ],
+  },
+  {
+    title: "Review — Data Confidence",
+    fields: [
+      { key: "dataAccuracy", label: "Data Accuracy (measured vs. estimated)" },
+      { key: "dataFrequency", label: "Data Recording Frequency" },
+    ],
+  },
+];
+
+function ReviewSummary({ draft }: { draft: Draft }) {
+  const groups = REVIEW_GROUPS.map((g) => ({
+    ...g,
+    filled: g.fields
+      .map((f) => ({ ...f, value: draft[f.key] }))
+      .filter((f) => f.value && f.value.trim().length > 0),
+  })).filter((g) => g.filled.length > 0);
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-lg px-3 py-2.5">
+        <FileText className="w-4 h-4 text-primary shrink-0" />
+        <p className="text-[11px] text-foreground">
+          Please review all information below before submitting. Click <strong>Back</strong> to make changes.
+        </p>
+      </div>
+
+      {groups.map((g) => (
+        <div key={g.title} className="border border-border/60 rounded-lg bg-card overflow-hidden">
+          <div className="px-4 py-2.5 border-b border-border bg-muted/30">
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-foreground">
+              {g.title}
+            </h4>
+          </div>
+          <div className="divide-y divide-border/40">
+            {g.filled.map((f) => (
+              <div key={f.key} className="flex gap-4 px-4 py-2.5 items-start">
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-medium w-[40%] shrink-0 leading-tight pt-0.5">
+                  {f.label}
+                </span>
+                <span className="text-[11px] text-foreground leading-snug whitespace-pre-wrap">
+                  {f.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {groups.length === 0 && (
+        <div className="text-center py-8 text-muted-foreground text-xs">
+          No data entered yet. Go back and fill in the required fields.
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -369,11 +549,13 @@ function StepFields({
   stepIdx,
   v,
   set,
+  draft,
 }: {
   sectionKey: string;
   stepIdx: number;
   v: (k: string) => string;
   set: (k: string, v: string) => void;
+  draft: Draft;
 }) {
   const key = `${sectionKey}-${stepIdx}`;
   const input = (k: string, placeholder?: string) => (
@@ -576,6 +758,8 @@ function StepFields({
           </SectionGroup>
         </div>
       );
+    case "review-1":
+      return <ReviewSummary draft={{ ...draft }} />;
     default:
       return null;
   }
