@@ -3,16 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -26,6 +16,7 @@ import {
   type LcaProduct,
   type LcaStatus,
 } from "@/lib/lcaData";
+import AddProductWizard from "@/components/lca/AddProductWizard";
 import {
   ArrowRight,
   BarChart3,
@@ -33,8 +24,8 @@ import {
   Plus,
   ChevronLeft,
   ChevronRight,
-  Check,
 } from "lucide-react";
+
 
 const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
   not_started: {
