@@ -389,7 +389,7 @@ function ParamRow({
         <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           {label}
         </div>
-        <div className="text-sm font-semibold text-foreground truncate">{value}</div>
+        <div className="text-xs font-semibold text-foreground truncate">{value}</div>
       </div>
     </div>
   );
