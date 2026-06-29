@@ -13,6 +13,8 @@ export interface LcaProduct {
   systemBoundary: "Cradle-to-Gate" | "Cradle-to-Grave" | "Gate-to-Gate";
   status: LcaStatus;
   mass_kg: number;
+  mainUse?: string;
+  formData?: Record<string, string>;
 }
 
 export interface LciFlow {
