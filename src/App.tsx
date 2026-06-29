@@ -429,6 +429,7 @@ const App = () => {
                 <Route path="/lca" element={<LcaCatalog />} />
                 <Route path="/lca/products/:id/questionnaire" element={<LcaQuestionnaire />} />
                 <Route path="/lca/products/:id/performance" element={<LcaPerformance />} />
+                <Route path="/lca/products/:id/matches" element={<LcaMatches />} />
                 <Route path="/lca/products/:id/hotspots" element={<LcaHotspots />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<NotFound />} />
