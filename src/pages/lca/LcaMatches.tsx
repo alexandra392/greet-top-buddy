@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { LCA_PRODUCTS, type LcaProduct } from "@/lib/lcaData";
 import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink, Bookmark } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
 
 const LCA_MATCHES_PAGE_SIZE = 8;
 
@@ -128,12 +130,11 @@ export default function LcaMatches() {
       <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
         {/* Top bar: Back + Selection actions */}
         <div className="flex items-center justify-between mb-3">
-          <button
-            onClick={() => navigate("/lca")}
-            className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-border bg-card text-xs font-semibold text-foreground hover:bg-muted transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Back
-          </button>
+          <Button variant="outline" size="sm" className="gap-1.5 h-7 text-xs" onClick={() => navigate("/lca")}>
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Back
+          </Button>
+
 
           {selectedIds.size > 0 && (
             <div className="flex items-center gap-3">
