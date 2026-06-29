@@ -288,7 +288,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
               </DialogHeader>
 
               <div className="flex-1 overflow-y-auto px-6 py-4">
-                <StepFields sectionKey={section.key} stepIdx={stepIdx} v={v} set={set} />
+                <StepFields sectionKey={section.key} stepIdx={stepIdx} v={v} set={set} draft={draft} />
               </div>
 
               <div className="flex items-center justify-between px-6 py-3 border-t border-border bg-muted/30">
