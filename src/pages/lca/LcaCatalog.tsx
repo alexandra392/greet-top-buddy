@@ -257,10 +257,11 @@ export default function LcaCatalog() {
                 </DialogHeader>
 
                 <div className="overflow-y-auto">
-                  <div className="grid grid-cols-[44px_1fr_140px_100px_32px] gap-4 px-6 py-2.5 border-y border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  <div className="grid grid-cols-[44px_1fr_130px_72px_100px_32px] gap-4 px-6 py-2.5 border-y border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
                     <div>Rank</div>
                     <div>Dataset</div>
                     <div>Provider</div>
+                    <div>Year</div>
                     <div className="text-right">Score</div>
                     <div />
                   </div>
@@ -268,7 +269,7 @@ export default function LcaCatalog() {
                     <button
                       key={lca.id}
                       onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
-                      className="w-full text-left grid grid-cols-[44px_1fr_140px_100px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 hover:bg-muted/40 transition-colors group"
+                      className="w-full text-left grid grid-cols-[44px_1fr_130px_72px_100px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 hover:bg-muted/40 transition-colors group"
                     >
                       <div className="text-xs font-bold text-muted-foreground tabular-nums">
                         #{lcaStart + idx + 1}
@@ -277,7 +278,10 @@ export default function LcaCatalog() {
                         {lca.title}
                       </div>
                       <div className="text-[11px] text-muted-foreground truncate">
-                        {lca.provider} · {lca.year}
+                        {lca.provider}
+                      </div>
+                      <div className="text-[11px] text-muted-foreground tabular-nums">
+                        {lca.year}
                       </div>
                       <div className="text-xs font-bold text-primary tabular-nums text-right">
                         {lca.score}%
