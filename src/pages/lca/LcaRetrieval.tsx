@@ -155,7 +155,7 @@ export default function LcaRetrieval() {
   }
 
   function proceedAll() {
-    navigate(`/lca/products/${product.id}/performance`, {
+    navigate(`/lca/products/${product.id}/characterization`, {
       state: { selectedLcaIds: selected.map((s) => s.id) },
     });
   }
@@ -181,7 +181,7 @@ export default function LcaRetrieval() {
               disabled={!allConfirmed}
               className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Proceed to performance <ArrowRight className="w-3.5 h-3.5" />
+              Proceed to characterisation <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
