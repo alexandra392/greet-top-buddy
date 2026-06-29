@@ -139,7 +139,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="w-[95vw] max-w-[960px] h-[92vh] md:h-[700px] max-h-[92vh] overflow-hidden p-0 gap-0 flex flex-col">
+      <DialogContent className="w-[95vw] max-w-[1140px] h-[92vh] md:h-[760px] max-h-[92vh] overflow-hidden p-0 gap-0 flex flex-col">
         <div className="flex flex-col h-full min-h-0">
           {/* Compact top header */}
           <div className="px-6 pt-4 pb-2 border-b border-border bg-card shrink-0">
