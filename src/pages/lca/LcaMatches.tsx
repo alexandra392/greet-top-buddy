@@ -95,6 +95,34 @@ export default function LcaMatches() {
   const end = Math.min(start + LCA_MATCHES_PAGE_SIZE, filtered.length);
   const paged = filtered.slice(start, end);
 
+  const allPagedSelected = paged.length > 0 && paged.every((lca) => selectedIds.has(lca.id));
+  const somePagedSelected = paged.some((lca) => selectedIds.has(lca.id)) && !allPagedSelected;
+
+  function toggleId(id: string) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleAllPaged() {
+    if (allPagedSelected) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        paged.forEach((lca) => next.delete(lca.id));
+        return next;
+      });
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        paged.forEach((lca) => next.add(lca.id));
+        return next;
+      });
+    }
+  }
+
   return (
     <div className="h-full bg-background flex flex-col">
       <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
