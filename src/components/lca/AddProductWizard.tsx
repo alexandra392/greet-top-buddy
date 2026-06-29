@@ -463,16 +463,22 @@ function StepFields({
       );
     case "product-1":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Production Technology" full>{area("productionTech", "Mesophilic anaerobic digestion with membrane biogas upgrading")}</Field>
-          <Field label="Reactor / Equipment Type">{input("reactorType", "Continuous Stirred Tank Reactor (CSTR)")}</Field>
-          <Field label="Operating Temperature">{input("operatingTemp", "~37°C (mesophilic digestion)")}</Field>
-          <Field label="Emission Treatment Systems" full>{area("emissionTreatment", "Biological scrubber for H₂S removal…")}</Field>
-          <Field label="Plant Production Capacity">{input("plantCapacity", "300 Nm³ biomethane/hour")}</Field>
-          <Field label="Number of Production Facilities">{input("numFacilities", "2")}</Field>
-          <Field label="Annual Production Output" full>{input("annualOutput", "6,804,000 Nm³/year biomethane (total both plants)")}</Field>
-          <Field label="Manufacturing Process Overview" full>{area("processOverview", "Anaerobic digestion → biogas purification → upgrading → compression → grid injection", 3)}</Field>
-          <Field label="Packaging Produced During Manufacturing" full>{input("manufacturingPackaging", "N/A")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Technology">
+            <Field label="Production Technology" full hint="e.g. Mesophilic anaerobic digestion with membrane biogas upgrading">{area("productionTech", "Mesophilic anaerobic digestion with membrane biogas upgrading")}</Field>
+            <Field label="Reactor / Equipment Type" hint="e.g. Continuous Stirred Tank Reactor (CSTR)">{input("reactorType", "Continuous Stirred Tank Reactor (CSTR)")}</Field>
+            <Field label="Operating Temperature" hint="e.g. ~37°C (mesophilic digestion)">{input("operatingTemp", "~37°C (mesophilic digestion)")}</Field>
+            <Field label="Emission Treatment Systems" full hint="e.g. Biological scrubber for H₂S removal…">{area("emissionTreatment", "Biological scrubber for H₂S removal…")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Capacity">
+            <Field label="Plant Production Capacity" hint="e.g. 300 Nm³ biomethane/hour">{input("plantCapacity", "300 Nm³ biomethane/hour")}</Field>
+            <Field label="Number of Production Facilities" hint="e.g. 2">{input("numFacilities", "2")}</Field>
+            <Field label="Annual Production Output" full hint="e.g. 6,804,000 Nm³/year biomethane (total both plants)">{input("annualOutput", "6,804,000 Nm³/year biomethane (total both plants)")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Process Overview">
+            <Field label="Manufacturing Process Overview" full hint="e.g. Anaerobic digestion → biogas purification → upgrading → compression → grid injection">{area("processOverview", "Anaerobic digestion → biogas purification → upgrading → compression → grid injection", 3)}</Field>
+            <Field label="Packaging Produced During Manufacturing" full hint="e.g. N/A">{input("manufacturingPackaging", "N/A")}</Field>
+          </SectionGroup>
         </div>
       );
     case "product-2":
