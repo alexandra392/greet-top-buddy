@@ -136,131 +136,151 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden p-0 gap-0">
-        <div className="grid grid-cols-[240px_1fr] h-full max-h-[90vh]">
-          {/* Sidebar */}
-          <aside className="bg-card border-r border-border px-4 py-4 overflow-y-auto">
-            <div className="border-b border-border pb-3 mb-3">
-              <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
-                LCA Tool
+      <DialogContent className="max-w-5xl max-h-[92vh] overflow-hidden p-0 gap-0">
+        <div className="flex flex-col max-h-[92vh]">
+          {/* Top header with horizontal main stepper */}
+          <div className="px-6 pt-5 pb-4 border-b border-border bg-card">
+            <div className="flex items-baseline justify-between mb-4">
+              <div>
+                <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
+                  LCA Tool
+                </div>
+                <div className="text-base font-semibold text-foreground mt-0.5 leading-tight">
+                  Add Product
+                </div>
               </div>
-              <div className="text-sm font-semibold text-foreground mt-1 leading-snug">
-                Add Product
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
                 {section.label} · {step.title}
               </div>
             </div>
 
-            <nav className="space-y-5">
+            {/* Horizontal main-section stepper */}
+            <ol className="flex items-center gap-2">
               {SECTIONS.map((s, i) => {
                 const done = i < sectionIdx;
                 const active = i === sectionIdx;
+                const reachable = i <= sectionIdx;
                 return (
-                  <div
-                    key={s.key}
-                    className="space-y-1"
-                  >
-                    <div
+                  <li key={s.key} className="flex items-center gap-2 flex-1 min-w-0">
+                    <button
+                      type="button"
+                      disabled={!reachable}
+                      onClick={() => goToStep(i, 0)}
                       className={cn(
-                        "flex items-center gap-3 px-2 py-1.5",
-                        !active && !done && "opacity-60",
+                        "flex items-center gap-2.5 rounded-md px-3 py-2 w-full text-left transition-colors border",
+                        active && "border-primary/40 bg-primary/5",
+                        done && !active && "border-border bg-card hover:bg-muted/40",
+                        !active && !done && "border-border bg-card opacity-60 cursor-not-allowed",
                       )}
                     >
                       <span
                         className={cn(
-                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-[10px] font-semibold tabular-nums",
-                          done && "border-primary/40 bg-primary/10 text-primary",
-                          active && "border-primary/50 bg-primary/10 text-primary",
-                          !done && !active && "border-border bg-card text-muted-foreground",
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold tabular-nums",
+                          active && "bg-primary text-primary-foreground",
+                          done && !active && "bg-primary/15 text-primary",
+                          !active && !done && "bg-muted text-muted-foreground",
                         )}
                       >
                         {done ? <Check className="w-3 h-3" /> : String(i + 1).padStart(2, "0")}
                       </span>
-                      <span
-                        className={cn(
-                          "text-[11px] uppercase tracking-widest font-bold leading-tight",
-                          active || done ? "text-foreground" : "text-muted-foreground",
-                        )}
-                      >
-                        {s.label}
+                      <span className="flex flex-col min-w-0">
+                        <span className={cn(
+                          "text-[10px] uppercase tracking-widest font-semibold leading-tight truncate",
+                          active ? "text-foreground" : "text-muted-foreground",
+                        )}>
+                          {s.label}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground leading-tight truncate">
+                          {s.steps.length} {s.steps.length === 1 ? "step" : "steps"}
+                        </span>
                       </span>
-                    </div>
-                    <ul className="ml-8 space-y-1">
-                      {s.steps.map((st, j) => {
-                        const stActive = active && j === stepIdx;
-                        const stDone = i < sectionIdx || (active && j < stepIdx);
-                        const clickable = i < sectionIdx || (active && j <= stepIdx);
-                        return (
-                          <li key={st.title}>
-                            <button
-                              type="button"
-                              disabled={!clickable}
-                              onClick={() => goToStep(i, j)}
-                              className={cn(
-                                "group flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-left text-xs transition-colors",
-                                stActive
-                                  ? "bg-primary/10 text-foreground font-semibold"
-                                  : stDone
-                                  ? "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-                                  : "text-muted-foreground/60 cursor-not-allowed",
-                              )}
-                            >
-                              <span
-                                className={cn(
-                                  "h-1.5 w-1.5 shrink-0 rounded-full",
-                                  stActive && "bg-primary",
-                                  stDone && !stActive && "bg-primary/50",
-                                  !stDone && !stActive && "bg-border",
-                                )}
-                              />
-                              <span className="truncate">{st.title}</span>
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
+                    </button>
+                    {i < SECTIONS.length - 1 && (
+                      <span className={cn(
+                        "h-px flex-1 min-w-[12px]",
+                        done ? "bg-primary/40" : "bg-border",
+                      )} />
+                    )}
+                  </li>
                 );
               })}
-            </nav>
-          </aside>
+            </ol>
+          </div>
 
-          {/* Main */}
-          <div className="flex flex-col max-h-[90vh] overflow-hidden">
-            <DialogHeader className="px-6 pt-5 pb-3 border-b border-border space-y-0.5">
-              <div className="flex items-center justify-between">
-                <DialogTitle className="text-sm font-bold text-foreground">
-                  {step.title}
-                </DialogTitle>
-                <span className="text-[10px] text-muted-foreground">
-                  Step {stepIdx + 1} of {totalSteps} · {section.label}
-                </span>
+          <div className="grid grid-cols-[220px_1fr] flex-1 min-h-0">
+            {/* Vertical sub-step sidebar */}
+            <aside className="bg-muted/20 border-r border-border px-3 py-4 overflow-y-auto">
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold px-2 mb-2">
+                {section.label}
               </div>
-              <DialogDescription className="text-[11px] text-muted-foreground">
-                {step.subtitle}
-              </DialogDescription>
-            </DialogHeader>
+              <ul className="space-y-0.5">
+                {section.steps.map((st, j) => {
+                  const stActive = j === stepIdx;
+                  const stDone = j < stepIdx;
+                  return (
+                    <li key={st.title}>
+                      <button
+                        type="button"
+                        onClick={() => goToStep(sectionIdx, j)}
+                        className={cn(
+                          "flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-xs transition-colors",
+                          stActive
+                            ? "bg-primary/10 text-foreground font-semibold"
+                            : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                        )}
+                      >
+                        <span className={cn(
+                          "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[9px] font-semibold tabular-nums",
+                          stActive && "bg-primary text-primary-foreground",
+                          stDone && "bg-primary/15 text-primary",
+                          !stActive && !stDone && "bg-muted text-muted-foreground",
+                        )}>
+                          {stDone ? <Check className="w-2.5 h-2.5" /> : j + 1}
+                        </span>
+                        <span className="truncate">{st.title}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </aside>
 
-            <div className="flex-1 overflow-y-auto px-6 py-4">
-              <StepFields sectionKey={section.key} stepIdx={stepIdx} v={v} set={set} />
-            </div>
+            {/* Main content */}
+            <div className="flex flex-col min-h-0">
+              <DialogHeader className="px-6 pt-4 pb-3 border-b border-border space-y-0.5">
+                <div className="flex items-center justify-between">
+                  <DialogTitle className="text-sm font-bold text-foreground">
+                    {step.title}
+                  </DialogTitle>
+                  <span className="text-[10px] text-muted-foreground tabular-nums">
+                    Step {stepIdx + 1} of {totalSteps}
+                  </span>
+                </div>
+                <DialogDescription className="text-[11px] text-muted-foreground">
+                  {step.subtitle}
+                </DialogDescription>
+              </DialogHeader>
 
-            <div className="flex items-center justify-between px-6 py-3 border-t border-border bg-muted/30">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={goBack}
-                disabled={sectionIdx === 0 && stepIdx === 0}
-                className="h-7 text-[11px]"
-              >
-                <ChevronLeft className="w-3 h-3" />
-                Back
-              </Button>
-              <Button size="sm" onClick={goNext} className="h-7 text-[11px]">
-                {nextLabel}
-                {!(isLastSection && isLastStepOfSection) && <ChevronRight className="w-3 h-3" />}
-              </Button>
+              <div className="flex-1 overflow-y-auto px-6 py-4">
+                <StepFields sectionKey={section.key} stepIdx={stepIdx} v={v} set={set} />
+              </div>
+
+              <div className="flex items-center justify-between px-6 py-3 border-t border-border bg-muted/30">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={goBack}
+                  disabled={sectionIdx === 0 && stepIdx === 0}
+                  className="h-7 text-[11px]"
+                >
+                  <ChevronLeft className="w-3 h-3" />
+                  Back
+                </Button>
+                <Button size="sm" onClick={goNext} className="h-7 text-[11px]">
+                  {nextLabel}
+                  {!(isLastSection && isLastStepOfSection) && <ChevronRight className="w-3 h-3" />}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
