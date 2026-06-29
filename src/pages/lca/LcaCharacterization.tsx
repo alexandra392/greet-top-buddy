@@ -71,37 +71,38 @@ const STAGES = [
   { key: "normalize", title: "Normalising & weighting → EF Single Score",       subtitle: "Result ÷ NF × WF, summed across the 16 EF 3.0 categories.",                icon: Scale },
 ] as const;
 
+const STEP_SLUGS = ["match", "characterize", "normalize"] as const;
+type StepSlug = (typeof STEP_SLUGS)[number];
+
 export default function LcaCharacterization() {
-  const { id } = useParams();
+  const { id, step: stepParam } = useParams<{ id: string; step?: StepSlug }>();
   const navigate = useNavigate();
   const product = useMemo(() => LCA_PRODUCTS.find((p) => p.id === id), [id]);
 
-  const [stage, setStage] = useState(0);
-  // Stage 1: stream matches in
+  const stage = Math.max(0, STEP_SLUGS.indexOf((stepParam ?? "match") as StepSlug));
+  const goStep = (i: number) =>
+    navigate(`/lca/products/${id}/characterization/${STEP_SLUGS[i]}`);
+
+  // Per-stage animation state — resets on remount when route changes
   const [matchedCount, setMatchedCount] = useState(0);
-  // Stage 2: reveal characterised categories one at a time
   const [charCount, setCharCount] = useState(0);
-  // Stage 3: animate normalisation
   const [normRunning, setNormRunning] = useState(false);
   const [normCount, setNormCount] = useState(0);
 
   useEffect(() => {
-    if (stage !== 0) return;
-    if (matchedCount >= LCI_MATCHES.length) return;
+    if (stage !== 0 || matchedCount >= LCI_MATCHES.length) return;
     const t = setTimeout(() => setMatchedCount((c) => c + 1), 450);
     return () => clearTimeout(t);
   }, [stage, matchedCount]);
 
   useEffect(() => {
-    if (stage !== 1) return;
-    if (charCount >= CATEGORIES.length) return;
+    if (stage !== 1 || charCount >= CATEGORIES.length) return;
     const t = setTimeout(() => setCharCount((c) => c + 1), 220);
     return () => clearTimeout(t);
   }, [stage, charCount]);
 
   useEffect(() => {
-    if (stage !== 2 || !normRunning) return;
-    if (normCount >= CATEGORIES.length) return;
+    if (stage !== 2 || !normRunning || normCount >= CATEGORIES.length) return;
     const t = setTimeout(() => setNormCount((c) => c + 1), 260);
     return () => clearTimeout(t);
   }, [stage, normRunning, normCount]);
