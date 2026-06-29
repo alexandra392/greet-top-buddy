@@ -155,7 +155,7 @@ export default function LcaRetrieval() {
   }
 
   function proceedAll() {
-    navigate(`/lca/products/${product.id}/performance`, {
+    navigate(`/lca/products/${product.id}/characterization`, {
       state: { selectedLcaIds: selected.map((s) => s.id) },
     });
   }
