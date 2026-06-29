@@ -34,6 +34,10 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Projects from "./pages/Projects";
 import Profile from "./pages/Profile";
+import LcaCatalog from "./pages/lca/LcaCatalog";
+import LcaQuestionnaire from "./pages/lca/LcaQuestionnaire";
+import LcaPerformance from "./pages/lca/LcaPerformance";
+import LcaHotspots from "./pages/lca/LcaHotspots";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -306,6 +310,10 @@ const App = () => {
                 <Route path="/landscape/:category/:topic/patents" element={<PatentLandscape />} />
                 <Route path="/landscape/:category/:topic/market-activity" element={<MarketActivity />} />
                 <Route path="/landscape/:category/:topic/market-activity/review" element={<MarketActivityReview />} />
+                <Route path="/lca" element={<LcaCatalog />} />
+                <Route path="/lca/products/:id/questionnaire" element={<LcaQuestionnaire />} />
+                <Route path="/lca/products/:id/performance" element={<LcaPerformance />} />
+                <Route path="/lca/products/:id/hotspots" element={<LcaHotspots />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
