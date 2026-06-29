@@ -9,7 +9,8 @@ import {
   Building2,
   ClipboardList,
   Bell,
-  Search
+  Search,
+  Leaf
 } from "lucide-react";
 import vcgLogo from "@/assets/vcg-logo.png";
 import vcgIcon from "@/assets/vcg-icon.png";
@@ -36,6 +37,7 @@ const mainItems = [
   { title: "Latest News", url: "/analytics", icon: BarChart3, disabled: true },
   { title: "Explorer", url: "#", icon: Users, disabled: true },
   { title: "Projects", url: "/projects", icon: Building2, disabled: true },
+  { title: "LCA Tool", url: "/lca", icon: Leaf, disabled: false },
   { title: "VCG Admin", url: "/analysis-management", icon: ClipboardList, disabled: false },
   { title: "Organisations", url: "/organization/1", icon: Calendar, disabled: true },
 ];
