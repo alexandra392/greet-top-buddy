@@ -60,6 +60,7 @@ const HeaderBreadcrumb = () => {
       const productId = lcaMatch[1];
       const sub = lcaMatch[2];
       const subLabel =
+        sub === "matches" ? "LCA Matches" :
         sub === "questionnaire" ? "Questionnaire" :
         sub === "performance" ? "Performance" :
         sub === "hotspots" ? "Hotspots" : null;
