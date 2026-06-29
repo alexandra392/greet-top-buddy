@@ -95,26 +95,24 @@ export default function LcaMatches() {
   const paged = filtered.slice(start, end);
 
   return (
-    <div className="h-full bg-background">
-      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6">
-        <button
-          onClick={() => navigate("/lca")}
-          className="inline-flex items-center gap-1 text-xs text-primary hover:underline mb-3"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to LCA Tool
-        </button>
-
-        <div className="mb-4">
-          <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
-            LCA Matches
+    <div className="h-full bg-background flex flex-col">
+      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
+        {/* Heading matching platform style */}
+        <div className="mb-3 flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              LCA Matches
+            </h2>
+            <p className="text-xs text-muted-foreground mt-1 max-w-2xl">
+              {ranked.length} dataset matches for {product.name}, ranked by similarity score.
+            </p>
           </div>
-          <h1 className="text-base font-bold text-foreground flex items-center gap-2 leading-tight mt-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            {product.name}
-          </h1>
-          <p className="text-[11px] text-muted-foreground mt-1">
-            {ranked.length} matches · ranked by similarity score
-          </p>
+          <button
+            onClick={() => navigate("/lca")}
+            className="inline-flex items-center gap-1 text-xs text-primary hover:underline shrink-0"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to LCA Tool
+          </button>
         </div>
 
         {/* Filters */}
