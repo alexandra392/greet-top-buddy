@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LCA_PRODUCTS, type LcaProduct } from "@/lib/lcaData";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const LCA_MATCHES_PAGE_SIZE = 8;
 
@@ -12,6 +13,7 @@ type RankedLca = {
   year: number;
   method: string;
   score: number;
+  url: string;
 };
 
 const LCA_PROVIDERS = [
@@ -28,16 +30,18 @@ function getRankedLcas(p: LcaProduct): RankedLca[] {
   for (let i = 0; i < count; i++) {
     const s = (seed * (i + 7)) % 100;
     const score = Math.max(42, 98 - i * (3 + (s % 4)) - (s % 5));
+    const provider = LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length];
     items.push({
       id: `${p.id}-lca-${i}`,
       title:
         i === 0
           ? `${p.name} — Reference baseline (${p.systemBoundary})`
-          : `${p.name} — ${LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length]} dataset v${1 + ((seed + i) % 4)}.${(i * 3) % 9}`,
-      provider: LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length],
+          : `${p.name} — ${provider} dataset v${1 + ((seed + i) % 4)}.${(i * 3) % 9}`,
+      provider,
       year: 2020 + ((seed + i * 3) % 6),
       method: LCA_METHODS[(seed + i) % LCA_METHODS.length],
       score,
+      url: `https://lca-database.example.org/datasets/${p.id}-${i}`,
     });
   }
   return items.sort((a, b) => b.score - a.score);
@@ -48,6 +52,8 @@ export default function LcaMatches() {
   const navigate = useNavigate();
   const product = useMemo(() => LCA_PRODUCTS.find((p) => p.id === id), [id]);
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState("");
+  const [yearFilter, setYearFilter] = useState<string>("all");
 
   if (!product) {
     return (
@@ -63,12 +69,30 @@ export default function LcaMatches() {
     );
   }
 
-  const ranked = getRankedLcas(product);
-  const totalPages = Math.max(1, Math.ceil(ranked.length / LCA_MATCHES_PAGE_SIZE));
+  const ranked = useMemo(() => getRankedLcas(product), [product]);
+  const years = useMemo(
+    () => Array.from(new Set(ranked.map((r) => r.year))).sort((a, b) => b - a),
+    [ranked]
+  );
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return ranked.filter((r) => {
+      if (yearFilter !== "all" && String(r.year) !== yearFilter) return false;
+      if (!q) return true;
+      return (
+        r.title.toLowerCase().includes(q) ||
+        r.provider.toLowerCase().includes(q) ||
+        r.method.toLowerCase().includes(q)
+      );
+    });
+  }, [ranked, query, yearFilter]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / LCA_MATCHES_PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
   const start = (currentPage - 1) * LCA_MATCHES_PAGE_SIZE;
-  const end = Math.min(start + LCA_MATCHES_PAGE_SIZE, ranked.length);
-  const paged = ranked.slice(start, end);
+  const end = Math.min(start + LCA_MATCHES_PAGE_SIZE, filtered.length);
+  const paged = filtered.slice(start, end);
 
   return (
     <div className="h-full bg-background">
@@ -93,27 +117,58 @@ export default function LcaMatches() {
           </p>
         </div>
 
+        {/* Filters */}
+        <div className="flex items-center gap-2 mb-3">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+            <Input
+              placeholder="Search by dataset, provider or method..."
+              value={query}
+              onChange={(e) => { setQuery(e.target.value); setPage(1); }}
+              className="pl-9 h-8 text-xs"
+            />
+          </div>
+          <select
+            value={yearFilter}
+            onChange={(e) => { setYearFilter(e.target.value); setPage(1); }}
+            className="h-8 text-xs rounded-md border border-border bg-background px-2 text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+          >
+            <option value="all">All years</option>
+            {years.map((y) => (
+              <option key={y} value={String(y)}>{y}</option>
+            ))}
+          </select>
+        </div>
+
         <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-          <div className="grid grid-cols-[44px_1fr_130px_72px_100px_32px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+          <div className="grid grid-cols-[44px_1fr_130px_72px_90px_32px_32px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
             <div>Rank</div>
             <div>Dataset</div>
             <div>Provider</div>
             <div>Year</div>
             <div className="text-right">Score</div>
             <div />
+            <div />
           </div>
-          {paged.map((lca, idx) => (
-            <button
+          {paged.length === 0 && (
+            <div className="px-6 py-8 text-center text-xs text-muted-foreground">
+              No matches found.
+            </div>
+          )}
+          {paged.map((lca) => (
+            <div
               key={lca.id}
-              onClick={() => navigate(`/lca/products/${product.id}/performance`)}
-              className="w-full text-left grid grid-cols-[44px_1fr_130px_72px_100px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group"
+              className="grid grid-cols-[44px_1fr_130px_72px_90px_32px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group"
             >
               <div className="text-xs font-bold text-muted-foreground tabular-nums">
-                #{start + idx + 1}
+                #{ranked.findIndex((r) => r.id === lca.id) + 1}
               </div>
-              <div className="text-xs font-semibold text-foreground truncate">
+              <button
+                onClick={() => navigate(`/lca/products/${product.id}/performance`)}
+                className="text-left text-xs font-semibold text-foreground truncate hover:text-primary transition-colors"
+              >
                 {lca.title}
-              </div>
+              </button>
               <div className="text-[11px] text-muted-foreground truncate">
                 {lca.provider}
               </div>
@@ -123,14 +178,31 @@ export default function LcaMatches() {
               <div className="text-xs font-bold text-primary tabular-nums text-right">
                 {lca.score}%
               </div>
-              <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors justify-self-end" />
-            </button>
+              <a
+                href={lca.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open source URL"
+                onClick={(e) => e.stopPropagation()}
+                className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
+                aria-label="Open dataset source"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <button
+                onClick={() => navigate(`/lca/products/${product.id}/performance`)}
+                className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
+                aria-label="View match"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           ))}
         </div>
 
         <div className="flex items-center justify-between pt-4">
           <span className="text-xs text-muted-foreground">
-            Showing <span className="text-foreground font-medium">{start + 1}–{end}</span> of <span className="text-foreground font-medium">{ranked.length}</span> matches
+            Showing <span className="text-foreground font-medium">{filtered.length === 0 ? 0 : start + 1}–{end}</span> of <span className="text-foreground font-medium">{filtered.length}</span> matches
           </span>
           <div className="flex items-center gap-1">
             <button
