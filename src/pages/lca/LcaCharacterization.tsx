@@ -248,7 +248,7 @@ export default function LcaCharacterization() {
                 size="sm"
                 className="h-7 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
                 disabled={!matchDone}
-                onClick={() => setStage(1)}
+                onClick={() => goStep(1)}
               >
                 Characterise impacts <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>
@@ -303,7 +303,7 @@ export default function LcaCharacterization() {
                 size="sm"
                 className="h-7 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
                 disabled={!charDone}
-                onClick={() => setStage(2)}
+                onClick={() => goStep(2)}
               >
                 Normalise & weight <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>
