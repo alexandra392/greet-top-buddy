@@ -8,8 +8,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   LCA_PRODUCTS,
@@ -19,13 +17,12 @@ import {
 import AddProductWizard from "@/components/lca/AddProductWizard";
 import {
   ArrowRight,
-  BarChart3,
-  Flame,
   Plus,
   ChevronLeft,
   ChevronRight,
   Search,
 } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
 
 
