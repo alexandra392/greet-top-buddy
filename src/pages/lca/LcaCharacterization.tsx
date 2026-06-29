@@ -71,37 +71,38 @@ const STAGES = [
   { key: "normalize", title: "Normalising & weighting → EF Single Score",       subtitle: "Result ÷ NF × WF, summed across the 16 EF 3.0 categories.",                icon: Scale },
 ] as const;
 
+const STEP_SLUGS = ["match", "characterize", "normalize"] as const;
+type StepSlug = (typeof STEP_SLUGS)[number];
+
 export default function LcaCharacterization() {
-  const { id } = useParams();
+  const { id, step: stepParam } = useParams<{ id: string; step?: StepSlug }>();
   const navigate = useNavigate();
   const product = useMemo(() => LCA_PRODUCTS.find((p) => p.id === id), [id]);
 
-  const [stage, setStage] = useState(0);
-  // Stage 1: stream matches in
+  const stage = Math.max(0, STEP_SLUGS.indexOf((stepParam ?? "match") as StepSlug));
+  const goStep = (i: number) =>
+    navigate(`/lca/products/${id}/characterization/${STEP_SLUGS[i]}`);
+
+  // Per-stage animation state — resets on remount when route changes
   const [matchedCount, setMatchedCount] = useState(0);
-  // Stage 2: reveal characterised categories one at a time
   const [charCount, setCharCount] = useState(0);
-  // Stage 3: animate normalisation
   const [normRunning, setNormRunning] = useState(false);
   const [normCount, setNormCount] = useState(0);
 
   useEffect(() => {
-    if (stage !== 0) return;
-    if (matchedCount >= LCI_MATCHES.length) return;
+    if (stage !== 0 || matchedCount >= LCI_MATCHES.length) return;
     const t = setTimeout(() => setMatchedCount((c) => c + 1), 450);
     return () => clearTimeout(t);
   }, [stage, matchedCount]);
 
   useEffect(() => {
-    if (stage !== 1) return;
-    if (charCount >= CATEGORIES.length) return;
+    if (stage !== 1 || charCount >= CATEGORIES.length) return;
     const t = setTimeout(() => setCharCount((c) => c + 1), 220);
     return () => clearTimeout(t);
   }, [stage, charCount]);
 
   useEffect(() => {
-    if (stage !== 2 || !normRunning) return;
-    if (normCount >= CATEGORIES.length) return;
+    if (stage !== 2 || !normRunning || normCount >= CATEGORIES.length) return;
     const t = setTimeout(() => setNormCount((c) => c + 1), 260);
     return () => clearTimeout(t);
   }, [stage, normRunning, normCount]);
@@ -131,7 +132,11 @@ export default function LcaCharacterization() {
             variant="outline"
             size="sm"
             className="gap-1.5 h-7 text-xs"
-            onClick={() => navigate(`/lca/products/${product.id}/retrieval`)}
+            onClick={() =>
+              stage > 0
+                ? goStep(stage - 1)
+                : navigate(`/lca/products/${product.id}/retrieval`)
+            }
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back
           </Button>
@@ -161,8 +166,10 @@ export default function LcaCharacterization() {
             const active = stage === i;
             return (
               <div key={s.key} className="flex items-center gap-2 flex-1">
-                <div
-                  className={`flex items-center gap-2 flex-1 rounded-lg border px-3 py-2 transition-colors ${
+                <button
+                  type="button"
+                  onClick={() => goStep(i)}
+                  className={`flex items-center gap-2 flex-1 rounded-lg border px-3 py-2 text-left transition-colors hover:border-primary/40 ${
                     active
                       ? "border-primary/40 bg-primary/[0.04]"
                       : done
@@ -187,7 +194,7 @@ export default function LcaCharacterization() {
                     </div>
                     <div className="text-xs font-semibold text-foreground truncate">{s.title}</div>
                   </div>
-                </div>
+                </button>
                 {i < STAGES.length - 1 && (
                   <ArrowRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                 )}
@@ -247,7 +254,7 @@ export default function LcaCharacterization() {
                 size="sm"
                 className="h-7 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
                 disabled={!matchDone}
-                onClick={() => setStage(1)}
+                onClick={() => goStep(1)}
               >
                 Characterise impacts <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>
@@ -302,7 +309,7 @@ export default function LcaCharacterization() {
                 size="sm"
                 className="h-7 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
                 disabled={!charDone}
-                onClick={() => setStage(2)}
+                onClick={() => goStep(2)}
               >
                 Normalise & weight <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>

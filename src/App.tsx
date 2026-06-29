@@ -431,6 +431,7 @@ const App = () => {
                 <Route path="/lca/products/:id/matches" element={<LcaMatches />} />
                 <Route path="/lca/products/:id/retrieval" element={<LcaRetrieval />} />
                 <Route path="/lca/products/:id/characterization" element={<LcaCharacterization />} />
+                <Route path="/lca/products/:id/characterization/:step" element={<LcaCharacterization />} />
                 <Route path="/lca/products/:id/hotspots" element={<LcaHotspots />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<NotFound />} />
