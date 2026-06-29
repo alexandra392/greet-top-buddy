@@ -45,6 +45,7 @@ export default function LcaCatalog() {
   const [page, setPage] = useState(1);
   const [wizardOpen, setWizardOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<LcaProduct | null>(null);
 
   const products = useMemo(
     () => [...extraProducts, ...LCA_PRODUCTS],
