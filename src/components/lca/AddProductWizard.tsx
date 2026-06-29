@@ -458,21 +458,17 @@ function ReviewSummary({ draft }: { draft: Draft }) {
       </div>
 
       {groups.map((g) => (
-        <div key={g.title} className="border border-border/60 rounded-lg bg-card overflow-hidden">
-          <div className="px-4 py-2.5 border-b border-border bg-muted/30">
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-foreground">
-              {g.title}
-            </h4>
-          </div>
-          <div className="divide-y divide-border/40">
+        <div key={g.title}>
+          <h4 className="text-[10px] font-bold uppercase tracking-widest text-foreground mb-2">
+            {g.title}
+          </h4>
+          <div className="bg-card border border-border/60 rounded-xl shadow-sm p-4 space-y-2">
             {g.filled.map((f) => (
-              <div key={f.key} className="flex gap-4 px-4 py-2.5 items-start">
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-medium w-[40%] shrink-0 leading-tight pt-0.5">
-                  {f.label}
-                </span>
-                <span className="text-[11px] text-foreground leading-snug whitespace-pre-wrap">
-                  {f.value}
-                </span>
+              <div key={f.key} className="text-[11px] text-foreground leading-snug whitespace-pre-wrap">
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-medium">
+                  {f.label}:
+                </span>{" "}
+                {f.value}
               </div>
             ))}
           </div>
