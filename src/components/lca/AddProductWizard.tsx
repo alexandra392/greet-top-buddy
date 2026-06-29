@@ -138,14 +138,15 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
     <Dialog open={open} onOpenChange={close}>
       <DialogContent className="max-w-5xl max-h-[92vh] overflow-hidden p-0 gap-0">
         <div className="flex flex-col max-h-[92vh]">
-          {/* Top header with horizontal main stepper */}
-          <div className="px-6 pt-5 pb-4 border-b border-border bg-card">
-            <div className="flex items-baseline justify-between mb-4">
-              <div>
+          {/* Compact top header */}
+          <div className="px-6 pt-4 pb-2 border-b border-border bg-card">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-3">
                 <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
                   LCA Tool
                 </div>
-                <div className="text-base font-semibold text-foreground mt-0.5 leading-tight">
+                <span className="text-muted-foreground/40">·</span>
+                <div className="text-sm font-semibold text-foreground leading-tight">
                   Add Product
                 </div>
               </div>
@@ -154,57 +155,51 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
               </div>
             </div>
 
-            {/* Horizontal main-section stepper */}
-            <ol className="flex items-center gap-2">
+            {/* Minimal horizontal stepper */}
+            <div className="flex items-center gap-1">
               {SECTIONS.map((s, i) => {
                 const done = i < sectionIdx;
                 const active = i === sectionIdx;
                 const reachable = i <= sectionIdx;
                 return (
-                  <li key={s.key} className="flex items-center gap-2 flex-1 min-w-0">
+                  <div key={s.key} className="flex items-center flex-1 min-w-0">
                     <button
                       type="button"
                       disabled={!reachable}
                       onClick={() => goToStep(i, 0)}
                       className={cn(
-                        "flex items-center gap-2.5 rounded-md px-3 py-2 w-full text-left transition-colors border",
-                        active && "border-primary/40 bg-primary/5",
-                        done && !active && "border-border bg-card hover:bg-muted/40",
-                        !active && !done && "border-border bg-card opacity-60 cursor-not-allowed",
+                        "flex items-center gap-1.5 w-full text-left transition-colors rounded px-2 py-1",
+                        active && "bg-primary/5",
+                        !active && !done && "opacity-50 cursor-not-allowed",
                       )}
                     >
                       <span
                         className={cn(
-                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold tabular-nums",
+                          "flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[9px] font-semibold tabular-nums",
                           active && "bg-primary text-primary-foreground",
                           done && !active && "bg-primary/15 text-primary",
                           !active && !done && "bg-muted text-muted-foreground",
                         )}
                       >
-                        {done ? <Check className="w-3 h-3" /> : String(i + 1).padStart(2, "0")}
+                        {done ? <Check className="w-2.5 h-2.5" /> : i + 1}
                       </span>
-                      <span className="flex flex-col min-w-0">
-                        <span className={cn(
-                          "text-[10px] uppercase tracking-widest font-semibold leading-tight truncate",
-                          active ? "text-foreground" : "text-muted-foreground",
-                        )}>
-                          {s.label}
-                        </span>
-                        <span className="text-[10px] text-muted-foreground leading-tight truncate">
-                          {s.steps.length} {s.steps.length === 1 ? "step" : "steps"}
-                        </span>
+                      <span className={cn(
+                        "text-[10px] uppercase tracking-wider font-medium truncate",
+                        active ? "text-foreground" : "text-muted-foreground",
+                      )}>
+                        {s.label}
                       </span>
                     </button>
                     {i < SECTIONS.length - 1 && (
-                      <span className={cn(
-                        "h-px flex-1 min-w-[12px]",
-                        done ? "bg-primary/40" : "bg-border",
+                      <ChevronRight className={cn(
+                        "w-3 h-3 shrink-0 mx-0.5",
+                        done ? "text-primary/40" : "text-muted-foreground/30",
                       )} />
                     )}
-                  </li>
+                  </div>
                 );
               })}
-            </ol>
+            </div>
           </div>
 
           <div className="grid grid-cols-[220px_1fr] flex-1 min-h-0">
