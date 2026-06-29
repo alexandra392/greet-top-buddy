@@ -52,15 +52,28 @@ export default function LcaCatalog() {
   const [extraProducts, setExtraProducts] = useState<LcaProduct[]>([]);
   const [page, setPage] = useState(1);
   const [wizardOpen, setWizardOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const products = useMemo(
     () => [...extraProducts, ...LCA_PRODUCTS],
     [extraProducts]
   );
-  const totalPages = Math.max(1, Math.ceil(products.length / PAGE_SIZE));
+
+  const filteredProducts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return products;
+    return products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q)
+    );
+  }, [products, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
   const pageStart = (page - 1) * PAGE_SIZE;
-  const pageEnd = Math.min(pageStart + PAGE_SIZE, products.length);
-  const pageItems = products.slice(pageStart, pageEnd);
+  const pageEnd = Math.min(pageStart + PAGE_SIZE, filteredProducts.length);
+  const pageItems = filteredProducts.slice(pageStart, pageEnd);
 
   const handleAddProduct = (np: LcaProduct) => {
     setExtraProducts((p) => [np, ...p]);
