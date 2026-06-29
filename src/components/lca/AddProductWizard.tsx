@@ -407,18 +407,22 @@ function StepFields({
       );
     case "general-1":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Manufacturer / Producer Legal Name" required>{input("manufacturerName", "BioEnergia Campania S.r.l.")}</Field>
-          <Field label="Business Identifier / Registration Number">{input("businessId", "IT-NA-REA-512874")}</Field>
-          <Field label="Economic Operator Role">{select("operatorRole", ["manufacturer", "importer", "distributor", "authorised representative"])}</Field>
-          <Field label="Production Site Name">{input("siteName", "Impianto Biometano Campania Nord")}</Field>
-          <Field label="Production Site Address">{input("siteAddress", "Campania, South Italy / IT")}</Field>
-          <Field label="Country" required>{input("country", "Italy")}</Field>
-          <Field label="Region">{input("region", "Campania")}</Field>
-          <Field label="Facility Identifier">{input("facilityId", "FAC-IT-CE-00312")}</Field>
-          <Field label="Production Date">
-            <Input className={inputCls} type="date" value={v("productionDate")} onChange={(e) => set("productionDate", e.target.value)} />
-          </Field>
+        <div className="space-y-5">
+          <SectionGroup title="Manufacturer">
+            <Field label="Manufacturer / Producer Legal Name" required hint="e.g. BioEnergia Campania S.r.l.">{input("manufacturerName", "BioEnergia Campania S.r.l.")}</Field>
+            <Field label="Business Identifier / Registration Number" hint="e.g. IT-NA-REA-512874">{input("businessId", "IT-NA-REA-512874")}</Field>
+            <Field label="Economic Operator Role">{select("operatorRole", ["manufacturer", "importer", "distributor", "authorised representative"])}</Field>
+            <Field label="Facility Identifier" hint="e.g. FAC-IT-CE-00312">{input("facilityId", "FAC-IT-CE-00312")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Production Site">
+            <Field label="Production Site Name" hint="e.g. Impianto Biometano Campania Nord">{input("siteName", "Impianto Biometano Campania Nord")}</Field>
+            <Field label="Production Site Address" hint="e.g. Campania, South Italy / IT">{input("siteAddress", "Campania, South Italy / IT")}</Field>
+            <Field label="Country" required>{input("country", "Italy")}</Field>
+            <Field label="Region">{input("region", "Campania")}</Field>
+            <Field label="Production Date">
+              <Input className={inputCls} type="date" value={v("productionDate")} onChange={(e) => set("productionDate", e.target.value)} />
+            </Field>
+          </SectionGroup>
         </div>
       );
     case "general-2":
