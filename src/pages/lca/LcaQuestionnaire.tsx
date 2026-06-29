@@ -82,7 +82,16 @@ export default function LcaQuestionnaire() {
             of {total} · {QUESTIONNAIRE_STEPS[step]}
           </div>
         </div>
-        <Progress value={progress} className="h-1.5 mt-3" />
+        <div className="flex items-center gap-1 mt-3">
+          {QUESTIONNAIRE_STEPS.map((_, i) => (
+            <div
+              key={i}
+              className={`h-5 w-0.5 rounded-full transition-colors ${
+                i <= step ? "bg-primary" : "bg-muted"
+              }`}
+            />
+          ))}
+        </div>
       </header>
 
       <Card className="border-border/60 p-6">
