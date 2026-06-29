@@ -271,9 +271,9 @@ function Field({
   );
 }
 
-const inputCls = "h-8 text-[11px]";
-const areaCls = "text-[11px] min-h-[60px]";
-const triggerCls = "h-8 text-[11px]";
+const inputCls = "h-8 !text-xs md:!text-xs";
+const areaCls = "!text-xs min-h-[60px] py-2";
+const triggerCls = "h-8 !text-xs";
 
 function StepFields({
   sectionKey,
