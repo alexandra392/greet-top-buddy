@@ -414,14 +414,14 @@ function StepFields({
           </SectionGroup>
           <SectionGroup>
             <Field label="Main Use of the Product" full>{area("mainUse", "Renewable energy carrier for heating and transport fuel")}</Field>
-            <Field label="Product Measurement Unit" full>{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
+            <Field label="Product Measurement Unit">{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
+            <Field label="Unique Product Identifier (UID)" required>{input("uid", "GTIN-IT-8033421-BM001")}</Field>
           </SectionGroup>
           <SectionGroup>
-            <Field label="Unique Product Identifier (UID)" required>{input("uid", "GTIN-IT-8033421-BM001")}</Field>
             <Field label="Identifier Scheme">{select("identifierScheme", ["GTIN", "GS1", "ISBN", "Internal"])}</Field>
             <Field label="Granularity">{select("granularity", ["item", "batch", "model"])}</Field>
             <Field label="Data Carrier Type">{select("dataCarrier", ["QR", "Barcode", "NFC", "RFID"])}</Field>
-            <Field label="Product Category / UN CPC" full>{input("productCategory", "Energy / Gaseous Fuels — Biomethane (UN CPC 1200)")}</Field>
+            <Field label="Product Category / UN CPC">{input("productCategory", "Energy / Gaseous Fuels — Biomethane (UN CPC 1200)")}</Field>
           </SectionGroup>
         </div>
       );
