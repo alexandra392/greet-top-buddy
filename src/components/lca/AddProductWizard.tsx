@@ -514,10 +514,12 @@ function StepFields({
       );
     case "product-4":
       return (
-        <div className="grid grid-cols-1 gap-3">
-          <Field label="Co-products Generated">{area("coProductsGenerated", "Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³\nBeverage-grade liquid CO₂ — 1.4 kg/Nm³\nSurplus electricity exported — 0.04 kWh/Nm³", 4)}</Field>
-          <Field label="Quantity of Co-products">{input("coProductsQuantity", "Digestate fertilizer ~2.3 kg/Nm³; Beverage-grade CO₂ ~1.4 kg/Nm³")}</Field>
-          <Field label="Co-product End Use">{area("coProductEndUse", "Digestate applied to local agricultural land as organic fertilizer\nCO₂ sold for beverage carbonation\nSurplus electricity exported to grid", 3)}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Co-products">
+            <Field label="Co-products Generated" full hint="e.g. Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³">{area("coProductsGenerated", "Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³\nBeverage-grade liquid CO₂ — 1.4 kg/Nm³\nSurplus electricity exported — 0.04 kWh/Nm³", 4)}</Field>
+            <Field label="Quantity of Co-products" hint="e.g. Digestate fertilizer ~2.3 kg/Nm³">{input("coProductsQuantity", "Digestate fertilizer ~2.3 kg/Nm³; Beverage-grade CO₂ ~1.4 kg/Nm³")}</Field>
+            <Field label="Co-product End Use" full hint="e.g. Digestate applied to local agricultural land">{area("coProductEndUse", "Digestate applied to local agricultural land as organic fertilizer\nCO₂ sold for beverage carbonation\nSurplus electricity exported to grid", 3)}</Field>
+          </SectionGroup>
         </div>
       );
     case "product-5":
