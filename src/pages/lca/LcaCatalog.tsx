@@ -42,6 +42,7 @@ const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
 };
 
 const PAGE_SIZE = 8;
+const LCA_MATCHES_PAGE_SIZE = 5;
 
 type RankedLca = {
   id: string;
@@ -55,16 +56,17 @@ type RankedLca = {
 const LCA_PROVIDERS = [
   "ecoinvent", "Sphera GaBi", "EF 3.0 Reference", "Agribalyse", "PEF Pilot",
   "Industry Consortium", "ELCD", "Quantis WORLD", "Idemat", "Supplier EPD",
+  "Thinkstep", "SimaPro", "OpenLCA", "Brightway", "GreenDelta",
 ];
 const LCA_METHODS = ["EF 3.0", "ReCiPe 2016", "CML-IA", "TRACI 2.1", "IPCC 2021"];
 
 function getRankedLcas(p: LcaProduct): RankedLca[] {
   const seed = Array.from(p.id).reduce((a, c) => a + c.charCodeAt(0), 0);
-  const count = 5 + (seed % 4); // 5–8 matches
+  const count = 16 + (seed % 6); // 16–21 matches so pagination is visible
   const items: RankedLca[] = [];
   for (let i = 0; i < count; i++) {
     const s = (seed * (i + 7)) % 100;
-    const score = Math.max(42, 98 - i * (4 + (s % 5)) - (s % 3));
+    const score = Math.max(42, 98 - i * (3 + (s % 4)) - (s % 5));
     items.push({
       id: `${p.id}-lca-${i}`,
       title:
@@ -84,6 +86,7 @@ function getRankedLcas(p: LcaProduct): RankedLca[] {
 export default function LcaCatalog() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<LcaProduct | null>(null);
+  const [lcaMatchesPage, setLcaMatchesPage] = useState(1);
   const [extraProducts, setExtraProducts] = useState<LcaProduct[]>([]);
   const [page, setPage] = useState(1);
   const [wizardOpen, setWizardOpen] = useState(false);
@@ -155,7 +158,7 @@ export default function LcaCatalog() {
             return (
               <Card
                 key={p.id}
-                onClick={() => setSelected(p)}
+                onClick={() => { setSelected(p); setLcaMatchesPage(1); }}
                 className="group cursor-pointer p-4 bg-card border border-border/60 hover:border-primary/40 hover:shadow-md transition-all flex flex-col rounded-xl shadow-sm"
               >
                 <div className="flex items-start justify-between mb-3">
@@ -229,58 +232,95 @@ export default function LcaCatalog() {
       </div>
 
       {/* Product detail dialog */}
-      <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-[960px] p-0 overflow-hidden">
-          {selected && (
-            <>
-              <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60">
-                <div className="flex items-start gap-4">
-                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-3xl shrink-0">
-                    {selected.image}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
-                      LCA Matches
+      <Dialog open={!!selected} onOpenChange={(o) => { if (!o) { setSelected(null); setLcaMatchesPage(1); } }}>
+        <DialogContent className="max-w-[960px] p-0 overflow-hidden flex flex-col max-h-[85vh]">
+          {selected && (() => {
+            const ranked = getRankedLcas(selected);
+            const totalLcaPages = Math.max(1, Math.ceil(ranked.length / LCA_MATCHES_PAGE_SIZE));
+            const currentLcaPage = Math.min(lcaMatchesPage, totalLcaPages);
+            const lcaStart = (currentLcaPage - 1) * LCA_MATCHES_PAGE_SIZE;
+            const lcaEnd = Math.min(lcaStart + LCA_MATCHES_PAGE_SIZE, ranked.length);
+            const pagedLcas = ranked.slice(lcaStart, lcaEnd);
+            return (
+              <>
+                <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60 shrink-0">
+                  <div className="flex items-start gap-4">
+                    <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-3xl shrink-0">
+                      {selected.image}
                     </div>
-                    <DialogTitle className="text-lg font-bold text-foreground mt-1">
-                      {selected.name}
-                    </DialogTitle>
-                    <p className="text-xs text-muted-foreground mt-1.5">
-                      Ranked list of available Life Cycle Assessments matching this product, by similarity score.
-                    </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
+                        LCA Matches
+                      </div>
+                      <DialogTitle className="text-lg font-bold text-foreground mt-1">
+                        {selected.name}
+                      </DialogTitle>
+                      <p className="text-xs text-muted-foreground mt-1.5">
+                        Ranked list of available Life Cycle Assessments matching this product, by similarity score.
+                      </p>
+                    </div>
+                  </div>
+                </DialogHeader>
+
+                <div className="px-8 py-6 overflow-y-auto">
+                  <div className="flex flex-col gap-3">
+                    {pagedLcas.map((lca, i) => (
+                      <button
+                        key={lca.id}
+                        onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
+                        className="w-full text-left flex items-center gap-4 p-4 bg-card border border-border/60 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all group"
+                      >
+                        <div className="w-8 text-xs font-bold text-muted-foreground tabular-nums text-center">
+                          #{lcaStart + i + 1}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-semibold text-foreground truncate">
+                            {lca.title}
+                          </div>
+                          <div className="text-[11px] text-muted-foreground mt-1 truncate">
+                            {lca.provider} · {lca.year} · {lca.method}
+                          </div>
+                        </div>
+                        <div className="text-sm font-bold text-primary tabular-nums shrink-0">
+                          {lca.score}%
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                      </button>
+                    ))}
                   </div>
                 </div>
-              </DialogHeader>
 
-              <div className="px-8 py-6 max-h-[60vh] overflow-y-auto">
-                <div className="flex flex-col gap-3">
-                  {getRankedLcas(selected).map((lca, i) => (
-                    <button
-                      key={lca.id}
-                      onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
-                      className="w-full text-left flex items-center gap-4 p-4 bg-card border border-border/60 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all group"
-                    >
-                      <div className="w-8 text-xs font-bold text-muted-foreground tabular-nums text-center">
-                        #{i + 1}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-xs font-semibold text-foreground truncate">
-                          {lca.title}
-                        </div>
-                        <div className="text-[11px] text-muted-foreground mt-1 truncate">
-                          {lca.provider} · {lca.year} · {lca.method}
-                        </div>
-                      </div>
-                      <div className="text-sm font-bold text-primary tabular-nums shrink-0">
-                        {lca.score}%
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-                    </button>
-                  ))}
+                <div className="px-8 py-4 border-t border-border/60 shrink-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-muted-foreground">
+                      Showing <span className="text-foreground font-medium">{lcaStart + 1}–{lcaEnd}</span> of <span className="text-foreground font-medium">{ranked.length}</span> matches
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => setLcaMatchesPage(p => Math.max(1, p - 1))}
+                        disabled={currentLcaPage === 1}
+                        className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+                        aria-label="Previous page"
+                      >
+                        <ChevronLeft className="h-3 w-3" />
+                      </button>
+                      <span className="text-[10px] text-muted-foreground px-1 tabular-nums">{currentLcaPage} / {totalLcaPages}</span>
+                      <button
+                        type="button"
+                        onClick={() => setLcaMatchesPage(p => Math.min(totalLcaPages, p + 1))}
+                        disabled={currentLcaPage === totalLcaPages}
+                        className="h-6 w-6 inline-flex items-center justify-center rounded border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+                        aria-label="Next page"
+                      >
+                        <ChevronRight className="h-3 w-3" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
+              </>
+            );
+          })()}
         </DialogContent>
       </Dialog>
 
