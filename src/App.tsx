@@ -68,11 +68,8 @@ const HeaderBreadcrumb = () => {
         { label: "Dashboard", onClick: () => navigate("/") },
         { label: "LCA Tool", onClick: productId ? () => navigate("/lca") : undefined },
       ];
-      if (!productId) {
-        // no extra segment — page is just "LCA Tool"
-      } else {
-        segs.push({ label: "Product", onClick: () => navigate("/lca") });
-        if (subLabel) segs.push({ label: subLabel });
+      if (productId && subLabel) {
+        segs.push({ label: subLabel });
       }
       return (
         <div className="flex items-center gap-2 text-xs text-muted-foreground ml-3">
