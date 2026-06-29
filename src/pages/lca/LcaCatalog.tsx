@@ -230,60 +230,54 @@ export default function LcaCatalog() {
 
       {/* Product detail dialog */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-3xl p-0 overflow-hidden">
+        <DialogContent className="max-w-[960px] p-0 overflow-hidden">
           {selected && (
             <>
-              <DialogHeader className="px-6 pt-6 pb-4 border-b border-border/60">
-                <div className="flex items-start gap-3">
-                  <div className="h-12 w-12 rounded-lg bg-muted flex items-center justify-center text-2xl shrink-0">
+              <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60">
+                <div className="flex items-start gap-4">
+                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center text-3xl shrink-0">
                     {selected.image}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
                       LCA Matches
                     </div>
-                    <DialogTitle className="text-base font-semibold mt-0.5">
+                    <DialogTitle className="text-lg font-bold text-foreground mt-1">
                       {selected.name}
                     </DialogTitle>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-1.5">
                       Ranked list of available Life Cycle Assessments matching this product, by similarity score.
                     </p>
                   </div>
                 </div>
               </DialogHeader>
 
-              <div className="px-6 py-4 max-h-[60vh] overflow-y-auto">
-                {getRankedLcas(selected).map((lca, i) => (
-                  <button
-                    key={lca.id}
-                    onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
-                    className="w-full text-left flex items-center gap-3 py-3 border-b border-border/40 last:border-0 hover:bg-muted/40 -mx-3 px-3 rounded-md transition-colors group"
-                  >
-                    <div className="w-6 text-xs font-semibold text-muted-foreground tabular-nums">
-                      #{i + 1}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-xs font-semibold text-foreground truncate">
-                        {lca.title}
+              <div className="px-8 py-6 max-h-[60vh] overflow-y-auto">
+                <div className="flex flex-col gap-3">
+                  {getRankedLcas(selected).map((lca, i) => (
+                    <button
+                      key={lca.id}
+                      onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
+                      className="w-full text-left flex items-center gap-4 p-4 bg-card border border-border/60 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all group"
+                    >
+                      <div className="w-8 text-xs font-bold text-muted-foreground tabular-nums text-center">
+                        #{i + 1}
                       </div>
-                      <div className="text-[11px] text-muted-foreground mt-0.5 truncate">
-                        {lca.provider} · {lca.year} · {lca.method}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-semibold text-foreground truncate">
+                          {lca.title}
+                        </div>
+                        <div className="text-[11px] text-muted-foreground mt-1 truncate">
+                          {lca.provider} · {lca.year} · {lca.method}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <div className="w-20 h-1.5 rounded-full bg-muted overflow-hidden">
-                        <div
-                          className="h-full bg-primary"
-                          style={{ width: `${lca.score}%` }}
-                        />
-                      </div>
-                      <div className="text-xs font-semibold text-primary tabular-nums w-9 text-right">
+                      <div className="text-sm font-bold text-primary tabular-nums shrink-0">
                         {lca.score}%
                       </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </button>
-                ))}
+                      <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                    </button>
+                  ))}
+                </div>
               </div>
             </>
           )}
