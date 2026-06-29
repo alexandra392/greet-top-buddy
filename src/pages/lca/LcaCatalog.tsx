@@ -8,8 +8,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   LCA_PRODUCTS,
@@ -19,13 +17,12 @@ import {
 import AddProductWizard from "@/components/lca/AddProductWizard";
 import {
   ArrowRight,
-  BarChart3,
-  Flame,
   Plus,
   ChevronLeft,
   ChevronRight,
   Search,
 } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
 
 
@@ -45,6 +42,44 @@ const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
 };
 
 const PAGE_SIZE = 8;
+
+type RankedLca = {
+  id: string;
+  title: string;
+  provider: string;
+  year: number;
+  method: string;
+  score: number;
+};
+
+const LCA_PROVIDERS = [
+  "ecoinvent", "Sphera GaBi", "EF 3.0 Reference", "Agribalyse", "PEF Pilot",
+  "Industry Consortium", "ELCD", "Quantis WORLD", "Idemat", "Supplier EPD",
+];
+const LCA_METHODS = ["EF 3.0", "ReCiPe 2016", "CML-IA", "TRACI 2.1", "IPCC 2021"];
+
+function getRankedLcas(p: LcaProduct): RankedLca[] {
+  const seed = Array.from(p.id).reduce((a, c) => a + c.charCodeAt(0), 0);
+  const count = 5 + (seed % 4); // 5–8 matches
+  const items: RankedLca[] = [];
+  for (let i = 0; i < count; i++) {
+    const s = (seed * (i + 7)) % 100;
+    const score = Math.max(42, 98 - i * (4 + (s % 5)) - (s % 3));
+    items.push({
+      id: `${p.id}-lca-${i}`,
+      title:
+        i === 0
+          ? `${p.name} — Reference baseline (${p.systemBoundary})`
+          : `${p.name} — ${LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length]} dataset v${1 + ((seed + i) % 4)}.${(i * 3) % 9}`,
+      provider: LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length],
+      year: 2020 + ((seed + i * 3) % 6),
+      method: LCA_METHODS[(seed + i) % LCA_METHODS.length],
+      score,
+    });
+  }
+  return items.sort((a, b) => b.score - a.score);
+}
+
 
 export default function LcaCatalog() {
   const navigate = useNavigate();
@@ -195,76 +230,66 @@ export default function LcaCatalog() {
 
       {/* Product detail dialog */}
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-xl">
+        <DialogContent className="max-w-3xl p-0 overflow-hidden">
           {selected && (
             <>
-              <DialogHeader>
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-lg bg-muted flex items-center justify-center text-2xl">
+              <DialogHeader className="px-6 pt-6 pb-4 border-b border-border/60">
+                <div className="flex items-start gap-3">
+                  <div className="h-12 w-12 rounded-lg bg-muted flex items-center justify-center text-2xl shrink-0">
                     {selected.image}
                   </div>
-                  <div>
-                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {selected.category}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[10px] font-bold text-primary uppercase tracking-widest">
+                      LCA Matches
                     </div>
-                    <DialogTitle className="text-base">{selected.name}</DialogTitle>
+                    <DialogTitle className="text-base font-semibold mt-0.5">
+                      {selected.name}
+                    </DialogTitle>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Ranked list of available Life Cycle Assessments matching this product, by similarity score.
+                    </p>
                   </div>
                 </div>
-                <DialogDescription className="pt-2">
-                  {selected.description}
-                </DialogDescription>
               </DialogHeader>
 
-              <div className="grid grid-cols-2 gap-3 py-2">
-                <div className="rounded-lg border border-border/60 p-3">
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                    Functional unit
-                  </div>
-                  <div className="text-sm text-foreground mt-1">
-                    {selected.functionalUnit}
-                  </div>
-                </div>
-                <div className="rounded-lg border border-border/60 p-3">
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                    System boundary
-                  </div>
-                  <div className="text-sm text-foreground mt-1">
-                    {selected.systemBoundary}
-                  </div>
-                </div>
-              </div>
-
-              <DialogFooter className="flex sm:justify-between gap-2">
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
+              <div className="px-6 py-4 max-h-[60vh] overflow-y-auto">
+                {getRankedLcas(selected).map((lca, i) => (
+                  <button
+                    key={lca.id}
                     onClick={() => navigate(`/lca/products/${selected.id}/performance`)}
+                    className="w-full text-left flex items-center gap-3 py-3 border-b border-border/40 last:border-0 hover:bg-muted/40 -mx-3 px-3 rounded-md transition-colors group"
                   >
-                    <BarChart3 className="w-3.5 h-3.5" />
-                    Performance
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => navigate(`/lca/products/${selected.id}/hotspots`)}
-                  >
-                    <Flame className="w-3.5 h-3.5" />
-                    Hotspots
-                  </Button>
-                </div>
-                <Button
-                  size="sm"
-                  onClick={() => navigate(`/lca/products/${selected.id}/questionnaire`)}
-                >
-                  Start Assessment
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-              </DialogFooter>
+                    <div className="w-6 text-xs font-semibold text-muted-foreground tabular-nums">
+                      #{i + 1}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-semibold text-foreground truncate">
+                        {lca.title}
+                      </div>
+                      <div className="text-[11px] text-muted-foreground mt-0.5 truncate">
+                        {lca.provider} · {lca.year} · {lca.method}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <div className="w-20 h-1.5 rounded-full bg-muted overflow-hidden">
+                        <div
+                          className="h-full bg-primary"
+                          style={{ width: `${lca.score}%` }}
+                        />
+                      </div>
+                      <div className="text-xs font-semibold text-primary tabular-nums w-9 text-right">
+                        {lca.score}%
+                      </div>
+                    </div>
+                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </button>
+                ))}
+              </div>
             </>
           )}
         </DialogContent>
       </Dialog>
+
 
       {/* Add product workflow */}
       <AddProductWizard
