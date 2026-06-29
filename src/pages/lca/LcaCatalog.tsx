@@ -10,6 +10,7 @@ import {
 } from "@/lib/lcaData";
 import AddProductWizard from "@/components/lca/AddProductWizard";
 import {
+  ArrowLeft,
   ArrowRight,
   Plus,
   ChevronLeft,
@@ -73,24 +74,24 @@ export default function LcaCatalog() {
 
   return (
     <div className="h-full bg-background flex flex-col">
-      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
+      <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
+        <Button variant="outline" size="sm" className="gap-1.5 h-7 text-xs" onClick={() => navigate('/')}>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          Back
+        </Button>
+        <Button size="sm" className="h-7 text-xs gap-1.5" onClick={() => setWizardOpen(true)}>
+          <Plus className="w-3.5 h-3.5" />
+          Add product
+        </Button>
+      </div>
+      <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 flex flex-col">
         {/* Heading matching platform style */}
-        <div className="mb-3 flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-              LCA Tool
-            </h2>
-            <p className="text-xs text-muted-foreground mt-1 max-w-2xl">
-              Browse products in your portfolio, capture baseline system data,
-              and review environmental performance and hotspots aligned with EF
-              3.0 and ESRS E1–E5.
-            </p>
-          </div>
-          <Button size="sm" className="h-7 text-xs gap-1.5" onClick={() => setWizardOpen(true)}>
-            <Plus className="w-3.5 h-3.5" />
-            Add product
-          </Button>
+        <div className="mb-3">
+          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            LCA Tool
+          </h2>
         </div>
+
 
         {/* Search */}
         <div className="relative mb-4">
