@@ -427,12 +427,16 @@ function StepFields({
       );
     case "general-2":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Applicable Regulation(s) and Standard(s)" full>{area("regulations", "EU ESPR 2024/1781; EN 16723-1")}</Field>
-          <Field label="Declaration of Performance & Conformity (DoPC)">{input("dopc", "DoPC-BM-CAM-2021")}</Field>
-          <Field label="Linked Technical Documentation">{input("technicalDocs", "https://...")}</Field>
-          <Field label="Safety Information / Instructions for Use">{input("safetyInfo", "URL to safety info")}</Field>
-          <Field label="Contact Email / Support URL">{input("contact", "info@example.com")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Regulations &amp; Standards">
+            <Field label="Applicable Regulation(s) and Standard(s)" full hint="e.g. EU ESPR 2024/1781; EN 16723-1">{area("regulations", "EU ESPR 2024/1781; EN 16723-1")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Documentation">
+            <Field label="Declaration of Performance &amp; Conformity (DoPC)" hint="e.g. DoPC-BM-CAM-2021">{input("dopc", "DoPC-BM-CAM-2021")}</Field>
+            <Field label="Linked Technical Documentation">{input("technicalDocs", "https://...")}</Field>
+            <Field label="Safety Information / Instructions for Use">{input("safetyInfo", "URL to safety info")}</Field>
+            <Field label="Contact Email / Support URL">{input("contact", "info@example.com")}</Field>
+          </SectionGroup>
         </div>
       );
     case "product-0":
