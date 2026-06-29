@@ -9,6 +9,7 @@ import {
   type LcaStatus,
 } from "@/lib/lcaData";
 import AddProductWizard from "@/components/lca/AddProductWizard";
+import ProductOptionsModal from "@/components/lca/ProductOptionsModal";
 import {
   ArrowLeft,
   ArrowRight,
