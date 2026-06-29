@@ -39,6 +39,7 @@ import LcaQuestionnaire from "./pages/lca/LcaQuestionnaire";
 import LcaPerformance from "./pages/lca/LcaPerformance";
 import LcaHotspots from "./pages/lca/LcaHotspots";
 import LcaMatches from "./pages/lca/LcaMatches";
+import LcaRetrieval from "./pages/lca/LcaRetrieval";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -427,6 +428,7 @@ const App = () => {
                 <Route path="/lca/products/:id/questionnaire" element={<LcaQuestionnaire />} />
                 <Route path="/lca/products/:id/performance" element={<LcaPerformance />} />
                 <Route path="/lca/products/:id/matches" element={<LcaMatches />} />
+                <Route path="/lca/products/:id/retrieval" element={<LcaRetrieval />} />
                 <Route path="/lca/products/:id/hotspots" element={<LcaHotspots />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<NotFound />} />
