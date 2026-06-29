@@ -302,7 +302,7 @@ const TopBarNav = () => {
   const navigate = useNavigate();
   const path = location.pathname;
 
-  const lcaMatch = path.match(/^\/lca(?:\/products\/([^/]+)\/(questionnaire|performance|hotspots))?/);
+  const lcaMatch = path.match(/^\/lca(?:\/products\/([^/]+)\/(matches|questionnaire|performance|hotspots))?/);
   const productId = lcaMatch?.[1];
 
   const isActive = (target: string) =>
