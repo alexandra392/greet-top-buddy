@@ -414,7 +414,7 @@ function StepFields({
           </SectionGroup>
           <SectionGroup>
             <Field label="Main Use of the Product" full>{area("mainUse", "Renewable energy carrier for heating and transport fuel")}</Field>
-            <Field label="Product Measurement Unit">{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
+            <Field label="Product Measurement Unit" full>{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
           </SectionGroup>
           <SectionGroup>
             <Field label="Unique Product Identifier (UID)" required>{input("uid", "GTIN-IT-8033421-BM001")}</Field>
