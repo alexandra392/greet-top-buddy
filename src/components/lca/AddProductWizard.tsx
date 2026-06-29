@@ -52,7 +52,10 @@ const SECTIONS: Section[] = [
   {
     key: "review",
     label: "Review",
-    steps: [{ title: "Data Confidence", subtitle: "Data accuracy and recording practices" }],
+    steps: [
+      { title: "Data Confidence", subtitle: "Data accuracy and recording practices" },
+      { title: "Review Summary", subtitle: "Review all information before submitting" },
+    ],
   },
 ];
 
