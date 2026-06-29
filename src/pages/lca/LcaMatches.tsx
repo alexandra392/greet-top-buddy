@@ -149,8 +149,10 @@ export default function LcaMatches() {
               </button>
               <button
                 onClick={() => {
-                  const ids = Array.from(selectedIds);
-                  navigate(`/lca/products/${product.id}/performance`, { state: { selectedLcaIds: ids } });
+                  const selectedLcas = ranked
+                    .filter((r) => selectedIds.has(r.id))
+                    .map(({ id, title, provider, year, method }) => ({ id, title, provider, year, method }));
+                  navigate(`/lca/products/${product.id}/retrieval`, { state: { selectedLcas } });
                 }}
                 className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors"
               >
