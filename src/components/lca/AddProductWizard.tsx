@@ -111,7 +111,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
       status: "not_started",
       mass_kg: Number(v("annualOutput")) || 1,
       mainUse: v("mainUse"),
-      formData: { ...data },
+      formData: { ...draft },
     };
     onSubmit(np);
     close(false);
