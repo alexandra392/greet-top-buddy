@@ -168,13 +168,13 @@ export default function LcaMatches() {
         </div>
 
         <div className="rounded-xl border border-border/60 bg-card overflow-hidden flex-1">
-          <div className="grid grid-cols-[44px_1fr_130px_72px_90px_40px_32px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider items-center">
+          <div className="grid grid-cols-[36px_44px_1fr_140px_80px_90px_40px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider items-center">
+            <div />
             <div>Rank</div>
             <div>Dataset</div>
             <div>Provider</div>
             <div>Year</div>
             <div className="text-right">Score</div>
-            <div />
             <div />
           </div>
           {paged.length === 0 && (
