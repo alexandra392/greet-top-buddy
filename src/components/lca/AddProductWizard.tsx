@@ -483,14 +483,20 @@ function StepFields({
       );
     case "product-2":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Electricity Consumption">{input("electricityConsumption", "1.01 kWh/Nm³ biomethane")}</Field>
-          <Field label="Electricity Source">{input("electricitySource", "CHP engine + 960 kWp PV")}</Field>
-          <Field label="Fuel Use (on-site)">{input("fuelUse", "Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler")}</Field>
-          <Field label="Water Use">{input("waterUse", "0.21 L/Nm³ make-up water; wastewater 0.21 L")}</Field>
-          <Field label="Additional / Auxiliary Materials" full>{area("auxMaterials", "NaOH (scrubbing) — 0.03 kg/Nm³\nPolymer antifoam additive")}</Field>
-          <Field label="Direct Emissions (air, water, soil)">{input("directEmissions", "CH₄ slip ~1% of biogas flow; CO₂ from…")}</Field>
-          <Field label="Waste Streams (type, quantity, treatment)">{input("wasteStreams", "Screening rejects from waste pre-treatment")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Energy &amp; Fuel">
+            <Field label="Electricity Consumption" hint="e.g. 1.01 kWh/Nm³ biomethane">{input("electricityConsumption", "1.01 kWh/Nm³ biomethane")}</Field>
+            <Field label="Electricity Source" hint="e.g. CHP engine + 960 kWp PV">{input("electricitySource", "CHP engine + 960 kWp PV")}</Field>
+            <Field label="Fuel Use (on-site)" hint="e.g. Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler">{input("fuelUse", "Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Water &amp; Materials">
+            <Field label="Water Use" hint="e.g. 0.21 L/Nm³ make-up water; wastewater 0.21 L">{input("waterUse", "0.21 L/Nm³ make-up water; wastewater 0.21 L")}</Field>
+            <Field label="Additional / Auxiliary Materials" full hint="e.g. NaOH (scrubbing) — 0.03 kg/Nm³">{area("auxMaterials", "NaOH (scrubbing) — 0.03 kg/Nm³\nPolymer antifoam additive")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Emissions &amp; Waste">
+            <Field label="Direct Emissions (air, water, soil)" hint="e.g. CH₄ slip ~1% of biogas flow; CO₂ from…">{input("directEmissions", "CH₄ slip ~1% of biogas flow; CO₂ from…")}</Field>
+            <Field label="Waste Streams (type, quantity, treatment)" hint="e.g. Screening rejects from waste pre-treatment">{input("wasteStreams", "Screening rejects from waste pre-treatment")}</Field>
+          </SectionGroup>
         </div>
       );
     case "product-3":
