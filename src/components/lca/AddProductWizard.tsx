@@ -315,7 +315,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
 
 /* ---------------- review summary ---------------- */
 
-const REVIEW_GROUPS: { title: string; fields: { key: string; label: string }[] }[] = [
+export const REVIEW_GROUPS: { title: string; fields: { key: string; label: string }[] }[] = [
   {
     title: "General Information — Identity",
     fields: [
