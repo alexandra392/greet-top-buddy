@@ -79,10 +79,11 @@ export default function LcaCatalog() {
           <ArrowLeft className="w-3.5 h-3.5" />
           Back
         </Button>
-        <Button size="sm" className="h-7 text-xs gap-1.5" onClick={() => setWizardOpen(true)}>
+        <Button size="sm" className="h-7 text-xs gap-1.5 bg-foreground text-background hover:bg-foreground/90" onClick={() => setWizardOpen(true)}>
           <Plus className="w-3.5 h-3.5" />
           Add product
         </Button>
+
       </div>
       <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 flex flex-col">
         {/* Heading matching platform style */}
