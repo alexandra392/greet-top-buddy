@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LCA_PRODUCTS, type LcaProduct } from "@/lib/lcaData";
-import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const LCA_MATCHES_PAGE_SIZE = 8;
@@ -54,6 +54,7 @@ export default function LcaMatches() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [yearFilter, setYearFilter] = useState<string>("all");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   if (!product) {
     return (
@@ -93,6 +94,34 @@ export default function LcaMatches() {
   const start = (currentPage - 1) * LCA_MATCHES_PAGE_SIZE;
   const end = Math.min(start + LCA_MATCHES_PAGE_SIZE, filtered.length);
   const paged = filtered.slice(start, end);
+
+  const allPagedSelected = paged.length > 0 && paged.every((lca) => selectedIds.has(lca.id));
+  const somePagedSelected = paged.some((lca) => selectedIds.has(lca.id)) && !allPagedSelected;
+
+  function toggleId(id: string) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleAllPaged() {
+    if (allPagedSelected) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        paged.forEach((lca) => next.delete(lca.id));
+        return next;
+      });
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        paged.forEach((lca) => next.add(lca.id));
+        return next;
+      });
+    }
+  }
 
   return (
     <div className="h-full bg-background flex flex-col">
@@ -138,8 +167,21 @@ export default function LcaMatches() {
           </select>
         </div>
 
-        <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-          <div className="grid grid-cols-[44px_1fr_130px_72px_90px_32px_32px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="rounded-xl border border-border/60 bg-card overflow-hidden flex-1">
+          <div className="grid grid-cols-[40px_44px_1fr_130px_72px_90px_32px_32px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider items-center">
+            <button
+              onClick={toggleAllPaged}
+              className={`h-5 w-5 rounded border transition-colors inline-flex items-center justify-center ${
+                allPagedSelected
+                  ? "bg-primary border-primary"
+                  : somePagedSelected
+                    ? "bg-primary/60 border-primary"
+                    : "border-border bg-background hover:border-muted-foreground"
+              }`}
+              aria-label={allPagedSelected ? "Deselect all on page" : "Select all on page"}
+            >
+              {allPagedSelected && <Check className="w-3 h-3 text-primary-foreground" />}
+            </button>
             <div>Rank</div>
             <div>Dataset</div>
             <div>Provider</div>
@@ -153,49 +195,65 @@ export default function LcaMatches() {
               No matches found.
             </div>
           )}
-          {paged.map((lca) => (
-            <div
-              key={lca.id}
-              className="grid grid-cols-[44px_1fr_130px_72px_90px_32px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group"
-            >
-              <div className="text-xs font-bold text-muted-foreground tabular-nums">
-                #{ranked.findIndex((r) => r.id === lca.id) + 1}
-              </div>
-              <button
-                onClick={() => navigate(`/lca/products/${product.id}/performance`)}
-                className="text-left text-xs font-semibold text-foreground truncate hover:text-primary transition-colors"
+          {paged.map((lca) => {
+            const isSelected = selectedIds.has(lca.id);
+            return (
+              <div
+                key={lca.id}
+                className={`grid grid-cols-[40px_44px_1fr_130px_72px_90px_32px_32px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group ${
+                  isSelected ? "bg-primary/[0.04]" : ""
+                }`}
               >
-                {lca.title}
-              </button>
-              <div className="text-[11px] text-muted-foreground truncate">
-                {lca.provider}
+                <button
+                  onClick={() => toggleId(lca.id)}
+                  className={`h-5 w-5 rounded border transition-colors inline-flex items-center justify-center ${
+                    isSelected
+                      ? "bg-primary border-primary"
+                      : "border-border bg-background hover:border-muted-foreground"
+                  }`}
+                  aria-label={isSelected ? "Deselect" : "Select"}
+                >
+                  {isSelected && <Check className="w-3 h-3 text-primary-foreground" />}
+                </button>
+                <div className="text-xs font-bold text-muted-foreground tabular-nums">
+                  #{ranked.findIndex((r) => r.id === lca.id) + 1}
+                </div>
+                <button
+                  onClick={() => navigate(`/lca/products/${product.id}/performance`)}
+                  className="text-left text-xs font-semibold text-foreground truncate hover:text-primary transition-colors"
+                >
+                  {lca.title}
+                </button>
+                <div className="text-[11px] text-muted-foreground truncate">
+                  {lca.provider}
+                </div>
+                <div className="text-[11px] text-muted-foreground tabular-nums">
+                  {lca.year}
+                </div>
+                <div className="text-xs font-bold text-primary tabular-nums text-right">
+                  {lca.score}%
+                </div>
+                <a
+                  href={lca.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Open source URL"
+                  onClick={(e) => e.stopPropagation()}
+                  className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
+                  aria-label="Open dataset source"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  onClick={() => navigate(`/lca/products/${product.id}/performance`)}
+                  className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
+                  aria-label="View match"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </div>
-              <div className="text-[11px] text-muted-foreground tabular-nums">
-                {lca.year}
-              </div>
-              <div className="text-xs font-bold text-primary tabular-nums text-right">
-                {lca.score}%
-              </div>
-              <a
-                href={lca.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Open source URL"
-                onClick={(e) => e.stopPropagation()}
-                className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
-                aria-label="Open dataset source"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-              <button
-                onClick={() => navigate(`/lca/products/${product.id}/performance`)}
-                className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
-                aria-label="View match"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="flex items-center justify-between pt-4">
@@ -227,6 +285,37 @@ export default function LcaMatches() {
           </div>
         </div>
       </div>
+
+      {/* Sticky shortlist bar */}
+      {selectedIds.size > 0 && (
+        <div className="sticky bottom-0 left-0 right-0 border-t border-border/60 bg-card/95 backdrop-blur-sm z-50">
+          <div className="max-w-[1400px] w-full mx-auto px-6 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
+                {selectedIds.size}
+              </span>
+              <span className="text-xs text-foreground font-medium">
+                {selectedIds.size === 1 ? "1 dataset selected" : `${selectedIds.size} datasets selected`}
+              </span>
+              <button
+                onClick={() => setSelectedIds(new Set())}
+                className="text-[11px] text-muted-foreground hover:text-foreground underline"
+              >
+                Clear all
+              </button>
+            </div>
+            <button
+              onClick={() => {
+                const ids = Array.from(selectedIds);
+                navigate(`/lca/products/${product.id}/performance`, { state: { selectedLcaIds: ids } });
+              }}
+              className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Proceed with selected
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
