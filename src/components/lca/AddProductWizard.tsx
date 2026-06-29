@@ -110,6 +110,8 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
         (v("systemBoundary") as LcaProduct["systemBoundary"]) || "Cradle-to-Gate",
       status: "not_started",
       mass_kg: Number(v("annualOutput")) || 1,
+      mainUse: v("mainUse"),
+      formData: { ...draft },
     };
     onSubmit(np);
     close(false);
@@ -313,7 +315,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
 
 /* ---------------- review summary ---------------- */
 
-const REVIEW_GROUPS: { title: string; fields: { key: string; label: string }[] }[] = [
+export const REVIEW_GROUPS: { title: string; fields: { key: string; label: string }[] }[] = [
   {
     title: "General Information — Identity",
     fields: [
