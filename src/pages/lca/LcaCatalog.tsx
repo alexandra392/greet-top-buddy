@@ -24,7 +24,9 @@ import {
   Plus,
   ChevronLeft,
   ChevronRight,
+  Search,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 
 const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
@@ -50,15 +52,28 @@ export default function LcaCatalog() {
   const [extraProducts, setExtraProducts] = useState<LcaProduct[]>([]);
   const [page, setPage] = useState(1);
   const [wizardOpen, setWizardOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const products = useMemo(
     () => [...extraProducts, ...LCA_PRODUCTS],
     [extraProducts]
   );
-  const totalPages = Math.max(1, Math.ceil(products.length / PAGE_SIZE));
+
+  const filteredProducts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return products;
+    return products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q)
+    );
+  }, [products, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
   const pageStart = (page - 1) * PAGE_SIZE;
-  const pageEnd = Math.min(pageStart + PAGE_SIZE, products.length);
-  const pageItems = products.slice(pageStart, pageEnd);
+  const pageEnd = Math.min(pageStart + PAGE_SIZE, filteredProducts.length);
+  const pageItems = filteredProducts.slice(pageStart, pageEnd);
 
   const handleAddProduct = (np: LcaProduct) => {
     setExtraProducts((p) => [np, ...p]);
@@ -85,6 +100,17 @@ export default function LcaCatalog() {
             <Plus className="w-3.5 h-3.5" />
             Add product
           </Button>
+        </div>
+
+        {/* Search */}
+        <div className="relative mb-4">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+          <Input
+            placeholder="Search products by name, category or description..."
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
+            className="pl-9 h-8 text-xs"
+          />
         </div>
 
         {/* Grid */}
@@ -133,7 +159,7 @@ export default function LcaCatalog() {
             <span className="text-foreground font-medium">
               {pageStart + 1}–{pageEnd}
             </span>{" "}
-            of <span className="text-foreground font-medium">{products.length}</span>{" "}
+            of <span className="text-foreground font-medium">{filteredProducts.length}</span>{" "}
             products
           </div>
           <div className="flex items-center gap-1">
