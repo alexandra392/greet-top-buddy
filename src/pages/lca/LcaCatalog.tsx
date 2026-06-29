@@ -42,6 +42,7 @@ const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
 };
 
 const PAGE_SIZE = 8;
+const LCA_MATCHES_PAGE_SIZE = 5;
 
 type RankedLca = {
   id: string;
@@ -55,16 +56,17 @@ type RankedLca = {
 const LCA_PROVIDERS = [
   "ecoinvent", "Sphera GaBi", "EF 3.0 Reference", "Agribalyse", "PEF Pilot",
   "Industry Consortium", "ELCD", "Quantis WORLD", "Idemat", "Supplier EPD",
+  "Thinkstep", "SimaPro", "OpenLCA", "Brightway", "GreenDelta",
 ];
 const LCA_METHODS = ["EF 3.0", "ReCiPe 2016", "CML-IA", "TRACI 2.1", "IPCC 2021"];
 
 function getRankedLcas(p: LcaProduct): RankedLca[] {
   const seed = Array.from(p.id).reduce((a, c) => a + c.charCodeAt(0), 0);
-  const count = 5 + (seed % 4); // 5–8 matches
+  const count = 16 + (seed % 6); // 16–21 matches so pagination is visible
   const items: RankedLca[] = [];
   for (let i = 0; i < count; i++) {
     const s = (seed * (i + 7)) % 100;
-    const score = Math.max(42, 98 - i * (4 + (s % 5)) - (s % 3));
+    const score = Math.max(42, 98 - i * (3 + (s % 4)) - (s % 5));
     items.push({
       id: `${p.id}-lca-${i}`,
       title:
