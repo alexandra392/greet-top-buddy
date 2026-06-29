@@ -333,6 +333,8 @@ const TopBarNav = () => {
     </nav>
   );
 };
+
+const App = () => {
   const location = useLocation();
 
   return (
