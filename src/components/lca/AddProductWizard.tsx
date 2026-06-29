@@ -137,43 +137,54 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
   return (
     <Dialog open={open} onOpenChange={close}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden p-0 gap-0">
-        <div className="grid grid-cols-[220px_1fr] h-full max-h-[90vh]">
+        <div className="grid grid-cols-[240px_1fr] h-full max-h-[90vh]">
           {/* Sidebar */}
-          <aside className="bg-muted/30 border-r border-border px-5 py-5 overflow-y-auto">
-            <div className="text-[9px] uppercase tracking-widest text-primary font-semibold mb-1">
-              LCA Tool
-            </div>
-            <div className="text-[11px] font-semibold text-foreground mb-5 leading-snug">
-              Add Product
+          <aside className="bg-card border-r border-border px-4 py-4 overflow-y-auto">
+            <div className="border-b border-border pb-3 mb-3">
+              <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
+                LCA Tool
+              </div>
+              <div className="text-sm font-semibold text-foreground mt-1 leading-snug">
+                Add Product
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                {section.label} · {step.title}
+              </div>
             </div>
 
-            <nav className="space-y-5">
+            <nav className="space-y-2">
               {SECTIONS.map((s, i) => {
                 const done = i < sectionIdx;
                 const active = i === sectionIdx;
                 return (
-                  <div key={s.key}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div
+                  <div
+                    key={s.key}
+                    className={cn(
+                      "rounded-lg border border-border/70 bg-background transition-colors",
+                      active && "border-primary/40 bg-primary/5",
+                    )}
+                  >
+                    <div className="flex items-center gap-2 px-3 py-2 border-b border-border/60">
+                      <span
                         className={cn(
-                          "h-5 w-5 rounded-full flex items-center justify-center text-[10px] font-semibold border shrink-0",
-                          done && "bg-primary text-primary-foreground border-primary",
-                          active && "bg-primary text-primary-foreground border-primary",
-                          !done && !active && "border-border text-muted-foreground bg-background",
+                          "flex h-5 w-5 items-center justify-center rounded-md border text-[10px] font-semibold shrink-0",
+                          done && "border-primary/40 bg-primary/10 text-primary",
+                          active && "border-primary/50 bg-primary/10 text-primary",
+                          !done && !active && "border-border bg-card text-muted-foreground",
                         )}
                       >
-                        {done ? <Check className="w-3 h-3" /> : i + 1}
-                      </div>
-                      <div
+                        {done ? <Check className="w-3 h-3" /> : String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span
                         className={cn(
-                          "text-[10px] uppercase tracking-widest font-semibold",
+                          "text-[10px] uppercase tracking-widest font-semibold leading-tight",
                           active || done ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
                         {s.label}
-                      </div>
+                      </span>
                     </div>
-                    <ul className="ml-[9px] border-l border-border/70">
+                    <ul className="px-2 py-1.5 space-y-0.5">
                       {s.steps.map((st, j) => {
                         const stActive = active && j === stepIdx;
                         const stDone = i < sectionIdx || (active && j < stepIdx);
@@ -185,15 +196,23 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                               disabled={!clickable}
                               onClick={() => goToStep(i, j)}
                               className={cn(
-                                "w-full text-left text-[11px] pl-3 py-1.5 border-l-2 -ml-px transition-colors",
+                                "group flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors",
                                 stActive
-                                  ? "border-primary text-foreground font-medium"
+                                  ? "bg-card text-foreground font-medium shadow-sm"
                                   : stDone
-                                  ? "border-transparent text-muted-foreground hover:text-foreground"
-                                  : "border-transparent text-muted-foreground/50 cursor-not-allowed",
+                                  ? "text-muted-foreground hover:bg-card hover:text-foreground"
+                                  : "text-muted-foreground/60 cursor-not-allowed",
                               )}
                             >
-                              {st.title}
+                              <span
+                                className={cn(
+                                  "h-1.5 w-1.5 rounded-full shrink-0",
+                                  stActive && "bg-primary",
+                                  stDone && !stActive && "bg-primary/50",
+                                  !stDone && !stActive && "bg-border",
+                                )}
+                              />
+                              <span className="truncate">{st.title}</span>
                             </button>
                           </li>
                         );
