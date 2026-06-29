@@ -166,8 +166,10 @@ export default function LcaCharacterization() {
             const active = stage === i;
             return (
               <div key={s.key} className="flex items-center gap-2 flex-1">
-                <div
-                  className={`flex items-center gap-2 flex-1 rounded-lg border px-3 py-2 transition-colors ${
+                <button
+                  type="button"
+                  onClick={() => goStep(i)}
+                  className={`flex items-center gap-2 flex-1 rounded-lg border px-3 py-2 text-left transition-colors hover:border-primary/40 ${
                     active
                       ? "border-primary/40 bg-primary/[0.04]"
                       : done
