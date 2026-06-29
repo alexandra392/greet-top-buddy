@@ -144,7 +144,7 @@ export default function LcaRetrieval() {
 
   // LOADING PHASE
   if (phase === "loading") {
-    const pct = Math.round((progress / selected.length) * 100);
+    const pct = Math.min(100, Math.round(((progress + subProgress) / selected.length) * 100));
     return (
       <div className="h-full bg-background flex flex-col">
         <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
