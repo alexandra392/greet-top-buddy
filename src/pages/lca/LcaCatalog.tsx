@@ -140,11 +140,13 @@ export default function LcaCatalog() {
                 <h3 className="text-sm font-semibold text-foreground mt-1 leading-snug">
                   {p.name}
                 </h3>
-                <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
-                  {p.description}
+                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-2">
+                  Main use
+                </div>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-3 flex-1">
+                  {(p as any).mainUse || p.description}
                 </p>
-                <div className="pt-3 mt-3 flex items-center justify-between text-xs text-muted-foreground border-t border-border/60">
-                  <span>{p.systemBoundary}</span>
+                <div className="pt-3 mt-3 flex items-center justify-end border-t border-border/60">
                   <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               </Card>
