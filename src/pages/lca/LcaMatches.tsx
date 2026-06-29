@@ -168,7 +168,7 @@ export default function LcaMatches() {
         {/* Heading */}
         <div className="mb-3">
           <h1 className="text-[10px] font-semibold tracking-widest uppercase text-muted-foreground">
-            LCA Tool
+            LCA Matches for {product.name}
           </h1>
         </div>
 
