@@ -126,23 +126,23 @@ export default function LcaMatches() {
   return (
     <div className="h-full bg-background flex flex-col">
       <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
-        {/* Heading matching platform style */}
-        <div className="mb-3 flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-              LCA Matches
-            </h2>
-            <p className="text-xs text-muted-foreground mt-1 max-w-2xl">
-              {ranked.length} dataset matches for {product.name}, ranked by similarity score.
-            </p>
-          </div>
+        {/* Back button */}
+        <div className="mb-3">
           <button
             onClick={() => navigate("/lca")}
-            className="inline-flex items-center gap-1 text-xs text-primary hover:underline shrink-0"
+            className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-border bg-card text-xs font-semibold text-foreground hover:bg-muted transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Back to LCA Tool
+            <ArrowLeft className="w-3.5 h-3.5" /> Back
           </button>
         </div>
+
+        {/* Heading */}
+        <div className="mb-3">
+          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            LCA Tool
+          </h2>
+        </div>
+
 
         {/* Filters */}
         <div className="flex items-center gap-2 mb-3">
