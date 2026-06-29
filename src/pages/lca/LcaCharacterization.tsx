@@ -132,7 +132,11 @@ export default function LcaCharacterization() {
             variant="outline"
             size="sm"
             className="gap-1.5 h-7 text-xs"
-            onClick={() => navigate(`/lca/products/${product.id}/retrieval`)}
+            onClick={() =>
+              stage > 0
+                ? goStep(stage - 1)
+                : navigate(`/lca/products/${product.id}/retrieval`)
+            }
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back
           </Button>
