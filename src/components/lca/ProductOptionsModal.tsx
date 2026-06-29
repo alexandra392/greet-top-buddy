@@ -16,14 +16,14 @@ const OPTIONS = [
   {
     key: "general" as const,
     icon: FileText,
-    iconBg: "bg-blue-100 text-blue-600",
+    iconBg: "bg-muted text-foreground",
     title: "General Information",
     subtitle: "Identity, manufacturer & compliance docs",
   },
   {
     key: "product" as const,
     icon: Factory,
-    iconBg: "bg-amber-100 text-amber-700",
+    iconBg: "bg-muted text-foreground",
     title: "Product Information",
     subtitle:
       "Feedstocks, manufacturing, energy, transport, co-products & sustainability",
