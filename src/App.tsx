@@ -53,7 +53,7 @@ const HeaderBreadcrumb = () => {
   const navigate = useNavigate();
   
   const match = location.pathname.match(/\/landscape\/([^/]+)\/([^/]+)/);
-  const lcaMatch = location.pathname.match(/^\/lca(?:\/products\/([^/]+)\/(questionnaire|performance|hotspots))?/);
+  const lcaMatch = location.pathname.match(/^\/lca(?:\/products\/([^/]+)\/(matches|questionnaire|performance|hotspots))?/);
 
   if (!match) {
     if (lcaMatch) {
