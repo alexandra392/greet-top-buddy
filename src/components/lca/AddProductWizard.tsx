@@ -152,22 +152,24 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
               </div>
             </div>
 
-            <nav className="space-y-2">
+            <nav className="space-y-5">
               {SECTIONS.map((s, i) => {
                 const done = i < sectionIdx;
                 const active = i === sectionIdx;
                 return (
                   <div
                     key={s.key}
-                    className={cn(
-                      "rounded-lg border border-border/70 bg-background transition-colors",
-                      active && "border-primary/40 bg-primary/5",
-                    )}
+                    className="space-y-1"
                   >
-                    <div className="flex items-center gap-2 px-3 py-2 border-b border-border/60">
+                    <div
+                      className={cn(
+                        "flex items-center gap-3 px-2 py-1.5",
+                        !active && !done && "opacity-60",
+                      )}
+                    >
                       <span
                         className={cn(
-                          "flex h-5 w-5 items-center justify-center rounded-md border text-[10px] font-semibold shrink-0",
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-[10px] font-semibold tabular-nums",
                           done && "border-primary/40 bg-primary/10 text-primary",
                           active && "border-primary/50 bg-primary/10 text-primary",
                           !done && !active && "border-border bg-card text-muted-foreground",
@@ -177,14 +179,14 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                       </span>
                       <span
                         className={cn(
-                          "text-[10px] uppercase tracking-widest font-semibold leading-tight",
+                          "text-[11px] uppercase tracking-widest font-bold leading-tight",
                           active || done ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
                         {s.label}
                       </span>
                     </div>
-                    <ul className="px-2 py-1.5 space-y-0.5">
+                    <ul className="ml-8 space-y-1">
                       {s.steps.map((st, j) => {
                         const stActive = active && j === stepIdx;
                         const stDone = i < sectionIdx || (active && j < stepIdx);
@@ -196,17 +198,17 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                               disabled={!clickable}
                               onClick={() => goToStep(i, j)}
                               className={cn(
-                                "group flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors",
+                                "group flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-left text-xs transition-colors",
                                 stActive
-                                  ? "bg-card text-foreground font-medium shadow-sm"
+                                  ? "bg-primary/10 text-foreground font-semibold"
                                   : stDone
-                                  ? "text-muted-foreground hover:bg-card hover:text-foreground"
+                                  ? "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                                   : "text-muted-foreground/60 cursor-not-allowed",
                               )}
                             >
                               <span
                                 className={cn(
-                                  "h-1.5 w-1.5 rounded-full shrink-0",
+                                  "h-1.5 w-1.5 shrink-0 rounded-full",
                                   stActive && "bg-primary",
                                   stDone && !stActive && "bg-primary/50",
                                   !stDone && !stActive && "bg-border",
