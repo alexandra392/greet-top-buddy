@@ -92,7 +92,10 @@ export default function LcaRetrieval() {
 
   const selected: SelectedLca[] = (location.state as any)?.selectedLcas ?? [];
 
+  const ITEM_DURATION_MS = 60000; // ~1 minute per dataset
+  const TICK_MS = 500;
   const [progress, setProgress] = useState(0); // 0..selected.length (completed count)
+  const [subProgress, setSubProgress] = useState(0); // 0..1 progress within current item
   const [phase, setPhase] = useState<"loading" | "review">(
     selected.length === 0 ? "review" : "loading"
   );
@@ -105,8 +108,18 @@ export default function LcaRetrieval() {
       const t = setTimeout(() => setPhase("review"), 400);
       return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setProgress((p) => p + 1), 700);
-    return () => clearTimeout(t);
+    const step = TICK_MS / ITEM_DURATION_MS;
+    const interval = setInterval(() => {
+      setSubProgress((s) => {
+        const next = s + step;
+        if (next >= 1) {
+          setProgress((p) => p + 1);
+          return 0;
+        }
+        return next;
+      });
+    }, TICK_MS);
+    return () => clearInterval(interval);
   }, [progress, phase, selected.length]);
 
   if (!product) {
@@ -131,7 +144,7 @@ export default function LcaRetrieval() {
 
   // LOADING PHASE
   if (phase === "loading") {
-    const pct = Math.round((progress / selected.length) * 100);
+    const pct = Math.min(100, Math.round(((progress + subProgress) / selected.length) * 100));
     return (
       <div className="h-full bg-background flex flex-col">
         <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-6 flex-1 flex flex-col">
