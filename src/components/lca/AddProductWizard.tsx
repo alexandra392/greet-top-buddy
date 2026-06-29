@@ -199,7 +199,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
           <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] flex-1 min-h-0">
             {/* Desktop: Vertical sub-step sidebar */}
             <aside className="hidden md:block bg-muted/20 border-r border-border px-3 py-4 overflow-y-auto">
-              <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold px-2 mb-2">
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold px-2.5 mb-2">
                 {section.label}
               </div>
               <ul className="space-y-0.5">
