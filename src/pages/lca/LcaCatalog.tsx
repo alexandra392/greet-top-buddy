@@ -43,6 +43,44 @@ const statusMeta: Record<LcaStatus, { label: string; className: string }> = {
 
 const PAGE_SIZE = 8;
 
+type RankedLca = {
+  id: string;
+  title: string;
+  provider: string;
+  year: number;
+  method: string;
+  score: number;
+};
+
+const LCA_PROVIDERS = [
+  "ecoinvent", "Sphera GaBi", "EF 3.0 Reference", "Agribalyse", "PEF Pilot",
+  "Industry Consortium", "ELCD", "Quantis WORLD", "Idemat", "Supplier EPD",
+];
+const LCA_METHODS = ["EF 3.0", "ReCiPe 2016", "CML-IA", "TRACI 2.1", "IPCC 2021"];
+
+function getRankedLcas(p: LcaProduct): RankedLca[] {
+  const seed = Array.from(p.id).reduce((a, c) => a + c.charCodeAt(0), 0);
+  const count = 5 + (seed % 4); // 5–8 matches
+  const items: RankedLca[] = [];
+  for (let i = 0; i < count; i++) {
+    const s = (seed * (i + 7)) % 100;
+    const score = Math.max(42, 98 - i * (4 + (s % 5)) - (s % 3));
+    items.push({
+      id: `${p.id}-lca-${i}`,
+      title:
+        i === 0
+          ? `${p.name} — Reference baseline (${p.systemBoundary})`
+          : `${p.name} — ${LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length]} dataset v${1 + ((seed + i) % 4)}.${(i * 3) % 9}`,
+      provider: LCA_PROVIDERS[(seed + i) % LCA_PROVIDERS.length],
+      year: 2020 + ((seed + i * 3) % 6),
+      method: LCA_METHODS[(seed + i) % LCA_METHODS.length],
+      score,
+    });
+  }
+  return items.sort((a, b) => b.score - a.score);
+}
+
+
 export default function LcaCatalog() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<LcaProduct | null>(null);
