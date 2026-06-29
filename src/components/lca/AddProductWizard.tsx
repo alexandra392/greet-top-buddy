@@ -136,16 +136,16 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="w-[960px] min-w-[960px] h-[700px] min-h-[700px] max-w-[960px] max-h-[92vh] overflow-hidden p-0 gap-0">
+      <DialogContent className="w-full max-w-[95vw] md:w-[960px] md:max-w-[960px] h-[90vh] md:h-[700px] max-h-[92vh] overflow-hidden p-0 gap-0">
         <div className="flex flex-col h-full">
           {/* Compact top header */}
           <div className="px-6 pt-4 pb-2 border-b border-border bg-card">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-2">
               <div className="flex items-center gap-3">
                 <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
                   LCA Tool
                 </div>
-                <span className="text-muted-foreground/40">·</span>
+                <span className="text-muted-foreground/40 hidden sm:inline">·</span>
                 <div className="text-sm font-semibold text-foreground leading-tight">
                   Add Product
                 </div>
@@ -184,7 +184,7 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                         {done ? <Check className="w-2.5 h-2.5" /> : i + 1}
                       </span>
                       <span className={cn(
-                        "text-[10px] uppercase tracking-wider font-medium truncate",
+                        "text-[10px] uppercase tracking-wider font-medium truncate hidden sm:inline",
                         active ? "text-foreground" : "text-muted-foreground",
                       )}>
                         {s.label}
@@ -202,9 +202,9 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
             </div>
           </div>
 
-          <div className="grid grid-cols-[220px_1fr] flex-1 min-h-0">
-            {/* Vertical sub-step sidebar */}
-            <aside className="bg-muted/20 border-r border-border px-3 py-4 overflow-y-auto">
+          <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] flex-1 min-h-0">
+            {/* Desktop: Vertical sub-step sidebar */}
+            <aside className="hidden md:block bg-muted/20 border-r border-border px-3 py-4 overflow-y-auto">
               <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold px-2 mb-2">
                 {section.label}
               </div>
@@ -239,6 +239,39 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                 })}
               </ul>
             </aside>
+
+            {/* Mobile: Horizontal sub-step bar */}
+            <div className="md:hidden border-b border-border bg-muted/20 px-3 py-2 overflow-x-auto">
+              <div className="flex items-center gap-1.5 min-w-max">
+                {section.steps.map((st, j) => {
+                  const stActive = j === stepIdx;
+                  const stDone = j < stepIdx;
+                  return (
+                    <button
+                      key={st.title}
+                      type="button"
+                      onClick={() => goToStep(sectionIdx, j)}
+                      className={cn(
+                        "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-left text-[11px] whitespace-nowrap transition-colors",
+                        stActive
+                          ? "bg-primary/10 text-foreground font-semibold"
+                          : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                      )}
+                    >
+                      <span className={cn(
+                        "flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[8px] font-semibold tabular-nums",
+                        stActive && "bg-primary text-primary-foreground",
+                        stDone && "bg-primary/15 text-primary",
+                        !stActive && !stDone && "bg-muted text-muted-foreground",
+                      )}>
+                        {stDone ? <Check className="w-2 h-2" /> : j + 1}
+                      </span>
+                      <span className="truncate">{st.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Main content */}
             <div className="flex flex-col min-h-0">
