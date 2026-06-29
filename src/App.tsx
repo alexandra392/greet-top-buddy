@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles, ArrowRight } from "lucide-react";
+import { Calendar, ChevronRight, ChevronDown, Lightbulb, LifeBuoy, Sparkles, ArrowRight, LayoutDashboard, Leaf, ClipboardList, BarChart3, Flame, FolderOpen } from "lucide-react";
 import { ReleaseNotesModal, useHasUnseenRelease } from "@/components/ReleaseNotesModal";
 import { RELEASE_NOTES, CURRENT_VERSION } from "@/data/releaseNotes";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
@@ -258,7 +258,81 @@ const WhatsNewButton = () => {
   );
 };
 
-const App = () => {
+const TopBarNav = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const path = location.pathname;
+
+  const lcaMatch = path.match(/^\/lca(?:\/products\/([^/]+)\/(questionnaire|performance|hotspots))?/);
+  const productId = lcaMatch?.[1];
+
+  const isActive = (target: string) =>
+    target === "/" ? path === "/" : path === target || path.startsWith(target + "/") || path === target;
+
+  const baseTab =
+    "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors";
+  const activeTab = "bg-primary/10 text-primary";
+  const inactiveTab = "text-muted-foreground hover:text-foreground hover:bg-muted";
+
+  const onLca = path.startsWith("/lca");
+
+  return (
+    <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+      <button
+        onClick={() => navigate("/")}
+        className={`${baseTab} ${path === "/" ? activeTab : inactiveTab}`}
+      >
+        <LayoutDashboard className="w-3.5 h-3.5" />
+        Dashboard
+      </button>
+      <button
+        onClick={() => navigate("/lca")}
+        className={`${baseTab} ${onLca && path === "/lca" ? activeTab : onLca ? "text-foreground hover:bg-muted" : inactiveTab}`}
+      >
+        <Leaf className="w-3.5 h-3.5" />
+        LCA Tool
+      </button>
+
+      {onLca && (
+        <>
+          <div className="w-px h-4 bg-border mx-1" />
+          <button
+            onClick={() => navigate("/lca")}
+            className={`${baseTab} ${path === "/lca" ? activeTab : inactiveTab}`}
+          >
+            <FolderOpen className="w-3.5 h-3.5" />
+            Catalog
+          </button>
+          {productId && (
+            <>
+              <button
+                onClick={() => navigate(`/lca/products/${productId}/questionnaire`)}
+                className={`${baseTab} ${isActive(`/lca/products/${productId}/questionnaire`) ? activeTab : inactiveTab}`}
+              >
+                <ClipboardList className="w-3.5 h-3.5" />
+                Questionnaire
+              </button>
+              <button
+                onClick={() => navigate(`/lca/products/${productId}/performance`)}
+                className={`${baseTab} ${isActive(`/lca/products/${productId}/performance`) ? activeTab : inactiveTab}`}
+              >
+                <BarChart3 className="w-3.5 h-3.5" />
+                Performance
+              </button>
+              <button
+                onClick={() => navigate(`/lca/products/${productId}/hotspots`)}
+                className={`${baseTab} ${isActive(`/lca/products/${productId}/hotspots`) ? activeTab : inactiveTab}`}
+              >
+                <Flame className="w-3.5 h-3.5" />
+                Hotspots
+              </button>
+            </>
+          )}
+        </>
+      )}
+    </nav>
+  );
+};
   const location = useLocation();
 
   return (
@@ -270,11 +344,12 @@ const App = () => {
         <SidebarInset className="!m-0 !ml-0 !p-0 bg-transparent flex flex-col h-screen">
           <div className="pointer-events-none fixed inset-x-0 top-12 z-50 border-t border-primary/8" />
           <header className="sticky top-0 z-40 bg-card/70 backdrop-blur-lg">
-            <div className="h-12 flex items-center justify-between px-4">
-              <div className="flex items-center">
+            <div className="h-12 flex items-center justify-between px-4 gap-4">
+              <div className="flex items-center min-w-0">
                 <SidebarTrigger className="p-2 hover:bg-muted rounded-lg transition-colors" />
                 <HeaderBreadcrumb />
               </div>
+              <TopBarNav />
               <div className="flex items-center gap-1">
                 <a
                   href="mailto:support@vcg.ai?subject=VCG.AI%20Support%20Request"
