@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LCA_PRODUCTS, type LcaProduct } from "@/lib/lcaData";
-import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink, Bookmark } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Search, ExternalLink, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 
 
 const LCA_MATCHES_PAGE_SIZE = 8;
@@ -56,7 +57,7 @@ export default function LcaMatches() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [yearFilter, setYearFilter] = useState<string>("all");
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
 
   if (!product) {
     return (
@@ -97,33 +98,13 @@ export default function LcaMatches() {
   const end = Math.min(start + LCA_MATCHES_PAGE_SIZE, filtered.length);
   const paged = filtered.slice(start, end);
 
-  const allPagedSelected = paged.length > 0 && paged.every((lca) => selectedIds.has(lca.id));
-  const somePagedSelected = paged.some((lca) => selectedIds.has(lca.id)) && !allPagedSelected;
-
-  function toggleId(id: string) {
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
+  function openOne(lca: RankedLca) {
+    const { id: lcaId, title, provider, year, method } = lca;
+    navigate(`/lca/products/${product!.id}/retrieval`, {
+      state: { selectedLcas: [{ id: lcaId, title, provider, year, method }] },
     });
   }
 
-  function toggleAllPaged() {
-    if (allPagedSelected) {
-      setSelectedIds((prev) => {
-        const next = new Set(prev);
-        paged.forEach((lca) => next.delete(lca.id));
-        return next;
-      });
-    } else {
-      setSelectedIds((prev) => {
-        const next = new Set(prev);
-        paged.forEach((lca) => next.add(lca.id));
-        return next;
-      });
-    }
-  }
 
   return (
     <div className="h-full bg-background flex flex-col">
@@ -134,33 +115,8 @@ export default function LcaMatches() {
             <ArrowLeft className="w-3.5 h-3.5" />
             Back
           </Button>
-
-
-          {selectedIds.size > 0 && (
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-foreground font-medium">
-                {selectedIds.size === 1 ? "1 dataset selected" : `${selectedIds.size} datasets selected`}
-              </span>
-              <button
-                onClick={() => setSelectedIds(new Set())}
-                className="text-[11px] text-muted-foreground hover:text-foreground underline"
-              >
-                Clear all
-              </button>
-              <button
-                onClick={() => {
-                  const selectedLcas = ranked
-                    .filter((r) => selectedIds.has(r.id))
-                    .map(({ id, title, provider, year, method }) => ({ id, title, provider, year, method }));
-                  navigate(`/lca/products/${product.id}/retrieval`, { state: { selectedLcas } });
-                }}
-                className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors"
-              >
-                Proceed with selected
-              </button>
-            </div>
-          )}
         </div>
+
 
         {/* Heading */}
         <div className="mb-3">
@@ -195,13 +151,13 @@ export default function LcaMatches() {
         </div>
 
         <div className="rounded-xl border border-border/60 bg-card overflow-hidden flex-1">
-          <div className="grid grid-cols-[36px_44px_1fr_140px_80px_90px_40px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider items-center">
-            <div />
+          <div className="grid grid-cols-[44px_1fr_140px_80px_90px_40px_40px] gap-4 px-6 py-2.5 border-b border-border/60 bg-muted/30 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider items-center">
             <div>Rank</div>
             <div>Dataset</div>
             <div>Provider</div>
             <div>Year</div>
             <div className="text-right">Score</div>
+            <div />
             <div />
           </div>
           {paged.length === 0 && (
@@ -209,61 +165,46 @@ export default function LcaMatches() {
               No matches found.
             </div>
           )}
-          {paged.map((lca) => {
-            const isSelected = selectedIds.has(lca.id);
-            return (
-              <div
-                key={lca.id}
-                className={`grid grid-cols-[36px_44px_1fr_140px_80px_90px_40px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors group ${
-                  isSelected ? "bg-primary/[0.04]" : ""
-                }`}
-              >
-                <button
-                  onClick={() => toggleId(lca.id)}
-                  title={isSelected ? "Remove from shortlist" : "Add to shortlist"}
-                  className={`h-7 w-7 inline-flex items-center justify-center rounded transition-colors ${
-                    isSelected
-                      ? "text-primary hover:bg-primary/10"
-                      : "text-muted-foreground hover:text-primary hover:bg-muted"
-                  }`}
-                  aria-label={isSelected ? "Remove from shortlist" : "Add to shortlist"}
-                  aria-pressed={isSelected}
-                >
-                  <Bookmark className={`w-3.5 h-3.5 ${isSelected ? "fill-current" : ""}`} />
-                </button>
-                <div className="text-xs font-bold text-muted-foreground tabular-nums">
-                  #{ranked.findIndex((r) => r.id === lca.id) + 1}
-                </div>
-                <button
-                  onClick={() => navigate(`/lca/products/${product.id}/performance`)}
-                  className="text-left text-xs font-semibold text-foreground truncate hover:text-primary transition-colors"
-                >
-                  {lca.title}
-                </button>
-                <div className="text-[11px] text-muted-foreground truncate">
-                  {lca.provider}
-                </div>
-                <div className="text-[11px] text-muted-foreground tabular-nums">
-                  {lca.year}
-                </div>
-                <div className="text-xs font-bold text-primary tabular-nums text-right">
-                  {lca.score}%
-                </div>
-                <a
-                  href={lca.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Open source URL"
-                  onClick={(e) => e.stopPropagation()}
-                  className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
-                  aria-label="Open dataset source"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+          {paged.map((lca) => (
+            <div
+              key={lca.id}
+              onClick={() => openOne(lca)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter") openOne(lca); }}
+              className="grid grid-cols-[44px_1fr_140px_80px_90px_40px_40px] gap-4 items-center px-6 py-3 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors cursor-pointer group"
+            >
+              <div className="text-xs font-bold text-muted-foreground tabular-nums">
+                #{ranked.findIndex((r) => r.id === lca.id) + 1}
               </div>
-            );
-          })}
+              <div className="text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors">
+                {lca.title}
+              </div>
+              <div className="text-[11px] text-muted-foreground truncate">
+                {lca.provider}
+              </div>
+              <div className="text-[11px] text-muted-foreground tabular-nums">
+                {lca.year}
+              </div>
+              <div className="text-xs font-bold text-primary tabular-nums text-right">
+                {lca.score}%
+              </div>
+              <a
+                href={lca.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open source URL"
+                onClick={(e) => e.stopPropagation()}
+                className="h-7 w-7 inline-flex items-center justify-center rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors justify-self-end"
+                aria-label="Open dataset source"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors justify-self-end" />
+            </div>
+          ))}
         </div>
+
 
 
         <div className="flex items-center justify-between pt-4">
