@@ -386,17 +386,23 @@ function StepFields({
   switch (key) {
     case "general-0":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Product / Commercial Name" required>{input("productName", "Biomethane")}</Field>
-          <Field label="Model / Variant / Grade">{input("modelVariant", "BM-CAM-A, Grid-Quality")}</Field>
-          <Field label="Product Form (how it is sold)" full>{input("productForm", "Compressed biomethane injected into the natural gas grid")}</Field>
-          <Field label="Main Use of the Product" full>{area("mainUse", "Renewable energy carrier for heating and transport fuel")}</Field>
-          <Field label="Product Measurement Unit">{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
-          <Field label="Unique Product Identifier (UID)" required>{input("uid", "GTIN-IT-8033421-BM001")}</Field>
-          <Field label="Identifier Scheme">{select("identifierScheme", ["GTIN", "GS1", "ISBN", "Internal"])}</Field>
-          <Field label="Granularity">{select("granularity", ["item", "batch", "model"])}</Field>
-          <Field label="Data Carrier Type">{select("dataCarrier", ["QR", "Barcode", "NFC", "RFID"])}</Field>
-          <Field label="Product Category / UN CPC">{input("productCategory", "Energy / Gaseous Fuels — Biomethane (UN CPC 1200)")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Identity">
+            <Field label="Product / Commercial Name" required hint="e.g. Biomethane">{input("productName", "Biomethane")}</Field>
+            <Field label="Model / Variant / Grade" hint="e.g. BM-CAM-A, Grid-Quality">{input("modelVariant", "BM-CAM-A, Grid-Quality")}</Field>
+            <Field label="Product Form (how it is sold)" full hint="e.g. Compressed biomethane injected into the natural gas grid">{input("productForm", "Compressed biomethane injected into the natural gas grid")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Usage">
+            <Field label="Main Use of the Product" full hint="e.g. Renewable energy carrier for heating and transport fuel">{area("mainUse", "Renewable energy carrier for heating and transport fuel")}</Field>
+            <Field label="Product Measurement Unit" hint="e.g. Nm³ biomethane">{input("productMeasurementUnit", "Nm³ biomethane")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Classification &amp; Tracking">
+            <Field label="Unique Product Identifier (UID)" required hint="e.g. GTIN-IT-8033421-BM001">{input("uid", "GTIN-IT-8033421-BM001")}</Field>
+            <Field label="Identifier Scheme">{select("identifierScheme", ["GTIN", "GS1", "ISBN", "Internal"])}</Field>
+            <Field label="Granularity">{select("granularity", ["item", "batch", "model"])}</Field>
+            <Field label="Data Carrier Type">{select("dataCarrier", ["QR", "Barcode", "NFC", "RFID"])}</Field>
+            <Field label="Product Category / UN CPC" full hint="e.g. Energy / Gaseous Fuels — Biomethane (UN CPC 1200)">{input("productCategory", "Energy / Gaseous Fuels — Biomethane (UN CPC 1200)")}</Field>
+          </SectionGroup>
         </div>
       );
     case "general-1":
