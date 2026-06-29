@@ -501,11 +501,15 @@ function StepFields({
       );
     case "product-3":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Feedstock / Raw Material Transport Distances" full>{area("feedstockTransportDist", "<50 km")}</Field>
-          <Field label="Feedstock Transport Modes" full>{area("feedstockTransportModes", "Truck")}</Field>
-          <Field label="Finished Product Distribution Distances">{input("productDistDist", "0 km (300 m on-site pipeline)")}</Field>
-          <Field label="Transport Vehicle Type, Payload, Load Utilization">{input("vehicleType", "Pipeline (DN 100, 70 bar injection pressure)")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Feedstock Transport">
+            <Field label="Feedstock / Raw Material Transport Distances" full hint="e.g. &lt;50 km">{area("feedstockTransportDist", "<50 km")}</Field>
+            <Field label="Feedstock Transport Modes" full hint="e.g. Truck">{area("feedstockTransportModes", "Truck")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Product Distribution">
+            <Field label="Finished Product Distribution Distances" hint="e.g. 0 km (300 m on-site pipeline)">{input("productDistDist", "0 km (300 m on-site pipeline)")}</Field>
+            <Field label="Transport Vehicle Type, Payload, Load Utilization" hint="e.g. Pipeline (DN 100, 70 bar injection pressure)">{input("vehicleType", "Pipeline (DN 100, 70 bar injection pressure)")}</Field>
+          </SectionGroup>
         </div>
       );
     case "product-4":
