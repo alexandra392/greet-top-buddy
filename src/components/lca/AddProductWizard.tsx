@@ -136,22 +136,17 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="w-full max-w-[95vw] md:w-[960px] md:max-w-[960px] h-[90vh] md:h-[700px] max-h-[92vh] overflow-hidden p-0 gap-0">
-        <div className="flex flex-col h-full">
+      <DialogContent className="w-[95vw] max-w-[960px] h-[92vh] md:h-[700px] max-h-[92vh] overflow-hidden p-0 gap-0 flex flex-col">
+        <div className="flex flex-col h-full min-h-0">
           {/* Compact top header */}
-          <div className="px-6 pt-4 pb-2 border-b border-border bg-card">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-2">
-              <div className="flex items-center gap-3">
-                <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
-                  LCA Tool
-                </div>
-                <span className="text-muted-foreground/40 hidden sm:inline">·</span>
-                <div className="text-sm font-semibold text-foreground leading-tight">
-                  Add Product
-                </div>
+          <div className="px-6 pt-4 pb-2 border-b border-border bg-card shrink-0">
+            <div className="flex items-center gap-3 mb-2 pr-8">
+              <div className="text-[10px] uppercase tracking-widest text-primary font-semibold">
+                LCA Tool
               </div>
-              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                {section.label} · {step.title}
+              <span className="text-muted-foreground/40">·</span>
+              <div className="text-sm font-semibold text-foreground leading-tight">
+                Add Product
               </div>
             </div>
 
