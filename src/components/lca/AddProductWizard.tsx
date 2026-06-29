@@ -412,7 +412,7 @@ function StepFields({
     case "general-0":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Identity">
+          <SectionGroup>
             <Field label="Product / Commercial Name" required hint="e.g. Biomethane">{input("productName", "Biomethane")}</Field>
             <Field label="Model / Variant / Grade" hint="e.g. BM-CAM-A, Grid-Quality">{input("modelVariant", "BM-CAM-A, Grid-Quality")}</Field>
             <Field label="Product Form (how it is sold)" full hint="e.g. Compressed biomethane injected into the natural gas grid">{input("productForm", "Compressed biomethane injected into the natural gas grid")}</Field>
@@ -433,7 +433,7 @@ function StepFields({
     case "general-1":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Manufacturer">
+          <SectionGroup>
             <Field label="Manufacturer / Producer Legal Name" required hint="e.g. BioEnergia Campania S.r.l.">{input("manufacturerName", "BioEnergia Campania S.r.l.")}</Field>
             <Field label="Business Identifier / Registration Number" hint="e.g. IT-NA-REA-512874">{input("businessId", "IT-NA-REA-512874")}</Field>
             <Field label="Economic Operator Role">{select("operatorRole", ["manufacturer", "importer", "distributor", "authorised representative"])}</Field>
@@ -453,7 +453,7 @@ function StepFields({
     case "general-2":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Regulations &amp; Standards">
+          <SectionGroup>
             <Field label="Applicable Regulation(s) and Standard(s)" full hint="e.g. EU ESPR 2024/1781; EN 16723-1">{area("regulations", "EU ESPR 2024/1781; EN 16723-1")}</Field>
           </SectionGroup>
           <SectionGroup title="Documentation">
@@ -467,7 +467,7 @@ function StepFields({
     case "product-0":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Product Description">
+          <SectionGroup>
             <Field label="Product Description (composition, form, physical state)" required full hint="e.g. Biomethane gas, upgraded from agricultural and food-industry waste biogas…">{area("productDescription", "Biomethane gas, upgraded from agricultural and food-industry waste biogas…")}</Field>
             <Field label="Key Functional Materials / Components" full hint="e.g. Raw biogas: CH₄ 57.2 vol%…">{area("functionalMaterials", "Raw biogas: CH₄ 57.2 vol%…")}</Field>
           </SectionGroup>
@@ -489,7 +489,7 @@ function StepFields({
     case "product-1":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Technology">
+          <SectionGroup>
             <Field label="Production Technology" full hint="e.g. Mesophilic anaerobic digestion with membrane biogas upgrading">{area("productionTech", "Mesophilic anaerobic digestion with membrane biogas upgrading")}</Field>
             <Field label="Reactor / Equipment Type" hint="e.g. Continuous Stirred Tank Reactor (CSTR)">{input("reactorType", "Continuous Stirred Tank Reactor (CSTR)")}</Field>
             <Field label="Operating Temperature" hint="e.g. ~37°C (mesophilic digestion)">{input("operatingTemp", "~37°C (mesophilic digestion)")}</Field>
@@ -509,7 +509,7 @@ function StepFields({
     case "product-2":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Energy &amp; Fuel">
+          <SectionGroup>
             <Field label="Electricity Consumption" hint="e.g. 1.01 kWh/Nm³ biomethane">{input("electricityConsumption", "1.01 kWh/Nm³ biomethane")}</Field>
             <Field label="Electricity Source" hint="e.g. CHP engine + 960 kWp PV">{input("electricitySource", "CHP engine + 960 kWp PV")}</Field>
             <Field label="Fuel Use (on-site)" hint="e.g. Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler">{input("fuelUse", "Diesel — 0.003 L/Nm³; Natural gas — auxiliary boiler")}</Field>
@@ -527,7 +527,7 @@ function StepFields({
     case "product-3":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Feedstock Transport">
+          <SectionGroup>
             <Field label="Feedstock / Raw Material Transport Distances" full hint="e.g. &lt;50 km">{area("feedstockTransportDist", "<50 km")}</Field>
             <Field label="Feedstock Transport Modes" full hint="e.g. Truck">{area("feedstockTransportModes", "Truck")}</Field>
           </SectionGroup>
@@ -540,7 +540,7 @@ function StepFields({
     case "product-4":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Co-products">
+          <SectionGroup>
             <Field label="Co-products Generated" full hint="e.g. Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³">{area("coProductsGenerated", "Slow-release NPK fertilizer (digestate) — 2.3 kg/Nm³\nBeverage-grade liquid CO₂ — 1.4 kg/Nm³\nSurplus electricity exported — 0.04 kWh/Nm³", 4)}</Field>
             <Field label="Quantity of Co-products" hint="e.g. Digestate fertilizer ~2.3 kg/Nm³">{input("coProductsQuantity", "Digestate fertilizer ~2.3 kg/Nm³; Beverage-grade CO₂ ~1.4 kg/Nm³")}</Field>
             <Field label="Co-product End Use" full hint="e.g. Digestate applied to local agricultural land">{area("coProductEndUse", "Digestate applied to local agricultural land as organic fertilizer\nCO₂ sold for beverage carbonation\nSurplus electricity exported to grid", 3)}</Field>
@@ -550,7 +550,7 @@ function StepFields({
     case "product-5":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Carbon &amp; Emissions">
+          <SectionGroup>
             <Field label="Biogenic Carbon Content (product &amp; packaging)" hint="e.g. Biogenic CO₂ released during combustion">{input("biogenicCarbon", "Biogenic CO₂ released during combustion — carbon neutral cycle")}</Field>
             <Field label="Carbon Sequestration During Raw Material Growth" hint="e.g. N/A — waste-derived feedstock">{input("carbonSeq", "N/A — waste-derived feedstock")}</Field>
             <Field label="Fertilizers, Pesticides, Biocides in Bio-based Inputs" hint="e.g. N/A">{input("fertilizers", "N/A")}</Field>
@@ -575,7 +575,7 @@ function StepFields({
     case "review-0":
       return (
         <div className="space-y-5">
-          <SectionGroup title="Data Quality">
+          <SectionGroup>
             <Field label="Data Accuracy (measured vs. estimated)" full hint="e.g. Measured: electricity consumption, production volume, gas composition">{area("dataAccuracy", "Measured: electricity consumption, production volume, gas composition\nEstimated: transport distances\nLCI source: Amato et al. (2023) Table 2", 4)}</Field>
             <Field label="Data Recording Frequency" full hint="e.g. Production: daily / Energy: monthly / Feedstock: weekly">{area("dataFrequency", "Production: daily\nEnergy: monthly\nFeedstock: weekly", 3)}</Field>
           </SectionGroup>
