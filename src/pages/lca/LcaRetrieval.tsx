@@ -105,7 +105,7 @@ export default function LcaRetrieval() {
       const t = setTimeout(() => setPhase("review"), 400);
       return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setProgress((p) => p + 1), 700);
+    const t = setTimeout(() => setProgress((p) => p + 1), 60000);
     return () => clearTimeout(t);
   }, [progress, phase, selected.length]);
 
