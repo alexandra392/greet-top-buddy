@@ -138,26 +138,21 @@ export default function LcaMatches() {
 
           {selectedIds.size > 0 && (
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
-                  {selectedIds.size}
-                </span>
-                <span className="text-xs text-foreground font-medium">
-                  {selectedIds.size === 1 ? "1 dataset selected" : `${selectedIds.size} datasets selected`}
-                </span>
-                <button
-                  onClick={() => setSelectedIds(new Set())}
-                  className="text-[11px] text-muted-foreground hover:text-foreground underline"
-                >
-                  Clear all
-                </button>
-              </div>
+              <span className="text-xs text-foreground font-medium">
+                {selectedIds.size === 1 ? "1 dataset selected" : `${selectedIds.size} datasets selected`}
+              </span>
+              <button
+                onClick={() => setSelectedIds(new Set())}
+                className="text-[11px] text-muted-foreground hover:text-foreground underline"
+              >
+                Clear all
+              </button>
               <button
                 onClick={() => {
                   const ids = Array.from(selectedIds);
                   navigate(`/lca/products/${product.id}/performance`, { state: { selectedLcaIds: ids } });
                 }}
-                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors"
+                className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 transition-colors"
               >
                 Proceed with selected
               </button>
