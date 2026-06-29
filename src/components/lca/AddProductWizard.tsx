@@ -549,9 +549,11 @@ function StepFields({
       );
     case "review-0":
       return (
-        <div className="grid grid-cols-1 gap-3">
-          <Field label="Data Accuracy (measured vs. estimated)">{area("dataAccuracy", "Measured: electricity consumption, production volume, gas composition\nEstimated: transport distances\nLCI source: Amato et al. (2023) Table 2", 4)}</Field>
-          <Field label="Data Recording Frequency">{area("dataFrequency", "Production: daily\nEnergy: monthly\nFeedstock: weekly", 3)}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Data Quality">
+            <Field label="Data Accuracy (measured vs. estimated)" full hint="e.g. Measured: electricity consumption, production volume, gas composition">{area("dataAccuracy", "Measured: electricity consumption, production volume, gas composition\nEstimated: transport distances\nLCI source: Amato et al. (2023) Table 2", 4)}</Field>
+            <Field label="Data Recording Frequency" full hint="e.g. Production: daily / Energy: monthly / Feedstock: weekly">{area("dataFrequency", "Production: daily\nEnergy: monthly\nFeedstock: weekly", 3)}</Field>
+          </SectionGroup>
         </div>
       );
     default:
