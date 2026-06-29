@@ -250,7 +250,6 @@ export default function LcaCatalog() {
                   <DialogTitle className="text-base font-bold text-foreground flex items-center gap-2 leading-tight">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                     {selected.name}
-                    <span className="text-primary text-sm font-bold ml-1">{ranked[0]?.score}%</span>
                   </DialogTitle>
                   <p className="text-[11px] text-muted-foreground">
                     {ranked.length} matches · ranked by similarity score
