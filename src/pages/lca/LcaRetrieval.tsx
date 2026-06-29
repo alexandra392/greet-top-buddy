@@ -285,12 +285,11 @@ export default function LcaRetrieval() {
         {reviewing && params && lci && (
           <div className="flex flex-col gap-4">
             <div className="rounded-xl border border-border/60 bg-card p-5">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Target className="w-3.5 h-3.5 text-primary" />
-                </div>
-                <h2 className="text-sm font-bold text-foreground">Study Parameters</h2>
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground ml-2">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
+                  Study Parameters
+                </h2>
+                <span className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground">
                   {reviewing.provider} · {reviewing.method}
                 </span>
               </div>
@@ -304,12 +303,11 @@ export default function LcaRetrieval() {
             </div>
 
             <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-              <div className="flex items-center gap-2 px-5 py-3 border-b border-border/60">
-                <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
-                  <TableIcon className="w-3.5 h-3.5 text-primary" />
-                </div>
-                <h2 className="text-sm font-bold text-foreground">LCI Table Extracted</h2>
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground ml-2">
+              <div className="flex items-center justify-between px-5 py-3 border-b border-border/60">
+                <h2 className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground">
+                  LCI Table Extracted
+                </h2>
+                <span className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground">
                   {lci.length} flows
                 </span>
               </div>
