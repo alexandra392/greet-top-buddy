@@ -202,9 +202,9 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
             </div>
           </div>
 
-          <div className="grid grid-cols-[220px_1fr] flex-1 min-h-0">
-            {/* Vertical sub-step sidebar */}
-            <aside className="bg-muted/20 border-r border-border px-3 py-4 overflow-y-auto">
+          <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] flex-1 min-h-0">
+            {/* Desktop: Vertical sub-step sidebar */}
+            <aside className="hidden md:block bg-muted/20 border-r border-border px-3 py-4 overflow-y-auto">
               <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold px-2 mb-2">
                 {section.label}
               </div>
@@ -239,6 +239,39 @@ export default function AddProductWizard({ open, onOpenChange, onSubmit }: Props
                 })}
               </ul>
             </aside>
+
+            {/* Mobile: Horizontal sub-step bar */}
+            <div className="md:hidden border-b border-border bg-muted/20 px-3 py-2 overflow-x-auto">
+              <div className="flex items-center gap-1.5 min-w-max">
+                {section.steps.map((st, j) => {
+                  const stActive = j === stepIdx;
+                  const stDone = j < stepIdx;
+                  return (
+                    <button
+                      key={st.title}
+                      type="button"
+                      onClick={() => goToStep(sectionIdx, j)}
+                      className={cn(
+                        "flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-left text-[11px] whitespace-nowrap transition-colors",
+                        stActive
+                          ? "bg-primary/10 text-foreground font-semibold"
+                          : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                      )}
+                    >
+                      <span className={cn(
+                        "flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[8px] font-semibold tabular-nums",
+                        stActive && "bg-primary text-primary-foreground",
+                        stDone && "bg-primary/15 text-primary",
+                        !stActive && !stDone && "bg-muted text-muted-foreground",
+                      )}>
+                        {stDone ? <Check className="w-2 h-2" /> : j + 1}
+                      </span>
+                      <span className="truncate">{st.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Main content */}
             <div className="flex flex-col min-h-0">
