@@ -82,15 +82,29 @@ export default function LcaQuestionnaire() {
             of {total} · {QUESTIONNAIRE_STEPS[step]}
           </div>
         </div>
-        <div className="flex items-center gap-1 mt-3">
-          {QUESTIONNAIRE_STEPS.map((_, i) => (
-            <div
-              key={i}
-              className={`h-5 w-0.5 rounded-full transition-colors ${
-                i <= step ? "bg-primary" : "bg-muted"
-              }`}
-            />
-          ))}
+        <div className="flex items-center gap-0 mt-3">
+          {QUESTIONNAIRE_STEPS.map((_, i) => {
+            const isActive = i === step;
+            const isDone = i < step;
+            return (
+              <div key={i} className="flex items-center">
+                <div
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-semibold border shrink-0 transition-colors ${
+                    isActive
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : isDone
+                      ? "bg-muted text-muted-foreground border-border"
+                      : "bg-background text-muted-foreground/50 border-border"
+                  }`}
+                >
+                  {isDone ? <Check className="w-2.5 h-2.5" /> : i + 1}
+                </div>
+                {i < QUESTIONNAIRE_STEPS.length - 1 && (
+                  <div className={`h-px w-3 ${isDone ? "bg-border" : "bg-border/40"}`} />
+                )}
+              </div>
+            );
+          })}
         </div>
       </header>
 
