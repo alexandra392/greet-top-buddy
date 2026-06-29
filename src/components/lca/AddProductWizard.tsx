@@ -441,18 +441,24 @@ function StepFields({
       );
     case "product-0":
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Field label="Product Description (composition, form, physical state)" required full>{area("productDescription", "Biomethane gas, upgraded from agricultural and food-industry waste biogas…")}</Field>
-          <Field label="Key Functional Materials / Components" full>{area("functionalMaterials", "Raw biogas: CH₄ 57.2 vol%…")}</Field>
-          <Field label="Feedstocks / Input Materials (type, mass, source)" full>{area("feedstocksInputs", "Mixed biomass (organic waste) — 30.0 kg/Nm³ — Municipal waste collection")}</Field>
-          <Field label="Feedstock Shares (%)" full>{area("feedstockShares", "Mixed municipal bio-waste (OFMSW) 100%")}</Field>
-          <Field label="Feedstock Origin & Provenance" full>{area("feedstockOrigin", "Municipal organic waste from Campania region municipalities")}</Field>
-          <Field label="Do Any Inputs Have a DPP or EPD?" full>{area("inputsDppEpd", "Polymer antifoam additive — EPD available (PTC100)")}</Field>
-          <Field label="Biogenic vs. Synthetic Material Fraction">{input("biogenicFraction", "~100% biogenic")}</Field>
-          <Field label="Chemical Composition (N, moisture, protein, lignin)">{input("chemicalComposition", "CH₄ 57.2 vol% raw biogas; upgraded to >97% CH₄")}</Field>
-          <Field label="Source of Bio-based Materials">{input("bioSource", "Municipal organic waste (OFMSW)")}</Field>
-          <Field label="Pre- and Post-consumer Recycled Content">{input("recycledContent", "100% waste-derived feedstock")}</Field>
-          <Field label="Packaging Type and Mass" full>{input("packaging", "No packaging — gaseous product injected directly into pipeline network")}</Field>
+        <div className="space-y-5">
+          <SectionGroup title="Product Description">
+            <Field label="Product Description (composition, form, physical state)" required full hint="e.g. Biomethane gas, upgraded from agricultural and food-industry waste biogas…">{area("productDescription", "Biomethane gas, upgraded from agricultural and food-industry waste biogas…")}</Field>
+            <Field label="Key Functional Materials / Components" full hint="e.g. Raw biogas: CH₄ 57.2 vol%…">{area("functionalMaterials", "Raw biogas: CH₄ 57.2 vol%…")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Feedstocks &amp; Inputs">
+            <Field label="Feedstocks / Input Materials (type, mass, source)" full hint="e.g. Mixed biomass (organic waste) — 30.0 kg/Nm³ — Municipal waste collection">{area("feedstocksInputs", "Mixed biomass (organic waste) — 30.0 kg/Nm³ — Municipal waste collection")}</Field>
+            <Field label="Feedstock Shares (%)" full hint="e.g. Mixed municipal bio-waste (OFMSW) 100%">{area("feedstockShares", "Mixed municipal bio-waste (OFMSW) 100%")}</Field>
+            <Field label="Feedstock Origin &amp; Provenance" full hint="e.g. Municipal organic waste from Campania region municipalities">{area("feedstockOrigin", "Municipal organic waste from Campania region municipalities")}</Field>
+            <Field label="Do Any Inputs Have a DPP or EPD?" full hint="e.g. Polymer antifoam additive — EPD available (PTC100)">{area("inputsDppEpd", "Polymer antifoam additive — EPD available (PTC100)")}</Field>
+            <Field label="Biogenic vs. Synthetic Material Fraction" hint="e.g. ~100% biogenic">{input("biogenicFraction", "~100% biogenic")}</Field>
+            <Field label="Chemical Composition (N, moisture, protein, lignin)" hint="e.g. CH₄ 57.2 vol% raw biogas; upgraded to &gt;97% CH₄">{input("chemicalComposition", "CH₄ 57.2 vol% raw biogas; upgraded to >97% CH₄")}</Field>
+            <Field label="Source of Bio-based Materials" hint="e.g. Municipal organic waste (OFMSW)">{input("bioSource", "Municipal organic waste (OFMSW)")}</Field>
+            <Field label="Pre- and Post-consumer Recycled Content" hint="e.g. 100% waste-derived feedstock">{input("recycledContent", "100% waste-derived feedstock")}</Field>
+          </SectionGroup>
+          <SectionGroup title="Packaging">
+            <Field label="Packaging Type and Mass" full hint="e.g. No packaging — gaseous product injected directly into pipeline network">{input("packaging", "No packaging — gaseous product injected directly into pipeline network")}</Field>
+          </SectionGroup>
         </div>
       );
     case "product-1":
