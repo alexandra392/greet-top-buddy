@@ -73,7 +73,7 @@ export default function LcaCatalog() {
         <div className="mb-3 flex items-start justify-between gap-4">
           <div>
             <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-              LCA Tool: <span className="text-primary">Life Cycle Assessment</span>
+              LCA Tool
             </h2>
             <p className="text-xs text-muted-foreground mt-1 max-w-2xl">
               Browse products in your portfolio, capture baseline system data,
