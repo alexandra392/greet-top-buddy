@@ -124,9 +124,6 @@ export default function LcaCatalog() {
                     {meta.label}
                   </Badge>
                 </div>
-                <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                  {p.category}
-                </div>
                 <h3 className="text-sm font-semibold text-foreground mt-1 leading-snug">
                   {p.name}
                 </h3>
