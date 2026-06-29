@@ -10,6 +10,7 @@ import {
 } from "@/lib/lcaData";
 import AddProductWizard from "@/components/lca/AddProductWizard";
 import {
+  ArrowLeft,
   ArrowRight,
   Plus,
   ChevronLeft,
