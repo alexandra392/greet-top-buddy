@@ -87,9 +87,9 @@ export default function LcaCatalog() {
       <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex-1 flex flex-col">
         {/* Heading matching platform style */}
         <div className="mb-3">
-          <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <h1 className="text-xl font-bold text-foreground">
             LCA Tool
-          </h2>
+          </h1>
         </div>
 
 
