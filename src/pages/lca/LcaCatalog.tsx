@@ -115,7 +115,7 @@ export default function LcaCatalog() {
             return (
               <Card
                 key={p.id}
-                onClick={() => navigate(`/lca/products/${p.id}/matches`)}
+                onClick={() => setSelectedProduct(p)}
                 className="group cursor-pointer p-4 bg-card border border-border/60 hover:border-primary/40 hover:shadow-md transition-all flex flex-col rounded-xl shadow-sm"
               >
                 <div className="flex items-start justify-between mb-3">
