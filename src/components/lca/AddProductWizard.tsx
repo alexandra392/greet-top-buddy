@@ -353,11 +353,6 @@ function SectionGroup({
 }) {
   return (
     <div className={cn("space-y-3", className)}>
-      {title && (
-        <h3 className="text-[10px] uppercase tracking-widest font-bold text-primary">
-          {title}
-        </h3>
-      )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4">
         {children}
       </div>
