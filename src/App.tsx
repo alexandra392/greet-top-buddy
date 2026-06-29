@@ -338,7 +338,7 @@ const TopBarNav = () => {
             className={`${baseTab} ${path === "/lca" ? activeTab : inactiveTab}`}
           >
             <FolderOpen className="w-3.5 h-3.5" />
-            Catalog
+            Products
           </button>
           {productId && (
             <>
