@@ -159,7 +159,7 @@ export default function LcaCatalog() {
             <span className="text-foreground font-medium">
               {pageStart + 1}–{pageEnd}
             </span>{" "}
-            of <span className="text-foreground font-medium">{products.length}</span>{" "}
+            of <span className="text-foreground font-medium">{filteredProducts.length}</span>{" "}
             products
           </div>
           <div className="flex items-center gap-1">
