@@ -215,7 +215,8 @@ export default {
 				'page-in': 'page-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards',
 				'edit-pop': 'edit-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both',
 				'edit-glow': 'edit-glow 2.4s ease-in-out infinite',
-				'edit-wiggle': 'edit-wiggle 0.5s ease-in-out'
+				'edit-wiggle': 'edit-wiggle 0.5s ease-in-out',
+				'saved-row-highlight': 'saved-row-highlight 1.2s ease-out forwards'
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
