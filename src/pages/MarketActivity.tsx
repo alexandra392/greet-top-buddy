@@ -749,7 +749,7 @@ const MarketActivity = () => {
         <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col flex-1 min-h-0 overflow-hidden">
           <CardContent className="px-4 py-3 flex flex-col flex-1 min-h-0 overflow-hidden">
 
-            <div className="flex flex-col relative">
+            <div className="flex flex-col flex-1 min-h-0 overflow-hidden relative">
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col flex-1 min-h-0 overflow-hidden relative">
                 <div className="flex items-center justify-between mb-2 flex-shrink-0">
                   <TabsList className="inline-flex h-8 gap-0 bg-muted rounded-lg p-0.5 items-center w-auto">
