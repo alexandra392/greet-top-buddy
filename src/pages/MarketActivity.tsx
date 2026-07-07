@@ -684,6 +684,59 @@ const MarketActivity = () => {
       </div>;
   };
 
+  const NoteButton = ({ companyId }: { companyId: string }) => {
+    const existing = companyNotes[companyId] || { rating: 'Neutral', notes: '' };
+    const [rating, setRating] = useState(existing.rating);
+    const [notes, setNotes] = useState(existing.notes);
+    const [open, setOpen] = useState(false);
+    const hasNote = !!companyNotes[companyId] && (companyNotes[companyId].notes || companyNotes[companyId].rating !== 'Neutral');
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button variant="ghost" size="sm" className="h-5 w-5 p-0 hover:bg-muted">
+            <StickyNote className={`h-3 w-3 ${hasNote ? 'text-primary' : 'text-muted-foreground'}`} />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-72 p-4 bg-card" align="end">
+          <div className="space-y-3">
+            <div>
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Rating</label>
+              <Select value={rating} onValueChange={setRating}>
+                <SelectTrigger className="h-8 mt-1 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-popover z-50">
+                  <SelectItem value="Positive">Positive</SelectItem>
+                  <SelectItem value="Neutral">Neutral</SelectItem>
+                  <SelectItem value="Negative">Negative</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Notes</label>
+              <Textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Add evaluation notes..."
+                className="mt-1 text-xs min-h-[80px] resize-none"
+              />
+            </div>
+            <Button
+              size="sm"
+              className="w-full h-8 text-xs"
+              onClick={() => {
+                setCompanyNotes(prev => ({ ...prev, [companyId]: { rating, notes } }));
+                setOpen(false);
+              }}
+            >
+              Save
+            </Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
   const SavedForTypeTable = ({ companyType }: { companyType: string }) => {
     const savedList = companies.filter(c => {
       if (!savedCompanies.has(c.id)) return false;
