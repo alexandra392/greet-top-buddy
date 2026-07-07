@@ -782,7 +782,6 @@ const MarketActivity = () => {
                         <CompaniesMap companies={filterCompaniesByType('product')} savedCompanies={savedCompanies} />
                       </div>
                     </div>
-                    <SavedForTypeTable companyType="product" />
                   </div>
                 </TabsContent>
 
@@ -814,7 +813,6 @@ const MarketActivity = () => {
                         <CompaniesMap companies={filterCompaniesByType('market_uptaker')} savedCompanies={savedCompanies} />
                       </div>
                     </div>
-                    <SavedForTypeTable companyType="market_uptaker" />
                   </div>
                 </TabsContent>
 
@@ -846,7 +844,6 @@ const MarketActivity = () => {
                         <CompaniesMap companies={filterCompaniesByType('feedstock')} savedCompanies={savedCompanies} />
                       </div>
                     </div>
-                    <SavedForTypeTable companyType="feedstock" />
                   </div>
                 </TabsContent>
 
@@ -869,7 +866,6 @@ const MarketActivity = () => {
                     <div style={{ height: '520px' }}>
                       <CompanyTable companyType="projects" />
                     </div>
-                    <SavedForTypeTable companyType="projects" />
                   </div>
                 </TabsContent>
               </Tabs>
