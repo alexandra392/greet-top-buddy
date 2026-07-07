@@ -746,8 +746,8 @@ const MarketActivity = () => {
           <h1 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{fromPathway ? 'Pathway ' : ''}Market Players: <span className="text-primary">{fromPathway ? `Pathway ${sourcePathwayId} for ` : ''}{decodedTopic}</span> · <span className="text-foreground">{companies.length} players identified</span></h1>
         </div>
 
-        <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col flex-1 min-h-0">
-          <CardContent className="px-4 py-3 flex flex-col flex-1 min-h-0">
+        <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col flex-1 min-h-0 overflow-hidden">
+          <CardContent className="px-4 py-3 flex flex-col flex-1 min-h-0 overflow-hidden">
 
             <div className="flex flex-col relative">
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col flex-1 min-h-0 relative">
