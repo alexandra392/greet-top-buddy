@@ -775,8 +775,8 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 min-h-0 flex flex-col">
-                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                  <div className="flex flex-col">
+                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr', height: '520px' }}>
                       <CompanyTable companyType="product" />
                       <div className="min-h-0">
                         <CompaniesMap companies={filterCompaniesByType('product')} savedCompanies={savedCompanies} />
@@ -807,8 +807,8 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 min-h-0 flex flex-col">
-                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                  <div className="flex flex-col">
+                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr', height: '520px' }}>
                       <CompanyTable companyType="market_uptaker" />
                       <div className="min-h-0">
                         <CompaniesMap companies={filterCompaniesByType('market_uptaker')} savedCompanies={savedCompanies} />
@@ -839,8 +839,8 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 min-h-0 flex flex-col">
-                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                  <div className="flex flex-col">
+                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr', height: '520px' }}>
                       <CompanyTable companyType="feedstock" />
                       <div className="min-h-0">
                         <CompaniesMap companies={filterCompaniesByType('feedstock')} savedCompanies={savedCompanies} />
@@ -865,8 +865,8 @@ const MarketActivity = () => {
                       {(searchTerm || selectedCountry !== 'all') && <Button variant="ghost" size="sm" onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedSize('all'); }} className="h-7 text-[8px] px-2 text-muted-foreground hover:text-foreground hover:bg-muted">Clear</Button>}
                     </div>
                   </div>
-                  <div className="flex-1 min-h-0 flex flex-col">
-                    <div className="flex-1 min-h-0">
+                  <div className="flex flex-col">
+                    <div style={{ height: '520px' }}>
                       <CompanyTable companyType="projects" />
                     </div>
                     <SavedForTypeTable companyType="projects" />
