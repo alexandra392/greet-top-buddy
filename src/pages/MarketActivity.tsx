@@ -707,7 +707,7 @@ const MarketActivity = () => {
       : 'Sector';
 
     return (
-      <div className="mt-2 flex-shrink-0 border border-border/60 rounded-lg bg-card shadow-sm overflow-hidden">
+      <div className="mt-2 mb-6 flex-shrink-0 border border-border/60 rounded-lg bg-card shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-3 py-1 border-b border-border/60 bg-muted/30">
           <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             {savedTitle}
