@@ -347,12 +347,7 @@ const MarketActivity = () => {
       if (!wasSaved) {
         setLastSavedId(companyId);
         setTimeout(() => {
-          const el = savedTableRef.current;
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            const target = window.scrollY + rect.bottom - window.innerHeight + 120;
-            window.scrollTo({ top: target, behavior: 'smooth' });
-          }
+          savedTableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
       }
       return newSet;
