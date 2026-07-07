@@ -61,6 +61,7 @@ const MarketActivity = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [savedCompanies, setSavedCompanies] = useState<Set<string>>(new Set());
+  const [companyNotes, setCompanyNotes] = useState<Record<string, { rating: string; notes: string }>>({});
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
   const [selectedSize, setSelectedSize] = useState<string>('all');
