@@ -1,6 +1,7 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Info, ChevronLeft, ChevronRight, Plus, ChevronRight as ChevronRightIcon, Search, X, CheckCircle, Filter, Bell, BellOff, ChevronDown, Building2, Folder, FolderKanban } from "lucide-react";
+import { ArrowLeft, Info, ChevronLeft, ChevronRight, Plus, ChevronRight as ChevronRightIcon, Search, X, CheckCircle, Filter, Bell, BellOff, ChevronDown, Building2, Folder, FolderKanban, StickyNote } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
