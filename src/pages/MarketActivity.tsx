@@ -787,18 +787,18 @@ const MarketActivity = () => {
             <TableBody>
               {savedList.map(company => (
                 <TableRow key={company.id} className="hover:bg-muted/20 border-b border-border/30 last:border-0">
-                  <TableCell className="text-center py-1 w-[50px]">
+                  <TableCell className="text-center py-1.5 w-[50px]">
                     <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className="h-5 w-5 p-0 rounded border bg-green-100 border-green-400 hover:bg-green-200">
                       <CheckCircle className="h-3 w-3 text-green-600" />
                     </Button>
                   </TableCell>
-                  <TableCell className="py-1 text-[10px] font-semibold text-foreground">{company.company_name}</TableCell>
-                  <TableCell className="py-1 text-[10px] text-muted-foreground w-[120px]">{company.country}</TableCell>
-                  <TableCell className="py-1 text-[10px] text-muted-foreground w-[100px]">
+                  <TableCell className="py-1.5 text-[10px] font-semibold text-foreground">{company.company_name}</TableCell>
+                  <TableCell className="py-1.5 text-[10px] text-muted-foreground w-[120px]">{company.country}</TableCell>
+                  <TableCell className="py-1.5 text-[10px] text-muted-foreground w-[100px]">
                     {companyType === 'projects' ? (company.scale === 'N/A' ? 'Unknown' : company.scale || 'Unknown') : getCompanySize(company.annual_revenue)}
                   </TableCell>
-                  <TableCell className="py-1 text-[9px] text-muted-foreground w-[160px]">{activeTab === 'projects' ? company.sector : company.application}</TableCell>
-                  <TableCell className="text-center py-1 w-[40px]">
+                  <TableCell className="py-1.5 text-[9px] text-muted-foreground w-[160px]">{activeTab === 'projects' ? company.sector : company.application}</TableCell>
+                  <TableCell className="text-center py-1.5 w-[40px]">
                     <div className="flex items-center justify-center gap-0.5">
                       <NoteButton companyId={company.id} />
                       <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
