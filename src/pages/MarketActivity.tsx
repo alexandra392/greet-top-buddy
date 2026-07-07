@@ -775,10 +775,12 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr', gridTemplateRows: '1fr auto' }}>
-                    <CompanyTable companyType="product" />
-                    <div className="row-span-2 min-h-0">
-                      <CompaniesMap companies={filterCompaniesByType('product')} savedCompanies={savedCompanies} />
+                  <div className="flex-1 min-h-0 flex flex-col">
+                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                      <CompanyTable companyType="product" />
+                      <div className="min-h-0">
+                        <CompaniesMap companies={filterCompaniesByType('product')} savedCompanies={savedCompanies} />
+                      </div>
                     </div>
                     <SavedForTypeTable companyType="product" />
                   </div>
@@ -805,10 +807,12 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr', gridTemplateRows: '1fr auto' }}>
-                    <CompanyTable companyType="market_uptaker" />
-                    <div className="row-span-2 min-h-0">
-                      <CompaniesMap companies={filterCompaniesByType('market_uptaker')} savedCompanies={savedCompanies} />
+                  <div className="flex-1 min-h-0 flex flex-col">
+                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                      <CompanyTable companyType="market_uptaker" />
+                      <div className="min-h-0">
+                        <CompaniesMap companies={filterCompaniesByType('market_uptaker')} savedCompanies={savedCompanies} />
+                      </div>
                     </div>
                     <SavedForTypeTable companyType="market_uptaker" />
                   </div>
@@ -835,10 +839,12 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr', gridTemplateRows: '1fr auto' }}>
-                    <CompanyTable companyType="feedstock" />
-                    <div className="row-span-2 min-h-0">
-                      <CompaniesMap companies={filterCompaniesByType('feedstock')} savedCompanies={savedCompanies} />
+                  <div className="flex-1 min-h-0 flex flex-col">
+                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                      <CompanyTable companyType="feedstock" />
+                      <div className="min-h-0">
+                        <CompaniesMap companies={filterCompaniesByType('feedstock')} savedCompanies={savedCompanies} />
+                      </div>
                     </div>
                     <SavedForTypeTable companyType="feedstock" />
                   </div>
@@ -859,8 +865,10 @@ const MarketActivity = () => {
                       {(searchTerm || selectedCountry !== 'all') && <Button variant="ghost" size="sm" onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedSize('all'); }} className="h-7 text-[8px] px-2 text-muted-foreground hover:text-foreground hover:bg-muted">Clear</Button>}
                     </div>
                   </div>
-                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateRows: '1fr auto' }}>
-                    <CompanyTable companyType="projects" />
+                  <div className="flex-1 min-h-0 flex flex-col">
+                    <div className="flex-1 min-h-0">
+                      <CompanyTable companyType="projects" />
+                    </div>
                     <SavedForTypeTable companyType="projects" />
                   </div>
                 </TabsContent>
