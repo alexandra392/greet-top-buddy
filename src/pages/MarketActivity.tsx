@@ -300,7 +300,7 @@ const MarketActivity = () => {
       appScroller.style.overflowY = hasSaved ? '' : 'hidden';
     }
     if (pageWrapper) {
-      pageWrapper.style.height = hasSaved ? 'auto' : '';
+      pageWrapper.style.height = '';
     }
     return () => {
       document.body.style.overflow = '';
