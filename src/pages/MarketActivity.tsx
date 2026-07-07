@@ -1,6 +1,7 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Info, ChevronLeft, ChevronRight, Plus, ChevronRight as ChevronRightIcon, Search, X, CheckCircle, Filter, Bell, BellOff, ChevronDown, Building2, Folder, FolderKanban } from "lucide-react";
+import { ArrowLeft, Info, ChevronLeft, ChevronRight, Plus, ChevronRight as ChevronRightIcon, Search, X, CheckCircle, Filter, Bell, BellOff, ChevronDown, Building2, Folder, FolderKanban, StickyNote } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -60,6 +61,7 @@ const MarketActivity = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [savedCompanies, setSavedCompanies] = useState<Set<string>>(new Set());
+  const [companyNotes, setCompanyNotes] = useState<Record<string, { rating: string; notes: string }>>({});
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<string>('all');
   const [selectedSize, setSelectedSize] = useState<string>('all');
@@ -682,6 +684,59 @@ const MarketActivity = () => {
       </div>;
   };
 
+  const NoteButton = ({ companyId }: { companyId: string }) => {
+    const existing = companyNotes[companyId] || { rating: 'Neutral', notes: '' };
+    const [rating, setRating] = useState(existing.rating);
+    const [notes, setNotes] = useState(existing.notes);
+    const [open, setOpen] = useState(false);
+    const hasNote = !!companyNotes[companyId] && (companyNotes[companyId].notes || companyNotes[companyId].rating !== 'Neutral');
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button variant="ghost" size="sm" className="h-5 w-5 p-0 hover:bg-muted">
+            <StickyNote className={`h-3 w-3 ${hasNote ? 'text-primary' : 'text-muted-foreground'}`} />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-72 p-4 bg-card" align="end">
+          <div className="space-y-3">
+            <div>
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Rating</label>
+              <Select value={rating} onValueChange={setRating}>
+                <SelectTrigger className="h-8 mt-1 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-popover z-50">
+                  <SelectItem value="Positive">Positive</SelectItem>
+                  <SelectItem value="Neutral">Neutral</SelectItem>
+                  <SelectItem value="Negative">Negative</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Notes</label>
+              <Textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Add evaluation notes..."
+                className="mt-1 text-xs min-h-[80px] resize-none"
+              />
+            </div>
+            <Button
+              size="sm"
+              className="w-full h-8 text-xs"
+              onClick={() => {
+                setCompanyNotes(prev => ({ ...prev, [companyId]: { rating, notes } }));
+                setOpen(false);
+              }}
+            >
+              Save
+            </Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
   const SavedForTypeTable = ({ companyType }: { companyType: string }) => {
     const savedList = companies.filter(c => {
       if (!savedCompanies.has(c.id)) return false;
@@ -726,7 +781,7 @@ const MarketActivity = () => {
                   {companyType === 'projects' ? 'Scale' : 'Size'}
                 </TableHead>
                 <TableHead className="font-semibold text-[8px] h-5 py-0.5 text-muted-foreground uppercase tracking-widest text-left w-[160px]">{categoryColumnHeader}</TableHead>
-                <TableHead className="w-[40px]"></TableHead>
+                <TableHead className="w-[70px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -744,9 +799,12 @@ const MarketActivity = () => {
                   </TableCell>
                   <TableCell className="py-0.5 text-[9px] text-muted-foreground w-[160px]">{activeTab === 'projects' ? company.sector : company.application}</TableCell>
                   <TableCell className="text-center py-0.5 w-[40px]">
-                    <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
-                      <Info className="h-3 w-3 text-muted-foreground" />
-                    </Button>
+                    <div className="flex items-center justify-center gap-0.5">
+                      <NoteButton companyId={company.id} />
+                      <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
+                        <Info className="h-3 w-3 text-muted-foreground" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
