@@ -594,7 +594,7 @@ const MarketActivity = () => {
                   {companyType === 'projects' ? 'Scale' : 'Size'}
                 </TableHead>
                 {activeTab === 'producers' && (
-                  <TableHead className="font-semibold text-[8px] h-7 py-1 text-muted-foreground uppercase tracking-widest text-left w-[100px]">Scale</TableHead>
+                  <TableHead className="font-semibold text-[8px] h-7 py-1 text-muted-foreground uppercase tracking-widest text-left w-[160px]">Material</TableHead>
                 )}
                 {activeTab !== 'producers' && (
                   <TableHead className="font-semibold text-[8px] h-7 py-1 text-muted-foreground uppercase tracking-widest text-left w-[160px]">
@@ -606,7 +606,7 @@ const MarketActivity = () => {
             </TableHeader>
             <TableBody>
               {filteredCompanies.length === 0 ? <TableRow>
-                   <TableCell colSpan={activeTab === 'producers' ? 6 : activeTab !== 'producers' ? 6 : 5} className="text-center py-6 text-[10px] text-muted-foreground">
+                   <TableCell colSpan={6} className="text-center py-6 text-[10px] text-muted-foreground">
                     No companies found
                   </TableCell>
                 </TableRow> : currentCompanies.map(company => {
@@ -625,15 +625,8 @@ const MarketActivity = () => {
                         {companyType === 'projects' ? company.scale === 'N/A' ? 'Unknown' : company.scale || 'Unknown' : getCompanySize(company.annual_revenue)}
                       </TableCell>
                       {activeTab === 'producers' && (
-                        <TableCell className="py-1.5 w-[100px]">
-                          <Badge variant="outline" className={`text-[8px] px-1.5 py-0 font-medium ${
-                            company.producer_status === 'Commercial' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                            company.producer_status === 'Pilot' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                            company.producer_status === 'Lab' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                            'bg-violet-50 text-violet-700 border-violet-200'
-                          }`}>
-                            {company.producer_status || 'Unknown'}
-                          </Badge>
+                        <TableCell className="py-1.5 w-[160px]">
+                          <span className="text-[9px] text-muted-foreground">{company.application}</span>
                         </TableCell>
                       )}
                       {activeTab !== 'producers' && (
