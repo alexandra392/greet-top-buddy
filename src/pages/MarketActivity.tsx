@@ -943,17 +943,19 @@ const MarketActivity = () => {
 
                 <TabsContent value="projects" className="flex flex-col flex-1 min-h-0 overflow-hidden mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
-                    <div className="flex items-center gap-2">
-                      <div className="relative flex-1">
+                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
+                      <div className="relative">
                         <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
                         <Input placeholder="Search projects..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-7 pr-7 h-7 !text-[10px] border-border w-full" />
                         {searchTerm && <Button variant="ghost" size="sm" onClick={() => setSearchTerm('')} className="absolute right-0.5 top-1/2 -translate-y-1/2 h-5 w-5 p-0 hover:bg-muted"><X className="h-2.5 w-2.5" /></Button>}
                       </div>
-                      <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                        <SelectTrigger className="w-[120px] h-7 text-[8px] border-border"><SelectValue placeholder="All Countries" /></SelectTrigger>
-                        <SelectContent>{[['all', 'All Countries'], ...uniqueCountries.map(c => [c, c])].map(([v, l]) => <SelectItem key={v} value={v} className="text-[9px]">{l}</SelectItem>)}</SelectContent>
-                      </Select>
-                      {(searchTerm || selectedCountry !== 'all') && <Button variant="ghost" size="sm" onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedSize('all'); }} className="h-7 text-[8px] px-2 text-muted-foreground hover:text-foreground hover:bg-muted">Clear</Button>}
+                      <div className="flex gap-1.5 items-center justify-end">
+                        <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                          <SelectTrigger className="w-[120px] h-7 text-[8px] border-border"><SelectValue placeholder="All Countries" /></SelectTrigger>
+                          <SelectContent>{[['all', 'All Countries'], ...uniqueCountries.map(c => [c, c])].map(([v, l]) => <SelectItem key={v} value={v} className="text-[9px]">{l}</SelectItem>)}</SelectContent>
+                        </Select>
+                        {(searchTerm || selectedCountry !== 'all') && <Button variant="ghost" size="sm" onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedSize('all'); }} className="h-7 text-[8px] px-2 text-muted-foreground hover:text-foreground hover:bg-muted">Clear</Button>}
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col flex-1 min-h-0">
