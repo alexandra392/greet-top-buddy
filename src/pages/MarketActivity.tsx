@@ -348,7 +348,7 @@ const MarketActivity = () => {
       if (!wasSaved) {
         setLastSavedId(companyId);
         setTimeout(() => {
-          savedTableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          savedTableBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }, 50);
       }
       return newSet;
