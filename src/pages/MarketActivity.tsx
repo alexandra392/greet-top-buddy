@@ -689,11 +689,28 @@ const MarketActivity = () => {
       return c.company_type === companyType && c.entity_type === 'company';
     });
     if (savedList.length === 0) return null;
+
+    const savedTitle = activeTab === 'suppliers'
+      ? `Feedstock Suppliers Saved Candidates (${savedList.length})`
+      : activeTab === 'producers'
+      ? `Material Suppliers Saved Candidates (${savedList.length})`
+      : activeTab === 'uptakers'
+      ? `Off-takers Saved Candidates (${savedList.length})`
+      : `Projects Saved Candidates (${savedList.length})`;
+
+    const categoryColumnHeader = activeTab === 'suppliers'
+      ? 'Feedstock'
+      : activeTab === 'producers'
+      ? 'Material'
+      : activeTab === 'uptakers'
+      ? 'Application'
+      : 'Sector';
+
     return (
       <div className="mt-2 flex-shrink-0 border border-border/60 rounded-lg bg-card shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-3 py-1 border-b border-border/60 bg-muted/30">
           <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-            Saved ({savedList.length})
+            {savedTitle}
           </span>
         </div>
         <div className="overflow-y-auto max-h-[140px]">
@@ -708,7 +725,7 @@ const MarketActivity = () => {
                 <TableHead className="font-semibold text-[8px] h-5 py-0.5 text-muted-foreground uppercase tracking-widest text-left w-[100px]">
                   {companyType === 'projects' ? 'Scale' : 'Size'}
                 </TableHead>
-                <TableHead className="font-semibold text-[8px] h-5 py-0.5 text-muted-foreground uppercase tracking-widest text-left w-[160px]">Application</TableHead>
+                <TableHead className="font-semibold text-[8px] h-5 py-0.5 text-muted-foreground uppercase tracking-widest text-left w-[160px]">{categoryColumnHeader}</TableHead>
                 <TableHead className="w-[40px]"></TableHead>
               </TableRow>
             </TableHeader>
@@ -725,7 +742,7 @@ const MarketActivity = () => {
                   <TableCell className="py-0.5 text-[10px] text-muted-foreground w-[100px]">
                     {companyType === 'projects' ? (company.scale === 'N/A' ? 'Unknown' : company.scale || 'Unknown') : getCompanySize(company.annual_revenue)}
                   </TableCell>
-                  <TableCell className="py-0.5 text-[9px] text-muted-foreground w-[160px]">{company.application}</TableCell>
+                  <TableCell className="py-0.5 text-[9px] text-muted-foreground w-[160px]">{activeTab === 'projects' ? company.sector : company.application}</TableCell>
                   <TableCell className="text-center py-0.5 w-[40px]">
                     <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
                       <Info className="h-3 w-3 text-muted-foreground" />
