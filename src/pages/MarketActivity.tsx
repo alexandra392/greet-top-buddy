@@ -732,7 +732,7 @@ const MarketActivity = () => {
       </div>
     );
   };
-  return <div className={`bg-background flex flex-col h-full ${savedCompanies.size === 0 ? 'overflow-hidden' : ''}`}>
+  return <div className={`bg-background flex flex-col ${savedCompanies.size === 0 ? 'h-full overflow-hidden' : 'min-h-full'}`}>
       <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
         <Button variant="outline" size="sm" onClick={handleBack} className="gap-1.5 h-7 text-xs">
           <ArrowLeft className="w-3.5 h-3.5" />
