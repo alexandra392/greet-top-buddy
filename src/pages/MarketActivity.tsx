@@ -773,7 +773,7 @@ const MarketActivity = () => {
                 </p>
 
 
-                <TabsContent value="producers" className="flex flex-col flex-1 min-h-0 mt-0 data-[state=inactive]:hidden" >
+                <TabsContent value="producers" className="flex flex-col flex-1 min-h-0 overflow-hidden mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
