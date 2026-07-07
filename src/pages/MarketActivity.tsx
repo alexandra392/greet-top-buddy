@@ -859,10 +859,10 @@ const MarketActivity = () => {
                       {(searchTerm || selectedCountry !== 'all') && <Button variant="ghost" size="sm" onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedSize('all'); }} className="h-7 text-[8px] px-2 text-muted-foreground hover:text-foreground hover:bg-muted">Clear</Button>}
                     </div>
                   </div>
-                  <div className="flex-1 min-h-0">
+                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateRows: '1fr auto' }}>
                     <CompanyTable companyType="projects" />
+                    <SavedForTypeTable companyType="projects" />
                   </div>
-                  <SavedForTypeTable companyType="projects" />
                 </TabsContent>
               </Tabs>
             </div>
