@@ -71,6 +71,7 @@ const MarketActivity = () => {
   const [activeTab, setActiveTab] = useState<string>('suppliers');
   const [lastSavedId, setLastSavedId] = useState<string | null>(null);
   const savedTableRef = useRef<HTMLDivElement | null>(null);
+  const savedTableBottomRef = useRef<HTMLDivElement | null>(null);
 
   // Get context from navigation state (product/pathway info)
   const {
@@ -347,7 +348,7 @@ const MarketActivity = () => {
       if (!wasSaved) {
         setLastSavedId(companyId);
         setTimeout(() => {
-          savedTableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          savedTableBottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }, 50);
       }
       return newSet;
@@ -989,6 +990,9 @@ const MarketActivity = () => {
         <div className="mt-4">
           <SavedForTypeTable companyType={activeTab === 'producers' ? 'product' : activeTab === 'uptakers' ? 'market_uptaker' : activeTab === 'suppliers' ? 'feedstock' : 'projects'} />
         </div>
+        {savedCompanies.size > 0 && (
+          <div ref={savedTableBottomRef} className="h-16 bg-background flex-shrink-0" aria-hidden="true" />
+        )}
       </div>
 
       <CompanyDetailModal company={selectedCompany} open={isModalOpen} onOpenChange={setIsModalOpen} isTracked={selectedCompany ? trackedCompanies.has(selectedCompany.id) : false} onToggleTracking={companyId => {
