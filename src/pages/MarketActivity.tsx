@@ -287,6 +287,25 @@ const MarketActivity = () => {
     setCompanies(mockCompanies);
     setLoading(false);
   }, [mockCompanies]);
+
+  // Enforce overflow-hidden on body/root while no candidates are saved;
+  // remove the lock once saved candidates appear so the page can scroll.
+  useEffect(() => {
+    const hasSaved = savedCompanies.size > 0;
+    document.body.style.overflow = hasSaved ? '' : 'hidden';
+    document.documentElement.style.overflow = hasSaved ? '' : 'hidden';
+    const appScroller = document.querySelector('main > div.flex-1.bg-background.overflow-y-auto') as HTMLElement | null;
+    if (appScroller) {
+      appScroller.style.overflowY = hasSaved ? '' : 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (appScroller) {
+        appScroller.style.overflowY = '';
+      }
+    };
+  }, [savedCompanies.size]);
   const handleBack = () => {
     if (fromPathway && sourcePathwayId) {
       navigate(`/landscape/${category}/${topic}/value-chain/pathways/${sourcePathwayId}`);
@@ -713,7 +732,7 @@ const MarketActivity = () => {
       </div>
     );
   };
-  return <div className="min-h-full bg-background flex flex-col">
+  return <div className={`bg-background flex flex-col ${savedCompanies.size === 0 ? 'h-full overflow-hidden' : 'min-h-full'}`}>
       <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
         <Button variant="outline" size="sm" onClick={handleBack} className="gap-1.5 h-7 text-xs">
           <ArrowLeft className="w-3.5 h-3.5" />
@@ -722,16 +741,16 @@ const MarketActivity = () => {
         <div />
       </div>
 
-      <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex flex-col">
+      <div className="max-w-[1400px] w-full mx-auto px-6 pb-6 flex flex-col flex-1 min-h-0">
         <div className="mb-2 flex-shrink-0">
           <h1 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{fromPathway ? 'Pathway ' : ''}Market Players: <span className="text-primary">{fromPathway ? `Pathway ${sourcePathwayId} for ` : ''}{decodedTopic}</span> · <span className="text-foreground">{companies.length} players identified</span></h1>
         </div>
 
-        <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col">
-          <CardContent className="px-4 py-3 flex flex-col">
+        <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col flex-1 min-h-0">
+          <CardContent className="px-4 py-3 flex flex-col flex-1 min-h-0">
 
             <div className="flex flex-col relative">
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col relative">
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col flex-1 min-h-0 relative">
                 <div className="flex items-center justify-between mb-2 flex-shrink-0">
                   <TabsList className="inline-flex h-8 gap-0 bg-muted rounded-lg p-0.5 items-center w-auto">
                     <TabsTrigger value="suppliers" className="h-7 px-3 text-[10px] font-medium flex items-center justify-center gap-1 rounded-md data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:shadow-sm transition-all">
@@ -754,7 +773,7 @@ const MarketActivity = () => {
                 </p>
 
 
-                <TabsContent value="producers" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
+                <TabsContent value="producers" className="flex flex-col flex-1 min-h-0 mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
@@ -775,8 +794,8 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr', height: 'calc(100vh - 220px)', maxHeight: '620px' }}>
+                  <div className="flex flex-col flex-1 min-h-0">
+                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <CompanyTable companyType="product" />
                       <div className="min-h-0">
                         <CompaniesMap companies={filterCompaniesByType('product')} savedCompanies={savedCompanies} />
@@ -785,7 +804,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="uptakers" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
+                <TabsContent value="uptakers" className="flex flex-col flex-1 min-h-0 mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
@@ -806,8 +825,8 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr', height: 'calc(100vh - 220px)', maxHeight: '620px' }}>
+                  <div className="flex flex-col flex-1 min-h-0">
+                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <CompanyTable companyType="market_uptaker" />
                       <div className="min-h-0">
                         <CompaniesMap companies={filterCompaniesByType('market_uptaker')} savedCompanies={savedCompanies} />
@@ -816,7 +835,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="suppliers" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
+                <TabsContent value="suppliers" className="flex flex-col flex-1 min-h-0 mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
@@ -837,8 +856,8 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr', height: 'calc(100vh - 220px)', maxHeight: '620px' }}>
+                  <div className="flex flex-col flex-1 min-h-0">
+                    <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <CompanyTable companyType="feedstock" />
                       <div className="min-h-0">
                         <CompaniesMap companies={filterCompaniesByType('feedstock')} savedCompanies={savedCompanies} />
@@ -847,7 +866,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="projects" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
+                <TabsContent value="projects" className="flex flex-col flex-1 min-h-0 mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="flex items-center gap-2">
                       <div className="relative flex-1">
@@ -862,8 +881,8 @@ const MarketActivity = () => {
                       {(searchTerm || selectedCountry !== 'all') && <Button variant="ghost" size="sm" onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedSize('all'); }} className="h-7 text-[8px] px-2 text-muted-foreground hover:text-foreground hover:bg-muted">Clear</Button>}
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <div style={{ height: 'calc(100vh - 220px)', maxHeight: '620px' }}>
+                  <div className="flex flex-col flex-1 min-h-0">
+                    <div className="flex-1 min-h-0">
                       <CompanyTable companyType="projects" />
                     </div>
                   </div>
