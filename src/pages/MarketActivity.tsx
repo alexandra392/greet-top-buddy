@@ -332,10 +332,17 @@ const MarketActivity = () => {
     event.stopPropagation();
     setSavedCompanies(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(companyId)) {
+      const wasSaved = newSet.has(companyId);
+      if (wasSaved) {
         newSet.delete(companyId);
       } else {
         newSet.add(companyId);
+      }
+      if (!wasSaved) {
+        setLastSavedId(companyId);
+        setTimeout(() => {
+          savedTableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
       }
       return newSet;
     });
