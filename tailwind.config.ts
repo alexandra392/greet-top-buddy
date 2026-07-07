@@ -198,6 +198,10 @@ export default {
 					'0%, 100%': { transform: 'rotate(0deg)' },
 					'25%': { transform: 'rotate(-0.6deg)' },
 					'75%': { transform: 'rotate(0.6deg)' }
+				},
+				'saved-row-highlight': {
+					'0%': { backgroundColor: 'hsl(var(--primary) / 0.22)' },
+					'100%': { backgroundColor: 'hsl(var(--primary) / 0)' }
 				}
 			},
 			animation: {
