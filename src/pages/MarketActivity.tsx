@@ -794,7 +794,7 @@ const MarketActivity = () => {
             </TableHeader>
             <TableBody>
               {savedList.map(company => (
-                <TableRow key={company.id} className="hover:bg-muted/20 border-b border-border/30 last:border-0">
+                <TableRow key={company.id} className={`hover:bg-muted/20 border-b border-border/30 last:border-0 ${company.id === lastSavedId ? 'animate-saved-row-highlight' : ''}`}>
                   <TableCell className="text-center py-2 w-[50px]">
                     <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className="h-5 w-5 p-0 rounded border bg-green-100 border-green-400 hover:bg-green-200">
                       <CheckCircle className="h-3 w-3 text-green-600" />
