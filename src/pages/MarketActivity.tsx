@@ -655,6 +655,64 @@ const MarketActivity = () => {
         </div>
       </div>;
   };
+
+  const SavedForTypeTable = ({ companyType }: { companyType: string }) => {
+    const savedList = companies.filter(c => {
+      if (!savedCompanies.has(c.id)) return false;
+      if (companyType === 'projects') return c.entity_type === 'project';
+      return c.company_type === companyType && c.entity_type === 'company';
+    });
+    if (savedList.length === 0) return null;
+    return (
+      <div className="mt-2 flex-shrink-0 border border-border/60 rounded-lg bg-card shadow-sm overflow-hidden" style={{ maxHeight: '200px' }}>
+        <div className="flex items-center justify-between px-3 py-1.5 border-b border-border/60 bg-muted/30">
+          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            Saved ({savedList.length})
+          </span>
+        </div>
+        <div className="overflow-y-auto" style={{ maxHeight: '165px' }}>
+          <Table>
+            <TableHeader className="bg-muted/50 sticky top-0 z-10">
+              <TableRow className="border-b border-border">
+                <TableHead className="font-semibold text-[8px] h-6 py-1 text-muted-foreground uppercase tracking-widest text-center w-[50px]">Save</TableHead>
+                <TableHead className="font-semibold text-[8px] h-6 py-1 text-muted-foreground uppercase tracking-widest text-left">
+                  {companyType === 'projects' ? 'Project Name' : 'Company Name'}
+                </TableHead>
+                <TableHead className="font-semibold text-[8px] h-6 py-1 text-muted-foreground uppercase tracking-widest text-left w-[120px]">Country</TableHead>
+                <TableHead className="font-semibold text-[8px] h-6 py-1 text-muted-foreground uppercase tracking-widest text-left w-[100px]">
+                  {companyType === 'projects' ? 'Scale' : 'Size'}
+                </TableHead>
+                <TableHead className="font-semibold text-[8px] h-6 py-1 text-muted-foreground uppercase tracking-widest text-left w-[160px]">Application</TableHead>
+                <TableHead className="w-[40px]"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {savedList.map(company => (
+                <TableRow key={company.id} className="hover:bg-muted/20 border-b border-border/30 last:border-0">
+                  <TableCell className="text-center py-1 w-[50px]">
+                    <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className="h-5 w-5 p-0 rounded border bg-green-100 border-green-400 hover:bg-green-200">
+                      <CheckCircle className="h-3 w-3 text-green-600" />
+                    </Button>
+                  </TableCell>
+                  <TableCell className="py-1 text-[10px] font-semibold text-foreground">{company.company_name}</TableCell>
+                  <TableCell className="py-1 text-[10px] text-muted-foreground w-[120px]">{company.country}</TableCell>
+                  <TableCell className="py-1 text-[10px] text-muted-foreground w-[100px]">
+                    {companyType === 'projects' ? (company.scale === 'N/A' ? 'Unknown' : company.scale || 'Unknown') : getCompanySize(company.annual_revenue)}
+                  </TableCell>
+                  <TableCell className="py-1 text-[9px] text-muted-foreground w-[160px]">{company.application}</TableCell>
+                  <TableCell className="text-center py-1 w-[40px]">
+                    <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
+                      <Info className="h-3 w-3 text-muted-foreground" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    );
+  };
   return <div className="h-full bg-background flex flex-col">
       <div className="max-w-[1400px] w-full mx-auto px-6 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
         <Button variant="outline" size="sm" onClick={handleBack} className="gap-1.5 h-7 text-xs">
