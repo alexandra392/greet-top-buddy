@@ -770,7 +770,7 @@ const MarketActivity = () => {
           <h1 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{fromPathway ? 'Pathway ' : ''}Market Players: <span className="text-primary">{fromPathway ? `Pathway ${sourcePathwayId} for ` : ''}{decodedTopic}</span> · <span className="text-foreground">{companies.length} players identified</span></h1>
         </div>
 
-        <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col flex-1 min-h-0 overflow-hidden">
+        <Card className="bg-card border border-border/60 shadow-sm min-w-0 flex flex-col min-h-0 overflow-hidden flex-shrink-0" style={{ height: 'calc(100vh - 160px)', maxHeight: 'calc(100vh - 160px)' }}>
           <CardContent className="px-4 py-3 flex flex-col flex-1 min-h-0 overflow-hidden">
 
             <div className="flex flex-col flex-1 min-h-0 overflow-hidden relative">
