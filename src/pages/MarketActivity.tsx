@@ -69,6 +69,8 @@ const MarketActivity = () => {
   const [trackedCompanies, setTrackedCompanies] = useState<Set<string>>(new Set());
   const [companyFilter, setCompanyFilter] = useState<string[]>(['all']);
   const [activeTab, setActiveTab] = useState<string>('suppliers');
+  const [lastSavedId, setLastSavedId] = useState<string | null>(null);
+  const savedTableRef = useRef<HTMLDivElement | null>(null);
 
   // Get context from navigation state (product/pathway info)
   const {
