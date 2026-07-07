@@ -746,9 +746,12 @@ const MarketActivity = () => {
                   </TableCell>
                   <TableCell className="py-0.5 text-[9px] text-muted-foreground w-[160px]">{activeTab === 'projects' ? company.sector : company.application}</TableCell>
                   <TableCell className="text-center py-0.5 w-[40px]">
-                    <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
-                      <Info className="h-3 w-3 text-muted-foreground" />
-                    </Button>
+                    <div className="flex items-center justify-center gap-0.5">
+                      <NoteButton companyId={company.id} />
+                      <Button variant="ghost" size="sm" onClick={() => handleCompanyClick(company)} className="h-5 w-5 p-0 hover:bg-muted">
+                        <Info className="h-3 w-3 text-muted-foreground" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
