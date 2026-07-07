@@ -71,6 +71,7 @@ const MarketActivity = () => {
   const [activeTab, setActiveTab] = useState<string>('suppliers');
   const [lastSavedId, setLastSavedId] = useState<string | null>(null);
   const savedTableRef = useRef<HTMLDivElement | null>(null);
+  const savedTableBottomRef = useRef<HTMLDivElement | null>(null);
 
   // Get context from navigation state (product/pathway info)
   const {
