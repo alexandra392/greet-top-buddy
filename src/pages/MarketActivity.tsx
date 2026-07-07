@@ -317,6 +317,12 @@ const MarketActivity = () => {
       }
     };
   }, [savedCompanies.size]);
+  useEffect(() => {
+    if (!lastSavedId) return;
+    const timer = setTimeout(() => setLastSavedId(null), 1200);
+    return () => clearTimeout(timer);
+  }, [lastSavedId]);
+
   const handleBack = () => {
     if (fromPathway && sourcePathwayId) {
       navigate(`/landscape/${category}/${topic}/value-chain/pathways/${sourcePathwayId}`);
