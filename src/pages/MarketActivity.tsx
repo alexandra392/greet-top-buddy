@@ -714,9 +714,10 @@ const MarketActivity = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-popover z-50">
-                  <SelectItem value="Positive">Positive</SelectItem>
+                  <SelectItem value="Very Interested">Very Interested</SelectItem>
+                  <SelectItem value="Interested">Interested</SelectItem>
                   <SelectItem value="Neutral">Neutral</SelectItem>
-                  <SelectItem value="Negative">Negative</SelectItem>
+                  <SelectItem value="Not Interested">Not Interested</SelectItem>
                 </SelectContent>
               </Select>
             </div>
