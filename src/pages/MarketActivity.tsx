@@ -775,10 +775,11 @@ const MarketActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr', height: '100%' }}>
+                  <div className="grid gap-2 flex-1 min-h-0" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                     <CompanyTable companyType="product" />
                     <CompaniesMap companies={filterCompaniesByType('product')} savedCompanies={savedCompanies} />
                   </div>
+                  <SavedForTypeTable companyType="product" />
                 </TabsContent>
 
                 <TabsContent value="uptakers" className="absolute inset-0 flex flex-col mt-0 data-[state=inactive]:hidden" style={{ top: '60px' }}>
