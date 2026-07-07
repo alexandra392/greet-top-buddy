@@ -873,6 +873,10 @@ const MarketActivity = () => {
 
           </CardContent>
         </Card>
+
+        <div className="mt-4">
+          <SavedForTypeTable companyType={activeTab === 'producers' ? 'product' : activeTab === 'uptakers' ? 'market_uptaker' : activeTab === 'suppliers' ? 'feedstock' : 'projects'} />
+        </div>
       </div>
 
       <CompanyDetailModal company={selectedCompany} open={isModalOpen} onOpenChange={setIsModalOpen} isTracked={selectedCompany ? trackedCompanies.has(selectedCompany.id) : false} onToggleTracking={companyId => {
