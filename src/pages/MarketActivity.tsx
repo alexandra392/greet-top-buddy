@@ -856,6 +856,7 @@ const MarketActivity = () => {
                   <div className="flex-1 min-h-0">
                     <CompanyTable companyType="projects" />
                   </div>
+                  <SavedForTypeTable companyType="projects" />
                 </TabsContent>
               </Tabs>
             </div>
