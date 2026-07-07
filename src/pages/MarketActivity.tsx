@@ -709,11 +709,11 @@ const MarketActivity = () => {
           <div className="space-y-3">
             <div>
               <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Rating</label>
-              <Select value={rating} onValueChange={setRating} modal={false}>
+              <Select value={rating} onValueChange={setRating}>
                 <SelectTrigger className="h-8 mt-1 text-xs">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-popover z-50">
+                <SelectContent className="bg-popover z-[200]">
                   <SelectItem value="Very Interested">Very Interested</SelectItem>
                   <SelectItem value="Interested">Interested</SelectItem>
                   <SelectItem value="Neutral">Neutral</SelectItem>
