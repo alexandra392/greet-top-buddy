@@ -728,7 +728,7 @@ const MarketActivity = () => {
                   {companyType === 'projects' ? 'Scale' : 'Size'}
                 </TableHead>
                 <TableHead className="font-semibold text-[8px] h-5 py-0.5 text-muted-foreground uppercase tracking-widest text-left w-[160px]">{categoryColumnHeader}</TableHead>
-                <TableHead className="w-[40px]"></TableHead>
+                <TableHead className="w-[70px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
