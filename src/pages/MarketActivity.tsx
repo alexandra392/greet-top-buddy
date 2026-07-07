@@ -754,7 +754,7 @@ const MarketActivity = () => {
                 </p>
 
 
-                <TabsContent value="producers" className="absolute inset-0 flex flex-col mt-0 data-[state=inactive]:hidden" style={{ top: '60px' }}>
+                <TabsContent value="producers" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
@@ -786,7 +786,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="uptakers" className="absolute inset-0 flex flex-col mt-0 data-[state=inactive]:hidden" style={{ top: '60px' }}>
+                <TabsContent value="uptakers" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
@@ -818,7 +818,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="suppliers" className="absolute inset-0 flex flex-col mt-0 data-[state=inactive]:hidden" style={{ top: '60px' }}>
+                <TabsContent value="suppliers" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="grid gap-2" style={{ gridTemplateColumns: '1.5fr 1fr' }}>
                       <div className="relative">
@@ -850,7 +850,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="projects" className="absolute inset-0 flex flex-col mt-0 data-[state=inactive]:hidden" style={{ top: '60px' }}>
+                <TabsContent value="projects" className="flex flex-col mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="flex items-center gap-2">
                       <div className="relative flex-1">
