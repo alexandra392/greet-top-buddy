@@ -295,14 +295,21 @@ const MarketActivity = () => {
     document.body.style.overflow = hasSaved ? '' : 'hidden';
     document.documentElement.style.overflow = hasSaved ? '' : 'hidden';
     const appScroller = document.querySelector('main > div.flex-1.bg-background.overflow-y-auto') as HTMLElement | null;
+    const pageWrapper = document.querySelector('div.animate-page-in') as HTMLElement | null;
     if (appScroller) {
       appScroller.style.overflowY = hasSaved ? '' : 'hidden';
+    }
+    if (pageWrapper) {
+      pageWrapper.style.height = hasSaved ? 'auto' : '';
     }
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       if (appScroller) {
         appScroller.style.overflowY = '';
+      }
+      if (pageWrapper) {
+        pageWrapper.style.height = '';
       }
     };
   }, [savedCompanies.size]);
