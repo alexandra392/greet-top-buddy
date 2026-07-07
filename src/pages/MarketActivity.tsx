@@ -882,7 +882,7 @@ const MarketActivity = () => {
                     </div>
                   </div>
                   <div className="flex flex-col flex-1 min-h-0">
-                    <div className="flex-1 min-h-0">
+                    <div className="flex-1 min-h-0 overflow-hidden">
                       <CompanyTable companyType="projects" />
                     </div>
                   </div>
