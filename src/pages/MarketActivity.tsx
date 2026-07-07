@@ -69,6 +69,8 @@ const MarketActivity = () => {
   const [trackedCompanies, setTrackedCompanies] = useState<Set<string>>(new Set());
   const [companyFilter, setCompanyFilter] = useState<string[]>(['all']);
   const [activeTab, setActiveTab] = useState<string>('suppliers');
+  const [lastSavedId, setLastSavedId] = useState<string | null>(null);
+  const savedTableRef = useRef<HTMLDivElement | null>(null);
 
   // Get context from navigation state (product/pathway info)
   const {
@@ -315,6 +317,12 @@ const MarketActivity = () => {
       }
     };
   }, [savedCompanies.size]);
+  useEffect(() => {
+    if (!lastSavedId) return;
+    const timer = setTimeout(() => setLastSavedId(null), 1200);
+    return () => clearTimeout(timer);
+  }, [lastSavedId]);
+
   const handleBack = () => {
     if (fromPathway && sourcePathwayId) {
       navigate(`/landscape/${category}/${topic}/value-chain/pathways/${sourcePathwayId}`);
@@ -330,10 +338,17 @@ const MarketActivity = () => {
     event.stopPropagation();
     setSavedCompanies(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(companyId)) {
+      const wasSaved = newSet.has(companyId);
+      if (wasSaved) {
         newSet.delete(companyId);
       } else {
         newSet.add(companyId);
+      }
+      if (!wasSaved) {
+        setLastSavedId(companyId);
+        setTimeout(() => {
+          savedTableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
       }
       return newSet;
     });
@@ -755,7 +770,7 @@ const MarketActivity = () => {
       : 'Sector';
 
     return (
-      <div className="mt-2 mb-6 flex-shrink-0 border border-border/60 rounded-lg bg-card shadow-sm overflow-hidden">
+      <div ref={savedTableRef} className="mt-2 mb-6 flex-shrink-0 border border-border/60 rounded-lg bg-card shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-3 py-1 border-b border-border/60 bg-muted/30">
           <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             {savedTitle}
@@ -779,7 +794,7 @@ const MarketActivity = () => {
             </TableHeader>
             <TableBody>
               {savedList.map(company => (
-                <TableRow key={company.id} className="hover:bg-muted/20 border-b border-border/30 last:border-0">
+                <TableRow key={company.id} className={`hover:bg-muted/20 border-b border-border/30 last:border-0 ${company.id === lastSavedId ? 'animate-saved-row-highlight' : ''}`}>
                   <TableCell className="text-center py-2 w-[50px]">
                     <Button variant="ghost" size="sm" onClick={e => handleSaveCompany(company.id, e)} className="h-5 w-5 p-0 rounded border bg-green-100 border-green-400 hover:bg-green-200">
                       <CheckCircle className="h-3 w-3 text-green-600" />
