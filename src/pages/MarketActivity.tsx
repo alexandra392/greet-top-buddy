@@ -866,7 +866,7 @@ const MarketActivity = () => {
                   </div>
                 </TabsContent>
 
-                <TabsContent value="projects" className="flex flex-col flex-1 min-h-0 mt-0 data-[state=inactive]:hidden" >
+                <TabsContent value="projects" className="flex flex-col flex-1 min-h-0 overflow-hidden mt-0 data-[state=inactive]:hidden" >
                   <div className="mb-3 flex-shrink-0">
                     <div className="flex items-center gap-2">
                       <div className="relative flex-1">
